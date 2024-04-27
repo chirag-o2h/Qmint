@@ -8,10 +8,12 @@
     border-radius: 8px;
     border: 1px solid $yellowFuel;
     box-shadow: $shadow2;
+
     &:hover {
       text-decoration: initial;
       outline: 1px solid $yellowFuel;
     }
+
     .MuiTypography-root {
       color: $yellowFuel;
     }
@@ -23,20 +25,24 @@
     border: 1px solid $mercury;
     box-shadow: $shadow4;
     background-color: $white;
+
     @include media-min($md) {
       width: 50px;
       height: 50px;
     }
+
     &:hover {
       background-color: $white;
       border-color: $yellowFuel;
     }
   }
+
   &.MenuButton {
     height: 34px;
     width: 34px;
     border-radius: 8px;
     padding: 0;
+
     &.Active {
       background-color: $yellowFuel;
     }
@@ -50,11 +56,13 @@
       color: $dark;
       background-color: $white;
       box-shadow: $shadow8;
+
       .MuiTooltip-arrow {
         color: $white;
       }
     }
   }
+
   &.InfoTooltip {
     .MuiTooltip-tooltip {
       max-width: 220px;
@@ -62,12 +70,20 @@
       line-height: pxToRem(18);
       border-radius: 4px;
       margin-bottom: 10px;
+
       .MuiTooltip-arrow {
         font-size: 14px;
+
         &::before {
           border-bottom-right-radius: 2px;
         }
       }
+    }
+  }
+
+  &.CartHoverList {
+    .MuiTooltip-tooltip {
+      box-shadow: $shadow12;
     }
   }
 }
@@ -76,15 +92,18 @@
   .MuiAlert-root {
     &.MuiAlert-filledInfo {
       background-color: rgba($black, 0.8);
+
       .MuiAlert-message {
         .MuiButton-text {
           @include transition;
+
           &:hover {
             color: $yellowFuel;
             text-decoration: underline;
           }
         }
       }
+
       .MuiAlert-action {
         .MuiIconButton-root {
           &:hover {
