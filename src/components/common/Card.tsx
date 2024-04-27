@@ -622,7 +622,7 @@ interface AddressCardProps {
 
 export const AddressCard = (props: AddressCardProps) => {
   const { id, accountType, accountName, firstName, lastName, email, phoneNumber, address, showDelete, handleDelete, accountData } = props;
-  console.log("🚀 ~ AddressCard ~ phoneNumber:", phoneNumber)
+  // console.log("🚀 ~ AddressCard ~ phoneNumber:", phoneNumber)
   const [openUpdateAddress, setOpenUpdateAddress] = useState<boolean>(false)
   const [openUpdateAccount, setOpenUpdateAccount] = useState(false);
 

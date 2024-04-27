@@ -56,6 +56,7 @@ interface Inputs {
 
 function AddAccount(props: AddAccountProps) {
   const { open, dialogTitle, alignment, onClose, hadleSecondaryAction, existingAccount } = props
+  // console.log("🚀 ~ alignment:", alignment)
   const accountTypeText = useMemo(() => {
     if (!alignment) return ""
     return existingAccount ? alignment : AccountTypeEnumReverse[alignment];
@@ -244,8 +245,12 @@ function AddAccount(props: AddAccountProps) {
       }
     }
 
+    let queryAlignment = alignment;
+    if (existingAccount) {
+      queryAlignment = AccountTypeEnum[existingAccount.accountType]
+    }
     let prepareAddressQuery;
-    switch (AccountTypeEnumReverse[alignment!.toString()]) {
+    switch (AccountTypeEnumReverse[queryAlignment!.toString()]) {
       case "Joint":
         prepareAddressQuery = { ...commonAddressQueryForPreparation } // need to change for addtional beneficary
         break;
@@ -256,7 +261,7 @@ function AddAccount(props: AddAccountProps) {
         prepareAddressQuery = { ...commonAddressQueryForPreparation, superfundName: data.SuperfundName, trusteeTypeId: data.TrusteeType, trusteeName: data.TrusteeName }
         break;
       case "Trust":
-        prepareAddressQuery = { ...commonAddressQueryForPreparation, trusteeName: data.TrusteeName, trustName: data.TrustName }
+        prepareAddressQuery = { ...commonAddressQueryForPreparation, trusteeName: data.TrusteeName, trustName: data.TrustName, trusteeTypeId: data.TrusteeType }
         break;
       default:
         prepareAddressQuery = { ...commonAddressQueryForPreparation }
