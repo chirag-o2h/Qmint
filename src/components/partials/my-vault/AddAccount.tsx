@@ -544,7 +544,7 @@ function AddAccount(props: AddAccountProps) {
                     }
                     return option.name;
                   }}
-                  renderInput={(params) => <TextField placeholder="Enter state *" {...params} error={errors.State as boolean | undefined} />}
+                  renderInput={(params) => <TextField placeholder="Enter state*" {...params} error={errors.State as boolean | undefined} />}
                   onChange={(_, value: any) => {
                     if (!value) {
                       return;
@@ -607,9 +607,8 @@ function AddAccount(props: AddAccountProps) {
                 value={countryValue}
                 setValue={setValue}
                 onChange={OnChange}
-
               >
-                <MenuItem value="none" selected>Select country *</MenuItem>
+                <MenuItem value="none" selected>Select country*</MenuItem>
                 {configDropdowns?.countryList.map((country) => (
                   <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
                 ))}

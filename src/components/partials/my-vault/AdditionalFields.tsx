@@ -46,7 +46,7 @@ const AdditionalFields = ({ fields:tempFields, setFields:setTempFields }: IProps
                             // register={register}
                             // error={errors.FirstName}
                             name="FirstName"
-                            placeholder="Enter first name *"
+                            placeholder="Enter first name*"
                             value={field[Object.keys(field)[0]].firstName}
                             onChange={(e) => {
                                 const newFields = [...tempFields];
@@ -62,7 +62,7 @@ const AdditionalFields = ({ fields:tempFields, setFields:setTempFields }: IProps
                             // error={errors.LastName}
                             name="LastName"
                             value={field[Object.keys(field)[0]].lastName}
-                            placeholder="Enter last name *"
+                            placeholder="Enter last name*"
                             onChange={(e) => {
                                 const newFields = [...tempFields];
                                 newFields[index][Object.keys(field)[0]].lastName = e.target.value;
@@ -72,7 +72,7 @@ const AdditionalFields = ({ fields:tempFields, setFields:setTempFields }: IProps
                             variant='outlined'
                             margin='none'
                         />
-                        {index !== 0 && <IconButton onClick={() => handleDeleteField(Object.keys(field)[0])}><Delete1Icon /></IconButton>}
+                        {index !== 0 && <IconButton onClick={() => handleDeleteField(Object.keys(field)[0])} title="Remove field"><Delete1Icon /></IconButton>}
                     </Stack>
                 </Stack>
             ))}
