@@ -50,7 +50,7 @@ function ProductDetail({ params }: any) {
         title="Category"
         lang="en"
       />
-      {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />
+      {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/category/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />
         <Container id="PageProductDetail">
           {productDetailsData?.productId && <AboutProduct productId={productDetailsData?.productId} />}
           {productDetailsData?.relatedProducts?.length > 0 && <RelatedProduct relatedProductsList={structuredClone(productDetailsData?.relatedProducts)} heading={configDetails["productdetails.relatedproducttital"]?.value} description={configDetails["productdetails.relatedproductsubtital"]?.value} />}
