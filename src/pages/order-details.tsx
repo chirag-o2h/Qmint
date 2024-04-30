@@ -33,7 +33,7 @@ export function createData(
 
 function orderDetails({ location }: { location: any }) {
     const openToaster = useAppSelector(state => state.homePage.openToaster)
-    const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
+    const checkLoadingStatus = useAppSelector(state => state.orderDetails.loading);
     const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search])
     useAPIoneTime({ service: getOrderDetailsData, endPoint: ENDPOINTS.getOrderDetailsData + searchParams.get("orderNo") ?? "" });
     const orderDetails = useAppSelector(state => state.orderDetails.orderDetailsData)

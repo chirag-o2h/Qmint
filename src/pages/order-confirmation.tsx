@@ -162,7 +162,7 @@ function OrderConfirmation(props: any) {
                     </Box>
                     <Stack className="ActionWrapper">
                         <Button className='ContinueBtn' size='large' variant="contained" onClick={() => {
-                            navigate("/");
+                            navigate("/category/shop");
                         }}>Continue</Button>
                     </Stack>
                 </Container>}
