@@ -78,6 +78,13 @@ function CartDropdownMenu({ cartItemsWithLivePrice }: any) {
                         : null}
                 </Box>}
                 {isThereItems && <Divider />}
+                {cartItems && cartItems?.length > 3 && <>
+                    <Box className="CartDropdownMenuHeader">
+                        <Typography variant="titleLarge">There are more items in your cart. Go to <Link area-label="shopping-cart-link" to="/shopping-cart">cart</Link> to see all.
+                        </Typography>
+                    </Box>
+                    <Divider />
+                </>}
                 {(cartItems && cartItems?.length > 0) ? <Stack className="CartDropdownMenuFooter">
                     <Button variant="outlined" size="medium" onClick={() => navigate("/shopping-cart")}>Go to cart</Button>
                     <Button variant="contained" size="medium" color="success" onClick={() => {
