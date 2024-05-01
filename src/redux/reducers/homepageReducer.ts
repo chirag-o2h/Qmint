@@ -363,6 +363,18 @@ export const createHomepageSlice = createSlice({
     setCategoryListEmpty: (state) => {
       state.categoriesList = {}
     },
+    setMainHomePageData: (state, action) => {
+      state.mainHomePageData = action.payload
+    },
+    setConfigDetails:(state,action)=>{
+      const data = action?.payload?.reduce((acc: any, curr: any) => {
+        acc[curr.key] = curr
+        return acc
+      }, {})
+      state.configDetails = data
+      state.loading = false
+      localStorageSetItem('configDetails', JSON.stringify(data))
+    }
   },
 
   extraReducers: (builder) => {
@@ -564,6 +576,6 @@ export const createHomepageSlice = createSlice({
   },
 })
 
-export const { setCategoryListEmpty, resetWholeHomePageData, setLoadingTrue, setLoadingFalse, setRecentlyViewedProduct, setToasterState, setScrollPosition, serProgressLoaderStatus, setPopUpDetails } = createHomepageSlice.actions
+export const { setCategoryListEmpty, resetWholeHomePageData, setLoadingTrue, setLoadingFalse, setRecentlyViewedProduct, setToasterState, setScrollPosition, serProgressLoaderStatus, setPopUpDetails, setMainHomePageData, setConfigDetails } = createHomepageSlice.actions
 
 export default createHomepageSlice.reducer

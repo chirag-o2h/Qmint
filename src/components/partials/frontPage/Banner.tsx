@@ -23,8 +23,8 @@ interface IbannerData {
     cdnUrlLarge: any,
     cdnUrlSmall: any
 }
-function Banner() {
-    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
+function Banner({bannerData}:any) {
+    // const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
     const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
     const config = {
         slidesPerView: 1,
@@ -54,7 +54,7 @@ function Banner() {
             <Box className="SwiperContainer">
                 <Swiper {...config}>
                     {
-                        data?.data?.map((item: IbannerData, index: number) => {
+                        bannerData?.map((item: IbannerData, index: number) => {
                             return (
                                 <SwiperSlide>
                                     <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: `url(${isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall})` }} onClick={() => {

@@ -33,7 +33,7 @@ export interface FooterSection {
 
 function FrontFooter() {
     const { configDetails: configDetailsState, categoriesList, mainHomePageData } = useAppSelector((state) => state.homePage)
-    useAPIoneTime({ service: getMainHomePageData })
+    useAPIoneTime({ service: getMainHomePageData, conditionalCall: location.pathname !== '/' })
     const { email, handleEmailChange, subscribe } = useSubscription()
     return (
         <Box id="MainFooterSection" className='FrontFooter' component="footer">

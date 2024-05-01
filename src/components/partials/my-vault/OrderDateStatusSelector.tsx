@@ -23,8 +23,11 @@ export interface OrderDateInputs {
 }
 
 const schema = yup.object().shape({
-    OrderStatus: yup.string(),
-    DateRange: yup.object()
+    OrderStatus: yup.string().trim().notOneOf(["none"], "Order Status is required field"),
+    DateRange: yup.object().shape({
+        start: yup.object().required("Start Date is required field"),
+        end: yup.object().required("End Date is required field")
+    }).required("Date Range is required field")
 });
 
 const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-back" | "normal" }) => {
@@ -65,7 +68,7 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
                 ...requestBodyOrderHistory, filters: {
                     fromDate: dateRangeValue?.start.toString(),
                     toDate: dateRangeValue?.end.toString(),
-                    orderStatusId: data.OrderStatus === "none" ? undefined : data.OrderStatus
+                    orderStatusId: data.OrderStatus
                 }
             }
         }))

@@ -45,7 +45,6 @@ interface Inputs {
   LastName: string,
   Company: string,
   Contact: string,
-  AccountName: string,
   Email: string,
   Address1: string,
   Address2: string,
@@ -132,13 +131,12 @@ function AddAccount(props: AddAccountProps) {
       case "Business":
         return yup.object().shape({
           ...commonAccountSchema,
-          BusinessName: existingAccount ? yup.string() : yup.string().trim().required("Bussiness Name is required field"),
+          BusinessName: yup.string().trim().required("Bussiness Name is required field"),
           Contact: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
             function (value) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
               else return false;
-            }),
-          AccountName: existingAccount ? yup.string().trim().required("Account Name is required field") : yup.string()
+            })
         });
       case "Joint":
         return yup.object().shape({
@@ -157,10 +155,9 @@ function AddAccount(props: AddAccountProps) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
               else return false;
             }),
-          SuperfundName: existingAccount ? yup.string() : yup.string().trim().required("Superfund Name is required field"),
-          TrusteeType: existingAccount ? yup.string() : yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
-          TrusteeName: existingAccount ? yup.string() : yup.string().trim().required("Trustee Name is required field"),
-          AccountName: existingAccount ? yup.string().trim().required("Account Name is required field") : yup.string()
+          SuperfundName: yup.string().trim().required("Superfund Name is required field"),
+          TrusteeType: yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
+          TrusteeName: yup.string().trim().required("Trustee Name is required field")
         });
       case "Trust":
         return yup.object().shape({
@@ -170,10 +167,9 @@ function AddAccount(props: AddAccountProps) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
               else return false;
             }),
-          TrusteeName: existingAccount ? yup.string() : yup.string().trim().required("Trustee Name is required field"),
-          TrusteeType: existingAccount ? yup.string() : yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
-          TrustName: existingAccount ? yup.string() : yup.string().trim().required("Trust Name is required field"),
-          AccountName: existingAccount ? yup.string().trim().required("Account Name is required field") : yup.string()
+          TrusteeName: yup.string().trim().required("Trustee Name is required field"),
+          TrusteeType: yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
+          TrustName: yup.string().trim().required("Trust Name is required field")
         });
       default:
         return IndividualAccountFormSchema
@@ -259,13 +255,13 @@ function AddAccount(props: AddAccountProps) {
         prepareAddressQuery = { ...commonAddressQueryForPreparation } // need to change for addtional beneficary
         break;
       case "Business":
-        prepareAddressQuery = { ...commonAddressQueryForPreparation, businessName: existingAccount ? undefined : data.BusinessName, accountName: existingAccount ? data.AccountName : undefined }
+        prepareAddressQuery = { ...commonAddressQueryForPreparation, businessName: data.BusinessName }
         break;
       case "Superfund":
-        prepareAddressQuery = { ...commonAddressQueryForPreparation, superfundName: existingAccount ? undefined : data.SuperfundName, trusteeTypeId: existingAccount ? undefined : data.TrusteeType, trusteeName: existingAccount ? undefined : data.TrusteeName, accountName: existingAccount ? data.AccountName : undefined }
+        prepareAddressQuery = { ...commonAddressQueryForPreparation, superfundName: data.SuperfundName, trusteeTypeId: data.TrusteeType, trusteeName: data.TrusteeName }
         break;
       case "Trust":
-        prepareAddressQuery = { ...commonAddressQueryForPreparation, trusteeName: existingAccount ? undefined : data.TrusteeName, trustName: existingAccount ? undefined : data.TrustName, trusteeTypeId: existingAccount ? undefined : data.TrusteeType, accountName: existingAccount ? data.AccountName : undefined }
+        prepareAddressQuery = { ...commonAddressQueryForPreparation, trusteeName: data.TrusteeName, trustName: data.TrustName, trusteeTypeId: data.TrusteeType }
         break;
       default:
         prepareAddressQuery = { ...commonAddressQueryForPreparation }
@@ -366,19 +362,7 @@ function AddAccount(props: AddAccountProps) {
       <form onSubmit={handleSubmit(onAddressFormSubmitHandler)}>
         <Typography className="AccountType">Account Type : <Typography variant="inherit" component="span">{accountTypeText}</Typography></Typography>
         <Stack className="FieldsWrapper">
-          {existingAccount && accountTypeText !== "Joint" && accountTypeText !== "Individual" &&
-            <RenderFields
-              register={register}
-              name="AccountName"
-              error={errors.AccountName}
-              placeholder="Enter Account Name*"
-              defaultValue={existingAccount?.accountName}
-              control={control}
-              variant='outlined'
-              margin='none'
-            />
-          }
-          {!existingAccount && accountTypeText === "Business" && <Stack className="Fields BusinessFields">
+          {accountTypeText === "Business" && <Stack className="Fields BusinessFields">
             <RenderFields
               register={register}
               error={errors.BusinessName}
@@ -389,7 +373,7 @@ function AddAccount(props: AddAccountProps) {
               margin='none'
             />
           </Stack>}
-          {!existingAccount && accountTypeText === "Superfund" && <Stack className="Fields SuperfundFields">
+          {accountTypeText === "Superfund" && <Stack className="Fields SuperfundFields">
             <RenderFields
               register={register}
               error={errors.SuperfundName}
@@ -429,7 +413,7 @@ function AddAccount(props: AddAccountProps) {
               />
             </Stack>
           </Stack>}
-          {!existingAccount && accountTypeText === "Trust" && <Stack className="Fields TrustFields">
+          {accountTypeText === "Trust" && <Stack className="Fields TrustFields">
             <Stack className="Column">
               <RenderFields
                 register={register}

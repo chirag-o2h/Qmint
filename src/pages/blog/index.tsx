@@ -14,7 +14,6 @@ import {
 import TabPanel from "@/components/common/TabPanel";
 
 // Components
-import MainLayout from "@/components/common/MainLayout";
 import PostCard from "@/components/common/PostCard";
 import RecordNotFound from "@/components/common/RecordNotFound";
 
@@ -32,38 +31,48 @@ import { BlogList } from "@/redux/reducers/blogReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import useDebounce from "@/hooks/useDebounce";
 import { navigate } from "gatsby";
+import axiosInstance from "@/axiosfolder";
+import BlogServices from "@/apis/services/blogAndNewsServices";
+import MainLayout from "@/components/common/MainLayout";
+import axios from "axios";
+const bodyData = {
+  search: "",
+  pageNo: 0,
+  pageSize: -1,
+  sortBy: "",
+  sortOrder: "",
+  filters: {
+    keyword: null,
+  },
+}
 import Loader from "@/components/common/Loader";
 import Seo from "@/components/common/Seo";
-
-function Blog() {
+function Blog({ serverData }: any) {
+  let blogList = serverData.data
+  let topThree = serverData.data.items.slice(0, 3)
+  const { blogList: blogListFromTheRedux, topThree: topThreeFromTheRedux }: any = useAppSelector((state) => state.blogPage);
+  console.log("🚀 ~ Blog ~ blogListFromTheRedux:", topThree)
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-  const { blogList, topThree }: any = useAppSelector((state) => state.blogPage);
   const [value, setValue] = React.useState<any>("all");
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const [body, setbody] = useState<any>({
-    search: "",
-    pageNo: 0,
-    pageSize: -1,
-    sortBy: "",
-    sortOrder: "",
-    filters: {
-      keyword: null,
-    },
-  });
+  const [body, setbody] = useState<any>();
   const debounce = useDebounce(body, 500);
+  blogList = Object.keys(body ?? {}).length > 0 ? blogListFromTheRedux : blogList
+  topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length? topThreeFromTheRedux : topThree
 
   useAPIoneTime({
     service: BlogList,
     endPoint: ENDPOINTS.BlogList,
     body: debounce,
+    conditionalCall: Object.keys(debounce ?? {}).length > 0
   });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue as any);
     setbody((prev: any) => ({
-      ...prev,
+      ...bodyData,
       filters: {
         keyword: (newValue as any) === "all" ? null : newValue,
       },
@@ -77,11 +86,11 @@ function Blog() {
         keywords={['blog', 'latest posts', 'articles']}
         title="Blog"
         lang="en"
-        meta={[{name: '',}]}
+        meta={[{ name: '', }]}
         description={"Explore our latest blog posts for informative articles on various topics. Stay updated with our insights and analysis."}
       />
       <Box className="BlogPage">
-        <Box className="HeroSection">
+      <Box className="HeroSection">
           <Container>
             <Typography variant="h2" component="h2">
               {configDetailsState?.["blogpost.blogposttital"]?.value}
@@ -191,7 +200,7 @@ function Blog() {
                   //   <Button variant="contained">Load More</Button>
                   // </Stack>
                   null
-                ) : <RecordNotFound message="No blogs to show" isTextAlignCenter={true}/>}
+                ) : <RecordNotFound message="No blogs to show" />}
               </TabPanel>
             </Box>
           </Container>
@@ -202,3 +211,26 @@ function Blog() {
 }
 
 export default Blog;
+export async function getServerData() {
+  try {
+    const res = await axios.post("https://qmapistaging.qmint.com/api/v1/" + ENDPOINTS.BlogList, bodyData, {
+      headers: {
+        "Storecode": 12,
+        "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
+      }
+    })
+    if (!res.data) {
+      throw new Error(`Response failed`)
+    }
+
+    return {
+      props: res.data,
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      headers: {},
+      props: {}
+    }
+  }
+}

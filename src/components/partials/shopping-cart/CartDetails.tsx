@@ -58,7 +58,7 @@ const CartDetails = ({ cartItemsWithLivePrice, setCartItemsWithLivePrice, quanti
                 setCartItemsWithLivePrice(cartItemsWithLivePrice)
             }
         }
-    }, [priceData,cartItems])
+    }, [priceData])
 
     useEffect(() => {
         if (cartItems?.length ?? 0 > 0) {

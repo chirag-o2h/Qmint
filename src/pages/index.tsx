@@ -19,7 +19,7 @@ const LazyFooter = lazy(() => import('../components/footer/FrontFooter'));
 import FeaturedProducts from "../components/partials/home/FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
-import { CategoriesListDetails, HomePageSectionDetails, configDetails, getMainHomePageData, serProgressLoaderStatus, setScrollPosition } from "@/redux/reducers/homepageReducer"
+import { CategoriesListDetails, HomePageSectionDetails, configDetails, serProgressLoaderStatus, setConfigDetails, setMainHomePageData, setScrollPosition } from "@/redux/reducers/homepageReducer"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Box, useMediaQuery } from "@mui/material";
 import Layout from "@/components/common/Layout";
@@ -28,18 +28,21 @@ import Toaster from "@/components/common/Toaster";
 import Loader from "@/components/common/Loader";
 import MainLayout from "@/components/common/MainLayout";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
+import axios from "axios";
 
-function MainHomePage() {
+function MainHomePage({ serverData }: { serverData: { configDetails: any,mainHomePageData:any, bannerData:any } }) {
     const dispatch = useAppDispatch()
     const { configDetails: configDetailsState, openToaster, scrollPosition, loading, mainHomePageData } = useAppSelector((state) => state.homePage)
-    // const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+    useEffect(() => {
+        dispatch(setConfigDetails(serverData.configDetails))
+        dispatch(setMainHomePageData(serverData.mainHomePageData))
+    }, [serverData])
     useEffect(() => {
         return () => {
             dispatch(setScrollPosition(window.scrollY));
         }
     }, [])
 
-    // useAPIoneTime({ service: HomePageSectionDetails, endPoint: ENDPOINTS.homePageSection })
     useUserDetailsFromToken()
     useEffect(() => {
         dispatch(serProgressLoaderStatus(true))
@@ -47,8 +50,9 @@ function MainHomePage() {
             dispatch(serProgressLoaderStatus(false))
         }
     }, [])
-    useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
-
+    // const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+    // useAPIoneTime({ service: HomePageSectionDetails, endPoint: ENDPOINTS.homePageSection })
+    // useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
     return (
         <div className="flex flex-col min-h-screen">
             {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
@@ -56,14 +60,14 @@ function MainHomePage() {
                 <Loader open={loading} />
                 {openToaster && <Toaster />}
                 <Seo
-                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
+                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel','Qmit','gold','metal']}
                     title="Home"
                     lang="en"
                 />
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
                 <Box className="FrontPage">
                     {/* {configDetailsState?.sliderenableinhome?.value === false ? null : } */}
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value ? <Banner /> : null}</RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value ? <Banner bannerData={serverData.bannerData}/> : null}</RenderOnViewportEntry>
                     <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>
                     <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={1025}><Adventure /></RenderOnViewportEntry>
                     <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={614}><Experience /></RenderOnViewportEntry>
@@ -79,3 +83,41 @@ function MainHomePage() {
 }
 
 export default MainHomePage
+export const getServerData = async () => {
+    try {
+        const endpointBaseURL = "https://qmapistaging.qmint.com/api/v1/";
+        const headers = {
+            "Storecode": "12",
+            "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
+        };
+
+        // Use axios.get to fetch data and extract response.data
+        const [configDetailsResponse,
+             mainHomePageDataResponse,
+             bannerDataResponse
+            ] = await Promise.all([
+            axios.get(endpointBaseURL + ENDPOINTS.getConfigStore, { headers }),
+            axios.get(endpointBaseURL + ENDPOINTS.mainHomePage, { headers }),
+            axios.get(endpointBaseURL + ENDPOINTS.getSlider.replace('typeEnum', '0'), { headers }),
+        ]);
+
+        // Extract response.data from axios responses
+        const configDetails = configDetailsResponse.data.data;
+        const mainHomePageData = mainHomePageDataResponse.data.data;
+        const bannerData = bannerDataResponse.data.data
+        return {
+            props: {
+                configDetails,
+                mainHomePageData,
+                bannerData
+            }
+        };
+    } catch (error) {
+        console.error("🚀 ~ getServerData ~ error:", error);
+        return {
+            status: 500,
+            headers: {},
+            props: {}
+        };
+    }
+};

@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 import axiosInstance from '@/axiosfolder';
 import { useAppDispatch } from '.';
 import { setLoadingFalse, setLoadingTrue } from '@/redux/reducers/homepageReducer';
+import { ENDPOINTS } from '@/utils/constants';
 
 const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData: any = null, pollInterval: number | null = null): { data:any, loading:boolean, error:any} => {
     const dispatch = useAppDispatch()
@@ -41,7 +42,8 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
                                 }
                             });
                     } else if (method === 'post') {
-                        response = axiosInstance.post(url, requestData, { signal: cancellationSource.current.signal })
+                        if(ENDPOINTS.productPrices !== url || requestData?.productIds?.length > 0){
+                            response = axiosInstance.post(url, requestData, { signal: cancellationSource.current.signal })
                             .then(response => {
                                 setData(response?.data);
                                 return response;
@@ -51,6 +53,7 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
                                     // console.error(error);
                                 }
                             });
+                        }
                     }
                 } catch (error: any | Error | AxiosError) {
                     // console.error('error', error)

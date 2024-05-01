@@ -211,7 +211,7 @@
         position: absolute;
         top: 20px;
         right: 48px;
-        padding: 3px 16px 3px 16px;
+        padding: 3px 31px 3px 16px;
         color: $whiteMilk;
         font-size: 14px;
         font-weight: 500;
@@ -220,7 +220,7 @@
         @include media($md) {
           top: 16px;
           right: 40px;
-          padding: 2px 10px 2px 10px;
+          padding: 2px 20px 2px 10px;
         }
       }
     }
