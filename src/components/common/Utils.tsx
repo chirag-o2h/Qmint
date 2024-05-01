@@ -179,7 +179,7 @@ export const Breadcrumb = React.memo(({ arr }: any) => {
     >
       <Container>
         <Breadcrumbs aria-label="breadcrumb" separator={<ChevronRight />}>
-          <Link color="inherit" variant="body2" onClick={() => { navigate('/shop') }}>
+          <Link color="inherit" variant="body2" onClick={() => { navigate('/shop',{replace:true}) }}>
             Home
           </Link>
           {arr.map((item: any, index: any) => <Link key={index} color={true ? variable.dark : "inherit"} variant="body2" onClick={() => { navigate(item.navigate) }}>
@@ -235,7 +235,7 @@ export const ProductStockStatus = React.memo(
 export const LinkWithIcon = React.memo(({ icon, href, text }: any) => {
   return (
     <Link className="LinkWithIcon" onClick={() => {
-      navigate(href)
+      navigate(href,{replace:true})
     }}>
       <IconButton color="secondary" LinkComponent="div" className="IconWrapper" href="#">{icon}</IconButton>
       <Typography color="inherit" variant="overline" component="span">
