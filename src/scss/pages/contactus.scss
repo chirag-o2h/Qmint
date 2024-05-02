@@ -71,6 +71,9 @@
             @include media($md) {
                 font-size: pxToRem(18);
             }
+            &:hover {
+                color: $yellowFuel;
+            }
         }
     }
 }

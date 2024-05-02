@@ -56,7 +56,7 @@ function OrderConfirmation(props: any) {
                 {!orderConfirmationDetailsData && isOrderFound === false && !loading && <Typography variant="body1" style={{ textAlign: "center" }}>Order Not Found</Typography>}
                 {orderConfirmationDetailsData && <Container>
                     <Stack className="OrderReceivedMessageWrapper">
-                        <Icon className='GreenConfirmationIcon'><GreenConfirmationIcon /></Icon>
+                        <GreenConfirmationIcon className='GreenConfirmationIcon' />
                         <Typography variant="subtitle2" className="OrderReceivedMessage">Your order has been received.</Typography>
                     </Stack>
                     <Box className="DetailsWrapper">
@@ -67,7 +67,7 @@ function OrderConfirmation(props: any) {
                             {/* <Typography variant="body1">You will receive an order confirmation email with details of your order and a link to track its progress.</Typography> */}
                         </Box>
                         <Box className="OrderDetailsWrapper">
-                            <Stack className="TitleValueWrapper">
+                            <Stack className="TitleValueWrapper OrderNo">
                                 <Typography variant="body1" className="Title">Order No.</Typography>
                                 <Button variant="text" onClick={() => navigate(`/order-details/?orderNo=${orderConfirmationDetailsData?.orderNumber}`)}>{orderConfirmationDetailsData?.orderNumber}</Button>
                             </Stack>
