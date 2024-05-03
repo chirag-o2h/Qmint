@@ -5,16 +5,17 @@ import { useAppDispatch, useAppSelector, useToggle } from '@/hooks'
 import TabPanel from '@/components/common/TabPanel'
 import PriceSlider from './PriceSlider'
 import RenderCheckboxField from './RenderCheckboxField'
-import { setClearFilters } from '@/redux/reducers/categoryReducer'
+import { setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice } from '@/redux/reducers/categoryReducer'
+import { getlastPartOfPath } from '@/utils/common'
 
 interface props {
     renderList: (data: any) => any
-    setSelectedFiltersMobile: any,
-    setSelectedPriceMobile: any,
-    setIsPriceChanged : any
+    // setSelectedFiltersMobile: any,
+    // setSelectedPriceMobile: any,
+    setIsPriceChanged: any
 }
 
-const SmallScreenFilters = ({ renderList, setSelectedFiltersMobile, setSelectedPriceMobile ,setIsPriceChanged}: props) => {
+const SmallScreenFilters = ({ renderList, setIsPriceChanged }: props) => {
     const categoryData = useAppSelector(state => state.category)
     const dispatch = useAppDispatch()
     const [openFilterBy, toggleFilterBy] = useToggle(false)
@@ -33,8 +34,14 @@ const SmallScreenFilters = ({ renderList, setSelectedFiltersMobile, setSelectedP
     }
 
     const applyFilterHandler = async () => {
-        setSelectedFiltersMobile(selectedFilters)
-        setSelectedPriceMobile(selectedPrice)
+        // setSelectedFiltersMobile(selectedFilters)
+        // setSelectedPriceMobile(selectedPrice)
+        dispatch(setPageSelectedSpecifications({
+            key: getlastPartOfPath(location.pathname), value: selectedFilters
+        }))
+        dispatch(setPageSelectedPrice({
+            key: getlastPartOfPath(location.pathname), value: selectedPrice
+        }))
         toggleFilterBy()
     }
 
@@ -82,7 +89,7 @@ const SmallScreenFilters = ({ renderList, setSelectedFiltersMobile, setSelectedP
                             {renderList(categoryData.categories)}
                         </TabPanel>}
                         <TabPanel value={tabValue} index={1}>
-                            <PriceSlider minPrice={categoryData?.price?.minPrice as number} maxPrice={categoryData?.price?.maxPrice as number} setSelectedPrice={setSelectedPrice} selectedPrice={selectedPrice} setIsPriceChanged={setIsPriceChanged}/>
+                            <PriceSlider minPrice={categoryData?.price?.minPrice as number} maxPrice={categoryData?.price?.maxPrice as number} setIsPriceChanged={setIsPriceChanged} />
                         </TabPanel>
                         {Object.keys(categoryData.specifications).map((filter: any, index: number) => (
                             <TabPanel value={tabValue} index={index + 2} key={filter}>
@@ -98,9 +105,7 @@ const SmallScreenFilters = ({ renderList, setSelectedFiltersMobile, setSelectedP
                                             }
                                         )
                                     }
-                                    )}
-                                    selectedFilters={selectedFilters}
-                                    setSelectedFilters={setSelectedFilters} />
+                                    )} />
                             </TabPanel>
                         ))}
                     </Stack>

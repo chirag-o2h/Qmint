@@ -7,14 +7,14 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import { setClearFilters } from '@/redux/reducers/categoryReducer'
 interface props {
     renderList: (data: any) => any,
-    selectedFilters: { [key: string]: string[] },
-    setSelectedFilters: any,
-    setSelectedPrice: any,
+    // selectedFilters: { [key: string]: string[] },
+    // setSelectedFilters?: any,
+    // setSelectedPrice: any,
     setIsPriceChanged: any,
-    selectedPrice: number[] | null
+    // selectedPrice: number[] | null
 }
 
-const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice, selectedFilters, setIsPriceChanged, selectedPrice }: props) => {
+const LargerScreenFilters = ({ renderList, setIsPriceChanged }: props) => {
     // console.log("🚀 ~ LargerScreenFilters ~ selectedFilters:", selectedFilters)
     // const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search])
     const dispatch = useAppDispatch();
@@ -61,7 +61,7 @@ const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice,
                 </Accordion>
             </Box>}
             <Box className="FilterByWrapper">
-                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setSelectedPrice={setSelectedPrice} setIsPriceChanged={setIsPriceChanged} selectedPrice={selectedPrice} />}
+                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setIsPriceChanged={setIsPriceChanged} />}
                 {Object.keys(categoryData.specifications).map((filter: any, index: number) => (
                     <Accordion key={filter} className="Divider">
                         <AccordionSummary
@@ -84,8 +84,6 @@ const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice,
                                     )
                                 }
                                 )}
-                                selectedFilters={selectedFilters}
-                                setSelectedFilters={setSelectedFilters}
                             />
                         </AccordionDetails>
                     </Accordion>

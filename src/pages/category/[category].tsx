@@ -38,6 +38,7 @@ function Category(props:any) {
     const [productIds, setProductIds] = useState({})
     const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);
     const categoryData = useAppSelector(state => state.category);
+    // console.log("🚀 ~ Category ~ categoryData:", categoryData)
     const checkLoadingStatus = useAppSelector(state => state.category.loading);
 
     useEffect(() => {

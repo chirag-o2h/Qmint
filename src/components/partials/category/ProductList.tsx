@@ -15,6 +15,7 @@ import { getlastPartOfPath } from "@/utils/common"
 
 function ProductList({ page, setPage }: { page: number, setPage: any }) {
   const categoryData = useAppSelector((state) => state.category);
+  console.log("🚀 ~ ProductList ~ categoryData:", categoryData)
   const pageSortOrder = useAppSelector((state) => state.category.pageSortOrder);
   // console.log("🚀 ~ ProductList ~ pageSortOrder:", pageSortOrder)
   const dispatch = useAppDispatch();

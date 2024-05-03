@@ -59,7 +59,7 @@ export const categoryPageSlice = createSlice({
     },
     setSortedItems: (state, action) => {
       state.sortedItems = action.payload
-      console.log("🚀 ~ state.items:", state.items)
+      // console.log("🚀 ~ state.items:", state.items)
     },
     setPriceForEachItem: (state, action: any) => {
       const priceForEachId = action.payload;
@@ -85,20 +85,28 @@ export const categoryPageSlice = createSlice({
     setClearFilters: (state, action) => {
       state.clearFilters = action.payload
     },
-    setPageSelectedFilters: (state, action) => {
+    setPageSelectedSpecifications: (state, action) => {
       const { key, value } = action.payload;
       // console.log("🚀 ~ pagesSelectedFilters: reducer", key, value)
       // key is categorry name and value is selected filters on that
       state.pageSelectedFilters = {
+        ...state.pageSelectedFilters,
         specification: {
           ...state.pageSelectedFilters.specification,
-          [key]: value.specification
+          [key]: value
         },
+      }
+    },
+    setPageSelectedPrice: (state, action) => {
+      const { key, value } = action.payload;
+      state.pageSelectedFilters = {
+        ...state.pageSelectedFilters,
         price: {
           ...state.pageSelectedFilters.price,
-          [key]: value.price
+          [key]: value
         }
       }
+
     },
     setPageSortOrder: (state, action) => {
       const { key, value } = action.payload;
@@ -116,6 +124,7 @@ export const categoryPageSlice = createSlice({
     })
     builder.addCase(getCategoryData.fulfilled, (state, action) => {
       const responseData = action.payload.data.data;
+      console.log("🚀 ~ builder.addCase ~ responseData:", responseData)
       const additionalField = responseData.additionalField;
 
       if (additionalField && additionalField.filters) {
@@ -153,13 +162,13 @@ export const categoryPageSlice = createSlice({
       state.loading = false;
 
     })
-    builder.addCase(getProductDetailsData.rejected, (state,action) => {
+    builder.addCase(getProductDetailsData.rejected, (state, action) => {
       state.loading = false;
-      state.productDetailsData = {errorMessage: action.payload?.response?.data?.message}
+      state.productDetailsData = { errorMessage: action.payload?.response?.data?.message }
     })
   },
 })
 
-export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedFilters, setPageSortOrder } = categoryPageSlice.actions;
+export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice, setPageSortOrder } = categoryPageSlice.actions;
 
 export default categoryPageSlice.reducer

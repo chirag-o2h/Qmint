@@ -7,7 +7,7 @@ import { navigate } from "gatsby"
 import useDebounce from "@/hooks/useDebounce"
 import { ENDPOINTS } from "@/utils/constants"
 import { requestBodyDefault } from "@/pages/category/[category]"
-import { getCategoryData, setClearFilters, setPageSelectedFilters, setPageSortOrder } from "@/redux/reducers/categoryReducer"
+import { getCategoryData, setClearFilters, setPageSortOrder } from "@/redux/reducers/categoryReducer"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { getlastPartOfPath } from "@/utils/common"
 let timeOut: any;
@@ -15,22 +15,14 @@ let timeOut: any;
 function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: number, searchParams: URLSearchParams }) {
   const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
-  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
-  const [selectedPrice, setSelectedPrice] = useState<number[] | null>(null);
-  // console.log("🚀 ~ selectedPrice:", selectedPrice)
   const categoryItems = useAppSelector(state => state.category.items)
   const [isPriceChanged, setIsPriceChanged] = useState<boolean>(false);
   const clearFilters = useAppSelector(state => state.category.clearFilters)
   const dispatch = useAppDispatch();
   const firstUpdate = useRef(true);
 
-  const debounceFilter = useDebounce(selectedFilters, 700);
-  const debouncePrice = useDebounce(selectedPrice, 700);
-
-  useEffect(() => {
-    // dispatch(setPageSelectedFilters({ key: getlastPartOfPath(location.pathname), value: selectedFilters }));
-    dispatch(setPageSelectedFilters({ key: getlastPartOfPath(location.pathname), value: { price: selectedPrice, specification: selectedFilters } }));
-  }, [selectedFilters, selectedPrice]);
+  const debounceFilter = useDebounce(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}, 700);
+  const debouncePrice = useDebounce(pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null, 700);
 
   useEffect(() => {
     if (setPage) {
@@ -39,8 +31,6 @@ function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: 
       // }
       setPage(() => searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1)
     }
-    setSelectedFilters(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {});
-    setSelectedPrice(pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null);
   }, [window.location, searchParams]);
 
   useEffect(() => {
@@ -77,8 +67,8 @@ function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: 
         await dispatch(getCategoryData(
           argumentForService) as any)
       }
-      setSelectedFilters({});
-      setSelectedPrice(null);
+      // setSelectedFilters({});
+      // setSelectedPrice(null);
       dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
       apiCall();
       dispatch(setClearFilters(false));
@@ -90,6 +80,9 @@ function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: 
   }
 
   const fetchData = async () => {
+    const selectedPrice = pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null;
+    const selectedFilters = pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {};
+
     const commonArgument = {
       pageNo: page - 1, filters: { minPrice: selectedPrice?.[0], maxPrice: selectedPrice?.[1], specification: selectedFilters }
     };
@@ -132,10 +125,10 @@ function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: 
 
   return (
     // ensure that filtrs and price are not empty before hiding the all filters section
-    <Fragment>{((categoryItems && categoryItems.length > 0) || Object.keys(selectedFilters).length > 0 || isPriceChanged) ? (isSmallScreen ? (
-      <SmallScreenFilters renderList={renderList} setSelectedFiltersMobile={setSelectedFilters} setSelectedPriceMobile={setSelectedPrice} setIsPriceChanged={setIsPriceChanged} />
+    <Fragment>{((categoryItems && categoryItems.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
+      <SmallScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} />
     ) : (
-      <LargerScreenFilters renderList={renderList} setSelectedFilters={setSelectedFilters} setSelectedPrice={setSelectedPrice} selectedFilters={selectedFilters} setIsPriceChanged={setIsPriceChanged} selectedPrice={selectedPrice} />
+      <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} />
     )) : null}</Fragment>
   )
 }
