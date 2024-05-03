@@ -29,8 +29,10 @@ import { useAppDispatch, useAppSelector, useToggle } from "@/hooks"
 // Utils
 import RenderFields from "@/components/common/RenderFields"
 import { SortingOption } from "@/types/enums"
-import { setSortBy, setSortedItems } from "@/redux/reducers/categoryReducer"
+import { setPageSortOrder, setSortedItems } from "@/redux/reducers/categoryReducer"
 import { sortByMostPopular, sortByPriceHighToLow, sortByPriceLowToHigh } from "@/utils/itemsSorting"
+import { navigate } from "gatsby"
+import { getlastPartOfPath } from "@/utils/common"
 
 function SortBy() {
   const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
@@ -52,6 +54,10 @@ function SortBy() {
     defaultValues: {},
   })
 
+  // useEffect(() => {
+  //   dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: value }));
+  // }, [location.pathname])
+
   useEffect(() => {
     if (clearFilters) {
       setValue("Sort By", null);
@@ -59,8 +65,10 @@ function SortBy() {
   }, [clearFilters]);
 
   const handleChange = () => {
-    const value = Object.values(getValues())[0]
-    dispatch(setSortBy(value));
+    const value: any = Object.values(getValues())[0];
+    // dispatch(setSortBy(value));
+    // setValue("Sort By", value);
+    dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: value }));
   }
 
   const renderSortByFields = (labelPlacement: FormControlLabelProps['labelPlacement']) => {
@@ -75,6 +83,7 @@ function SortBy() {
         options={sortByOptions}
         margin="none"
         fullWidth
+        value={getValues()["Sort By"]}
         setValue={setValue}
         onChange={handleChange}
         getValues={getValues}

@@ -26,7 +26,12 @@ const initialState: categoryData = {
   productDetailsData: {},
   sortBy: null,
   sortedItems: [],
-  clearFilters: false
+  clearFilters: false,
+  pageSelectedFilters: {
+    price: {},
+    specification: {},
+  }, // it is to store the filters for the page,
+  pageSortOrder: {}
 }
 
 export const getCategoryData = appCreateAsyncThunk(
@@ -74,11 +79,33 @@ export const categoryPageSlice = createSlice({
       state.productDetailsData = {}
       state.loading = false
     },
-    setSortBy: (state, action) => {
-      state.sortBy = action.payload
-    },
+    // setSortBy: (state, action) => {
+    //   state.sortBy = action.payload
+    // },
     setClearFilters: (state, action) => {
       state.clearFilters = action.payload
+    },
+    setPageSelectedFilters: (state, action) => {
+      const { key, value } = action.payload;
+      // console.log("🚀 ~ pagesSelectedFilters: reducer", key, value)
+      // key is categorry name and value is selected filters on that
+      state.pageSelectedFilters = {
+        specification: {
+          ...state.pageSelectedFilters.specification,
+          [key]: value.specification
+        },
+        price: {
+          ...state.pageSelectedFilters.price,
+          [key]: value.price
+        }
+      }
+    },
+    setPageSortOrder: (state, action) => {
+      const { key, value } = action.payload;
+      state.pageSortOrder = {
+        ...state.pageSortOrder,
+        [key]: value
+      }
     }
   },
 
@@ -133,6 +160,6 @@ export const categoryPageSlice = createSlice({
   },
 })
 
-export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setSortBy, setClearFilters } = categoryPageSlice.actions;
+export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedFilters, setPageSortOrder } = categoryPageSlice.actions;
 
 export default categoryPageSlice.reducer

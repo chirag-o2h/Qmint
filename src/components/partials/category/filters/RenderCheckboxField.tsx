@@ -34,18 +34,18 @@ const RenderCheckboxField = ({ filter, options, setSelectedFilters, selectedFilt
     })
 
     useEffect(() => {
-        if (isMobile) {
-            for (const key in selectedFilters) {
-                if (key === filter) {
-                    const obj: any = {};
-                    selectedFilters[key]?.length > 0 && selectedFilters[key].forEach((value: string) => {
-                        obj[value] = true;
-                    })
-                    setValue(filter, obj)
-                }
+        // if (isMobile) {
+        for (const key in selectedFilters) {
+            if (key === filter) {
+                const obj: any = {};
+                selectedFilters[key]?.length > 0 && selectedFilters[key].forEach((value: string) => {
+                    obj[value] = true;
+                })
+                setValue(filter, obj)
             }
         }
-    }, [selectedFilters, isMobile])
+        // }
+    }, [selectedFilters])
 
     useEffect(() => {
         if (clearFilters) {

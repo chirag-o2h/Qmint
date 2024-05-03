@@ -1,48 +1,58 @@
 import { useAppSelector } from '@/hooks'
 import useDebounce from '@/hooks/useDebounce'
+import { getlastPartOfPath } from '@/utils/common'
 import { Box, Slider, Typography } from '@mui/material'
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 const PriceSlider = ({ minPrice, maxPrice, setSelectedPrice, selectedPrice, setIsPriceChanged }: { minPrice: number, maxPrice: number, setSelectedPrice: any, selectedPrice?: number[] | null, setIsPriceChanged: any }) => {
-    const [value, setValue] = useState<number[]>(selectedPrice ? [selectedPrice[0], selectedPrice[1]] : [minPrice, maxPrice])
-    // console.log("🚀 ~ PriceSlider ~ value:", value, minPrice, maxPrice)
+    // console.log("🚀 ~ PriceSlider ~ selectedPrice:", selectedPrice)
+    // const [value, setSelectedPrice] = useState<number[]>(selectedPrice ? [selectedPrice[0], selectedPrice[1]] : [minPrice, maxPrice])
     const clearFilters = useAppSelector(state => state.category.clearFilters)
-    const debouncedValue = useDebounce(value, 700);
+
+    // const debouncedValue = useDebounce(selectedPrice, 700);
     const firstUpdate = useRef(true);
 
+    // useEffect(() => {
+    //     setSelectedPrice([pagesSelectedFilters?.price[getlastPartOfPath(location.pathname)][0], pagesSelectedFilters.price[getlastPartOfPath(location.pathname)][1]])
+    // }, [pagesSelectedFilters]);
+
     useLayoutEffect(() => {
-        setValue([minPrice, maxPrice])
-    }, [minPrice, maxPrice, setValue])
-
-    useEffect(() => {
-        if (clearFilters) {
-            setValue([minPrice, maxPrice])
-        }
-    }, [clearFilters])
-
-    useEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
         }
-        if (value[0] !== minPrice || value[1] !== maxPrice) {
-            setIsPriceChanged(true);
+        setSelectedPrice([minPrice, maxPrice])
+    }, [minPrice, maxPrice, setSelectedPrice])
+
+    useEffect(() => {
+        if (clearFilters) {
+            setSelectedPrice([minPrice, maxPrice])
         }
-        setSelectedPrice([value[0], value[1]])
-    }, [debouncedValue])
+    }, [clearFilters])
+
+    // useEffect(() => {
+    //     if (firstUpdate.current) {
+    //         firstUpdate.current = false;
+    //         return;
+    //     }
+    //     if (selectedPrice) {
+    //         setIsPriceChanged(true);
+    //     }
+    //     setSelectedPrice([selectedPrice ? selectedPrice[0] : minPrice, selectedPrice ? selectedPrice[1] : maxPrice])
+    // }, [debouncedValue])
 
     const valuetext = (value: number) => {
         return `Price ${value}`;
     }
 
     const handleChange = (event: Event, newValue: number | number[]) => {
-        setValue(newValue as number[]);
+        setSelectedPrice(newValue as number[]);
     }
     const renderPriceRange = useMemo(() => {
         return (
             <Slider
                 getAriaLabel={() => 'Price range'}
-                value={value}
+                value={selectedPrice ? selectedPrice : [minPrice, maxPrice]}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}
@@ -51,11 +61,11 @@ const PriceSlider = ({ minPrice, maxPrice, setSelectedPrice, selectedPrice, setI
                 max={maxPrice}
             />
         )
-    }, [value, minPrice, maxPrice, handleChange, valuetext])
+    }, [selectedPrice, minPrice, maxPrice, handleChange, valuetext])
     return (
         <Box className="PriceRangeWrapper Divider">
             <Typography className="PriceRange">Price Range</Typography>
-            <Typography variant="subtitle1">{`$${value[0]} - $${value[1]}`}</Typography>
+            <Typography variant="subtitle1">{`$${selectedPrice ? selectedPrice[0] : minPrice} - $${selectedPrice ? selectedPrice[1] : maxPrice}`}</Typography>
             {renderPriceRange}
             {/* <Typography className="AveragePrice" variant="body2">Average price: $41</Typography> */}
         </Box>

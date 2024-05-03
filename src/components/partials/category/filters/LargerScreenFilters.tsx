@@ -10,10 +10,11 @@ interface props {
     selectedFilters: { [key: string]: string[] },
     setSelectedFilters: any,
     setSelectedPrice: any,
-    setIsPriceChanged: any
+    setIsPriceChanged: any,
+    selectedPrice: number[] | null
 }
 
-const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice, selectedFilters, setIsPriceChanged }: props) => {
+const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice, selectedFilters, setIsPriceChanged, selectedPrice }: props) => {
     // console.log("🚀 ~ LargerScreenFilters ~ selectedFilters:", selectedFilters)
     // const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search])
     const dispatch = useAppDispatch();
@@ -60,7 +61,7 @@ const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice,
                 </Accordion>
             </Box>}
             <Box className="FilterByWrapper">
-                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setSelectedPrice={setSelectedPrice} setIsPriceChanged={setIsPriceChanged} />}
+                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setSelectedPrice={setSelectedPrice} setIsPriceChanged={setIsPriceChanged} selectedPrice={selectedPrice} />}
                 {Object.keys(categoryData.specifications).map((filter: any, index: number) => (
                     <Accordion key={filter} className="Divider">
                         <AccordionSummary

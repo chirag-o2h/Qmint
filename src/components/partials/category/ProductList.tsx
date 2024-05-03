@@ -11,10 +11,12 @@ import { navigate } from "gatsby"
 import { SortingOption } from "@/types/enums"
 import { setSortedItems } from "@/redux/reducers/categoryReducer"
 import { sortByMostPopular, sortByPriceHighToLow, sortByPriceLowToHigh } from "@/utils/itemsSorting"
+import { getlastPartOfPath } from "@/utils/common"
 
 function ProductList({ page, setPage }: { page: number, setPage: any }) {
   const categoryData = useAppSelector((state) => state.category);
-  const sortByValue = useAppSelector((state) => state.category.sortBy);
+  const pageSortOrder = useAppSelector((state) => state.category.pageSortOrder);
+  // console.log("🚀 ~ ProductList ~ pageSortOrder:", pageSortOrder)
   const dispatch = useAppDispatch();
   const { openToaster } = useAppSelector(state => state.homePage)
 
@@ -27,6 +29,8 @@ function ProductList({ page, setPage }: { page: number, setPage: any }) {
   }
 
   useEffect(() => {
+    const sortByValue = pageSortOrder[getlastPartOfPath(location.pathname)];
+    // console.log("🚀 ~ useEffect ~ sortByValue:", sortByValue)
     if (!sortByValue) return;
     if (!categoryData.items) return;
     if (sortByValue === SortingOption.Popular) {
@@ -38,7 +42,7 @@ function ProductList({ page, setPage }: { page: number, setPage: any }) {
     else if (sortByValue === SortingOption.PriceLowToHigh) {
       dispatch(setSortedItems(sortByPriceLowToHigh(categoryData.items)));
     }
-  }, [categoryData?.items, sortByValue, page]);
+  }, [categoryData?.items, pageSortOrder, page, location.pathname]);
 
   return (
     <Box className="ProductList">

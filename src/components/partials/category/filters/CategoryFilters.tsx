@@ -7,14 +7,17 @@ import { navigate } from "gatsby"
 import useDebounce from "@/hooks/useDebounce"
 import { ENDPOINTS } from "@/utils/constants"
 import { requestBodyDefault } from "@/pages/category/[category]"
-import { getCategoryData, setClearFilters, setSortBy } from "@/redux/reducers/categoryReducer"
+import { getCategoryData, setClearFilters, setPageSelectedFilters, setPageSortOrder } from "@/redux/reducers/categoryReducer"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { getlastPartOfPath } from "@/utils/common"
 let timeOut: any;
+
 function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: number, searchParams: URLSearchParams }) {
   const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
+  const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
   const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
   const [selectedPrice, setSelectedPrice] = useState<number[] | null>(null);
+  // console.log("🚀 ~ selectedPrice:", selectedPrice)
   const categoryItems = useAppSelector(state => state.category.items)
   const [isPriceChanged, setIsPriceChanged] = useState<boolean>(false);
   const clearFilters = useAppSelector(state => state.category.clearFilters)
@@ -23,7 +26,12 @@ function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: 
 
   const debounceFilter = useDebounce(selectedFilters, 700);
   const debouncePrice = useDebounce(selectedPrice, 700);
-console.log(location.pathname,"location.pathname")
+
+  useEffect(() => {
+    // dispatch(setPageSelectedFilters({ key: getlastPartOfPath(location.pathname), value: selectedFilters }));
+    dispatch(setPageSelectedFilters({ key: getlastPartOfPath(location.pathname), value: { price: selectedPrice, specification: selectedFilters } }));
+  }, [selectedFilters, selectedPrice]);
+
   useEffect(() => {
     if (setPage) {
       // if (parseInt(searchParams.get("page")!) == 1) {
@@ -31,6 +39,8 @@ console.log(location.pathname,"location.pathname")
       // }
       setPage(() => searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1)
     }
+    setSelectedFilters(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {});
+    setSelectedPrice(pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null);
   }, [window.location, searchParams]);
 
   useEffect(() => {
@@ -69,7 +79,7 @@ console.log(location.pathname,"location.pathname")
       }
       setSelectedFilters({});
       setSelectedPrice(null);
-      dispatch(setSortBy(null));
+      dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
       apiCall();
       dispatch(setClearFilters(false));
     }
@@ -125,7 +135,7 @@ console.log(location.pathname,"location.pathname")
     <Fragment>{((categoryItems && categoryItems.length > 0) || Object.keys(selectedFilters).length > 0 || isPriceChanged) ? (isSmallScreen ? (
       <SmallScreenFilters renderList={renderList} setSelectedFiltersMobile={setSelectedFilters} setSelectedPriceMobile={setSelectedPrice} setIsPriceChanged={setIsPriceChanged} />
     ) : (
-      <LargerScreenFilters renderList={renderList} setSelectedFilters={setSelectedFilters} setSelectedPrice={setSelectedPrice} selectedFilters={selectedFilters} setIsPriceChanged={setIsPriceChanged} />
+      <LargerScreenFilters renderList={renderList} setSelectedFilters={setSelectedFilters} setSelectedPrice={setSelectedPrice} selectedFilters={selectedFilters} setIsPriceChanged={setIsPriceChanged} selectedPrice={selectedPrice} />
     )) : null}</Fragment>
   )
 }
