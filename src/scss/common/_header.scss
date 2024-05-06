@@ -472,8 +472,8 @@
           .PricingHeader__Wrapper--Content {
             .StockReturnWithName {
               border-right: 1px solid #ffffff33;
-  
-              &>.MuiTypography-root {
+
+              & > .MuiTypography-root {
                 color: $white;
               }
             }
@@ -532,7 +532,9 @@
       position: relative;
 
       .MainHeader {
-
+        @include media-min($md) {
+          @include padding-vertical(0);
+        }
         .MainHeader__Wrapper {
           @include media($lg) {
             flex-wrap: wrap;
@@ -568,6 +570,12 @@
                 }
 
                 .LeftPart {
+                  a {
+                    @include media-min($md) {
+                      line-height: 22px;
+                      @include padding-vertical(29);
+                    }
+                  }
                   hr {
                     display: none;
                   }
@@ -595,7 +603,7 @@
                   display: none;
                 }
               }
-  
+
               .MuiTypography-root {
                 @include media($xs) {
                   display: none;
@@ -616,8 +624,8 @@
             .PricingHeader__Wrapper--Content {
               .StockReturnWithName {
                 border-color: color-mix(in srgb, currentColor 50%, transparent);
-    
-                &>.MuiTypography-root {
+
+                & > .MuiTypography-root {
                   color: $dark;
                 }
               }
@@ -650,10 +658,10 @@
                 }
               }
             }
-  
+
             .Right {
               .HamburgerButton {
-  
+
                 .HamburgerIcon,
                 .CrossIcon {
                   color: $dark;

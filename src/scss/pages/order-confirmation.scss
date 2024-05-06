@@ -21,7 +21,7 @@
 
         .GreenConfirmationIcon {
             svg {
-                font-size: pxToRem(22);
+                font-size: 22px;
             }
         }
     }
@@ -129,12 +129,12 @@
                             line-height: 26px;
                         }
 
-                            .MuiTableCell-head {
-                                font-weight: 600;
-                                white-space: nowrap;
-                                &.Name {
-                                    min-width: 400px;
-                                }
+                        .MuiTableCell-head {
+                            font-weight: 600;
+                            white-space: nowrap;
+                            &.Name {
+                                min-width: 400px;
+                            }
                         }
 
                         .OrderDetailsHeadRow {
