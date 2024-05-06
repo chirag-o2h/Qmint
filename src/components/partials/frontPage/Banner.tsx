@@ -24,7 +24,8 @@ interface IbannerData {
     cdnUrlSmall: any
 }
 function Banner({bannerData}:any) {
-    // const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
+    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
+    bannerData = data?.data
     const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
     const config = {
         slidesPerView: 1,

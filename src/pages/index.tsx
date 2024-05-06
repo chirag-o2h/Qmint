@@ -30,13 +30,15 @@ import MainLayout from "@/components/common/MainLayout";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 import axios from "axios";
 
-function MainHomePage({ serverData }: { serverData: { configDetails: any,mainHomePageData:any, bannerData:any } }) {
+function MainHomePage(
+    // { serverData }: { serverData: { configDetails: any,mainHomePageData:any, bannerData:any } }
+) {
     const dispatch = useAppDispatch()
     const { configDetails: configDetailsState, openToaster, scrollPosition, loading, mainHomePageData } = useAppSelector((state) => state.homePage)
-    useEffect(() => {
-        dispatch(setConfigDetails(serverData.configDetails))
-        dispatch(setMainHomePageData(serverData.mainHomePageData))
-    }, [serverData])
+    // useEffect(() => {
+    //     dispatch(setConfigDetails(serverData.configDetails))
+    //     dispatch(setMainHomePageData(serverData.mainHomePageData))
+    // }, [serverData])
     useEffect(() => {
         return () => {
             dispatch(setScrollPosition(window.scrollY));
@@ -52,7 +54,7 @@ function MainHomePage({ serverData }: { serverData: { configDetails: any,mainHom
     }, [])
     // const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     // useAPIoneTime({ service: HomePageSectionDetails, endPoint: ENDPOINTS.homePageSection })
-    // useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
+    useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
     return (
         <div className="flex flex-col min-h-screen">
             {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
@@ -67,7 +69,7 @@ function MainHomePage({ serverData }: { serverData: { configDetails: any,mainHom
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
                 <Box className="FrontPage">
                     {/* {configDetailsState?.sliderenableinhome?.value === false ? null : } */}
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value ? <Banner bannerData={serverData.bannerData}/> : null}</RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value ? <Banner bannerData={null}/> : null}</RenderOnViewportEntry>
                     <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>
                     <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={1025}><Adventure /></RenderOnViewportEntry>
                     <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={614}><Experience /></RenderOnViewportEntry>
@@ -83,41 +85,41 @@ function MainHomePage({ serverData }: { serverData: { configDetails: any,mainHom
 }
 
 export default MainHomePage
-export const getServerData = async () => {
-    try {
-        const endpointBaseURL = "https://qmapistaging.qmint.com/api/v1/";
-        const headers = {
-            "Storecode": "12",
-            "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
-        };
+// export const getServerData = async () => {
+//     try {
+//         const endpointBaseURL = "https://qmapistaging.qmint.com/api/v1/";
+//         const headers = {
+//             "Storecode": "12",
+//             "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
+//         };
 
-        // Use axios.get to fetch data and extract response.data
-        const [configDetailsResponse,
-             mainHomePageDataResponse,
-             bannerDataResponse
-            ] = await Promise.all([
-            axios.get(endpointBaseURL + ENDPOINTS.getConfigStore, { headers }),
-            axios.get(endpointBaseURL + ENDPOINTS.mainHomePage, { headers }),
-            axios.get(endpointBaseURL + ENDPOINTS.getSlider.replace('typeEnum', '0'), { headers }),
-        ]);
+//         // Use axios.get to fetch data and extract response.data
+//         const [configDetailsResponse,
+//              mainHomePageDataResponse,
+//              bannerDataResponse
+//             ] = await Promise.all([
+//             axios.get(endpointBaseURL + ENDPOINTS.getConfigStore, { headers }),
+//             axios.get(endpointBaseURL + ENDPOINTS.mainHomePage, { headers }),
+//             axios.get(endpointBaseURL + ENDPOINTS.getSlider.replace('typeEnum', '0'), { headers }),
+//         ]);
 
-        // Extract response.data from axios responses
-        const configDetails = configDetailsResponse.data.data;
-        const mainHomePageData = mainHomePageDataResponse.data.data;
-        const bannerData = bannerDataResponse.data.data
-        return {
-            props: {
-                configDetails,
-                mainHomePageData,
-                bannerData
-            }
-        };
-    } catch (error) {
-        console.error("🚀 ~ getServerData ~ error:", error);
-        return {
-            status: 500,
-            headers: {},
-            props: {}
-        };
-    }
-};
+//         // Extract response.data from axios responses
+//         const configDetails = configDetailsResponse.data.data;
+//         const mainHomePageData = mainHomePageDataResponse.data.data;
+//         const bannerData = bannerDataResponse.data.data
+//         return {
+//             props: {
+//                 configDetails,
+//                 mainHomePageData,
+//                 bannerData
+//             }
+//         };
+//     } catch (error) {
+//         console.error("🚀 ~ getServerData ~ error:", error);
+//         return {
+//             status: 500,
+//             headers: {},
+//             props: {}
+//         };
+//     }
+// };
