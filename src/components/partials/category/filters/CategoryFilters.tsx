@@ -7,7 +7,7 @@ import { navigate } from "gatsby"
 import useDebounce from "@/hooks/useDebounce"
 import { ENDPOINTS } from "@/utils/constants"
 import { requestBodyDefault } from "@/pages/category/[category]"
-import { getCategoryData, setClearFilters, setPageSortOrder } from "@/redux/reducers/categoryReducer"
+import { getCategoryData, setClearFilters, setPageSelectedPrice, setPageSortOrder } from "@/redux/reducers/categoryReducer"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { getlastPartOfPath } from "@/utils/common"
 let timeOut: any;
@@ -15,8 +15,9 @@ let timeOut: any;
 function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: number, searchParams: URLSearchParams }) {
   const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
-  const categoryItems = useAppSelector(state => state.category.items)
+  const categoryData = useAppSelector(state => state.category)
   const [isPriceChanged, setIsPriceChanged] = useState<boolean>(false);
+  console.log("🚀 ~ isPriceChanged:", isPriceChanged)
   const clearFilters = useAppSelector(state => state.category.clearFilters)
   const dispatch = useAppDispatch();
   const firstUpdate = useRef(true);
@@ -67,6 +68,9 @@ function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: 
         await dispatch(getCategoryData(
           argumentForService) as any)
       }
+      // dispatch(setPageSelectedPrice({
+      //   key: getlastPartOfPath(location.pathname), value: null
+      // }))
       // setSelectedFilters({});
       // setSelectedPrice(null);
       dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
@@ -125,10 +129,10 @@ function CategoryFilters({ page, searchParams, setPage }: { setPage: any, page: 
 
   return (
     // ensure that filtrs and price are not empty before hiding the all filters section
-    <Fragment>{((categoryItems && categoryItems.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
-      <SmallScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} />
+    <Fragment>{((categoryData.items && categoryData.items.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
+      <SmallScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={categoryData} />
     ) : (
-      <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} />
+      <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={categoryData} />
     )) : null}</Fragment>
   )
 }

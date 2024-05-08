@@ -5,20 +5,23 @@ import PriceSlider from './PriceSlider'
 import RenderCheckboxField from './RenderCheckboxField'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { setClearFilters } from '@/redux/reducers/categoryReducer'
+import { categoryData } from '@/types/categoryData'
 interface props {
     renderList: (data: any) => any,
     // selectedFilters: { [key: string]: string[] },
     // setSelectedFilters?: any,
     // setSelectedPrice: any,
     setIsPriceChanged: any,
+    pagesSelectedFilters: any,
+    categoryData: categoryData
     // selectedPrice: number[] | null
 }
 
-const LargerScreenFilters = ({ renderList, setIsPriceChanged }: props) => {
+const LargerScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilters ,categoryData}: props) => {
     // console.log("🚀 ~ LargerScreenFilters ~ selectedFilters:", selectedFilters)
     // const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search])
     const dispatch = useAppDispatch();
-    const categoryData = useAppSelector(state => state.category)
+    // const categoryData = useAppSelector(state => state.category)
 
     const clearFiltersHandler = () => {
         dispatch(setClearFilters(true));
@@ -61,7 +64,7 @@ const LargerScreenFilters = ({ renderList, setIsPriceChanged }: props) => {
                 </Accordion>
             </Box>}
             <Box className="FilterByWrapper">
-                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setIsPriceChanged={setIsPriceChanged} />}
+                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} />}
                 {Object.keys(categoryData.specifications).map((filter: any, index: number) => (
                     <Accordion key={filter} className="Divider">
                         <AccordionSummary

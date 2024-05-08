@@ -7,16 +7,19 @@ import PriceSlider from './PriceSlider'
 import RenderCheckboxField from './RenderCheckboxField'
 import { setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice } from '@/redux/reducers/categoryReducer'
 import { getlastPartOfPath } from '@/utils/common'
+import { categoryData } from '@/types/categoryData'
 
 interface props {
     renderList: (data: any) => any
     // setSelectedFiltersMobile: any,
     // setSelectedPriceMobile: any,
     setIsPriceChanged: any
+    pagesSelectedFilters: any
+    categoryData: categoryData
 }
 
-const SmallScreenFilters = ({ renderList, setIsPriceChanged }: props) => {
-    const categoryData = useAppSelector(state => state.category)
+const SmallScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilters, categoryData }: props) => {
+    // const categoryData = useAppSelector(state => state.category)
     const dispatch = useAppDispatch()
     const [openFilterBy, toggleFilterBy] = useToggle(false)
     const [tabValue, setTabValue] = useState<number>(0)
@@ -89,7 +92,7 @@ const SmallScreenFilters = ({ renderList, setIsPriceChanged }: props) => {
                             {renderList(categoryData.categories)}
                         </TabPanel>}
                         <TabPanel value={tabValue} index={1}>
-                            <PriceSlider minPrice={categoryData?.price?.minPrice as number} maxPrice={categoryData?.price?.maxPrice as number} setIsPriceChanged={setIsPriceChanged} />
+                            <PriceSlider minPrice={categoryData?.price?.minPrice as number} maxPrice={categoryData?.price?.maxPrice as number} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} />
                         </TabPanel>
                         {Object.keys(categoryData.specifications).map((filter: any, index: number) => (
                             <TabPanel value={tabValue} index={index + 2} key={filter}>
@@ -118,4 +121,4 @@ const SmallScreenFilters = ({ renderList, setIsPriceChanged }: props) => {
     )
 }
 
-export default SmallScreenFilters
+export default React.memo(SmallScreenFilters);

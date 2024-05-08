@@ -5,9 +5,10 @@ import { getlastPartOfPath } from '@/utils/common'
 import { Box, Slider, Typography } from '@mui/material'
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
-const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged }: { minPrice: number, maxPrice: number, setIsPriceChanged: any }) => {
+const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilters }: { minPrice: number, maxPrice: number, setIsPriceChanged: any, pagesSelectedFilters: any }) => {
+    console.log("Again")
     const dispatch = useAppDispatch();
-    const [value, setValue] = useState<number[]>([minPrice, maxPrice])
+    const [value, setValue] = useState<number[]>([pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || minPrice, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || maxPrice])
     const clearFilters = useAppSelector(state => state.category.clearFilters)
 
     const debouncedValue = useDebounce(value, 700);
@@ -35,24 +36,18 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged }: { minPrice: numb
             dispatch(setPageSelectedPrice({
                 key: getlastPartOfPath(location.pathname), value: [minPrice, maxPrice]
             }))
+            setValue([minPrice, maxPrice])
         }
     }, [clearFilters])
 
     useEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false;
-            return;
-        }
+        // if (firstUpdate.current) {
+        //     firstUpdate.current = false;
+        //     return;
+        // }
         if (value[0] !== minPrice || value[1] !== maxPrice) {
             setIsPriceChanged(true);
         }
-        // setSelectedPrice([selectedPrice ? selectedPrice[0] : minPrice, selectedPrice ? selectedPrice[1] : maxPrice])
-        // dispatch(setPageSelectedFilters({
-        //     key: getlastPartOfPath(location.pathname), value: {
-        //         price: value,
-        //         specifications: pagesSelectedFilters?.specification[getlastPartOfPath(location.pathname)]
-        //     }
-        // }))
         dispatch(setPageSelectedPrice({
             key: getlastPartOfPath(location.pathname), value: value
         }))
