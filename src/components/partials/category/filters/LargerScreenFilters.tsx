@@ -29,7 +29,7 @@ const LargerScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilte
 
     return (
         <Box className="CategoryFilters">
-            {categoryData.items && categoryData.items.length > 0 && <Box sx={{ padding: '16px 14px 0', textAlign: 'center' }}>
+            {categoryData.items && <Box sx={{ padding: '16px 14px 0', textAlign: 'center' }}>
                 <Button variant="outlined" onClick={clearFiltersHandler}>Clear Filter</Button>
             </Box>}
             {categoryData.categories.length > 0 && <Box className="CategoriesWrapper">

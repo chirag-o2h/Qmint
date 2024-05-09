@@ -24,9 +24,8 @@ const SmallScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilter
     const [openFilterBy, toggleFilterBy] = useToggle(false)
     const [tabValue, setTabValue] = useState<number>(0)
 
-    const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
-    const [selectedPrice, setSelectedPrice] = useState<number[] | null>(null);
-    // console.log("🚀 ~ SmallScreenFilters ~ selectedPrice:", selectedPrice)
+    const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {});
+    const [selectedPrice, setSelectedPrice] = useState<number[] | null>([pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || categoryData?.price?.minPrice as number, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || categoryData?.price?.maxPrice as number]);
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue)
@@ -34,6 +33,7 @@ const SmallScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilter
 
     const clearFiltersHandler = () => {
         dispatch(setClearFilters(true));
+        setSelectedFilters({})
     }
 
     const applyFilterHandler = async () => {
@@ -92,12 +92,14 @@ const SmallScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilter
                             {renderList(categoryData.categories)}
                         </TabPanel>}
                         <TabPanel value={tabValue} index={1}>
-                            <PriceSlider minPrice={categoryData?.price?.minPrice as number} maxPrice={categoryData?.price?.maxPrice as number} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} />
+                            <PriceSlider minPrice={categoryData?.price?.minPrice as number} maxPrice={categoryData?.price?.maxPrice as number} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} mobilePriceFilters={selectedPrice ? selectedPrice : undefined} setMobilePriceFilters={setSelectedPrice} />
                         </TabPanel>
                         {Object.keys(categoryData.specifications).map((filter: any, index: number) => (
                             <TabPanel value={tabValue} index={index + 2} key={filter}>
                                 <RenderCheckboxField
                                     filter={filter}
+                                    mobileSelectedFilters={selectedFilters}
+                                    setMobileSelectedFilters={setSelectedFilters}
                                     options={(categoryData.specifications[filter as keyof typeof categoryData.specifications] as any[]).map((item, index) => {
                                         return (
                                             {

@@ -2,13 +2,14 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import useDebounce from '@/hooks/useDebounce'
 import { setPageSelectedSpecifications, setPageSelectedPrice } from '@/redux/reducers/categoryReducer'
 import { getlastPartOfPath } from '@/utils/common'
-import { Box, Slider, Typography } from '@mui/material'
+import { Box, Slider, Typography, useMediaQuery } from '@mui/material'
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
-const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilters }: { minPrice: number, maxPrice: number, setIsPriceChanged: any, pagesSelectedFilters: any }) => {
-    console.log("Again")
+const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilters, mobilePriceFilters, setMobilePriceFilters }: { minPrice: number, maxPrice: number, setIsPriceChanged: any, pagesSelectedFilters: any, mobilePriceFilters?: number[], setMobilePriceFilters?: any }) => {
+    console.log("🚀 ~ PriceSlider ~ mobilePriceFilters:", mobilePriceFilters)
     const dispatch = useAppDispatch();
-    const [value, setValue] = useState<number[]>([pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || minPrice, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || maxPrice])
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+    const [value, setValue] = useState<number[]>(isMobile ? mobilePriceFilters || [minPrice, maxPrice] : [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || minPrice, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || maxPrice])
     const clearFilters = useAppSelector(state => state.category.clearFilters)
 
     const debouncedValue = useDebounce(value, 700);
@@ -19,7 +20,6 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
             firstUpdate.current = false;
             return;
         }
-        // setSelectedPrice([minPrice, maxPrice])
         dispatch(setPageSelectedPrice({
             key: getlastPartOfPath(location.pathname), value: [minPrice, maxPrice]
         }))
@@ -27,30 +27,26 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
 
     useEffect(() => {
         if (clearFilters) {
-            // dispatch(setPageSelectedFilters({
-            //     key: getlastPartOfPath(location.pathname), value: {
-            //         price: [minPrice, maxPrice],
-            //         specifications: pagesSelectedFilters?.specification[getlastPartOfPath(location.pathname)]
-            //     }
-            // }))
-            dispatch(setPageSelectedPrice({
-                key: getlastPartOfPath(location.pathname), value: [minPrice, maxPrice]
-            }))
             setValue([minPrice, maxPrice])
         }
     }, [clearFilters])
 
     useEffect(() => {
-        // if (firstUpdate.current) {
-        //     firstUpdate.current = false;
-        //     return;
-        // }
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
         if (value[0] !== minPrice || value[1] !== maxPrice) {
             setIsPriceChanged(true);
         }
-        dispatch(setPageSelectedPrice({
-            key: getlastPartOfPath(location.pathname), value: value
-        }))
+        if (isMobile) {
+            setMobilePriceFilters(value)
+        }
+        else {
+            dispatch(setPageSelectedPrice({
+                key: getlastPartOfPath(location.pathname), value: value
+            }))
+        }
     }, [debouncedValue])
 
     const valuetext = (value: number) => {
