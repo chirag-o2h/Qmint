@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Box, Skeleton, Card, Pagination, Stack, Typography } from "@mui/material"
 
 // Components
@@ -9,24 +9,30 @@ import { pageSize } from "@/pages/category/[category]"
 import Toaster from "@/components/common/Toaster"
 import { navigate } from "gatsby"
 import { SortingOption } from "@/types/enums"
-import { setSortedItems } from "@/redux/reducers/categoryReducer"
+import { setPriceForEachItem, setSortedItems } from "@/redux/reducers/categoryReducer"
 import { sortByMostPopular, sortByPriceHighToLow, sortByPriceLowToHigh } from "@/utils/itemsSorting"
+import { getlastPartOfPath } from "@/utils/common"
+import useApiRequest from "@/hooks/useAPIRequest"
+import { ENDPOINTS } from "@/utils/constants"
 
 function ProductList({ page, setPage }: { page: number, setPage: any }) {
   const categoryData = useAppSelector((state) => state.category);
-  const sortByValue = useAppSelector((state) => state.category.sortBy);
+  const pageSortOrder = useAppSelector((state) => state.category.pageSortOrder);
   const dispatch = useAppDispatch();
+  const [productIds, setProductIds] = useState({})
+  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);
   const { openToaster } = useAppSelector(state => state.homePage)
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
-    // navigate(`?page=${value}`, { replace: true });
     const pageQuery = new URLSearchParams(location.search);
     pageQuery.set('page', value.toString());
     navigate(`?${pageQuery.toString()}`, { replace: true });
   }
 
   useEffect(() => {
+    const sortByValue = pageSortOrder[getlastPartOfPath(location.pathname)];
+    // console.log("🚀 ~ useEffect ~ sortByValue:", sortByValue)
     if (!sortByValue) return;
     if (!categoryData.items) return;
     if (sortByValue === SortingOption.Popular) {
@@ -38,7 +44,23 @@ function ProductList({ page, setPage }: { page: number, setPage: any }) {
     else if (sortByValue === SortingOption.PriceLowToHigh) {
       dispatch(setSortedItems(sortByPriceLowToHigh(categoryData.items)));
     }
-  }, [categoryData?.items, sortByValue, page]);
+  }, [categoryData?.items, pageSortOrder, page, location.pathname]);
+
+  useEffect(() => {
+    if (categoryData.items?.length ?? 0 > 0) {
+      const productIds = categoryData?.items?.map((product: any) => product?.productId);
+      setProductIds({ productIds })
+    }
+  }, [categoryData.specifications])
+
+  useEffect(() => {
+    if (priceData?.data?.length > 0) {
+      const idwithpriceObj: any = {}
+      priceData?.data?.forEach((product: any) => idwithpriceObj[product?.productId] = product)
+      // setPriceForEachId(() => idwithpriceObj)
+      dispatch(setPriceForEachItem(idwithpriceObj));
+    }
+  }, [priceData])
 
   return (
     <Box className="ProductList">

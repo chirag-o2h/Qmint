@@ -26,7 +26,12 @@ const initialState: categoryData = {
   productDetailsData: {},
   sortBy: null,
   sortedItems: [],
-  clearFilters: false
+  clearFilters: false,
+  pageSelectedFilters: {
+    price: {},
+    specification: {},
+  }, // it is to store the filters for the page,
+  pageSortOrder: {}
 }
 
 export const getCategoryData = appCreateAsyncThunk(
@@ -54,7 +59,7 @@ export const categoryPageSlice = createSlice({
     },
     setSortedItems: (state, action) => {
       state.sortedItems = action.payload
-      console.log("🚀 ~ state.items:", state.items)
+      // console.log("🚀 ~ state.items:", state.items)
     },
     setPriceForEachItem: (state, action: any) => {
       const priceForEachId = action.payload;
@@ -74,11 +79,41 @@ export const categoryPageSlice = createSlice({
       state.productDetailsData = {}
       state.loading = false
     },
-    setSortBy: (state, action) => {
-      state.sortBy = action.payload
-    },
+    // setSortBy: (state, action) => {
+    //   state.sortBy = action.payload
+    // },
     setClearFilters: (state, action) => {
       state.clearFilters = action.payload
+    },
+    setPageSelectedSpecifications: (state, action) => {
+      const { key, value } = action.payload;
+      // console.log("🚀 ~ pagesSelectedFilters: reducer", key, value)
+      // key is categorry name and value is selected filters on that
+      state.pageSelectedFilters = {
+        ...state.pageSelectedFilters,
+        specification: {
+          ...state.pageSelectedFilters.specification,
+          [key]: value
+        },
+      }
+    },
+    setPageSelectedPrice: (state, action) => {
+      const { key, value } = action.payload;
+      state.pageSelectedFilters = {
+        ...state.pageSelectedFilters,
+        price: {
+          ...state.pageSelectedFilters.price,
+          [key]: value
+        }
+      }
+
+    },
+    setPageSortOrder: (state, action) => {
+      const { key, value } = action.payload;
+      state.pageSortOrder = {
+        ...state.pageSortOrder,
+        [key]: value
+      }
     }
   },
 
@@ -89,6 +124,7 @@ export const categoryPageSlice = createSlice({
     })
     builder.addCase(getCategoryData.fulfilled, (state, action) => {
       const responseData = action.payload.data.data;
+      console.log("🚀 ~ builder.addCase ~ responseData:", responseData)
       const additionalField = responseData.additionalField;
 
       if (additionalField && additionalField.filters) {
@@ -126,13 +162,13 @@ export const categoryPageSlice = createSlice({
       state.loading = false;
 
     })
-    builder.addCase(getProductDetailsData.rejected, (state,action) => {
+    builder.addCase(getProductDetailsData.rejected, (state, action) => {
       state.loading = false;
-      state.productDetailsData = {errorMessage: action.payload?.response?.data?.message}
+      state.productDetailsData = { errorMessage: action.payload?.response?.data?.message }
     })
   },
 })
 
-export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setSortBy, setClearFilters } = categoryPageSlice.actions;
+export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice, setPageSortOrder } = categoryPageSlice.actions;
 
 export default categoryPageSlice.reducer

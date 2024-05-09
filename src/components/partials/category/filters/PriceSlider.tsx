@@ -1,18 +1,29 @@
-import { useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import useDebounce from '@/hooks/useDebounce'
-import { Box, Slider, Typography } from '@mui/material'
+import { setPageSelectedSpecifications, setPageSelectedPrice } from '@/redux/reducers/categoryReducer'
+import { getlastPartOfPath } from '@/utils/common'
+import { Box, Slider, Typography, useMediaQuery } from '@mui/material'
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
-const PriceSlider = ({ minPrice, maxPrice, setSelectedPrice, selectedPrice, setIsPriceChanged }: { minPrice: number, maxPrice: number, setSelectedPrice: any, selectedPrice?: number[] | null, setIsPriceChanged: any }) => {
-    const [value, setValue] = useState<number[]>(selectedPrice ? [selectedPrice[0], selectedPrice[1]] : [minPrice, maxPrice])
-    // console.log("🚀 ~ PriceSlider ~ value:", value, minPrice, maxPrice)
+const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilters, mobilePriceFilters, setMobilePriceFilters }: { minPrice: number, maxPrice: number, setIsPriceChanged: any, pagesSelectedFilters: any, mobilePriceFilters?: number[], setMobilePriceFilters?: any }) => {
+    console.log("🚀 ~ PriceSlider ~ mobilePriceFilters:", mobilePriceFilters)
+    const dispatch = useAppDispatch();
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+    const [value, setValue] = useState<number[]>(isMobile ? mobilePriceFilters || [minPrice, maxPrice] : [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || minPrice, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || maxPrice])
     const clearFilters = useAppSelector(state => state.category.clearFilters)
+
     const debouncedValue = useDebounce(value, 700);
     const firstUpdate = useRef(true);
 
     useLayoutEffect(() => {
-        setValue([minPrice, maxPrice])
-    }, [minPrice, maxPrice, setValue])
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+        dispatch(setPageSelectedPrice({
+            key: getlastPartOfPath(location.pathname), value: [minPrice, maxPrice]
+        }))
+    }, [minPrice, maxPrice])
 
     useEffect(() => {
         if (clearFilters) {
@@ -28,7 +39,14 @@ const PriceSlider = ({ minPrice, maxPrice, setSelectedPrice, selectedPrice, setI
         if (value[0] !== minPrice || value[1] !== maxPrice) {
             setIsPriceChanged(true);
         }
-        setSelectedPrice([value[0], value[1]])
+        if (isMobile) {
+            setMobilePriceFilters(value)
+        }
+        else {
+            dispatch(setPageSelectedPrice({
+                key: getlastPartOfPath(location.pathname), value: value
+            }))
+        }
     }, [debouncedValue])
 
     const valuetext = (value: number) => {
@@ -36,8 +54,9 @@ const PriceSlider = ({ minPrice, maxPrice, setSelectedPrice, selectedPrice, setI
     }
 
     const handleChange = (event: Event, newValue: number | number[]) => {
-        setValue(newValue as number[]);
+        setValue(newValue as number[])
     }
+
     const renderPriceRange = useMemo(() => {
         return (
             <Slider

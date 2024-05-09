@@ -7,13 +7,16 @@ import Seo from "@/components/common/Seo"
 import CategoryFilters from "@/components/partials/category/filters/CategoryFilters"
 import ProductList from "@/components/partials/category/ProductList"
 import SortBy from "@/components/partials/category/filters/SortBy"
-import { getCategoryData, setPriceForEachItem } from "@/redux/reducers/categoryReducer"
+import { getCategoryData, setClearFilters, setPageSelectedPrice, setPageSelectedSpecifications, setPageSortOrder, setPriceForEachItem } from "@/redux/reducers/categoryReducer"
 import { ENDPOINTS } from "@/utils/constants"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { categoryRequestBody } from "@/types/categoryRequestBody"
 import useApiRequest from "@/hooks/useAPIRequest"
 import { serProgressLoaderStatus } from "@/redux/reducers/homepageReducer"
 import Loader from "@/components/common/Loader"
+import { getlastPartOfPath } from "@/utils/common"
+import useDebounce from "@/hooks/useDebounce"
+import { navigate } from "gatsby"
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -28,17 +31,27 @@ export const requestBodyDefault: categoryRequestBody = {
         specification: {}
     }
 }
+let timeOut: any;
 
-function Category(props:any) {
+function Category(props: any) {
     const searchParams = useMemo(() => new URLSearchParams(props?.location?.search), [props?.location, window.location]);
     const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
     const [page, setPage] = useState(searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1);
     const dispatch = useAppDispatch();
-    
-    const [productIds, setProductIds] = useState({})
-    const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);
-    const categoryData = useAppSelector(state => state.category);
+
     const checkLoadingStatus = useAppSelector(state => state.category.loading);
+    const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
+    const [isPriceChanged, setIsPriceChanged] = useState<boolean>(false);
+    const clearFilters = useAppSelector(state => state.category.clearFilters)
+    const filtersD = useMemo(() => pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}, [pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)]])
+    const priceD = useMemo(() => pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null, [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]])
+    const debounceFilter = useDebounce(filtersD, 700);
+    const debouncePrice = useDebounce(priceD, 700);
+
+    useEffect(() => {
+        setPage(1); // reset page number to 1 when path changes for new category
+        fetchData()
+    }, [window.location.pathname])
 
     useEffect(() => {
         dispatch(serProgressLoaderStatus(true))
@@ -48,24 +61,65 @@ function Category(props:any) {
     }, [])
 
     useEffect(() => {
-        if (categoryData.items?.length ?? 0 > 0) {
-            const productIds = categoryData?.items?.map((product: any) => product?.productId);
-            setProductIds({ productIds })
+        if (clearFilters) {
+            setPage(1);
+            dispatch(setPageSelectedSpecifications({
+                key: getlastPartOfPath(location.pathname), value: undefined
+            }))
+            dispatch(setPageSelectedPrice({
+                key: getlastPartOfPath(location.pathname), value: undefined
+            }))
+            dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
+            dispatch(setClearFilters(false));
+            fetchData();
         }
-    }, [categoryData.specifications])
+    }, [clearFilters])
 
     useEffect(() => {
-        if (priceData?.data?.length > 0) {
-            const idwithpriceObj: any = {}
-            priceData?.data?.forEach((product: any) => idwithpriceObj[product?.productId] = product)
-            // setPriceForEachId(() => idwithpriceObj)
-            dispatch(setPriceForEachItem(idwithpriceObj));
+        if (clearFilters) {
+            return;
         }
-    }, [priceData])
+        console.log("debounceFilter", debounceFilter, debouncePrice)
+        if (Object.keys(debounceFilter).length === 0 && !isPriceChanged) {
+            return;
+        }
+        searchParams.set('page', "1");
+        navigate(`?${searchParams.toString()}`, { replace: true });
+        fetchData();
+    }, [debounceFilter, debouncePrice])
+
+    useEffect(() => {
+        fetchData();
+    }, [page])
+
+    const fetchData = async () => {
+        const selectedPrice = pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null;
+        const selectedFilters = pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {};
+
+        const commonArgument = {
+            pageNo: page - 1, filters: { minPrice: selectedPrice?.[0], maxPrice: selectedPrice?.[1], specification: selectedFilters }
+        };
+
+        const argumentForService = {
+            url: searchParams.has("keyword") ? ENDPOINTS.search : ENDPOINTS.getCategoryData + `/${getlastPartOfPath(location.pathname)}`,
+            body: searchParams.has("keyword") ? { ...requestBodyDefault, search: searchParams.get("keyword")!, ...commonArgument } : { ...requestBodyDefault, ...commonArgument }
+        }
+        if (timeOut) {
+            clearTimeout(timeOut)
+        }
+        timeOut = setTimeout(() => {
+            dispatch(getCategoryData(
+                argumentForService) as any)
+        }, 1000);
+        // if (selectedFilters && Object.keys(selectedFilters)?.length || (selectedPrice)) {
+        // await dispatch(getCategoryData(
+        //   argumentForService) as any)
+        // }
+    }
 
     return (
         <Layout>
-            <Loader open = {checkLoadingStatus} />
+            <Loader open={checkLoadingStatus} />
             <Seo
                 keywords={[`QMint categories`]}
                 title="Category"
@@ -75,11 +129,11 @@ function Category(props:any) {
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
                         <SortBy />
-                        <CategoryFilters setPage={setPage} page={page} searchParams={searchParams} />
+                        <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} />
                     </Stack>
                 ) : null}
                 <Stack className="MainContent">
-                    {!isSmallScreen ? <CategoryFilters page={page} setPage={setPage} searchParams={searchParams} /> : null}
+                    {!isSmallScreen ? <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} /> : null}
                     <ProductList page={page} setPage={setPage} />
                 </Stack>
             </Container>
