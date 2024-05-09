@@ -5,19 +5,23 @@ import PriceSlider from './PriceSlider'
 import RenderCheckboxField from './RenderCheckboxField'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { setClearFilters } from '@/redux/reducers/categoryReducer'
+import { categoryData } from '@/types/categoryData'
 interface props {
     renderList: (data: any) => any,
-    selectedFilters: { [key: string]: string[] },
-    setSelectedFilters: any,
-    setSelectedPrice: any,
-    setIsPriceChanged: any
+    // selectedFilters: { [key: string]: string[] },
+    // setSelectedFilters?: any,
+    // setSelectedPrice: any,
+    setIsPriceChanged: any,
+    pagesSelectedFilters: any,
+    categoryData: categoryData
+    // selectedPrice: number[] | null
 }
 
-const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice, selectedFilters, setIsPriceChanged }: props) => {
+const LargerScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilters ,categoryData}: props) => {
     // console.log("🚀 ~ LargerScreenFilters ~ selectedFilters:", selectedFilters)
     // const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search])
     const dispatch = useAppDispatch();
-    const categoryData = useAppSelector(state => state.category)
+    // const categoryData = useAppSelector(state => state.category)
 
     const clearFiltersHandler = () => {
         dispatch(setClearFilters(true));
@@ -25,7 +29,7 @@ const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice,
 
     return (
         <Box className="CategoryFilters">
-            {categoryData.items && categoryData.items.length > 0 && <Box sx={{ padding: '16px 14px 0', textAlign: 'center' }}>
+            {categoryData.items && <Box sx={{ padding: '16px 14px 0', textAlign: 'center' }}>
                 <Button variant="outlined" onClick={clearFiltersHandler}>Clear Filter</Button>
             </Box>}
             {categoryData.categories.length > 0 && <Box className="CategoriesWrapper">
@@ -60,7 +64,7 @@ const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice,
                 </Accordion>
             </Box>}
             <Box className="FilterByWrapper">
-                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setSelectedPrice={setSelectedPrice} setIsPriceChanged={setIsPriceChanged} />}
+                {categoryData.price && <PriceSlider minPrice={categoryData?.price?.minPrice} maxPrice={categoryData?.price?.maxPrice} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} />}
                 {Object.keys(categoryData.specifications).map((filter: any, index: number) => (
                     <Accordion key={filter} className="Divider">
                         <AccordionSummary
@@ -83,8 +87,6 @@ const LargerScreenFilters = ({ renderList, setSelectedFilters, setSelectedPrice,
                                     )
                                 }
                                 )}
-                                selectedFilters={selectedFilters}
-                                setSelectedFilters={setSelectedFilters}
                             />
                         </AccordionDetails>
                     </Accordion>

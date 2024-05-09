@@ -3,8 +3,10 @@ import React, { useEffect, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { useMediaQuery } from '@mui/material'
+import { setPageSelectedSpecifications } from '@/redux/reducers/categoryReducer'
+import { getlastPartOfPath } from '@/utils/common'
 
 const schema = yup.object().shape({
     Gender: yup.array().required().nullable(),
@@ -13,12 +15,15 @@ const schema = yup.object().shape({
 interface props {
     filter: string,
     options: any,
-    selectedFilters: { [key: string]: string[] },
-    setSelectedFilters: any,
+    mobileSelectedFilters?: { [key: string]: string[] },
+    setMobileSelectedFilters?: any,
 }
 
-const RenderCheckboxField = ({ filter, options, setSelectedFilters, selectedFilters }: props) => {
+const RenderCheckboxField = ({ filter, options, mobileSelectedFilters, setMobileSelectedFilters }: props) => {
+    console.log("🚀 ~ RenderCheckboxField ~ mobileSelectedFilters:", mobileSelectedFilters)
     const [isPending, startTransition] = useTransition();
+    const dispatch = useAppDispatch()
+    const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const clearFilters = useAppSelector(state => state.category.clearFilters)
 
@@ -34,23 +39,24 @@ const RenderCheckboxField = ({ filter, options, setSelectedFilters, selectedFilt
     })
 
     useEffect(() => {
-        if (isMobile) {
-            for (const key in selectedFilters) {
-                if (key === filter) {
-                    const obj: any = {};
-                    selectedFilters[key]?.length > 0 && selectedFilters[key].forEach((value: string) => {
-                        obj[value] = true;
-                    })
-                    setValue(filter, obj)
-                }
+        const selectedFilters = isMobile ? mobileSelectedFilters : pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {};
+        // if (isMobile) {
+        for (const key in selectedFilters) {
+            if (key === filter) {
+                const obj: any = {};
+                selectedFilters[key]?.length > 0 && selectedFilters[key].forEach((value: string) => {
+                    obj[value] = true;
+                })
+                setValue(filter, obj)
             }
         }
-    }, [selectedFilters, isMobile])
+        // }
+    }, [pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)]])
 
     useEffect(() => {
         if (clearFilters) {
             reset();
-            setSelectedFilters({});
+            dispatch(setPageSelectedSpecifications({ key: getlastPartOfPath(location.pathname), value: undefined }))
         }
     }, [clearFilters])
 
@@ -63,12 +69,13 @@ const RenderCheckboxField = ({ filter, options, setSelectedFilters, selectedFilt
             for (const key in currentSpecification[filter]) {
                 if (currentSpecification[filter][key]) specificationValues.push(key);
             }
-            setSelectedFilters((prev: { [key: string]: string[] }) => {
-                return ({
-                    ...prev, [filter]: specificationValues.length === 0 ? undefined : specificationValues
-                })
-            })
 
+            if (isMobile) {
+                setMobileSelectedFilters({ ...mobileSelectedFilters, [filter]: specificationValues.length > 0 ? specificationValues : undefined })
+            }
+            else {
+                dispatch(setPageSelectedSpecifications({ key: getlastPartOfPath(location.pathname), value: { [filter]: specificationValues.length > 0 ? specificationValues : undefined } }))
+            }
         });
     }
 
@@ -79,7 +86,7 @@ const RenderCheckboxField = ({ filter, options, setSelectedFilters, selectedFilt
             register={register}
             name={filter}
             options={options}
-            alreadySelectedFilters={selectedFilters[filter]}
+            alreadySelectedFilters={isMobile ? (mobileSelectedFilters ? mobileSelectedFilters[filter] : undefined) : (pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] ? pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)][filter] : undefined)}
             setValue={setValue}
             getValues={getValues}
             onChange={onCheckboxChange}

@@ -1,3 +1,5 @@
+import { SortingOption } from "./enums"
+
 export interface categoryData {
   loading: boolean,
   items: [] | null,
@@ -12,5 +14,12 @@ export interface categoryData {
   productDetailsData: any,
   sortBy: SortingOption | null,
   sortedItems: any[] | null,
-  clearFilters: boolean
+  clearFilters: boolean,
+  pageSelectedFilters: {
+    price: { [key: string]: number[] },
+    specification: { [key: string]: { [key: string]: string[] } }
+  },
+  pageSortOrder: {
+    [key: string]: SortingOption
+  }
 }

@@ -46,7 +46,6 @@ function Checkout() {
     return
   }
   return (
-
     <Layout>
       <Loader open={checkLoadingStatus} />
       <Seo
