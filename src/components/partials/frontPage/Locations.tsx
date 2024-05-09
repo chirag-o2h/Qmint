@@ -70,7 +70,7 @@ function Locations() {
                                                     navigate('/blog/' + item.friendlyName)
                                                 }}>
                                                     <Box className="LocationsSlide">
-                                                        <img src={item?.imageUrl ?? noImage} alt={item?.title} />
+                                                        <img loading='lazy' src={item?.imageUrl ?? noImage} alt={item?.title} />
                                                         <Typography className="SlideDescription" onClick={() => {
                                                             navigate('/blog/' + item.friendlyName)
                                                         }}>{item?.title}</Typography>

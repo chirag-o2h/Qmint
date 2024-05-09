@@ -1,12 +1,7 @@
-import React, { Suspense, lazy, useEffect, useState } from "react"
-import { Skeleton } from "@mui/material";
+import React, {lazy, useEffect } from "react"
 import Seo from "../components/common/Seo"
-import Banner from '../components/partials/frontPage/Banner'
-const MobileSecondaryMenu = lazy(() => import('../components/header/MobileSecondaryMenu'));
-const LookingFor = lazy(() => import("../components/partials/home/LookingFor"))
-const PopularProducts = lazy(() => import("../components/partials/home/PopularProducts"))
-const DiscoverTreasure = lazy(() => import("../components/partials/home/DiscoverTreasure"))
-import LazyHeader from "../components/header/FrontHeader"
+import Banner  from "../components/partials/frontPage/Banner"
+// const Banner = lazy(()=>import('../components/partials/frontPage/Banner'))
 const CloserLookMain = lazy(() => import("../components/partials/frontPage/CloserLookMain"))
 const TheJournal = lazy(() => import("../components/partials/frontPage/TheJournal"))
 const Locations = lazy(() => import("../components/partials/frontPage/Locations"))
@@ -15,7 +10,6 @@ const Experience = lazy(() => import("../components/partials/frontPage/Experienc
 const KnowMore = lazy(() => import("../components/partials/frontPage/KnowMore"))
 const LatestStories = lazy(() => import("../components/partials/frontPage/LatestStories"))
 const Gallery = lazy(() => import("../components/partials/frontPage/Gallery"))
-const LazyFooter = lazy(() => import('../components/footer/FrontFooter'));
 import FeaturedProducts from "../components/partials/home/FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
@@ -35,6 +29,7 @@ function MainHomePage(
 ) {
     const dispatch = useAppDispatch()
     const { configDetails: configDetailsState, openToaster, scrollPosition, loading, mainHomePageData } = useAppSelector((state) => state.homePage)
+    console.log("🚀 ~ configDetailsState:", "[Web Vitals Extension]", configDetailsState?.sliderenableinhome?.value)
     // useEffect(() => {
     //     dispatch(setConfigDetails(serverData.configDetails))
     //     dispatch(setMainHomePageData(serverData.mainHomePageData))
@@ -62,22 +57,24 @@ function MainHomePage(
                 <Loader open={loading} />
                 {openToaster && <Toaster />}
                 <Seo
-                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel','Qmit','gold','metal']}
+                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal']}
                     title="Home"
                     lang="en"
                 />
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
                 <Box className="FrontPage">
-                    {/* {configDetailsState?.sliderenableinhome?.value === false ? null : } */}
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value ? <Banner bannerData={null}/> : null}</RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={1025}><Adventure /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={614}><Experience /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={973}><KnowMore /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={731}><LatestStories /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={844}><Gallery /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={875}><CloserLookMain /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'600px'} threshold={0.25} minHeight={1083}><TheJournal /></RenderOnViewportEntry>
+                    {configDetailsState?.sliderenableinhome?.value === false ? null :
+                    <Banner bannerData={null} />
+                    }
+                    {/* <RenderOnViewportEntry rootMargin={'300px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value === false ? null :<Banner bannerData={null} /> }</RenderOnViewportEntry> */}
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={1025}><Adventure /></RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={614}><Experience /></RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={973}><KnowMore /></RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={731}><LatestStories /></RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={844}><Gallery /></RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={875}><CloserLookMain /></RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={1083}><TheJournal /></RenderOnViewportEntry>
                 </Box>
             </MainLayout>
         </div>

@@ -11,17 +11,29 @@ interface MainLayout {
 }
 
 const MainLayout = (props: MainLayout) => {
-    const {children, blackTheme} = props
+    const { children, blackTheme } = props
     return (
         <Stack id="PageLayout">
-            <Suspense fallback={<></>}>
+            <Suspense fallback={<div
+                className="CustomSkeleton"
+                style={{
+                    minHeight: '140px',
+                    position: 'absolute',
+                    top: 0
+                }}
+            ></div>}>
                 <LazyFrontHeader blackTheme={blackTheme} />
             </Suspense>
             <main>
                 {children}
             </main>
             {<Suspense fallback={
-                <></>
+                <div
+                    className="CustomSkeleton"
+                    style={{
+                        minHeight: '380px',
+                    }}
+                ></div>
             }>
                 <LazyFrontFooter />
             </Suspense>}
