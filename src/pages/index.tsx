@@ -1,6 +1,6 @@
-import React, {lazy, useEffect } from "react"
+import React, { lazy, useEffect } from "react"
 import Seo from "../components/common/Seo"
-import Banner  from "../components/partials/frontPage/Banner"
+import Banner from "../components/partials/frontPage/Banner"
 // const Banner = lazy(()=>import('../components/partials/frontPage/Banner'))
 const CloserLookMain = lazy(() => import("../components/partials/frontPage/CloserLookMain"))
 const TheJournal = lazy(() => import("../components/partials/frontPage/TheJournal"))
@@ -10,7 +10,6 @@ const Experience = lazy(() => import("../components/partials/frontPage/Experienc
 const KnowMore = lazy(() => import("../components/partials/frontPage/KnowMore"))
 const LatestStories = lazy(() => import("../components/partials/frontPage/LatestStories"))
 const Gallery = lazy(() => import("../components/partials/frontPage/Gallery"))
-import FeaturedProducts from "../components/partials/home/FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { CategoriesListDetails, HomePageSectionDetails, configDetails, serProgressLoaderStatus, setConfigDetails, setMainHomePageData, setScrollPosition } from "@/redux/reducers/homepageReducer"
@@ -22,14 +21,12 @@ import Toaster from "@/components/common/Toaster";
 import Loader from "@/components/common/Loader";
 import MainLayout from "@/components/common/MainLayout";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
-import axios from "axios";
 
 function MainHomePage(
     // { serverData }: { serverData: { configDetails: any,mainHomePageData:any, bannerData:any } }
 ) {
     const dispatch = useAppDispatch()
     const { configDetails: configDetailsState, openToaster, scrollPosition, loading, mainHomePageData } = useAppSelector((state) => state.homePage)
-    console.log("🚀 ~ configDetailsState:", "[Web Vitals Extension]", configDetailsState?.sliderenableinhome?.value)
     // useEffect(() => {
     //     dispatch(setConfigDetails(serverData.configDetails))
     //     dispatch(setMainHomePageData(serverData.mainHomePageData))
@@ -57,14 +54,15 @@ function MainHomePage(
                 <Loader open={loading} />
                 {openToaster && <Toaster />}
                 <Seo
-                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal']}
-                    title="Home"
+                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...configDetailsState?.storemetakeywords?.value?.split(',')]}
+                    title={configDetailsState?.storetital?.value}
                     lang="en"
+                    description={configDetailsState?.storemetadescription?.value}
                 />
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
                 <Box className="FrontPage">
                     {configDetailsState?.sliderenableinhome?.value === false ? null :
-                    <Banner bannerData={null} />
+                        <Banner bannerData={null} />
                     }
                     {/* <RenderOnViewportEntry rootMargin={'300px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value === false ? null :<Banner bannerData={null} /> }</RenderOnViewportEntry> */}
                     <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>

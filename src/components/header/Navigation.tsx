@@ -7,6 +7,8 @@ import { HoverTooltip } from "../common/CustomTooltip"
 import { ConstantApiLoader, PageLoader } from "./Loader"
 const ChartMenu = lazy(() => import('./ChartMenu'))
 const CartMenu = lazy(() => import('./CartMenu'))
+const CartDropdownMenu = lazy(() => import('../common/CartDropdownMenu'))
+
 import ActionMenu from "./ActionMenu"
 import MegaMenu from "./MegaMenu"
 import { useAppDispatch, useAppSelector } from "@/hooks"
@@ -21,7 +23,6 @@ import { ENDPOINTS } from "@/utils/constants"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { bodyForGetShoppingCartData, formatCategoryUrl, getLengthOfThePaths, getlastPartOfPath } from "@/utils/common"
 import { CategoriesListDetails, getLiveDashboardChartData } from "@/redux/reducers/homepageReducer"
-import CartDropdownMenu from "../common/CartDropdownMenu"
 import useApiRequest from "@/hooks/useAPIRequest"
 import { CartItem } from "@/types/shoppingCart"
 import { CartItemsWithLivePriceDetails } from "../partials/shopping-cart/CartDetails"
@@ -129,7 +130,7 @@ function Navigation({ frontPage = false }: { frontPage?: boolean }) {
             <Stack className="RightPart">
               {needToShowProgressLoader && <ProductUpdateCountdown needToShowText={false} />}
               {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ? <Suspense fallback={<></>}> <ChartMenu /></Suspense> : null}
-              {configDetailsState?.enablecart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ? <Suspense fallback={<></>}>
+              {configDetailsState?.enablecart?.value ? <Suspense fallback={<></>}>
                 <HoverTooltip
                   className="CartHoverList"
                   placement="bottom-start"
@@ -143,9 +144,8 @@ function Navigation({ frontPage = false }: { frontPage?: boolean }) {
                   disablePortal
                   lightTheme
                 >
-                  <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} />
+                  {configDetailsState?.minishoppingcartenable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.minishoppingcartproductnumber?.value ?? 3}/>}
                 </HoverTooltip>
-
               </Suspense> : null}
               <ActionMenu />
             </Stack>

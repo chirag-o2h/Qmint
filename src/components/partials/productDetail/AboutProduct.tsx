@@ -81,6 +81,7 @@ function AboutProduct({ productId }: any) {
       wordWrap: 'break-word',
     },
   });
+  const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const { productDetailsData } = useAppSelector((state) => state.category)
   const { configDetails: configDetailsState, isLoggedIn, openToaster } = useAppSelector((state) => state.homePage)
   const { productIds: compareProducts } = useAppSelector((state) => state.compareProducts)
@@ -227,6 +228,13 @@ function AboutProduct({ productId }: any) {
         message: 'Quantity can not be zero',
         severity: 'error'
       })
+    }
+    if (cartItems?.length && (cartItems?.length >= configDetailsState?.maximumshoppingcartitems?.value)) {
+      showToaster({
+        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to cart.`,
+        severity: 'error'
+      })
+      return
     }
     const response = await apiCallFunction(ENDPOINTS.addToCartProduct, 'POST', {
       "productId": productId,

@@ -10,7 +10,7 @@ import useShowToaster from '@/hooks/useShowToaster';
 import { resetSubTotal, setCartItemWarning, updateShoppingCartData, updateSubTotal } from '@/redux/reducers/shoppingCartReducer';
 import { hasFulfilled } from '@/utils/common';
 
-function CartDropdownMenu({ cartItemsWithLivePrice }: any) {
+function CartDropdownMenu({ cartItemsWithLivePrice, howManyProductToShow }: any) {
     const dispatch = useAppDispatch()
     const { showToaster } = useShowToaster();
     const { cartItems } = useAppSelector((state) => state.shoppingCart)
@@ -60,7 +60,7 @@ function CartDropdownMenu({ cartItemsWithLivePrice }: any) {
                 {isThereItems && <Divider />}
                 {isThereItems && <Box className="CartDropdownMenuBody">
                     {(isThereItems) ?
-                        cartItemsWithLivePrice?.slice(0, 3)?.map((item: { imageUrl: string | undefined; friendlypagename: string; productName: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; LivePriceDetails: { price: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }; }) => {
+                        cartItemsWithLivePrice?.slice(0,howManyProductToShow)?.map((item: { imageUrl: string | undefined; friendlypagename: string; productName: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; LivePriceDetails: { price: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }; }) => {
                             return (
                                 <Stack className='ProductWrapper'>
                                     <Box className="ProductImagewrapper">

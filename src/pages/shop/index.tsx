@@ -79,13 +79,14 @@ function IndexPage() {
           lang="en"
         />
         {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
+
         {configDetailsState?.sliderenableinhome?.value === false || isMobile ? null : <Banner />}
         <Suspense fallback={<></>}> <ProductsSlider /></Suspense>
-        <Suspense fallback={<></>}> <FeaturedProducts /></Suspense>
-        <Suspense fallback={<></>}> <LookingFor /></Suspense>
-        <Suspense fallback={<></>}><PopularProducts /></Suspense>
-        <Suspense fallback={<></>}><DiscoverTreasure /></Suspense>
-        <Suspense fallback={<></>}><CloserLook /></Suspense>
+        {configDetailsState?.["home.featuredproductsenable"]?.value !== false && <Suspense fallback={<></>}> <FeaturedProducts /></Suspense>}
+        {configDetailsState?.["home.lookingforenable"]?.value !== false && <Suspense fallback={<></>}> <LookingFor /></Suspense>}
+        {configDetailsState?.["home.popularproductsenable"]?.value !== false && <Suspense fallback={<></>}><PopularProducts /></Suspense>}
+        {configDetailsState?.["home.discovertreasureenable"]?.value !== false && <Suspense fallback={<></>}><DiscoverTreasure /></Suspense>}
+        {configDetailsState?.["home.closerlookenable"]?.value !== false && <Suspense fallback={<></>}><CloserLook /></Suspense>}
         {openSessionExpireDialog && <SessionExpiredDialog
           open={openSessionExpireDialog}
           onClose={toggleSessionExpireDialog}
