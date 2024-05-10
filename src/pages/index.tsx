@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from "react"
+import React, { Suspense, lazy, useEffect } from "react"
 import Seo from "../components/common/Seo"
 import Banner from "../components/partials/frontPage/Banner"
 // const Banner = lazy(()=>import('../components/partials/frontPage/Banner'))
@@ -10,6 +10,9 @@ const Experience = lazy(() => import("../components/partials/frontPage/Experienc
 const KnowMore = lazy(() => import("../components/partials/frontPage/KnowMore"))
 const LatestStories = lazy(() => import("../components/partials/frontPage/LatestStories"))
 const Gallery = lazy(() => import("../components/partials/frontPage/Gallery"))
+const MainLayout = lazy(() => import("@/components/common/MainLayout"))
+// import MainLayout from "@/components/common/MainLayout";
+
 import { ENDPOINTS } from "@/utils/constants"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { CategoriesListDetails, HomePageSectionDetails, configDetails, serProgressLoaderStatus, setConfigDetails, setMainHomePageData, setScrollPosition } from "@/redux/reducers/homepageReducer"
@@ -19,7 +22,6 @@ import Layout from "@/components/common/Layout";
 import useUserDetailsFromToken from "@/hooks/useUserDetailsFromToken";
 import Toaster from "@/components/common/Toaster";
 import Loader from "@/components/common/Loader";
-import MainLayout from "@/components/common/MainLayout";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 
 function MainHomePage(
@@ -47,35 +49,37 @@ function MainHomePage(
     // const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     // useAPIoneTime({ service: HomePageSectionDetails, endPoint: ENDPOINTS.homePageSection })
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
+    const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
     return (
-        <div className="flex flex-col min-h-screen">
-            {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-            <MainLayout>
-                <Loader open={loading} />
-                {openToaster && <Toaster />}
-                <Seo
-                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...configDetailsState?.storemetakeywords?.value?.split(',')]}
-                    title={configDetailsState?.storetital?.value}
-                    lang="en"
-                    description={configDetailsState?.storemetadescription?.value}
-                />
-                {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
-                <Box className="FrontPage">
-                    {configDetailsState?.sliderenableinhome?.value === false ? null :
-                        <Banner bannerData={null} />
-                    }
-                    {/* <RenderOnViewportEntry rootMargin={'300px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value === false ? null :<Banner bannerData={null} /> }</RenderOnViewportEntry> */}
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={1025}><Adventure /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={614}><Experience /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={973}><KnowMore /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={731}><LatestStories /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={844}><Gallery /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={875}><CloserLookMain /></RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={1083}><TheJournal /></RenderOnViewportEntry>
-                </Box>
-            </MainLayout>
-        </div>
+        <Suspense fallback={<Box id="HeaderWrapper" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loadig.........</Box>}>
+            <div className="flex flex-col min-h-screen">
+                <MainLayout>
+                    <Loader open={loading} />
+                    {openToaster && <Toaster />}
+                    <Seo
+                        keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
+                        title={configDetailsState?.storetital?.value}
+                        lang="en"
+                        description={configDetailsState?.storemetadescription?.value}
+                    />
+                    {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
+                    <Box className="FrontPage">
+                        {configDetailsState?.sliderenableinhome?.value === false ? null :
+                            <Banner bannerData={null} />
+                        }
+                        {/* <RenderOnViewportEntry rootMargin={'300px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value === false ? null :<Banner bannerData={null} /> }</RenderOnViewportEntry> */}
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={1025}><Adventure /></RenderOnViewportEntry>
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={614}><Experience /></RenderOnViewportEntry>
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={973}><KnowMore /></RenderOnViewportEntry>
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={731}><LatestStories /></RenderOnViewportEntry>
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={844}><Gallery /></RenderOnViewportEntry>
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={875}><CloserLookMain /></RenderOnViewportEntry>
+                        <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={1083}><TheJournal /></RenderOnViewportEntry>
+                    </Box>
+                </MainLayout>
+            </div>
+        </Suspense>
     )
 }
 

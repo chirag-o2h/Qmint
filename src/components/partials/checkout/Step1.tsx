@@ -243,6 +243,14 @@ function Step1() {
           </ClickTooltip>
         </Stack>
       </Box>
+      <FormControlLabel
+        name="SameAddress"
+        className="SameAddressCheckbox"
+        control={<Checkbox checked={isBillingAndShipingAddressSame} onChange={() => {
+          setisBillingAndShipingAddressSame((prev) => !prev)
+        }} />}
+        label="My Billing and shipping addresses are same"
+      />  
       {openUpdateAddress && <UpdateAddress open={openUpdateAddress} dialogTitle="Update Address" onClose={toggleUpdateAddress} existingAddress={isBillingAddress ? billingAddress : shippingAddress} />}
       <AddAddress open={openAddAddress} dialogTitle="Add Address" onClose={toggleAddAddress} addressTypeId={isBillingAddress ? AddressType.Billing : AddressType.Shipping} handleAddressUpdate={handleAddressUpdate} />
       <AlertDialog open={openAlertDialog} onClose={toggleAlertDialog} />

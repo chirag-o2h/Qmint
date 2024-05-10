@@ -193,7 +193,7 @@ function AboutProduct({ productId }: any) {
 
   }
   const addToWatchList = async (id: any) => {
-    const responseOFCurrentCount = await dispatch(getWishListData({
+    const responseOFCurrentCount:any = await dispatch(getWishListData({
       body: {
         "search": "",
         "pageNo": 0,
