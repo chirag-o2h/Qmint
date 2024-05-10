@@ -28,7 +28,7 @@ import { bodyForGetShoppingCartData, calculationOfThePremiumAndDiscount, getDefa
 import useCallAPI from "@/hooks/useCallAPI"
 import { navigate } from "gatsby"
 import { addProductToCompare } from "@/redux/reducers/compareProductsReducer"
-import { addToWishList } from "@/redux/reducers/wishListReducer"
+import { addToWishList, getWishListData } from "@/redux/reducers/wishListReducer"
 import Toaster from "@/components/common/Toaster"
 import { setToasterState } from "@/redux/reducers/homepageReducer"
 import { resetProductDetails } from "@/redux/reducers/categoryReducer"
@@ -193,6 +193,22 @@ function AboutProduct({ productId }: any) {
 
   }
   const addToWatchList = async (id: any) => {
+    const responseOFCurrentCount = await dispatch(getWishListData({
+      body: {
+        "search": "",
+        "pageNo": 0,
+        "pageSize": -1,
+        "sortBy": "",
+        "sortOrder": "", "filters": {}
+      }, url: ENDPOINTS.getWishListData
+    }))
+    if(responseOFCurrentCount?.payload?.data?.data?.items?.length >= configDetailsState?.maximumwishlistitems?.value){
+      showToaster({
+        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to Watchlist.`,
+        severity: 'error'
+      })
+      return
+    }
     const response = await dispatch(addToWishList({
       url: ENDPOINTS.addToWishList,
       body: {
