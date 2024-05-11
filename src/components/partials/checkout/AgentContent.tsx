@@ -48,18 +48,16 @@ const AgentContent = () => {
                         setInputAgentId(e.target.value);
                     }}
                 />
-                {(!localAgentDetails || (inputAgentId && inputAgentId?.trim().length < 5)) && <IconButton
-                    aria-label="close"
+                {(!localAgentDetails || (inputAgentId && inputAgentId?.trim().length < 5)) && <Box
                     className="CloseButton"
                 >
                     <CrossIconWithOutlineCircle />
-                </IconButton>}
-                {localAgentDetails && inputAgentId && inputAgentId?.trim().length >= 5 && <IconButton
-                    aria-label="verified"
+                </Box>}
+                {localAgentDetails && inputAgentId && inputAgentId?.trim().length >= 5 && <Box
                     className="verifiedButton"
                 >
                     <VerifiedIcon />
-                </IconButton>}
+                </Box>}
             </Stack>}
             {!localAgentDetails && <Typography className="InvalidData">{agentNotFoundMessage}</Typography>}
             {localAgentDetails && inputAgentId && inputAgentId?.trim().length >= 5 && <Box className="VerifiedData">
