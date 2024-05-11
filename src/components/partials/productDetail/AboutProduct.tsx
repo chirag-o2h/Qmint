@@ -28,7 +28,7 @@ import { bodyForGetShoppingCartData, calculationOfThePremiumAndDiscount, getDefa
 import useCallAPI from "@/hooks/useCallAPI"
 import { navigate } from "gatsby"
 import { addProductToCompare } from "@/redux/reducers/compareProductsReducer"
-import { addToWishList } from "@/redux/reducers/wishListReducer"
+import { addToWishList, getWishListData } from "@/redux/reducers/wishListReducer"
 import Toaster from "@/components/common/Toaster"
 import { setToasterState } from "@/redux/reducers/homepageReducer"
 import { resetProductDetails } from "@/redux/reducers/categoryReducer"
@@ -81,6 +81,7 @@ function AboutProduct({ productId }: any) {
       wordWrap: 'break-word',
     },
   });
+  const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const { productDetailsData } = useAppSelector((state) => state.category)
   const { configDetails: configDetailsState, isLoggedIn, openToaster } = useAppSelector((state) => state.homePage)
   const { productIds: compareProducts } = useAppSelector((state) => state.compareProducts)
@@ -192,6 +193,22 @@ function AboutProduct({ productId }: any) {
 
   }
   const addToWatchList = async (id: any) => {
+    const responseOFCurrentCount:any = await dispatch(getWishListData({
+      body: {
+        "search": "",
+        "pageNo": 0,
+        "pageSize": -1,
+        "sortBy": "",
+        "sortOrder": "", "filters": {}
+      }, url: ENDPOINTS.getWishListData
+    }))
+    if(responseOFCurrentCount?.payload?.data?.data?.items?.length >= configDetailsState?.maximumwishlistitems?.value){
+      showToaster({
+        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to Watchlist.`,
+        severity: 'error'
+      })
+      return
+    }
     const response = await dispatch(addToWishList({
       url: ENDPOINTS.addToWishList,
       body: {
@@ -227,6 +244,13 @@ function AboutProduct({ productId }: any) {
         message: 'Quantity can not be zero',
         severity: 'error'
       })
+    }
+    if (cartItems?.length && (cartItems?.length >= configDetailsState?.maximumshoppingcartitems?.value)) {
+      showToaster({
+        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to cart.`,
+        severity: 'error'
+      })
+      return
     }
     const response = await apiCallFunction(ENDPOINTS.addToCartProduct, 'POST', {
       "productId": productId,

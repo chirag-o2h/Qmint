@@ -60,7 +60,7 @@ function KnowMore() {
                                                 navigate('/blog/' + item.friendlyName)
                                             }}>
                                                 <Box className="KnowMoreSlide">
-                                                    <img src={item?.imageUrl} alt={item?.title} />
+                                                    <img loading='lazy' src={item?.imageUrl} alt={item?.title} />
                                                     <Box className="KnowMoreSlideContentBox">
                                                         <Typography className="SlideTitle">{item?.title}</Typography>
                                                         <Box className="HiddenContent">

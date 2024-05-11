@@ -11,7 +11,6 @@ const RenderOnViewportEntry = ({
 }: any) => {
     const ref = useRef()
     const entered = useFirstViewportEntry(ref, { threshold, root, rootMargin })
-    console.log("🚀 ~ entered:", entered)
     return (
         <div {...wrapperDivProps} ref={ref}  style={{
             minHeight: !entered ? minHeight : null,

@@ -62,7 +62,7 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
                     setTimeout(() => {
                         dispatch(setLoadingFalse())
                     }, 2000);
-                    // setLoading(false);
+                    setLoading(false);
                 }
             };
 

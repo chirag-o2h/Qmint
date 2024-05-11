@@ -67,7 +67,7 @@ function MobileSecondaryMenu() {
                 <SearchField />
               </Container>
             </ClickTooltip>
-            <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>
+            {configDetailsState?.enablephone?.value !== false && <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>}
             {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?
               <ChartMenu />
               : null}

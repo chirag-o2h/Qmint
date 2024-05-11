@@ -81,8 +81,15 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
     }
   };
   const { showToaster } = useShowToaster();
-
+  const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const handleAddToCart = async () => {
+    if (cartItems?.length && (cartItems?.length >= configDetailsState?.maximumshoppingcartitems?.value)) {
+      showToaster({
+        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to cart.`,
+        severity: 'error'
+      })
+      return
+    }
     const response = await apiCallFunction(ENDPOINTS.addToCartProduct, 'POST', {
       "productId": product.productId,
       "quantity": 1,

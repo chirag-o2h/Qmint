@@ -88,7 +88,7 @@ function Experience() {
                                                             </>
                                                             :
                                                             <>
-                                                                <img src={item.imageUrl ?? noImage} alt={item.title} />
+                                                                <img loading='lazy' src={item.imageUrl ?? noImage} alt={item.title} />
                                                             </>
                                                         }
 

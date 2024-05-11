@@ -47,26 +47,30 @@ const bodyData = {
 }
 import Loader from "@/components/common/Loader";
 import Seo from "@/components/common/Seo";
-function Blog({ serverData }: any) {
-  let blogList = serverData.data
-  let topThree = serverData.data.items.slice(0, 3)
+function Blog() {
+  // ssr uncommit below line
+  // let blogList = serverData.data
+  // let topThree = serverData.data.items.slice(0, 3)
   const { blogList: blogListFromTheRedux, topThree: topThreeFromTheRedux }: any = useAppSelector((state) => state.blogPage);
-  console.log("🚀 ~ Blog ~ blogListFromTheRedux:", topThree)
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const [value, setValue] = React.useState<any>("all");
   const [searchValue, setSearchValue] = useState<string>("");
-
-  const [body, setbody] = useState<any>();
+  // if ssr then remove the bodydata form initiatl 
+  const [body, setbody] = useState<any>(bodyData);
   const debounce = useDebounce(body, 500);
-  blogList = Object.keys(body ?? {}).length > 0 ? blogListFromTheRedux : blogList
-  topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length? topThreeFromTheRedux : topThree
+  // ssr uncommit below line
+  // blogList = Object.keys(body ?? {}).length > 0 ? blogListFromTheRedux : blogList
+  // topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length? topThreeFromTheRedux : topThree
+  let blogList = blogListFromTheRedux
+  let topThree = topThreeFromTheRedux
 
   useAPIoneTime({
     service: BlogList,
     endPoint: ENDPOINTS.BlogList,
     body: debounce,
-    conditionalCall: Object.keys(debounce ?? {}).length > 0
+    // if ssr then uncommit this below line
+    // conditionalCall: Object.keys(debounce ?? {}).length > 0
   });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -90,7 +94,7 @@ function Blog({ serverData }: any) {
         description={"Explore our latest blog posts for informative articles on various topics. Stay updated with our insights and analysis."}
       />
       <Box className="BlogPage">
-      <Box className="HeroSection">
+        <Box className="HeroSection">
           <Container>
             <Typography variant="h2" component="h2">
               {configDetailsState?.["blogpost.blogposttital"]?.value}
@@ -211,26 +215,26 @@ function Blog({ serverData }: any) {
 }
 
 export default Blog;
-export async function getServerData() {
-  try {
-    const res = await axios.post("https://qmapistaging.qmint.com/api/v1/" + ENDPOINTS.BlogList, bodyData, {
-      headers: {
-        "Storecode": 12,
-        "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
-      }
-    })
-    if (!res.data) {
-      throw new Error(`Response failed`)
-    }
+// export async function getServerData() {
+//   try {
+//     const res = await axios.post("https://qmapistaging.qmint.com/api/v1/" + ENDPOINTS.BlogList, bodyData, {
+//       headers: {
+//         "Storecode": 12,
+//         "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
+//       }
+//     })
+//     if (!res.data) {
+//       throw new Error(`Response failed`)
+//     }
 
-    return {
-      props: res.data,
-    }
-  } catch (error) {
-    return {
-      status: 500,
-      headers: {},
-      props: {}
-    }
-  }
-}
+//     return {
+//       props: res.data,
+//     }
+//   } catch (error) {
+//     return {
+//       status: 500,
+//       headers: {},
+//       props: {}
+//     }
+//   }
+// }

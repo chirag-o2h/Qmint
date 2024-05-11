@@ -48,7 +48,7 @@ function Adventure() {
                                                 navigate('/blog/' + item.friendlyName)
                                             }}>
                                                 <Box className="AdventureSlide">
-                                                    <img src={item?.imageUrl ?? noImage} alt={noImage} />
+                                                    <img loading='lazy' src={item?.imageUrl ?? noImage} alt={noImage} />
                                                     <Box className="AdventureSlideContentBox">
                                                         <Typography className="SlideTitle">{item?.title}</Typography>
                                                         <Typography className="SlideSubTitle">{item?.overview}</Typography>

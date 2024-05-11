@@ -17,7 +17,8 @@ const WishListDetails = ({ toggleEmailFriend }: { toggleEmailFriend: () => any }
     const wishListstate = useAppSelector(state => state.wishList)
     const dispatch = useAppDispatch();
     const loading = useAppSelector(state => state.wishList.loading)
-
+    const { cartItems } = useAppSelector((state) => state.shoppingCart)
+    const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
     const [productIds, setProductIds] = useState({})
     const { showToaster } = useShowToaster();
     const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);
@@ -122,7 +123,6 @@ const WishListDetails = ({ toggleEmailFriend }: { toggleEmailFriend: () => any }
     const addToCartSelectedItemsHandler = async () => {
         // await dispatch(deleteWishListData())
         const checkedItemsWithQuantity: { [key: string]: number }[] = [];
-
         for (const item in selectedItems) {
             if (selectedItems[item]) {
                 checkedItemsWithQuantity.push({
@@ -131,7 +131,13 @@ const WishListDetails = ({ toggleEmailFriend }: { toggleEmailFriend: () => any }
                 })
             }
         }
-
+        if (cartItems?.length && (cartItems?.length + checkedItemsWithQuantity?.length >= configDetailsState?.maximumshoppingcartitems?.value)) {
+            showToaster({
+                message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to cart.`,
+                severity: 'error'
+            })
+            return
+        }
         const response = await dispatch(addToWishListToShoppingCart({ url: ENDPOINTS.addWishListToShoppingCart, body: checkedItemsWithQuantity }) as any)
         if (hasFulfilled(response.type)) {
             // showToaster({message : "Selected items added to cart", severity: 'success'})

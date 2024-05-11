@@ -24,7 +24,8 @@ interface IbannerData {
     cdnUrlSmall: any
 }
 function Banner({bannerData}:any) {
-    // const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
+    const { data, loading }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
+    bannerData = data?.data
     const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
     const config = {
         slidesPerView: 1,
@@ -50,7 +51,7 @@ function Banner({bannerData}:any) {
     }
 
     return (
-        <Box id="Banner" component="section" key={'banner'}>
+        <Box id="Banner" component="section" key={'banner'} style={loading || bannerData?.length != 0 ? {minHeight:'100vh'} : {}}>
             <Box className="SwiperContainer">
                 <Swiper {...config}>
                     {

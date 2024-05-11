@@ -13,7 +13,7 @@ import Step2 from "@/components/partials/checkout/Step2"
 import Step3 from "@/components/partials/checkout/Step3"
 import OrderSummary from "@/components/partials/checkout/OrderSummary"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
-import { getCheckoutPageData } from "@/redux/reducers/checkoutReducer"
+import { getCheckoutPageData, updateFinalDataForTheCheckout } from "@/redux/reducers/checkoutReducer"
 import { ENDPOINTS } from "@/utils/constants"
 import { useAppDispatch, useAppSelector, useToggle } from "@/hooks"
 import useDeviceDetails from "@/hooks/useDeviceDetails"
@@ -31,10 +31,15 @@ function Checkout() {
   const checkLoadingStatus = useAppSelector(state => state.checkoutPage.loading);
   const { checkoutPageData, isApiCalled } = useAppSelector((state) => state.checkoutPage)
   const cartItems = useAppSelector(state => state.shoppingCart.cartItems);
-  const openToaster = useAppSelector(state => state.homePage.openToaster)
+  const { configDetails: configDetailsState, openToaster, } = useAppSelector((state) => state.homePage)
+  console.log("🚀 ~ Checkout ~ configDetailsState:", configDetailsState)
   const [state, setState] = useState({ service: getCheckoutPageData, endPoint: ENDPOINTS.checkoutDetails })
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
-
+  useEffect(() => {
+    if(configDetailsState?.enabletermsofserviceonorderconfirm?.value == false){
+      dispatch(updateFinalDataForTheCheckout({ termAndServiceIsRead: true }))
+    }
+  }, [configDetailsState?.enabletermsofserviceonorderconfirm?.value])
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const isInstantBuy = urlParams.get('isInstantBuy')
@@ -42,6 +47,9 @@ function Checkout() {
   }, [window.location.search, cartItems?.length])
   useAPIoneTime(state)
   useAlertPopUp({ pageName: 'Checkout', openPopup: toggleSessionExpireDialog })
+  if(configDetailsState?.checkoutenable?.value !== true){
+    navigate('/shop')
+  }
   if (loadingForCheckingLogin) {
     return
   }
@@ -62,7 +70,7 @@ function Checkout() {
               <Step1 />
               <Step2 />
               <Step3 />
-              <TermsServices />
+            {configDetailsState?.enabletermsofserviceonorderconfirm?.value !== false && <TermsServices />}
             </Stack>
             <OrderSummary />
           </>) : null}

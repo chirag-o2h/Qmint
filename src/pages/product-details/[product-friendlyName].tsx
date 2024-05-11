@@ -21,6 +21,7 @@ function ProductDetail({ params }: any) {
   const configDetails = useAppSelector(state => state.homePage.configDetails)
   const { showToaster } = useShowToaster();
   const checkLoadingStatus = useAppSelector(state => state.category.loading)
+  const checkLoadingStatusOfTheGetWishlist = useAppSelector(state => state.wishList.loading)
   const { productDetailsData } = useAppSelector((state) => state.category)
   console.log("🚀 ~ ProductDetail ~ productDetailsData:", productDetailsData)
   const dispatch = useAppDispatch()
@@ -44,7 +45,7 @@ function ProductDetail({ params }: any) {
   }, [productDetailsData])
   return (
     <Layout>
-      <Loader open={checkLoadingStatus} />
+      <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />
       <Seo
         keywords={[`QMint categories`]}
         title="Category"
