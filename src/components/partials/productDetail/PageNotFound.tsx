@@ -7,13 +7,14 @@ import { Idata, IpriceForEachId } from "@/components/partials/home/FeaturedProdu
 import useApiRequest from "@/hooks/useAPIRequest"
 import { ProductCard } from "@/components/common/Card"
 import { navigate } from "gatsby"
-import Toaster from "../common/Toaster"
+import Toaster from "../../common/Toaster"
+import PageNotFoundText from "../PageNotFoundText"
 
 // Components
 // import Layout from "../components/common/Layout"
 // import Seo from "../components/common/Seo"
-const Layout = lazy(() => import("../common/Layout"))
-const Seo = lazy(() => import("../common/Seo"))
+const Layout = lazy(() => import("../../common/Layout"))
+const Seo = lazy(() => import("../../common/Seo"))
 
 const defaultData = {
   "search": "",
@@ -26,7 +27,7 @@ const defaultData = {
   }
 }
 
-function FourZeroFour() {
+function PageNotFound() {
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   // const configDetails = useAppSelector(state => state.homePage.configDetails)
   const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
@@ -62,22 +63,11 @@ function FourZeroFour() {
     //     />
     <>
       {openToaster && <Toaster />}
-      <Box className="ErrorPage">
-        <Container>
-          <Box className="ErrorPageWrapper">
-            <Typography className="ErrorTitle" variant="h6" component="h2">We're sorry,</Typography>
-            <Typography className="ErrorTitleSubTitle" variant="h6" component="h2">It looks like the page that you are looking for doesn't exist. Please check the URL and try again.</Typography>
-            <Typography className="ErrorDescription" component="p" variant="subtitle1">Can’t find what you were looking for?</Typography>
-          </Box>
-        </Container>
-      </Box>
+
       {/* Related products */}
       <Box>
         <Container id="PopularProducts" component="section" style={{ paddingTop: "0px" }}>
-          {/* <SectionHeading
-              title={configDetails?.["home.popularproducts.tital"]?.value ?? "Explore our Popular Products*"}
-              description={configDetails?.["home.popularproducts.subtital"]?.value ?? "description*"}
-            /> */}
+          <PageNotFoundText showMoreTextQuestion={true}/>
           <Typography sx={{ textAlign: 'center', fontWeight: '500', fontSize: '20px' }} component="p" variant="subtitle1">We hope you strike better luck with this popular product</Typography>
 
           <Box className="ProductsWrapper">
@@ -117,4 +107,4 @@ function FourZeroFour() {
   )
 }
 
-export default React.memo(FourZeroFour)
+export default React.memo(PageNotFound)

@@ -51,7 +51,7 @@ function MainHomePage(
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
     const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
     return (
-        <Suspense fallback={<Box id="HeaderWrapper" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loadig.........</Box>}>
+        <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>
             <div className="flex flex-col min-h-screen">
                 <MainLayout>
                     <Loader open={loading} />

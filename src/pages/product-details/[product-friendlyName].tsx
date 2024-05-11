@@ -14,8 +14,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks"
 import { setRecentlyViewedProduct } from "@/redux/reducers/homepageReducer"
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
-import FourZeroFour from "@/components/partials/404"
 import useShowToaster from "@/hooks/useShowToaster"
+import PageNotFound from "@/components/partials/productDetail/PageNotFound"
 
 function ProductDetail({ params }: any) {
   const configDetails = useAppSelector(state => state.homePage.configDetails)
@@ -55,7 +55,7 @@ function ProductDetail({ params }: any) {
         <Container id="PageProductDetail">
           {productDetailsData?.productId && <AboutProduct productId={productDetailsData?.productId} />}
           {productDetailsData?.relatedProducts?.length > 0 && <RelatedProduct relatedProductsList={structuredClone(productDetailsData?.relatedProducts)} heading={configDetails["productdetails.relatedproducttital"]?.value} description={configDetails["productdetails.relatedproductsubtital"]?.value} />}
-        </Container></>) : <FourZeroFour />}
+        </Container></>) : <PageNotFound/>}
     </Layout>
   )
 }
