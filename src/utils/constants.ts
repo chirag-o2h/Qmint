@@ -50,6 +50,7 @@ export const ENDPOINTS = {
     getStateAndCountryLists: "utility/MEUpxqzLezhOjhjaN4I4XA",
     calculateInsuranceAndTaxDetails: "calculator/a5n79zVvKUKbIgrXui6tmA",
     calculateCraditCardCharges: "calculator/yGU45H6bwUuxggNPZF8R3g",
+    getLocalAgentDetails: "Checkout/P7RS0WEps/", // pass query parameter `AgentId`
 
     // order place process
     KioskPlaceOrderSendOTP: "orders/SnfaWtozdk6fvNoAMJE5ng/dPLcaeb7i0",
@@ -129,7 +130,7 @@ export const ENDPOINTS = {
     // new homepage
     mainHomePage: "home/HOb6OH12P5xFHos4DC1L3Q",
     //    upgrade Plan
-    upgradPlan : "Checkout/ZQtAuhUHduOX"
+    upgradPlan: "Checkout/ZQtAuhUHduOX"
 }
 export const StoreData = {
     storeCode: 12,

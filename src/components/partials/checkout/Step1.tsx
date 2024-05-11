@@ -23,6 +23,7 @@ import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { ENDPOINTS } from "@/utils/constants"
 import { AddressType } from "@/types/enums"
 import RenderFields from "@/components/common/RenderFields"
+import AgentContent from "./AgentContent"
 
 function Step1() {
   const dispatch = useAppDispatch()
@@ -244,48 +245,8 @@ function Step1() {
           </ClickTooltip>
         </Stack>
       </Box>
-      <Box className="FieldWrapper AgentCodeContent">
-        <FormControlLabel
-          name="SameAddress"
-          className="SameAddressCheckbox"
-          control={<Checkbox checked={isBillingAndShipingAddressSame} onChange={() => {
-            // setisBillingAndShipingAddressSame((prev) => !prev)
-          }} />}
-          label="Are you ordering via local agent?"
-        />
-        <Stack sx={{ gap: "10px", alignItems: "center" }} className="AgentCodeWrapper">
-          <RenderFields
-            // register={}
-            // error={errors.name}
-            name="name"
-            placeholder="Enter your agent code"
-            variant='outlined'
-          // required
-          />
-          <IconButton
-            aria-label="close"
-            className="CloseButton"
-          // onClick={onClose}
-          >
-            <CrossIconWithOutlineCircle />
-          </IconButton>
-          <IconButton
-            aria-label="verified"
-            className="verifiedButton"
-          // onClick={onClose}
-          >
-            <VerifiedIcon />
-          </IconButton>
-        </Stack>
-        <Typography className="InvalidData">No agent code found or not entered corretly</Typography>
-        <Box className="VerifiedData">
-          <Typography>Mark Test</Typography>
-          <Typography>Email: mark.vds@gmail.com</Typography>
-          <Typography>Email: mark.vds@gmail.com</Typography>
-          <Typography>phone:+5757876899</Typography>
-          <Typography>65, satelite road, broofiled, 4069, Australia</Typography>
-        </Box>
-      </Box>
+      <AgentContent />
+
       {openUpdateAddress && <UpdateAddress open={openUpdateAddress} dialogTitle="Update Address" onClose={toggleUpdateAddress} existingAddress={isBillingAddress ? billingAddress : shippingAddress} />}
       <AddAddress open={openAddAddress} dialogTitle="Add Address" onClose={toggleAddAddress} addressTypeId={isBillingAddress ? AddressType.Billing : AddressType.Shipping} handleAddressUpdate={handleAddressUpdate} />
       <AlertDialog open={openAlertDialog} onClose={toggleAlertDialog} />

@@ -36,6 +36,10 @@ class CheckoutPageServices {
     static async getStateAndCountryLists(url: string) {
         return axiosInstance.get(url);
     }
+
+    static async getLocalAgentDetails(url: string) {
+        return axiosInstance.post(url);
+    }
 }
 
 export default CheckoutPageServices

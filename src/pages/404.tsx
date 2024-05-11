@@ -5,7 +5,7 @@ import React from 'react'
 
 const FourZeroFour = () => {
     return (
-        <MainLayout>
+        <MainLayout blackTheme>
             <Box className="ErrorTextBox">
                 <PageNotFoundText showMoreTextQuestion={false} />
             </Box>

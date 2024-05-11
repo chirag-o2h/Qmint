@@ -95,6 +95,20 @@ interface CreditCardCharges {
     creditCardTax: number;
     creditCardFeeIncludingTax: number;
 }
+
+interface IAgentDetails {
+    id: number;
+    name: string;
+    agentId: string;
+    email: string;
+    phoneNumber: string;
+    address1: string;
+    address2: string;
+    city: string;
+    country: string;
+    state: string;
+    zipcode: number;
+}
 interface CheckoutPageState {
     loading: boolean,
     checkoutPageData: {
@@ -147,6 +161,7 @@ interface CheckoutPageState {
     countryList: StateOrCountry[]
     message: string | null
     otpverfiedMessage: string | null
+    localAgentDetails: IAgentDetails | null
 }
 const initialState: CheckoutPageState = {
     loading: false,
@@ -163,7 +178,8 @@ const initialState: CheckoutPageState = {
     stateList: [],
     countryList: [],
     message: null,
-    otpverfiedMessage: null
+    otpverfiedMessage: null,
+    localAgentDetails: null
 }
 
 export const getCheckoutPageData = appCreateAsyncThunk(
@@ -225,6 +241,13 @@ export const getStateAndCountryLists = appCreateAsyncThunk(
     "getStateAndCountryLists",
     async ({ url }: { url: string }) => {
         return await CheckoutPageServices.getStateAndCountryLists(url)
+    }
+)
+
+export const getLocalAgentDetails = appCreateAsyncThunk(
+    "getLocalAgentDetails",
+    async ({ url }: { url: string }) => {
+        return await CheckoutPageServices.getLocalAgentDetails(url);
     }
 )
 
@@ -428,6 +451,20 @@ export const checkoutPage = createSlice({
             state.loading = false;
         })
         builder.addCase(addOrEditAddress.rejected, (state, action) => {
+            state.loading = false
+        })
+
+        // get local agent details
+        builder.addCase(getLocalAgentDetails.pending, (state, action) => {
+            state.loading = true
+        })
+        builder.addCase(getLocalAgentDetails.fulfilled, (state, action) => {
+            const responseData = action.payload.data.data;
+            state.localAgentDetails = responseData;
+            state.loading = false;
+        })
+        builder.addCase(getLocalAgentDetails.rejected, (state, action) => {
+            state.localAgentDetails = null;
             state.loading = false
         })
     },
