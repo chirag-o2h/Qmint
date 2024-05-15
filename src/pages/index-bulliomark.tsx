@@ -11,6 +11,7 @@ import ExclusiveJourneys from '@/components/partials/home-bulliomark/ExclusiveJo
 import ExclusiveJourneysWithSlider from '@/components/partials/home-bulliomark/ExclusiveJourneysWithSlider'
 import InspiringStories from '@/components/partials/home-bulliomark/InspiringStories'
 import TravelInspiration from '@/components/partials/home-bulliomark/TravelInspiration'
+import Newsletter from '@/components/partials/home-bulliomark/Newsletter'
 
 const MainLayout = lazy(() => import("@/components/common/MainLayout"))
 
@@ -38,6 +39,7 @@ function indexBulliomark() {
                         <ExclusiveJourneysWithSlider />
                         <InspiringStories />
                         <TravelInspiration />
+                        <Newsletter />
                     </Box>
                 </MainLayout>
             </Suspense>
