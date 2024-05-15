@@ -112,6 +112,30 @@
   }
 }
 
+.BullionmarkSectionHeading {
+  text-align: center;
+
+  .Title {
+    font-size: 45px;
+    line-height: 53px;
+
+    @include media($md) {
+      font-size: 26px;
+      line-height: 35px;
+    }
+  }
+
+  .Description {
+    font-size: 17px;
+    line-height: 26px;
+
+    // @include media($sm) {
+    //   font-size: 14px;
+    //   line-height: 22px;
+    // }
+  }
+}
+
 .PageTitle {
   @include padding-vertical(34);
 

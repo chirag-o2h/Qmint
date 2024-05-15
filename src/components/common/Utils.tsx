@@ -47,6 +47,9 @@ interface Iprops {
 interface SectionHeading {
   title: string
   description: string
+}interface BullionmarkSectionHeading {
+  title?: string
+  description?: string
 }
 
 interface ProductStockStatus {
@@ -119,7 +122,7 @@ export const AfterStockReturnWithName = React.memo(({ text }: any) => {
     </Stack>
   );
 });
-export const SwiperNavigation = React.memo(({ handleSlideChange,classNamePrev, classNameNext}: { handleSlideChange?: any, classNamePrev?:string, classNameNext?:string }) => {
+export const SwiperNavigation = React.memo(({ handleSlideChange, classNamePrev, classNameNext }: { handleSlideChange?: any, classNamePrev?: string, classNameNext?: string }) => {
   return (
     <Stack className="SwiperNavigation">
       <IconButton className={classNames("SwiperButton SwiperButtonPrev", classNamePrev)} onClick={() => {
@@ -147,6 +150,16 @@ export const SectionHeading = React.memo(({ title, description }: SectionHeading
         {title}
       </Typography>
       <Typography className="Description">{description}</Typography>
+    </Box>
+  );
+});
+export const BullionmarkSectionHeading = React.memo(({ title, description }: BullionmarkSectionHeading) => {
+  return (
+    <Box className="BullionmarkSectionHeading">
+      <Typography variant="h2" component="h2" className="Title">
+        {title}
+      </Typography>
+      {description && <Typography className="Description">{description}</Typography>}
     </Box>
   );
 });
@@ -179,7 +192,7 @@ export const Breadcrumb = React.memo(({ arr }: any) => {
     >
       <Container>
         <Breadcrumbs aria-label="breadcrumb" separator={<ChevronRight />}>
-          <Link color="inherit" variant="body2" onClick={() => { navigate('/shop',{replace:true}) }}>
+          <Link color="inherit" variant="body2" onClick={() => { navigate('/shop', { replace: true }) }}>
             Home
           </Link>
           {arr.map((item: any, index: any) => <Link key={index} color={true ? variable.dark : "inherit"} variant="body2" onClick={() => { navigate(item.navigate) }}>
@@ -235,7 +248,7 @@ export const ProductStockStatus = React.memo(
 export const LinkWithIcon = React.memo(({ icon, href, text }: any) => {
   return (
     <Link className="LinkWithIcon" onClick={() => {
-      navigate(href,{replace:true})
+      navigate(href, { replace: true })
     }}>
       <IconButton color="secondary" LinkComponent="div" className="IconWrapper" href="#">{icon}</IconButton>
       <Typography color="inherit" variant="overline" component="span">

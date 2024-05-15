@@ -71,6 +71,11 @@ import ShieldIcon from "./ShieldIcon";
 import Shield1Icon from "./Shield1Icon";
 import CreditCard from "./CreditCard";
 import LockIcon from "./LockIcon";
+import Island from "./Island";
+import NewlLongArrowRight from "./NewlLongArrowRight";
+import BullionmarkSwiperButtonPrev from "./BullionmarkSwiperButtonPrev";
+import BullionmarkSwiperButtonNext from "./BullionmarkSwiperButtonNext";
+import BullionmarkSwiperDash from "./BullionmarkSwiperDash";
 
 // Social
 import FacebookIcon from "./social/FacebookIcon";
@@ -181,6 +186,11 @@ export {
   Shield1Icon,
   CreditCard,
   LockIcon,
+  Island,
+  NewlLongArrowRight,
+  BullionmarkSwiperButtonPrev,
+  BullionmarkSwiperButtonNext,
+  BullionmarkSwiperDash,
 
   // Social
   FacebookIcon,

@@ -29,3 +29,11 @@ export async function apicall(url: string, method: 'get' | 'post' = 'get', reque
 export const trimAllSpaceFromString = (text: string) => (
   text.replace(/ /g, '')
 )
+
+export const prefixZeroIfOneDigitNumber = (number: number) => {
+  if (number < 10) {
+    return '0' + number
+  } else {
+    return number
+  }
+}

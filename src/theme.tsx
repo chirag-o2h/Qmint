@@ -9,11 +9,12 @@ import { ArrowDown, CheckboxCheckedIcon, CheckboxUncheckedIcon, RadioCheckedIcon
 import { pxToRem } from './utils/helper';
 import * as  variable from './scss/settings/variables.module.scss'
 
+const orangeTheme = true;
 
 const theme: Theme = createTheme({
   palette: {
     primary: {
-      main: "#EAA22B",
+      main: orangeTheme ? "#FF681A" : "#EAA22B",
       contrastText: "#FFFFFF",
     },
     secondary: {

@@ -10,7 +10,6 @@ import {
     TableRow,
 } from "@mui/material"
 import { AddToCartIcon, CreditCard, CartIcon, GreenConfirmationIcon, PdfIcon, ShieldIcon, PlusIcon } from '@/assets/icons';
-import StatusImage from '../assets/images/StatusImage.png';
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { downloadOrderInvoice, getOrderDetailsData } from "@/redux/reducers/orderDetailsReducer";
