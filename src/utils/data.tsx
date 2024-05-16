@@ -376,3 +376,48 @@ export const chartMenuData = [
       }],
   },
 ]
+
+export const getInspiredData = [
+  {
+    title: "Cape, Wine, Wild life and Waterfalls",
+    description: "This is the perfect first-time trip to South Africa, showcasing the very best of the Rainbow Nation before a spectacular finale by Victoria Falls..",
+    country: "Africa",
+    profileUrl: "https://picsum.photos/80",
+    placeUrl: "https://picsum.photos/200/500?grayscale&blur=2",
+  },
+  {
+    title: "Luxury Costa Rica Explorer",
+    description: "A romantic, serene and eco-conscious experience of Costa Rica, staying at two luxurious, low impact retreats.",
+    country: "South America",
+    profileUrl: "https://picsum.photos/80",
+    placeUrl: "https://picsum.photos/200/500?grayscale&blur=2",
+  },
+  {
+    title: "Delta and Dsert Mobile Safari",
+    description: "A week-long expedition across Botswana's diverse landscapes, from the dry Central Kalahari and Makgadikgadi to the Okavango Delta.",
+    country: "Africa",
+    profileUrl: "https://picsum.photos/80",
+    placeUrl: "https://picsum.photos/200/500?grayscale&blur=2",
+  },
+  {
+    title: "Cape, Wine, Wild life and Waterfalls",
+    description: "This is the perfect first-time trip to South Africa, showcasing the very best of the Rainbow Nation before a spectacular finale by Victoria Falls..",
+    country: "Africa",
+    profileUrl: "https://picsum.photos/70",
+    placeUrl: "https://picsum.photos/200/500?grayscale&blur=2",
+  },
+  {
+    title: "Luxury Costa Rica Explorer",
+    description: "A romantic, serene and eco-conscious experience of Costa Rica, staying at two luxurious, low impact retreats.",
+    country: "South America",
+    profileUrl: "https://picsum.photos/70",
+    placeUrl: "https://picsum.photos/200/500?grayscale&blur=2",
+  },
+  {
+    title: "Delta and Dsert Mobile Safari",
+    description: "A week-long expedition across Botswana's diverse landscapes, from the dry Central Kalahari and Makgadikgadi to the Okavango Delta.",
+    country: "Africa",
+    profileUrl: "https://picsum.photos/70",
+    placeUrl: "https://picsum.photos/200/500?grayscale&blur=2",
+  },
+]

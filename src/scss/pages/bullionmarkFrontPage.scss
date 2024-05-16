@@ -181,6 +181,104 @@
 
     }
 
+    #SectionGetInspired {
+        $leftSpacing: 24px;
+        padding-left: $leftSpacing;
+        @include padding-vertical(108);
+        @include media($lg) {
+            @include padding-vertical(80);
+        }
+        @include media($ssm) {
+            padding-left: 0;
+            @include padding-vertical(50, 60);
+        }
+        .LayoutWrapper {
+            align-items: center;
+            gap: 22px;
+            padding-left: calc((100% - $xxl - $leftSpacing) / 2);
+            @include media-between($lg, $xxl) {
+                padding-left: calc((100% - $lg - $leftSpacing) / 2);
+            }
+            @include media($ssm) {
+                flex-direction: column;
+                @include padding-horizontal(24);
+            }
+            .BullionmarkSectionHeading {
+                @include media-min($ssm) {
+                    text-align: left;
+                }
+                .Title {
+                    margin-bottom: 8px;
+                    @include media-min($ssm) {
+                        width: max-content;
+                    }
+                }
+            }
+            .InspiredCardWrapper {
+                max-width: 100%;
+                overflow: hidden;
+                .InspiredCard {
+                    flex-direction: column;
+                    justify-content: space-between;
+                    min-height: 500px;
+                    height: 60vh;
+                    max-height: 700px;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
+                    padding: 20px 24px 24px;
+                    color: $white;
+                    .Head {
+                        align-items: center;
+                        gap: 10px;
+                        .ProfileImage {
+                            width: 50px;
+                            height: 50px;
+                            overflow: hidden;
+                            border-radius: 50%;
+                            flex-shrink: 0;
+                            @include media($ssm) {
+                                width: 40px;
+                                height: 40px;
+                            }
+                            @include media($xs) {
+                                width: 34px;
+                                height: 34px;
+                            }
+                        }
+                        .Title {
+                            font-size: 18px;
+                            line-height: 26px;
+                            font-weight: 700;
+                        }
+                    }
+                    .Content {
+                        .Title {
+                            font-size: 35px;
+                            line-height: 39px;
+                            font-weight: 700;
+                            letter-spacing: -2px;
+                            @include media($ssm) {
+                                font-size: 24px;
+                                line-height: 1.2;
+                            }
+                        }
+                        .Description {
+                            font-weight: 600;
+                            line-height: 20px;
+                            min-height: 80px;
+                            margin-top: 7px;
+                            @include max-line(4);
+                        }
+                    }
+                    .MuiButton-root {
+                        margin-top: 32px;
+                    }
+                }
+            }
+        }
+    }
+
     #ExclusiveJourneys {
         padding: 80px 0;
         background: rgba(255, 241, 234, 0.5);
