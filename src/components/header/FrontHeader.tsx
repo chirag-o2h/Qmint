@@ -13,7 +13,7 @@ interface FrontHeader {
     blackTheme?: boolean
 }
 
-const FrontHeader = (props:FrontHeader) => {
+const FrontHeader = (props: FrontHeader) => {
     const { blackTheme } = props
     const loading = useAppSelector((state) => state.homePage.loading)
     const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
@@ -29,7 +29,7 @@ const FrontHeader = (props:FrontHeader) => {
     }, [openMobileMenu])
 
     return (
-        <Box id="HeaderWrapper" className={classNames("FrontHeader", {"Black": blackTheme})}>
+        <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme })}>
             {!isMobile && configDetailsState?.["mainhomepage.tickerenable"]?.value && <>
                 <Suspense fallback={
                     <></>
@@ -43,7 +43,7 @@ const FrontHeader = (props:FrontHeader) => {
                 {loading && <PageLoader />}
                 <Suspense fallback={<></>}>
                     {/* <Skeleton style={{ minHeight: '80px' }} /> */}
-                    <FrontMain toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} />
+                    <FrontMain toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} trigger={trigger} />
                 </Suspense>
             </AppBar>
             <Suspense fallback={<></>}>

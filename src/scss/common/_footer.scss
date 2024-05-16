@@ -37,9 +37,11 @@
     .LogoPart {
       flex-direction: column;
       align-items: center;
+
       img {
         max-width: 250px;
       }
+
       .AboutWrapper {
         flex-direction: column;
         gap: 21px;
@@ -339,9 +341,11 @@
       gap: $spacing;
       padding-bottom: 43px;
       justify-content: center;
+
       @include media($md) {
         gap: 30px;
       }
+
       .LogoPart {
         // @include media($mmd) {
         //   width: 100%;
@@ -519,4 +523,195 @@
     //   }
     // }
   }
+}
+
+#BullionmarkFooterSection {
+  background-color: $black;
+  padding-top: 80px;
+
+  @include media($md) {
+    padding-top: 40px;
+  }
+
+  .FooterWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 150px;
+    padding-bottom: 74px;
+
+    @include media($lg) {
+      gap: 80px;
+    }
+
+    @include media($mmd) {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 80px 150px;
+      padding-bottom: 50px;
+    }
+
+    @include media($md) {
+      gap: 70px 130px;
+    }
+
+    @include media($ssm) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 50px 0;
+    }
+
+    @include media($ssm) {
+      gap: 30px;
+    }
+
+
+
+
+    .LogoPart {
+      flex-direction: column;
+
+      @include media($mmd) {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+      }
+
+      .FooterTagLine {
+        font-size: 15px;
+        line-height: 26px;
+        font-weight: 400;
+        color: $white;
+        margin-top: 24px;
+        max-width: 300px;
+
+        @include media($mmd) {
+          max-width: 40%;
+        }
+
+        @include media($ssm) {
+          max-width: 70%;
+        }
+
+        @include media($sm) {
+          max-width: 100%;
+        }
+      }
+    }
+
+    .MenuWrapper {
+      @include media($ssm) {
+        text-align: center;
+      }
+
+      .MenuTitle {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 700;
+        color: $pumpkinOrange;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
+    }
+
+    .QuickLink {
+      .MuiButtonBase-root {
+        font-size: 25px;
+        line-height: 39px;
+        font-weight: 300;
+        color: $white;
+        padding: 0;
+        @include transition;
+
+        &:hover {
+          color: $pumpkinOrange;
+        }
+
+        @include media($ssm) {
+          text-align: center;
+          justify-content: center;
+        }
+
+        @include media($sm) {
+          font-size: 18px;
+          line-height: 33px;
+        }
+      }
+    }
+
+    .SocialWrapper {
+      flex-direction: column;
+
+      .SocialHandlers {
+        .SocialLink {
+          display: flex;
+          gap: 9px;
+          align-items: center;
+          color: $white;
+          text-decoration: none;
+          font-size: 18px;
+          line-height: 33px;
+          font-weight: 400;
+          color: $white;
+          @include transition;
+
+          &:hover {
+            color: $pumpkinOrange;
+          }
+
+          span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 25px;
+            width: 25px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.19);
+          }
+        }
+      }
+    }
+
+    .CallUsWrapper {
+      .Phone {
+        font-size: 25px;
+        line-height: 34px;
+        font-weight: 300;
+        color: $white;
+
+        @include media($sm) {
+          font-size: 18px;
+          line-height: 33px;
+        }
+      }
+    }
+  }
+
+  .BullionmarkCopyRightWrapper {
+    .MuiDivider-root {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .CopyRightContent {
+      padding: 12px 0 19px;
+      justify-content: space-between;
+
+      @include media($mmd) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .MuiTypography-root {
+        font-weight: 400;
+        color: rgba(134, 144, 156, 1);
+
+        @include media($mmd) {
+          text-align: center;
+        }
+      }
+    }
+  }
+
 }

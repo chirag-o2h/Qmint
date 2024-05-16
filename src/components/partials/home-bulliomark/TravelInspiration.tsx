@@ -13,7 +13,7 @@ import Travel3 from '../../../assets/images/Travel3.png'
 function TravelInspiration() {
     const config = {
         slidesPerView: 3,
-        centeredSlides: true,
+        centeredSlides: false,
         spaceBetween: 52,
         loop: true,
         speed: 300,
@@ -26,21 +26,24 @@ function TravelInspiration() {
             draggable: true
         },
         grabCursor: true,
-        // autoplay: {
-        //     delay: 8000,
-        // },
+        autoplay: {
+            delay: 8000,
+        },
         breakpoints: {
             320: {
                 slidesPerView: 1,
                 spaceBetween: 30,
+                centeredSlides: false,
             },
             600: {
                 slidesPerView: 2,
                 spaceBetween: 30,
+                centeredSlides: false,
             },
             900: {
                 slidesPerView: 3,
                 spaceBetween: 52,
+                centeredSlides: true,
             },
         }
     };

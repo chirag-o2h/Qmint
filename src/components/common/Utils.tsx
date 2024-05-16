@@ -156,9 +156,7 @@ export const SectionHeading = React.memo(({ title, description }: SectionHeading
 export const BullionmarkSectionHeading = React.memo(({ title, description }: BullionmarkSectionHeading) => {
   return (
     <Box className="BullionmarkSectionHeading">
-      <Typography variant="h2" component="h2" className="Title">
-        {title}
-      </Typography>
+      {title && <Typography variant="h2" component="h2" className="Title">{title}</Typography>}
       {description && <Typography className="Description">{description}</Typography>}
     </Box>
   );

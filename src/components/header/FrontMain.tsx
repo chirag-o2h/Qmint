@@ -1,5 +1,8 @@
-import React, { useMemo, lazy, useState } from "react"
+import React, { useMemo, lazy, useState, useEffect } from "react"
 import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box } from "@mui/material"
+import classNames from "classnames"
+import { useLocation } from '@reach/router';
+
 
 // Components
 import SearchField from "./SearchField"
@@ -17,7 +20,7 @@ const Navigation = lazy(() => import('./Navigation'))
 
 function FrontMain(props: any) {
     const dispatch = useAppDispatch()
-    const { openMobileMenu, toggleMobileMenu } = (props)
+    const { openMobileMenu, toggleMobileMenu, trigger } = (props)
     const mobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
     const handleAuth = () => {
@@ -30,6 +33,16 @@ function FrontMain(props: any) {
     }
     const [params] = useState({ page: 0 })
     useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
+
+    const location = useLocation();
+    const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
+    useEffect(() => {
+        console.log(location.pathname);
+
+        if (location.pathname === "/index-bulliomark/") {
+            setIsBullionmarkHomePage(true)
+        }
+    }, [])
     return (
         <Box className="HeaderContainerWrapper">
             <Container className="MainHeader">
@@ -42,7 +55,7 @@ function FrontMain(props: any) {
                     </Stack>
                     <Stack className="Right">
                         {/* <Link to={ENDPOINTS.login}> */}
-                        <Button name='signIn' aria-label='signIn' onClick={handleAuth} className="SignInButton ActionButton" variant="outlined" startIcon={!isLoggedIn ? <SignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
+                        <Button name='signIn' aria-label='signIn' onClick={handleAuth} className={classNames("SignInButton ActionButton", { "WhiteButton": !trigger && isBullionmarkHomePage })} variant="outlined" startIcon={!isLoggedIn ? <SignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
                         {/* <Button name='Contact us' aria-label='Contact us' onClick={() => {
                             navigate('/contactus')
                         }} variant="outlined" className="ActionButton">Contact Us</Button> */}

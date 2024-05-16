@@ -1,6 +1,9 @@
 import { useAppSelector } from '@/hooks';
 import { Stack } from '@mui/material'
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
+import BullionmarkFooter from '../footer/BullionmarkFooter';
+import { useLocation } from '@reach/router';
+
 // import FrontHeader from '../header/FrontHeader';
 // import LazyFrontHeader from 
 const LazyFrontHeader = lazy(() => import("../header/FrontHeader"));
@@ -22,6 +25,15 @@ const MainLayout = (props: MainLayout) => {
         link.href = faviconUrl;
         document.head.appendChild(link);
     }
+    const location = useLocation();
+    const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
+    useEffect(() => {
+        console.log(location.pathname);
+
+        if (location.pathname === "/index-bulliomark/") {
+            setIsBullionmarkHomePage(true)
+        }
+    }, [])
     return (
         <Stack id="PageLayout">
             <Suspense fallback={<div
@@ -45,7 +57,7 @@ const MainLayout = (props: MainLayout) => {
                     }}
                 ></div>
             }>
-                <LazyFrontFooter />
+                {isBullionmarkHomePage ? <BullionmarkFooter /> : <LazyFrontFooter />}
             </Suspense>}
         </Stack>
     )

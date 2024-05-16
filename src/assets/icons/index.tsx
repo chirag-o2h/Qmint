@@ -92,6 +92,11 @@ import YouTubeTextIcon from "./social/YouTubeTextIcon";
 import Email from "./social/Email";
 import Calling from "./social/Calling";
 import AddressIcon from "./social/AddressIcon";
+import BInsta from "./social/BInsta";
+import BYoutube from "./social/BYoutube";
+import BFacebook from "./social/BFacebook";
+import PintrestIcon from "./social/PintrestIcon";
+import LinkedinIcon from "./social/LinkedinIcon";
 import OrdersIcon from "./OrdersIcon";
 import PrivateHoldingIcon from "./PrivateHoldingIcon";
 import AllotedHldingIcon from "./AllotedHldingIcon";
@@ -111,6 +116,7 @@ import TrustIcon from "./TrustIcon";
 import SuperFundIcon from "./SuperFundIcon";
 import PlayIcon from "./PlayIcon";
 import PhoneCall from "./PhoneCall";
+
 
 export {
   ArrowLeft,
@@ -225,5 +231,10 @@ export {
   TrustIcon,
   SuperFundIcon,
   PlayIcon,
-  PhoneCall
+  PhoneCall,
+  BInsta,
+  BYoutube,
+  BFacebook,
+  PintrestIcon,
+  LinkedinIcon,
 };

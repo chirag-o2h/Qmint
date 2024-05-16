@@ -55,7 +55,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -64,7 +64,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -73,7 +73,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -82,7 +82,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -91,7 +91,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -100,7 +100,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -109,7 +109,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -118,7 +118,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>
@@ -127,7 +127,7 @@ function ExclusiveJourneysWithSlider() {
                                     <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
                                     <Box className="ExclusiveJourneysContent">
                                         <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined">Discover</Button>
+                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
                                     </Box>
                                 </Box>
                             </SwiperSlide>

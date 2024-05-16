@@ -1,4 +1,5 @@
 .BullionmarkFrontPage {
+
     #Banner {
         &.BullionmarkHomeBanner {
             .SwiperContainer {
@@ -165,6 +166,8 @@
                 .swiper-pagination {
                     position: static;
                     gap: 6px;
+                    align-items: center;
+
 
                     .swiper-pagination-bullet {
                         height: 7px;
@@ -173,6 +176,7 @@
 
                         &.swiper-pagination-bullet-active {
                             border: 2px solid $pumpkinOrange;
+                            box-sizing: content-box;
                         }
                     }
                 }
@@ -384,11 +388,6 @@
                         }
                     }
                 }
-
-                .MuiButton-root {
-                    color: $white;
-                    border-color: $white;
-                }
             }
 
         }
@@ -406,8 +405,138 @@
 
     }
 
+    #TravelInspiration {
+        position: relative;
+        padding: 80px 0 0;
+        z-index: 1;
+
+        @include media($md) {
+            padding: 50px 0 0;
+        }
+
+        &::after {
+            position: absolute;
+            content: "";
+            top: 0;
+            width: 100%;
+            height: 40%;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            background-color: #F1EFEC;
+        }
+
+        .TravelInspirationTitle {
+            text-align: center;
+            max-width: 250px;
+            margin: 0 auto 50px;
+
+            @include media($md) {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+        .TravelInspirationSliderWrapper {
+            position: relative;
+            top: -50px;
+
+            @include media($md) {
+                top: 0;
+            }
+
+            .swiper-slide {
+                padding-bottom: 80px;
+
+                @include media($md) {
+                    padding-bottom: 0;
+                }
+
+                &.swiper-slide-active {
+                    top: 80px;
+
+                    @include media($md) {
+                        top: 0;
+                    }
+                }
+
+                &.swiper-slide-prev,
+                &.swiper-slide-next {
+                    top: 20px;
+
+                    @include media($md) {
+                        top: 0;
+                    }
+                }
+            }
+
+            .TravelInspirationSlideWrapper {
+                .TravelInspirationSlideImageWrapper {
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                    }
+
+                    .TravelInspirationSlideTitle {
+                        position: absolute;
+                        top: 47px;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        font-size: 25px;
+                        line-height: 30px;
+                        font-weight: 700;
+                        color: $white;
+                        text-align: center;
+                        display: inline-block;
+                    }
+                }
+
+                .TravelInspirationSlideBottomContent {
+                    padding: 0 13px;
+                    text-align: center;
+
+                    .BullionmarkSectionHeading {
+                        .Description {
+                            margin: 33px 0 17px;
+
+                            @include media($md) {
+                                margin: 20px 0 10px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .swiper-pagination {
+                position: static;
+                gap: 6px;
+                padding-top: 60px;
+                align-items: center;
+
+
+                @include media($md) {
+                    padding-top: 40px;
+                }
+
+                .swiper-pagination-bullet {
+                    height: 7px;
+                    width: 7px;
+                    background-color: #D9D9D9;
+
+                    &.swiper-pagination-bullet-active {
+                        border: 2px solid $pumpkinOrange;
+                        box-sizing: content-box;
+
+                    }
+                }
+            }
+        }
+    }
+
     #InspiringStories {
-        padding: 80px 0;
+        padding: 0 0 80px;
 
         @include media($md) {
             padding: 50px 0;
@@ -470,104 +599,7 @@
         }
     }
 
-    #TravelInspiration {
-        padding: 80px 0;
-        background-color: #F1EFEC;
 
-        @include media($md) {
-            padding: 50px 0;
-        }
-
-        .TravelInspirationTitle {
-            text-align: center;
-            max-width: 250px;
-            margin: 0 auto 50px;
-        }
-
-        .TravelInspirationSliderWrapper {
-            position: relative;
-            top: -150px;
-
-            .swiper-slide {
-                padding-bottom: 176px;
-
-                @include media($md) {
-                    padding-bottom: 105px;
-                }
-
-                &.swiper-slide-active {
-                    top: 176px;
-
-                    @include media($md) {
-                        top: 100px;
-                    }
-                }
-
-                &.swiper-slide-prev,
-                &.swiper-slide-next {
-                    top: 100px;
-
-                    @include media($md) {
-                        top: 50px;
-                    }
-                }
-            }
-
-            .TravelInspirationSlideWrapper {
-                .TravelInspirationSlideImageWrapper {
-                    position: relative;
-
-                    img {
-                        width: 100%;
-                    }
-
-                    .TravelInspirationSlideTitle {
-                        position: absolute;
-                        top: 47px;
-                        left: 0;
-                        right: 0;
-                        margin: 0 auto;
-                        font-size: 25px;
-                        line-height: 30px;
-                        font-weight: 700;
-                        color: $white;
-                        text-align: center;
-                        display: inline-block;
-                    }
-                }
-
-                .TravelInspirationSlideBottomContent {
-                    padding: 0 13px;
-                    text-align: center;
-
-                    .BullionmarkSectionHeading {
-                        .Description {
-                            margin: 33px 0 17px;
-
-                            @include media($md) {
-                                margin: 20px 0 10px;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .swiper-pagination {
-                position: static;
-                gap: 6px;
-
-                .swiper-pagination-bullet {
-                    height: 7px;
-                    width: 7px;
-                    background-color: #D9D9D9;
-
-                    &.swiper-pagination-bullet-active {
-                        border: 2px solid $pumpkinOrange;
-                    }
-                }
-            }
-        }
-    }
 
 
 

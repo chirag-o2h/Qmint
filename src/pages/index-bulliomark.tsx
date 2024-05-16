@@ -1,7 +1,7 @@
 import Loader from '@/components/common/Loader'
 import Seo from "../components/common/Seo"
 import BannerSlider from '@/components/partials/home-bulliomark/BannerSlider'
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Box } from '@mui/material'
@@ -12,12 +12,16 @@ import ExclusiveJourneysWithSlider from '@/components/partials/home-bulliomark/E
 import InspiringStories from '@/components/partials/home-bulliomark/InspiringStories'
 import TravelInspiration from '@/components/partials/home-bulliomark/TravelInspiration'
 
+
 const MainLayout = lazy(() => import("@/components/common/MainLayout"))
 
 
 function indexBulliomark() {
+
     const { configDetails: configDetailsState, openToaster, scrollPosition, loading, mainHomePageData } = useAppSelector((state) => state.homePage)
     const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
+
+
     return (
         <>
             <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>
@@ -36,8 +40,8 @@ function indexBulliomark() {
                         <BestAdventures />
                         <ExclusiveJourneys />
                         <ExclusiveJourneysWithSlider />
-                        <InspiringStories />
                         <TravelInspiration />
+                        <InspiringStories />
                     </Box>
                 </MainLayout>
             </Suspense>
