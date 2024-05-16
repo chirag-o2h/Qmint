@@ -57,7 +57,7 @@ function GetInspired() {
                       <Box className="Content">
                         <Typography className="Title">{item.title}</Typography>
                         <Typography className="Description">{item.description}</Typography>
-                        <Button variant="outlined">Discover</Button>
+                        <Button variant="outlined" className="WhiteButton">Discover</Button>
                       </Box>
                     </Stack>
                   </SwiperSlide>
