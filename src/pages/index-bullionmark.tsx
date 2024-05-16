@@ -1,18 +1,18 @@
 import Loader from '@/components/common/Loader'
 import Seo from "../components/common/Seo"
-import BannerSlider from '@/components/partials/home-bulliomark/BannerSlider'
+import BannerSlider from '@/components/partials/home-bullionmark/BannerSlider'
 import React, { Suspense, lazy, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Box } from '@mui/material'
-import PlanningJourney from '@/components/partials/home-bulliomark/PlanningJourney'
-import BestAdventures from '@/components/partials/home-bulliomark/BestAdventures'
-import GetInspired from '@/components/partials/home-bulliomark/GetInspired'
-import ExclusiveJourneys from '@/components/partials/home-bulliomark/ExclusiveJourneys'
-import ExclusiveJourneysWithSlider from '@/components/partials/home-bulliomark/ExclusiveJourneysWithSlider'
-import InspiringStories from '@/components/partials/home-bulliomark/InspiringStories'
-import TravelInspiration from '@/components/partials/home-bulliomark/TravelInspiration'
-import Newsletter from '@/components/partials/home-bulliomark/Newsletter'
+import PlanningJourney from '@/components/partials/home-bullionmark/PlanningJourney'
+import BestAdventures from '@/components/partials/home-bullionmark/BestAdventures'
+import GetInspired from '@/components/partials/home-bullionmark/GetInspired'
+import ExclusiveJourneys from '@/components/partials/home-bullionmark/ExclusiveJourneys'
+import ExclusiveJourneysWithSlider from '@/components/partials/home-bullionmark/ExclusiveJourneysWithSlider'
+import InspiringStories from '@/components/partials/home-bullionmark/InspiringStories'
+import TravelInspiration from '@/components/partials/home-bullionmark/TravelInspiration'
+import Newsletter from '@/components/partials/home-bullionmark/Newsletter'
 
 
 const MainLayout = lazy(() => import("@/components/common/MainLayout"))

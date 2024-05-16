@@ -30,7 +30,7 @@ const MainLayout = (props: MainLayout) => {
     useEffect(() => {
         console.log(location.pathname);
 
-        if (location.pathname === "/index-bulliomark/") {
+        if (location.pathname === "/index-bullionmark/") {
             setIsBullionmarkHomePage(true)
         }
     }, [])

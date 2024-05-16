@@ -39,7 +39,7 @@ function FrontMain(props: any) {
     useEffect(() => {
         console.log(location.pathname);
 
-        if (location.pathname === "/index-bulliomark/") {
+        if (location.pathname === "/index-bullionmark/") {
             setIsBullionmarkHomePage(true)
         }
     }, [])
