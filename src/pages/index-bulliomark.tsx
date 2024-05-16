@@ -7,10 +7,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Box } from '@mui/material'
 import PlanningJourney from '@/components/partials/home-bulliomark/PlanningJourney'
 import BestAdventures from '@/components/partials/home-bulliomark/BestAdventures'
+import GetInspired from '@/components/partials/home-bulliomark/GetInspired'
 import ExclusiveJourneys from '@/components/partials/home-bulliomark/ExclusiveJourneys'
 import ExclusiveJourneysWithSlider from '@/components/partials/home-bulliomark/ExclusiveJourneysWithSlider'
 import InspiringStories from '@/components/partials/home-bulliomark/InspiringStories'
 import TravelInspiration from '@/components/partials/home-bulliomark/TravelInspiration'
+import Newsletter from '@/components/partials/home-bulliomark/Newsletter'
 
 
 const MainLayout = lazy(() => import("@/components/common/MainLayout"))
@@ -38,10 +40,12 @@ function indexBulliomark() {
                         <BannerSlider />
                         <PlanningJourney />
                         <BestAdventures />
+                        <GetInspired />
                         <ExclusiveJourneys />
                         <ExclusiveJourneysWithSlider />
                         <TravelInspiration />
                         <InspiringStories />
+                        <Newsletter />
                     </Box>
                 </MainLayout>
             </Suspense>
