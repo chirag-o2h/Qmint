@@ -1,6 +1,8 @@
 import React, { Suspense, lazy, useCallback, useState } from 'react'
 import { Box, Container, Link, Stack, Typography, List, ListItem, ListItemButton, ListItemText, IconButton } from "@mui/material"
 import classNames from 'classnames'
+import { Link as LogoLink } from 'gatsby'
+
 
 // Components
 // import CopyRight from "./CopyRight"
@@ -36,18 +38,16 @@ function FrontFooter() {
     // if SSR
     // useAPIoneTime({ service: getMainHomePageData, conditionalCall: location.pathname !== '/' })
     // else CSR
-    useAPIoneTime({ service: getMainHomePageData})
+    useAPIoneTime({ service: getMainHomePageData })
     const { email, handleEmailChange, subscribe } = useSubscription()
     return (
         <Box id="MainFooterSection" className='FrontFooter' component="footer">
             <Container className="Container">
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
-                        <Link style={{ cursor: 'pointer' }}>
-                            <img src={configDetailsState?.["mainhomepage.footerlogo"]?.value} alt="Footer logo" loading="lazy" onClick={() => {
-                                navigate('/')
-                            }} />
-                        </Link>
+                        <LogoLink to="/" style={{ cursor: 'pointer' }}>
+                            <img src={configDetailsState?.["mainhomepage.footerlogo"]?.value} alt="Footer logo" loading="lazy" />
+                        </LogoLink>
                         <Stack className="SocialWrapper">
                             <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.facebooklink?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>
                             <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.youtubelink?.value ?? window?.location?.href}><YoutubeIcon /></IconButton>
