@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Container, Stack, Typography, List, Link, ListItem, ListItemButton, } from "@mui/material"
 
 
-import BullionFooterLogo from '../../assets/images/BullionFooterLogo.png'
+import BullionFooterLogo from '../../assets/images/bullionfooterlogo.png'
 import { BYoutube, PintrestIcon, LinkedinIcon, BFacebook, BInsta } from '@/assets/icons'
 import BullionmarkCopyRight from './BullionmarkCopyRight'
 import { Link as GatsbyLink } from 'gatsby'
