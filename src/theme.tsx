@@ -8,13 +8,17 @@ import { ArrowDown, CheckboxCheckedIcon, CheckboxUncheckedIcon, RadioCheckedIcon
 // Utils
 import { pxToRem } from './utils/helper';
 import * as  variable from './scss/settings/variables.module.scss'
+import { THEME_TYPE } from './axiosfolder';
 
-const orangeTheme = true;
+const themeTypes :any= {
+  0 : "#EAA22B",
+  1 : "#FF681A",
+}
 
 const theme: Theme = createTheme({
   palette: {
     primary: {
-      main: orangeTheme ? "#FF681A" : "#EAA22B",
+      main: themeTypes[THEME_TYPE ?? 0],
       contrastText: "#FFFFFF",
     },
     secondary: {

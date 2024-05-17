@@ -9,6 +9,7 @@ interface CustomHeaders {
 export const STORE_CODE = process.env.STORE_CODE
 export const BASE_URL = process.env.BASE_URL
 export const VALID_KEY = process.env.VALID_KEY
+export const THEME_TYPE  = process.env.THEME_TYPE;
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
