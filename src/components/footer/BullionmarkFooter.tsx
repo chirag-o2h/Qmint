@@ -12,8 +12,8 @@ import { navigate } from "gatsby";
 import { useAppSelector } from "@/hooks"
 
 function BullionmarkFooter() {
-    const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState , bullionMarkPage} = useAppSelector((state) => state.homePage)
+    console.log("🚀 ~ BullionmarkFooter ~ bullionMarkPage:", configDetailsState)
     const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
 
     return (
