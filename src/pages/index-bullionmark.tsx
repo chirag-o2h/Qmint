@@ -23,7 +23,6 @@ function indexBulliomark() {
     const { configDetails: configDetailsState, openToaster, scrollPosition, loading, mainHomePageData } = useAppSelector((state) => state.homePage)
     const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
 
-
     return (
         <>
             <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>

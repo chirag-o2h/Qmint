@@ -130,7 +130,9 @@ export const ENDPOINTS = {
     // new homepage
     mainHomePage: "home/HOb6OH12P5xFHos4DC1L3Q",
     //    upgrade Plan
-    upgradPlan: "Checkout/ZQtAuhUHduOX"
+    upgradPlan: "Checkout/ZQtAuhUHduOX",
+    // bullion mark subscription
+    subscriptionBullionMark: "ContactUs/WJoEyC3ZHvdaS7DS9Xv3H"
 }
 export const StoreData = {
     storeCode: 12,

@@ -18,6 +18,14 @@ export interface ISavePopUpDetails {
 export interface IupgradPlan {
   "FkqHBCX" : number
 }
+export interface IBullionMarkSubscriptionDetails {
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  PhoneNumber: string;
+  AllowEmailSend: boolean;
+}
+
 class ConfigServices {
   static async details(url: string) {
     return axiosInstance.get(url)
@@ -117,6 +125,9 @@ class ConfigServices {
   }
   static async upgradMemberShipPlan(params:IupgradPlan){
     return await axiosInstance.get(ENDPOINTS.upgradPlan,{params:params})
+  }
+  static async sendSubscriptionDetailsForTheBullionmarkHomePage(body:IBullionMarkSubscriptionDetails) {
+    return axiosInstance.post(ENDPOINTS.subscriptionBullionMark,body)
   }
 }
 export default ConfigServices
