@@ -21,7 +21,6 @@ const MainLayout = lazy(() => import("@/components/common/MainLayout"))
 
 function indexBulliomark() {
     const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
-    console.log("🚀 ~ indexBulliomark ~ configDetailsState:", configDetailsState)
     const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
 
     useAPIoneTime({ service: getBullionMarkPageAPI })
