@@ -13,6 +13,8 @@ import ExclusiveJourneysWithSlider from '@/components/partials/home-bullionmark/
 import InspiringStories from '@/components/partials/home-bullionmark/InspiringStories'
 import TravelInspiration from '@/components/partials/home-bullionmark/TravelInspiration'
 import Newsletter from '@/components/partials/home-bullionmark/Newsletter'
+import { getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
+import useAPIoneTime from '@/hooks/useAPIoneTime'
 
 
 const MainLayout = lazy(() => import("@/components/common/MainLayout"))
@@ -20,9 +22,10 @@ const MainLayout = lazy(() => import("@/components/common/MainLayout"))
 
 function indexBulliomark() {
 
-    const { configDetails: configDetailsState, openToaster, scrollPosition, loading, mainHomePageData } = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState, openToaster, scrollPosition, loading, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
-
+    
+    useAPIoneTime({ service: getBullionMarkPageAPI })
 
     return (
         <>

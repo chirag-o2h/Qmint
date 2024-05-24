@@ -2,18 +2,20 @@ import React from "react"
 import { Box, Button, Stack, Typography, } from "@mui/material"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay } from 'swiper/modules'
-
+import { navigate } from "gatsby";
+     
 // Type
 import { SwiperOptions } from "swiper/types";
 
-// Data
-import { getInspiredData } from "@/utils/data";
+// Hooks
+import { useAppSelector } from "@/hooks"
 
 // Components
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
 
 function GetInspired() {
-  const config: SwiperOptions = {
+    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
+    const config: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 20,
     loop: true,
@@ -36,6 +38,7 @@ function GetInspired() {
       }
     },
   }
+  const getInspired = bullionMarkPage?.homepage_Section_3_Three_posts_in_a_row
   return (
     <Box id="SectionGetInspired" component="section">
       <Stack className="LayoutWrapper">
@@ -44,27 +47,29 @@ function GetInspired() {
           description="Browse our example trips and get in contact to start planning your very own adventure."
         />
         <Box className="InspiredCardWrapper">
-          <Box className="SwiperContainer">
-            <Swiper {...config} >
-              {getInspiredData.map((item, index) => {
-                return (
-                  <SwiperSlide key={`InspiredCard-${index}`}>
-                    <Stack className="InspiredCard" sx={{ backgroundImage: `url("${item.placeUrl}")` }}>
-                      <Stack className="Head">
-                        <img src={item.profileUrl} className="ProfileImage" />
-                        <Typography className="Title">{item.country}</Typography>
+          {(getInspired && getInspired.length > 0) && (
+            <Box className="SwiperContainer">
+              <Swiper {...config} >
+                {getInspired.map((item, index) => {
+                  return (
+                    <SwiperSlide key={`InspiredCard-${index}`}>
+                      <Stack className="InspiredCard" sx={{ backgroundImage: `url("${item.imageUrl}")` }}>
+                        <Stack className="Head">
+                          {/* <img src={item.imageUrl} className="ProfileImage" />
+                          <Typography className="Title">{item.country}</Typography> */}
+                        </Stack>
+                        <Box className="Content">
+                          <Typography className="Title">{item.title}</Typography>
+                          <Typography className="Description">{item.overview}</Typography>
+                          <Button variant="outlined" className="WhiteButton" onClick={()=>{navigate(`/${item.friendlyName}`)}}>Discover</Button>
+                        </Box>
                       </Stack>
-                      <Box className="Content">
-                        <Typography className="Title">{item.title}</Typography>
-                        <Typography className="Description">{item.description}</Typography>
-                        <Button variant="outlined" className="WhiteButton">Discover</Button>
-                      </Box>
-                    </Stack>
-                  </SwiperSlide>
-                )
-              })}
-            </Swiper>
-          </Box>
+                    </SwiperSlide>
+                  )
+                })}
+              </Swiper>
+            </Box>
+          )}
         </Box>
       </Stack>
     </Box>

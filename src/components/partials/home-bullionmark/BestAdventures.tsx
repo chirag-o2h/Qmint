@@ -4,13 +4,13 @@ import { Link } from "gatsby";
 import React from 'react'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
-import Adventures1 from '../../../assets/images/Adventures1.png'
-import Adventures2 from '../../../assets/images/Adventures2.png'
-import Adventures3 from '../../../assets/images/Adventures3.png'
-import Adventures4 from '../../../assets/images/Adventures4.png'
 import { Island, NewlLongArrowRight } from '@/assets/icons'
 
+// Hooks
+import { useAppSelector } from "@/hooks"
+
 function BestAdventures() {
+    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
     const config = {
         slidesPerView: 1,
         spaceBetween: 20,
@@ -42,144 +42,39 @@ function BestAdventures() {
             },
         }
     }
+    const bestAdventures = bullionMarkPage?.homepage_Section_2_Four_posts_in_a_row
     return (
         <>
             <Box id="BestAdventures" className="BestAdventures" component="section">
                 <Container component="section">
                     <BullionmarkSectionHeading
                         title="The Best Of Adventure" />
-                    <Box className="SwiperContainer">
-                        <Swiper {...config}>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures1} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
+                        {(bestAdventures && bestAdventures.length > 0) && (
+                            <Box className="SwiperContainer">
+                            <Swiper {...config}>
+                                {bestAdventures.map((item) => {
+                                    return (
+                                        <SwiperSlide key={item.id}>
+                                            <Box className="AdventureCardWrapper">
+                                                <img src={item.imageUrl} alt="AdventureCardImage" loading='lazy' />
+                                                <Link to={item.friendlyName} className="AdventureCardLink">
+                                                    <Stack className="BottomWrapper">
+                                                        <Stack className="LeftContent">
+                                                            <Island />
+                                                            <Typography variant="body2" className='AdventuresTitle'>{item.title}</Typography>
+                                                        </Stack>
+                                                        <Box className="RightArrow">
+                                                            <NewlLongArrowRight />
+                                                        </Box>
+                                                    </Stack>
+                                                </Link>
                                             </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures2} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
-                                            </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures3} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
-                                            </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures4} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
-                                            </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures2} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
-                                            </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures3} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
-                                            </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures1} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
-                                            </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="AdventureCardWrapper">
-                                    <img src={Adventures1} alt="AdventureCardImage" loading='lazy' />
-                                    <Link to='#' className="AdventureCardLink">
-                                        <Stack className="BottomWrapper">
-                                            <Stack className="LeftContent">
-                                                <Island />
-                                                <Typography variant="body2" className='AdventuresTitle'>Bora Bora In island</Typography>
-                                            </Stack>
-                                            <Box className="RightArrow">
-                                                <NewlLongArrowRight />
-                                            </Box>
-                                        </Stack>
-                                    </Link>
-                                </Box>
-                            </SwiperSlide>
-                        </Swiper>
-                    </Box>
+                                        </SwiperSlide>
+                                    )
+                                })}
+                            </Swiper>
+                            </Box>
+                        )}
                 </Container>
             </Box>
         </>

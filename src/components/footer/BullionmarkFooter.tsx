@@ -6,9 +6,15 @@ import BullionFooterLogo from '../../assets/images/bullionfooterlogo.png'
 import { BYoutube, PintrestIcon, LinkedinIcon, BFacebook, BInsta } from '@/assets/icons'
 import BullionmarkCopyRight from './BullionmarkCopyRight'
 import { Link as GatsbyLink } from 'gatsby'
+import { navigate } from "gatsby";
+
+// Hooks
+import { useAppSelector } from "@/hooks"
 
 function BullionmarkFooter() {
-    return (
+    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
+  const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
+  return (
         <Box id="BullionmarkFooterSection" className='BullionmarkFooter' component="footer">
             <Container className="Container">
                 <Stack className="FooterWrapper">
@@ -21,18 +27,13 @@ function BullionmarkFooter() {
                     <Box className="MenuWrapper QuickLink">
                         <Typography className="MenuTitle" variant="subtitle2" component="p">Quick Link</Typography>
                         <List>
-                            <ListItem>
-                                <ListItemButton>Shop</ListItemButton>
-                            </ListItem>
-                            <ListItem>
-                                <ListItemButton>Invest</ListItemButton>
-                            </ListItem>
-                            <ListItem>
-                                <ListItemButton>Collect</ListItemButton>
-                            </ListItem>
-                            <ListItem>
-                                <ListItemButton>Discover</ListItemButton>
-                            </ListItem>
+                            {bullionmarkFooter.map((item)=>{
+                                return (
+                                    <ListItem key={item.name}>
+                                        <ListItemButton onClick={() => navigate(`${item.linkUrl}`)}>{item.name}</ListItemButton>
+                                    </ListItem>   
+                                )
+                            })}
                         </List>
                     </Box>
                     <Stack className="SocialWrapper MenuWrapper">

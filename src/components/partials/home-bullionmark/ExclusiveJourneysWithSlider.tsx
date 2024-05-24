@@ -3,8 +3,11 @@ import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 // import 'swiper/css/pagination';
+import { navigate } from "gatsby";
 
-import ExclusiveJourneysSliderImage from '../../../assets/images/ExclusiveJourneysSliderImage.png'
+// Hooks
+import { useAppSelector } from "@/hooks"
+
 import { BullionmarkSectionHeading } from '@/components/common/Utils';
 
 import { prefixZeroIfOneDigitNumber } from "../../../utils/helper"
@@ -12,6 +15,7 @@ import { BullionmarkSwiperButtonPrev, BullionmarkSwiperButtonNext, BullionmarkSw
 
 
 function ExclusiveJourneysWithSlider() {
+    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
     const [currentSlide, setCurrentSlide] = useState<number | null>(null)
     const [totalSlide, setTotalSlide] = useState<number | null>(null)
     const config = {
@@ -43,109 +47,44 @@ function ExclusiveJourneysWithSlider() {
     }
     return (
         <>
-
-            <Box id="ExclusiveJourneysWithSlider" component="section">
-                <Container>
-                    <Box className="SwiperContainer">
-                        <Swiper
-                            {...config}
-                        >
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="ExclusiveJourneysWrapper">
-                                    <img src={ExclusiveJourneysSliderImage} alt="ExclusiveJourneysSliderImage" />
-                                    <Box className="ExclusiveJourneysContent">
-                                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging." />
-                                        <Button variant="outlined" className='WhiteButton'>Discover</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                        </Swiper>
-                        <Stack className="BullionmarkSwiperNavigation">
-                            <IconButton className="BullionmarkSwiperButtonPrev">
-                                <BullionmarkSwiperButtonPrev />
-                            </IconButton>
-                            {currentSlide}
-                            <BullionmarkSwiperDash />
-                            {totalSlide}
-                            <IconButton className="BullionmarkSwiperButtonNext">
-                                <BullionmarkSwiperButtonNext />
-                            </IconButton>
-                        </Stack>
-                    </Box>
-                </Container>
-            </Box>
+            {(bullionMarkPage && bullionMarkPage.homepage_Section_5_One_big_post.length > 0) && (
+                <Box id="ExclusiveJourneysWithSlider" component="section">
+                    <Container>
+                        <Box className="SwiperContainer">
+                            <Swiper
+                                {...config}
+                            >
+                                {bullionMarkPage.homepage_Section_5_One_big_post.map((item) => {
+                                    return (
+                                        <SwiperSlide key={item.id}>
+                                            <Box className="ExclusiveJourneysWrapper">
+                                                <img src={item.imageUrl} alt="ExclusiveJourneysSliderImage" />
+                                                <Box className="ExclusiveJourneysContent">
+                                                    <BullionmarkSectionHeading title={item.title} description={item.overview} />
+                                                    <Button variant="outlined" className='WhiteButton' onClick={()=>{navigate(`/${item.friendlyName}`)}}>Discover</Button>
+                                                </Box>
+                                            </Box>
+                                        </SwiperSlide>
+                                    )
+                                })}
+                            </Swiper>
+                            {bullionMarkPage.homepage_Section_5_One_big_post.length > 1 && (
+                                <Stack className="BullionmarkSwiperNavigation">
+                                    <IconButton className="BullionmarkSwiperButtonPrev">
+                                        <BullionmarkSwiperButtonPrev />
+                                    </IconButton>
+                                    {currentSlide}
+                                    <BullionmarkSwiperDash />
+                                    {totalSlide}
+                                    <IconButton className="BullionmarkSwiperButtonNext">
+                                        <BullionmarkSwiperButtonNext />
+                                    </IconButton>
+                                </Stack>
+                            )}
+                        </Box>
+                    </Container>
+                </Box>
+            )}
         </>
     )
 }

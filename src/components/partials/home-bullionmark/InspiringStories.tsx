@@ -3,28 +3,34 @@ import React from 'react'
 import InspiringStoriesLeftImage from '../../../assets/images/InspiringStoriesLeftImage.png'
 import InspiringStoriesRightImage from '../../../assets/images/InspiringStoriesRightImage.png'
 import { BullionmarkSectionHeading } from '@/components/common/Utils'
+import { navigate } from "gatsby";
+
+// Hooks
+import { useAppSelector } from "@/hooks"
 
 function InspiringStories() {
+    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
+    const inspiringStories = bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row
     return (
-        <Box id="InspiringStories" component="section">
+        inspiringStories && (<Box id="InspiringStories" component="section">
             <Container>
                 <Box className="InspiringStoriesTitle">
                     <BullionmarkSectionHeading title="Inspiring Stories" />
                 </Box>
                 <Stack className="InspiringStoriesContent">
-                    <Box className="LeftContent">
+                    <Box className="LeftContent" onClick={() => { navigate(`${inspiringStories[0].friendlyName}`) }}>
                         <img src={InspiringStoriesLeftImage} alt="left-image" loading="lazy" />
-                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging. We are committed to offering unique travel opportunities, to unusual destinations, that are mutually beneficial to all involved." />
-                        <Typography variant="body2" className='Date'>27 Jan 2024</Typography>
+                        <BullionmarkSectionHeading title={inspiringStories[0].title} description={inspiringStories[0].overview} />
+                        {/* <Typography variant="body2" className='Date'>27 Jan 2024</Typography> */}
                     </Box>
-                    <Box className="RightContent">
+                    <Box className="RightContent" onClick={() => { navigate(`${inspiringStories[1].friendlyName}`) }}>
                         <img src={InspiringStoriesRightImage} alt="right-image" loading="lazy" />
-                        <BullionmarkSectionHeading title="Exclusive Journeys and Select Departures to Remote Corners of" description="We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging. We are committed to offering unique travel opportunities, to unusual destinations, that are mutually beneficial to all involved." />
-                        <Typography variant="body2" className='Date'>27 Jan 2024</Typography>
+                        <BullionmarkSectionHeading title={inspiringStories[1]?.title} description={inspiringStories[1].overview} />
+                        {/* <Typography variant="body2" className='Date'>27 Jan 2024</Typography> */}
                     </Box>
                 </Stack>
             </Container>
-        </Box>
+        </Box>)
     )
 }
 

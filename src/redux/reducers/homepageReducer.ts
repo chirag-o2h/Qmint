@@ -53,6 +53,33 @@ interface IMainHomePage {
   }[]
 }
 
+interface BullionMarkItem {
+  id: number
+  friendlyName: string
+  imageUrl: string
+  mediaType: string | null
+  overview: any
+  sectionType: number
+  title: string
+}
+
+interface IBullionMarkPage {
+  homepage_Section_1_Picture_and_content: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_2_Four_posts_in_a_row: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_3_Three_posts_in_a_row: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_4_Two_pics_and_content: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_5_One_big_post: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_6_Three_posts_in_wavy_layout: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_7_Two_posts_in_a_row: BullionMarkItem[];
+  homepage_Section_8_Footer_background_pic: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_9_Footer_Quick_Links: {
+    name: string,
+    linkType: number,
+    linkUrl: string,
+    displayOrder: number
+  }[]
+}
+
 interface CreateGuidelineState {
   configDetails: any,
   sectionDetails: any,
@@ -98,6 +125,7 @@ interface CreateGuidelineState {
   popUpdata: IPopupDetails | null,
   siteMapData: { items: IsiteMapData[], totalCount: number } | null;
   mainHomePageData: IMainHomePage | null
+  bullionMarkPage: IBullionMarkPage | null
 }
 interface Settings {
   TwoFactorAuthenticatorAdminlogin: string;
@@ -189,7 +217,8 @@ const initialState: CreateGuidelineState = {
   liveDashboardChartData: {},
   popUpdata: null,
   siteMapData: null,
-  mainHomePageData: null
+  mainHomePageData: null,
+  bullionMarkPage: null,
 }
 
 export const configDetails = appCreateAsyncThunk(
@@ -284,6 +313,13 @@ export const getMainHomePageData = appCreateAsyncThunk(
   'getMainHomePageData',
   async () => {
     return await ConfigServices.getMainHomePageAPI()
+  }
+)
+
+export const getBullionMarkPageAPI = appCreateAsyncThunk(
+  'getBullionMarkPageAPI',
+  async () => {
+    return await ConfigServices.getBullionMarkPageAPI()
   }
 )
 
@@ -571,6 +607,18 @@ export const createHomepageSlice = createSlice({
       state.loading = false
     })
     builder.addCase(upgradePlaneOfMembership.rejected, (state, action) => {
+      state.loading = false
+    })
+    // Bullion Mark
+    builder.addCase(getBullionMarkPageAPI.pending, (state, action) => {
+      state.loading = true
+    })
+    builder.addCase(getBullionMarkPageAPI.fulfilled, (state, action) => {
+      const res = action.payload.data.data
+      state.bullionMarkPage = res
+      state.loading = false
+    })
+    builder.addCase(getBullionMarkPageAPI.rejected, (state, action) => {
       state.loading = false
     })
   },

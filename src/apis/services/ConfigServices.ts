@@ -112,6 +112,9 @@ class ConfigServices {
   static async getMainHomePageAPI() {
     return axiosInstance.get(ENDPOINTS.mainHomePage)
   }
+  static async getBullionMarkPageAPI() {
+    return axiosInstance.get(ENDPOINTS.bullionMarkPage)
+  }
   static async getFooterSections(){
     return axiosInstance.get(ENDPOINTS.getFooterLink)
   }

@@ -4,13 +4,13 @@ import { Autoplay, Pagination, A11y } from 'swiper/modules'
 
 import React from 'react'
 import { Swiper, SwiperSlide } from "swiper/react"
+import { navigate } from "gatsby";
 
-import TravelInspirationSlideImage from '../../../assets/images/TravelInspirationSlideImage.png'
-import Travel2 from '../../../assets/images/Travel2.png'
-import Travel3 from '../../../assets/images/Travel3.png'
-
+// Hooks
+import { useAppSelector } from "@/hooks"
 
 function TravelInspiration() {
+    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
     const config = {
         slidesPerView: 3,
         centeredSlides: false,
@@ -47,6 +47,7 @@ function TravelInspiration() {
             },
         }
     };
+    const travelInspiration = bullionMarkPage?.homepage_Section_6_Three_posts_in_wavy_layout
     return (
         <Box id="TravelInspiration" component="section">
             <Container>
@@ -54,72 +55,29 @@ function TravelInspiration() {
                     <BullionmarkSectionHeading title="Find Travel Inspiration By Style" />
                 </Box>
                 <Box className="TravelInspirationSliderWrapper">
-                    <Box className="SwiperContainer">
-                        <Swiper {...config}>
-                            <SwiperSlide>
-                                <Box className="TravelInspirationSlideWrapper">
-                                    <Box className="TravelInspirationSlideImageWrapper">
-                                        <img src={TravelInspirationSlideImage} alt="Travel Inspiration Slide Image" />
-                                        <Typography className="TravelInspirationSlideTitle">Family Travel</Typography>
-                                    </Box>
-                                    <Box className="TravelInspirationSlideBottomContent">
-                                        <BullionmarkSectionHeading description="Luxury family safaris and inspiring wildlife adventures with a positive impact." />
-                                        <Button variant="outlined">Discover More</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="TravelInspirationSlideWrapper">
-                                    <Box className="TravelInspirationSlideImageWrapper">
-                                        <img src={Travel2} alt="Travel Inspiration Slide Image" />
-                                        <Typography className="TravelInspirationSlideTitle">Private Travel</Typography>
-                                    </Box>
-                                    <Box className="TravelInspirationSlideBottomContent">
-                                        <BullionmarkSectionHeading description="Luxury family safaris and inspiring wildlife adventures with a positive impact." />
-                                        <Button variant="outlined">Discover More</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="TravelInspirationSlideWrapper">
-                                    <Box className="TravelInspirationSlideImageWrapper">
-                                        <img src={Travel3} alt="Travel Inspiration Slide Image" />
-                                        <Typography className="TravelInspirationSlideTitle">Family Travel</Typography>
-                                    </Box>
-                                    <Box className="TravelInspirationSlideBottomContent">
-                                        <BullionmarkSectionHeading description="Quality time with family and friends, complete flexibility and exclusive use safari camps." />
-                                        <Button variant="outlined">Discover More</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="TravelInspirationSlideWrapper">
-                                    <Box className="TravelInspirationSlideImageWrapper">
-                                        <img src={TravelInspirationSlideImage} alt="Travel Inspiration Slide Image" />
-                                        <Typography className="TravelInspirationSlideTitle">Family Travel</Typography>
-                                    </Box>
-                                    <Box className="TravelInspirationSlideBottomContent">
-                                        <BullionmarkSectionHeading description="Luxury family safaris and inspiring wildlife adventures with a positive impact." />
-                                        <Button variant="outlined">Discover More</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Box className="TravelInspirationSlideWrapper">
-                                    <Box className="TravelInspirationSlideImageWrapper">
-                                        <img src={TravelInspirationSlideImage} alt="Travel Inspiration Slide Image" />
-                                        <Typography className="TravelInspirationSlideTitle">Family Travel</Typography>
-                                    </Box>
-                                    <Box className="TravelInspirationSlideBottomContent">
-                                        <BullionmarkSectionHeading description="Luxury family safaris and inspiring wildlife adventures with a positive impact." />
-                                        <Button variant="outlined">Discover More</Button>
-                                    </Box>
-                                </Box>
-                            </SwiperSlide>
-                        </Swiper>
-                    </Box>
+                    {(travelInspiration && travelInspiration.length > 0) && (
+                        <Box className="SwiperContainer">
+                            <Swiper {...config}>
+                                {travelInspiration.map((item) => {
+                                    return (
+                                        <SwiperSlide key={item.id}>
+                                            <Box className="TravelInspirationSlideWrapper">
+                                                <Box className="TravelInspirationSlideImageWrapper">
+                                                    <img src={item.imageUrl} alt={item.friendlyName + " Image"} />
+                                                    <Typography className="TravelInspirationSlideTitle">{item.title}</Typography>
+                                                </Box>
+                                                <Box className="TravelInspirationSlideBottomContent">
+                                                    <BullionmarkSectionHeading description={item.overview} />
+                                                    <Button variant="outlined" onClick={()=>{navigate(`/${item.friendlyName}`)}}>Discover More</Button>
+                                                </Box>
+                                            </Box>
+                                        </SwiperSlide>
+                                    )
+                                })}
+                            </Swiper>
+                        </Box>
+                    )}
                 </Box>
-
             </Container>
         </Box>
     )
