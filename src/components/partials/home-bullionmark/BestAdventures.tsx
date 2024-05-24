@@ -11,6 +11,7 @@ import { useAppSelector } from "@/hooks"
 
 function BestAdventures() {
     const { bullionMarkPage } = useAppSelector((state) => state.homePage)
+    
     const config = {
         slidesPerView: 1,
         spaceBetween: 20,
@@ -42,15 +43,17 @@ function BestAdventures() {
             },
         }
     }
+
     const bestAdventures = bullionMarkPage?.homepage_Section_2_Four_posts_in_a_row
+    
     return (
         <>
             <Box id="BestAdventures" className="BestAdventures" component="section">
                 <Container component="section">
                     <BullionmarkSectionHeading
                         title="The Best Of Adventure" />
-                        {(bestAdventures && bestAdventures.length > 0) && (
-                            <Box className="SwiperContainer">
+                    {(bestAdventures && bestAdventures.length > 0) && (
+                        <Box className="SwiperContainer">
                             <Swiper {...config}>
                                 {bestAdventures.map((item) => {
                                     return (
@@ -73,8 +76,8 @@ function BestAdventures() {
                                     )
                                 })}
                             </Swiper>
-                            </Box>
-                        )}
+                        </Box>
+                    )}
                 </Container>
             </Box>
         </>

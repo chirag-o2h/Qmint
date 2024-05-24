@@ -15,24 +15,25 @@ function BullionmarkFooter() {
     const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
     const { bullionMarkPage } = useAppSelector((state) => state.homePage)
     const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
+
     return (
         <Box id="BullionmarkFooterSection" className='BullionmarkFooter' component="footer">
             <Container className="Container">
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
                         <GatsbyLink to="/" style={{ cursor: 'pointer' }}>
-                            <img src={BullionFooterLogo} alt="Bullionmark Footer logo" loading="lazy" />
+                            <img src={configDetailsState.Homepage_FooterLogo_URL.value} alt="Bullionmark Footer logo" loading="lazy" />
                         </GatsbyLink>
                         <Typography className='FooterTagLine'>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups</Typography>
                     </Stack>
                     <Box className="MenuWrapper QuickLink">
                         <Typography className="MenuTitle" variant="subtitle2" component="p">Information</Typography>
                         <List>
-                            {bullionmarkFooter.map((item)=>{
+                            {bullionmarkFooter.map((item) => {
                                 return (
                                     <ListItem key={item.name}>
                                         <ListItemButton onClick={() => navigate(`${item.linkUrl}`)}>{item.name}</ListItemButton>
-                                    </ListItem>   
+                                    </ListItem>
                                 )
                             })}
                         </List>

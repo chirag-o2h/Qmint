@@ -13,19 +13,19 @@ import ExclusiveJourneysWithSlider from '@/components/partials/home-bullionmark/
 import InspiringStories from '@/components/partials/home-bullionmark/InspiringStories'
 import TravelInspiration from '@/components/partials/home-bullionmark/TravelInspiration'
 import Newsletter from '@/components/partials/home-bullionmark/Newsletter'
-import { getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
+import { configDetails, getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
 import useAPIoneTime from '@/hooks/useAPIoneTime'
-
+import { ENDPOINTS } from '@/utils/constants'
 
 const MainLayout = lazy(() => import("@/components/common/MainLayout"))
 
-
 function indexBulliomark() {
-
-    const { configDetails: configDetailsState, openToaster, scrollPosition, loading, bullionMarkPage } = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
+    console.log("🚀 ~ indexBulliomark ~ configDetailsState:", configDetailsState)
     const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
-    
+
     useAPIoneTime({ service: getBullionMarkPageAPI })
+    useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
 
     return (
         <>
