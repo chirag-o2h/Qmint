@@ -138,8 +138,10 @@
                 .AdventureCardWrapper {
                     display: flex;
                     flex-direction: column;
-
-
+                    height: 100%;
+                    img {
+                        flex: 1;
+                    }
                     .AdventureCardLink {
                         text-decoration: none;
                         padding: 20px;
@@ -215,6 +217,11 @@
                     margin-bottom: 8px;
                     @include media-min($ssm) {
                         width: max-content;
+                    }
+                }
+                .Description {
+                    @include media-min($ssm) {
+                        max-width: 310px;
                     }
                 }
             }
@@ -574,6 +581,11 @@
 
                     img {
                         width: 100%;
+                        max-height: 580px;
+                        object-fit: cover;
+                        @include media($sm) {
+                            max-height: 60vh;
+                        }
                     }
 
                     .TravelInspirationSlideTitle {
@@ -660,7 +672,7 @@
             .LeftContent,
             .RightContent {
                 flex: 1;
-
+                cursor: pointer;
                 img {
                     width: 100%;
                 }
