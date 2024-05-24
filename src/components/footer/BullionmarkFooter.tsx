@@ -12,26 +12,27 @@ import { navigate } from "gatsby";
 import { useAppSelector } from "@/hooks"
 
 function BullionmarkFooter() {
-    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
-  const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
-  return (
+    const { bullionMarkPage, configDetails } = useAppSelector((state) => state.homePage)
+    const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
+
+    return (
         <Box id="BullionmarkFooterSection" className='BullionmarkFooter' component="footer">
             <Container className="Container">
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
                         <GatsbyLink to="/" style={{ cursor: 'pointer' }}>
-                            <img src={BullionFooterLogo} alt="Bullionmark Footer logo" loading="lazy" />
+                            <img src={configDetails.Homepage_FooterLogo_URL.value} alt="Bullionmark Footer logo" loading="lazy" />
                         </GatsbyLink>
                         <Typography className='FooterTagLine'>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups</Typography>
                     </Stack>
                     <Box className="MenuWrapper QuickLink">
                         <Typography className="MenuTitle" variant="subtitle2" component="p">Quick Link</Typography>
                         <List>
-                            {bullionmarkFooter.map((item)=>{
+                            {bullionmarkFooter.map((item) => {
                                 return (
                                     <ListItem key={item.name}>
                                         <ListItemButton onClick={() => navigate(`${item.linkUrl}`)}>{item.name}</ListItemButton>
-                                    </ListItem>   
+                                    </ListItem>
                                 )
                             })}
                         </List>

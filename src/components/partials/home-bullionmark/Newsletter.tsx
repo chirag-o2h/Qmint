@@ -32,6 +32,7 @@ function Newsletter() {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<IBullionMarkSubscriptionDetails>({
     resolver: yupResolver(schema)
@@ -46,6 +47,7 @@ function Newsletter() {
         message: response?.data?.message,
         severity: 'success'
       })
+      reset()
       console.log("🚀 ~ onSubmit ~ res:", response)
     } catch (error:any) {
       console.log("🚀 ~ onSubmit ~ error:", error)
