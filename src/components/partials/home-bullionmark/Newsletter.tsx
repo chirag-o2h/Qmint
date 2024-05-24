@@ -10,39 +10,61 @@ import NewsletterBG from "@/assets/images/NewsletterBG.png"
 // Components
 import RenderFields from "@/components/common/RenderFields";
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
+import ConfigServices, { IBullionMarkSubscriptionDetails } from "@/apis/services/ConfigServices";
+import useShowToaster from "@/hooks/useShowToaster";
+import { useAppSelector } from "@/hooks";
+import Toaster from "@/components/common/Toaster";
 
-interface FormNewsletter {
-  "First name": string,
-  "Last name": string,
-  "Phone number": string,
-  "Email address": string,
-  "Agreement": string,
-}
 
 const schema = yup.object().shape({
-  "First name": yup.string().required(),
-  "Last name": yup.string(),
-  "Phone number": yup.string(),
-  "Email address": yup.string().email().required(),
-  "Agreement": yup.string(),
+  FirstName: yup.string().required('First name is required'),
+  LastName: yup.string().required('Last name is required'),
+  PhoneNumber: yup.string()
+    .matches(/^(\+?[0-9]{1,3})?[0-9]{6,15}$/, 'Phone number must be a valid format, optionally with country code')
+    .min(6, 'Phone number must be at least 6 digits')
+    .max(15, 'Phone number must be at most 15 digits')
+    .required('Phone number is required'),
+  Email: yup.string().email('Invalid email address').required('Email address is required'),
+  AllowEmailSend: yup.boolean(),
 });
-
 function Newsletter() {
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FormNewsletter>({
+  } = useForm<IBullionMarkSubscriptionDetails>({
     resolver: yupResolver(schema)
   })
+  const { openToaster } = useAppSelector(state => state.homePage)
+  const { showToaster } = useShowToaster();
 
-  const onSubmit = (data: any) => {
-    console.log("data:", data);
+  const onSubmit = async (data: IBullionMarkSubscriptionDetails) => {
+    try {
+      const response = await ConfigServices.sendSubscriptionDetailsForTheBullionmarkHomePage({...data} as IBullionMarkSubscriptionDetails)
+      showToaster({
+        message: response?.data?.message,
+        severity: 'success'
+      })
+      console.log("🚀 ~ onSubmit ~ res:", response)
+    } catch (error:any) {
+      console.log("🚀 ~ onSubmit ~ error:", error)
+      showToaster({
+        message: error?.response?.data?.message,
+        severity: 'error'
+      })
+    }
+    // if(){
+    //   showToaster({
+    //     message: `Can not add more than  items to cart.`,
+    //     severity: 'error'
+    //   })
+    // }
   }
 
   return (
     <Box id="SectionNewsletter" component="section">
+      {openToaster && <Toaster />}
       <img className="NewsletterBG" src={NewsletterBG} alt="" />
       <Box className="BackgroundHolder">
         <Container maxWidth="sm">
@@ -52,7 +74,7 @@ function Newsletter() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <RenderFields
               register={register}
-              error={errors["First name"]}
+              error={errors["FirstName"]}
               name="FirstName"
               placeholder="First Name"
               control={control}
@@ -61,7 +83,7 @@ function Newsletter() {
             />
             <RenderFields
               register={register}
-              error={errors["Last name"]}
+              error={errors["LastName"]}
               name="LastName"
               placeholder="Last Name"
               control={control}
@@ -70,7 +92,7 @@ function Newsletter() {
             />
             <RenderFields
               register={register}
-              error={errors["Phone number"]}
+              error={errors["PhoneNumber"]}
               name="PhoneNumber"
               placeholder="Phone Number"
               control={control}
@@ -79,8 +101,8 @@ function Newsletter() {
             />
             <RenderFields
               register={register}
-              error={errors["Email address"]}
-              name="EmailAddress"
+              error={errors["Email"]}
+              name="Email"
               placeholder="Enter Your Email Address"
               control={control}
               variant="outlined"
@@ -88,10 +110,11 @@ function Newsletter() {
             />
             <RenderFields
               type="checkbox"
-              name="Agreement"
+              name="AllowEmailSend"
               className="Agreement"
               label="I'm happy to receive emails from Bullionmark"
               margin="none"
+              register={register}
             />
             <Stack className="ActionWrapper">
               <Button type="submit" size="large" color="primary" variant="contained">Subscribe</Button>
