@@ -14,7 +14,7 @@ function PlanningJourney() {
                 <Container>
                     <Box className="ck-content">
                         <Box dangerouslySetInnerHTML={{
-                            __html: planningJourney[0].overview
+                            __html: planningJourney?.[0]?.overview
                         }}>
                         </Box>
                     </Box>

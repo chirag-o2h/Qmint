@@ -13,7 +13,7 @@ function ExclusiveJourneys() {
                 <Container>
                     <Box className="ck-content">
                         <Box dangerouslySetInnerHTML={{
-                            __html: exclusiveJourneys[0].overview
+                            __html: exclusiveJourneys?.[0]?.overview
                         }}>
                         </Box>
                     </Box>
