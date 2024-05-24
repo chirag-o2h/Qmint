@@ -65,6 +65,7 @@ import OutlinedCheckIcon from "./OutlinedCheckIcon";
 import Map1Icon from "./Map1Icon";
 import Map2Icon from "./Map2Icon";
 import Map3Icon from "./Map3Icon";
+import Map4Icon from "./Map4Icon";
 import PencilIcon from "./PencilIcon";
 import ClipboardIcon from "./ClipboardIcon";
 import ShieldIcon from "./ShieldIcon";
@@ -116,6 +117,7 @@ import TrustIcon from "./TrustIcon";
 import SuperFundIcon from "./SuperFundIcon";
 import PlayIcon from "./PlayIcon";
 import PhoneCall from "./PhoneCall";
+import PhoneCall1Icon from "./PhoneCall1Icon";
 
 
 export {
@@ -186,6 +188,7 @@ export {
   Map1Icon,
   Map2Icon,
   Map3Icon,
+  Map4Icon,
   PencilIcon,
   ClipboardIcon,
   ShieldIcon,
@@ -232,6 +235,7 @@ export {
   SuperFundIcon,
   PlayIcon,
   PhoneCall,
+  PhoneCall1Icon,
   BInsta,
   BYoutube,
   BFacebook,
