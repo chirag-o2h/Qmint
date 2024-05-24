@@ -11,9 +11,13 @@ function PlanningJourney() {
     return (
         <>
             {planningJourney && <Box id="PlanningJourney" component="section">
-                <Container  dangerouslySetInnerHTML={{
-                __html: planningJourney[0].overview
-                }}>
+                <Container>
+                    <Box className="ck-content">
+                        <Box dangerouslySetInnerHTML={{
+                            __html: planningJourney[0].overview
+                        }}>
+                        </Box>
+                    </Box>
                 </Container>
             </Box>}
 

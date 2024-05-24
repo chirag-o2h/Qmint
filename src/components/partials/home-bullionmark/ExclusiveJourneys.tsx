@@ -10,9 +10,13 @@ function ExclusiveJourneys() {
     return (
         <>
             {exclusiveJourneys && <Box id="ExclusiveJourneys" component="section">
-                <Container  dangerouslySetInnerHTML={{
-                __html: exclusiveJourneys[0].overview
-                }}>
+                <Container>
+                    <Box className="ck-content">
+                        <Box dangerouslySetInnerHTML={{
+                            __html: exclusiveJourneys[0].overview
+                        }}>
+                        </Box>
+                    </Box>
                 </Container>
             </Box>}
         </>
