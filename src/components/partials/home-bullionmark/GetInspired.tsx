@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography, } from "@mui/material"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay } from 'swiper/modules'
 import { navigate } from "gatsby";
-     
+
 // Type
 import { SwiperOptions } from "swiper/types";
 
@@ -14,8 +14,9 @@ import { useAppSelector } from "@/hooks"
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
 
 function GetInspired() {
-    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
-    const config: SwiperOptions = {
+  const { bullionMarkPage } = useAppSelector((state) => state.homePage)
+
+  const config: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 20,
     loop: true,
@@ -38,7 +39,9 @@ function GetInspired() {
       }
     },
   }
+  
   const getInspired = bullionMarkPage?.homepage_Section_3_Three_posts_in_a_row
+  
   return (
     <Box id="SectionGetInspired" component="section">
       <Stack className="LayoutWrapper">
@@ -61,7 +64,7 @@ function GetInspired() {
                         <Box className="Content">
                           <Typography className="Title">{item.title}</Typography>
                           <Typography className="Description">{item.overview}</Typography>
-                          <Button variant="outlined" className="WhiteButton" onClick={()=>{navigate(`/${item.friendlyName}`)}}>Discover</Button>
+                          <Button variant="outlined" className="WhiteButton" onClick={() => { navigate(`/${item.friendlyName}`) }}>Discover</Button>
                         </Box>
                       </Stack>
                     </SwiperSlide>

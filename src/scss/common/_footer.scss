@@ -576,6 +576,20 @@
         text-align: center;
         align-items: center;
       }
+      img{
+          max-width: 327px;
+          object-fit: contain;
+
+          @include media($lg) {
+            max-width: 250px;
+          }
+          @include media($mmd) {
+            max-width: 200px;
+          }
+          @include media($sm) {
+            max-width: 150px;
+          }
+      }
 
       .FooterTagLine {
         font-size: 15px;
