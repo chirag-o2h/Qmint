@@ -55,7 +55,7 @@ function BestAdventures() {
                     {(bestAdventures && bestAdventures.length > 0) && (
                         <Box className="SwiperContainer">
                             <Swiper {...config}>
-                                {bestAdventures.map((item) => {
+                                {[...bestAdventures,...bestAdventures].map((item) => {
                                     return (
                                         <SwiperSlide key={item.id}>
                                             <Box className="AdventureCardWrapper">

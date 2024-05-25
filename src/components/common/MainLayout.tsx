@@ -3,6 +3,7 @@ import { Stack } from '@mui/material'
 import React, { Suspense, lazy, useEffect, useState } from 'react'
 import BullionmarkFooter from '../footer/BullionmarkFooter';
 import { useLocation } from '@reach/router';
+import { STORE_CODE } from '@/axiosfolder';
 
 // import FrontHeader from '../header/FrontHeader';
 // import LazyFrontHeader from 
@@ -30,7 +31,7 @@ const MainLayout = (props: MainLayout) => {
     useEffect(() => {
         console.log(location.pathname);
 
-        if (location.pathname === "/index-bullionmark/") {
+        if (STORE_CODE == "7") {
             setIsBullionmarkHomePage(true)
         }
     }, [])

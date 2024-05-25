@@ -38,6 +38,7 @@ interface Iprops {
   status: boolean;
   percentage: number;
   move: any;
+  isItForBullionMark: boolean;
   tickerStyle?: {
     tickertype?: string;
     tickerboxfontcolor?: string;
@@ -72,7 +73,7 @@ export const isValidPhoneNumber = (phoneNumber: string, country: string) => {
 }
 
 export const StockReturnWithName = React.memo(
-  ({ name, value, charturl, status, percentage, tickerStyle, move }: Iprops) => {
+  ({ name, value, charturl, status, percentage, tickerStyle, move, isItForBullionMark }: Iprops) => {
     const containerWidth = Math.max(...[(move?.toString()?.length || 0), 4]) * 10;
     return (
       <Stack
@@ -105,7 +106,7 @@ export const StockReturnWithName = React.memo(
           </Box>
           {status ? <ChevronUp /> : <ChevronDown />}
         </Stack>
-        <img alt="ChartImage" src={charturl} width={90} height={20} />
+        {!isItForBullionMark && <img alt="ChartImage" src={charturl} width={90} height={20} />}
       </Stack>
     );
   }

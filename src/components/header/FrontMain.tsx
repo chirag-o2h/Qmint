@@ -16,6 +16,7 @@ import { ENDPOINTS } from "../../utils/constants"
 import { Link, navigate } from "gatsby"
 import { CategoriesListDetails, LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
+import { STORE_CODE } from "@/axiosfolder";
 const Navigation = lazy(() => import('./Navigation'))
 
 function FrontMain(props: any) {
@@ -39,7 +40,7 @@ function FrontMain(props: any) {
     useEffect(() => {
         console.log(location.pathname);
 
-        if (location.pathname === "/index-bullionmark/") {
+        if (STORE_CODE === "7") {
             setIsBullionmarkHomePage(true)
         }
     }, [])

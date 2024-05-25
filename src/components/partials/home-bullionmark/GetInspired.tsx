@@ -53,7 +53,7 @@ function GetInspired() {
           {(getInspired && getInspired.length > 0) && (
             <Box className="SwiperContainer">
               <Swiper {...config} >
-                {getInspired.map((item, index) => {
+                {[...getInspired,...getInspired].map((item, index) => {
                   return (
                     <SwiperSlide key={`InspiredCard-${index}`}>
                       <Stack className="InspiredCard" sx={{ backgroundImage: `url("${item.imageUrl}")` }}>
