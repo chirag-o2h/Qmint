@@ -219,11 +219,6 @@
                         width: max-content;
                     }
                 }
-                .Description {
-                    @include media-min($ssm) {
-                        max-width: 310px;
-                    }
-                }
             }
             .InspiredCardWrapper {
                 max-width: 100%;
