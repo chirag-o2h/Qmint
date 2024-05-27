@@ -8,7 +8,7 @@ import { useLocation } from '@reach/router';
 import SearchField from "./SearchField"
 
 // Assets
-import { Call, SignInIcon, SignOutIcon, HamburgerIcon, CrossIcon } from "../../assets/icons/index"
+import { Call, SignInIcon, SignOutIcon, HamburgerIcon, CrossIcon, BullionmarkSignInIcon } from "../../assets/icons/index"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 
 // Utils
@@ -56,8 +56,8 @@ function FrontMain(props: any) {
                     </Stack>
                     <Stack className="Right">
                         {/* <Link to={ENDPOINTS.login}> */}
-                        <Button name='signIn' aria-label='signIn' onClick={handleAuth} className={classNames("SignInButton ActionButton", { "WhiteButton": !trigger && isBullionmarkHomePage })} variant="outlined" startIcon={!isLoggedIn ? <SignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
-                        {/* <Button name='Contact us' aria-label='Contact us' onClick={() => {
+                        <Button name='signIn' aria-label='signIn' onClick={handleAuth} className={classNames("SignInButton ActionButton", { "WhiteButton": !trigger && isBullionmarkHomePage })} variant="outlined" startIcon={!isLoggedIn ? (isBullionmarkHomePage ? <BullionmarkSignInIcon /> : <SignInIcon />) : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
+                        {/* <Button name='Contact us' aria-label='Contact us' onClick={() => { 
                             navigate('/contactus')
                         }} variant="outlined" className="ActionButton">Contact Us</Button> */}
                         {/* </Link> */}

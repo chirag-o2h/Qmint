@@ -12,7 +12,7 @@ import { navigate } from "gatsby";
 import { useAppSelector } from "@/hooks"
 
 function BullionmarkFooter() {
-    const { configDetails: configDetailsState , bullionMarkPage} = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState, bullionMarkPage } = useAppSelector((state) => state.homePage)
     console.log("🚀 ~ BullionmarkFooter ~ bullionMarkPage:", configDetailsState)
     const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
 
@@ -22,7 +22,7 @@ function BullionmarkFooter() {
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
                         <GatsbyLink to="/" style={{ cursor: 'pointer' }}>
-                            <img src={configDetailsState.Homepage_FooterLogo_URL.value} alt="Bullionmark Footer logo" loading="lazy" />
+                            <img src={configDetailsState?.Homepage_FooterLogo_URL?.value} alt="Bullionmark Footer logo" loading="lazy" />
                         </GatsbyLink>
                         <Typography className='FooterTagLine'>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups</Typography>
                     </Stack>
