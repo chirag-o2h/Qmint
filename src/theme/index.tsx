@@ -13,9 +13,9 @@ import { THEME_TYPE } from '../axiosfolder';
 // Components
 import components from "./components"
 
-const themeTypes :any= {
-  0 : "#EAA22B",
-  1 : "#FF681A",
+const themeTypes: any = {
+  0: "#EAA22B",
+  1: "#FF681A",
 }
 
 const theme: Theme = createTheme({

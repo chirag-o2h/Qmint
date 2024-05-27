@@ -186,7 +186,7 @@ const commonComponents: Components = {
   },
 }
 
-const qmintComponents:  Components = {
+const qmintComponents: Components = {
   ...commonComponents,
   MuiTypography: {
     defaultProps: {
@@ -606,7 +606,7 @@ const qmintComponents:  Components = {
   },
 }
 
-const bmkComponents:  Components = {
+const bmkComponents: Components = {
   ...commonComponents,
   MuiTypography: {
     defaultProps: {
@@ -1033,7 +1033,7 @@ const components = (theme?: string) => {
 
     case "1":
       return bmkComponents as Components
-  
+
     default:
       return commonComponents as Components
   }
