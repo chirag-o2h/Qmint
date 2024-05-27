@@ -58,13 +58,9 @@ function ExclusiveJourneysWithSlider() {
                                 {exclusiveJourneysWithSlider.map((item) => {
                                     return (
                                         <SwiperSlide key={item.id}>
-                                            <Box className="ExclusiveJourneysWrapper">
-                                                <img src={item.imageUrl} alt="ExclusiveJourneysSliderImage" />
-                                                <Box className="ExclusiveJourneysContent">
-                                                    <BullionmarkSectionHeading title={item.title} description={item.overview} />
-                                                    <Button variant="outlined" className='WhiteButton' onClick={()=>{navigate(`/${item.friendlyName}`)}}>Discover</Button>
-                                                </Box>
-                                            </Box>
+                                            <Box dangerouslySetInnerHTML={{
+                                                __html: exclusiveJourneysWithSlider?.[0]?.overview
+                                            }}></Box>
                                         </SwiperSlide>
                                     )
                                 })}
