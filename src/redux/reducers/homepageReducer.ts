@@ -67,8 +67,8 @@ interface IBullionMarkPage {
   homepage_Section_1_Picture_and_content: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_2_Four_posts_in_a_row: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_3_Three_posts_in_a_row: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_4_Two_pics_and_content: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_5_One_big_pic_and_content: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
-  homepage_Section_5_One_big_post: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_6_Three_posts_in_wavy_layout: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_7_Two_posts_in_a_row: BullionMarkItem[];
   homepage_Section_8_Footer_background_pic: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
