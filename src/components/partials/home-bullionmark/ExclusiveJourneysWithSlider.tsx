@@ -45,16 +45,17 @@ function ExclusiveJourneysWithSlider() {
             delay: 8000,
         },
     }
-    return (
+  const exclusiveJourneysWithSlider = bullionMarkPage?.homepage_Section_5_One_big_pic_and_content
+  return (
         <>
-            {(bullionMarkPage && bullionMarkPage.homepage_Section_5_One_big_post.length > 0) && (
+            {(exclusiveJourneysWithSlider && exclusiveJourneysWithSlider.length > 0) && (
                 <Box id="ExclusiveJourneysWithSlider" component="section">
                     <Container>
                         <Box className="SwiperContainer">
                             <Swiper
                                 {...config}
                             >
-                                {bullionMarkPage.homepage_Section_5_One_big_post.map((item) => {
+                                {exclusiveJourneysWithSlider.map((item) => {
                                     return (
                                         <SwiperSlide key={item.id}>
                                             <Box className="ExclusiveJourneysWrapper">
@@ -68,7 +69,7 @@ function ExclusiveJourneysWithSlider() {
                                     )
                                 })}
                             </Swiper>
-                            {bullionMarkPage.homepage_Section_5_One_big_post.length > 1 && (
+                            {exclusiveJourneysWithSlider.length > 1 && (
                                 <Stack className="BullionmarkSwiperNavigation">
                                     <IconButton className="BullionmarkSwiperButtonPrev">
                                         <BullionmarkSwiperButtonPrev />
