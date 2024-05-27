@@ -615,25 +615,30 @@
     #SectionNewsletter {
         overflow: hidden;
         .NewsletterBG {
-            width: 100%;
-            object-fit: cover;
-            @include media($ssm) {
-                scale: 1.5;
-                padding-top: 50px;
-            }
-            @include media($xs) {
-                scale: 2;
+            img {
+                width: 100%;
+                object-fit: cover;
+                @include media($ssm) {
+                    scale: 1.5;
+                    padding-top: 70px;
+                }
+                @include media($xs) {
+                    scale: 2;
+                }
             }
         }
         .BackgroundHolder {
-            margin-top: -320px;
+            margin-top: -400px;
             padding-bottom: 105px;
             background-color: $peachSoft;
             @include media($xl) {
-                margin-top: -150px;
+                margin-top: -300px;
             }
             @include media($lg) {
                 padding-bottom: 60px;
+            }
+            @include media($md) {
+                margin-top: -210px;
             }
             @include media($ssm) {
                 margin-top: -80px;

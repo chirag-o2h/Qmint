@@ -69,7 +69,10 @@ function Newsletter() {
   return (
     <Box id="SectionNewsletter" component="section">
       {openToaster && <Toaster />}
-      <img className="NewsletterBG" src={newsletter?.[0] ?? NewsletterBG} alt="" />
+      {/* <img className="NewsletterBG" src={NewsletterBG} alt="" /> */}
+      <Box className="NewsletterBG" dangerouslySetInnerHTML={{
+          __html: newsletter?.[0]?.overview
+      }}></Box>
       <Box className="BackgroundHolder">
         <Container maxWidth="sm">
           <BullionmarkSectionHeading
