@@ -3,12 +3,12 @@ import { Theme } from '@mui/material/';
 import createTheme from "@mui/material/styles/createTheme";
 
 // Assets
-import { ArrowDown, CheckboxCheckedIcon, CheckboxUncheckedIcon, RadioCheckedIcon, RadioUncheckedIcon } from './assets/icons/index';
+import { ArrowDown, CheckboxCheckedIcon, CheckboxUncheckedIcon, RadioCheckedIcon, RadioUncheckedIcon } from '../assets/icons/index';
 
 // Utils
-import { pxToRem } from './utils/helper';
-import * as  variable from './scss/settings/variables.module.scss'
-import { THEME_TYPE } from './axiosfolder';
+import { pxToRem } from '../utils/helper';
+import * as  variable from '../scss/settings/variables.module.scss'
+import { THEME_TYPE } from '../axiosfolder';
 
 const themeTypes :any= {
   0 : "#EAA22B",
