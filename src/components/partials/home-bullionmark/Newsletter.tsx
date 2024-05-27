@@ -37,7 +37,7 @@ function Newsletter() {
   } = useForm<IBullionMarkSubscriptionDetails>({
     resolver: yupResolver(schema)
   })
-  const { openToaster } = useAppSelector(state => state.homePage)
+  const { bullionMarkPage, openToaster } = useAppSelector(state => state.homePage)
   const { showToaster } = useShowToaster();
 
   const onSubmit = async (data: IBullionMarkSubscriptionDetails) => {
@@ -64,10 +64,12 @@ function Newsletter() {
     // }
   }
 
+  const newsletter = bullionMarkPage?.homepage_Section_8_Footer_background_pic
+
   return (
     <Box id="SectionNewsletter" component="section">
       {openToaster && <Toaster />}
-      <img className="NewsletterBG" src={NewsletterBG} alt="" />
+      <img className="NewsletterBG" src={newsletter?.[0] ?? NewsletterBG} alt="" />
       <Box className="BackgroundHolder">
         <Container maxWidth="sm">
           <BullionmarkSectionHeading
