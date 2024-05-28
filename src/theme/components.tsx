@@ -427,7 +427,7 @@ const qmintComponents: Components = {
           },
         },
         "@media (max-width: 600px)": {
-          minWidth: 100,
+          minWidth: 90,
         },
       },
     },
@@ -750,13 +750,22 @@ const bmkComponents: Components = {
         padding: "17px 23px",
       },
       outlinedSizeMedium: {
-        fontSize: "1rem",
-        padding: "8px 18px",
+        fontSize: "16px",
+        lineHeight: "24px",
+        fontWeight: "600",
+        borderRadius: "9px",
+        borderWidth: "2px",
+        padding: "11px 18px",
+        "&:hover": {
+          borderWidth: "2px",
+        },
       },
       outlinedSizeLarge: {
         fontSize: pxToRem(16),
         lineHeight: pxToRem(20),
         fontWeight: 600,
+        border: "2px solid #FF681A",
+        borderRadius: 9,
         padding: "16px 23px",
       },
       containedInfo: {
@@ -764,7 +773,7 @@ const bmkComponents: Components = {
       },
       containedSecondary: {
         "&:hover": {
-          backgroundColor: variable.yellowFuel,
+          backgroundColor: variable.$pumpkinOrange,
         },
       },
     },
@@ -823,24 +832,31 @@ const bmkComponents: Components = {
   MuiToggleButtonGroup: {
     styleOverrides: {
       root: {
-        border: "1px solid #E5E6EB",
-        borderRadius: 30,
+        borderRadius: 0,
       },
       grouped: {
+        fontSize: "18px",
+        lineHeight: "26px",
+        fontWeight: "400",
+        color: "#1D2129",
         margin: 0,
         border: "none",
-        minWidth: 153,
-        paddingTop: 15,
-        paddingBottom: 15,
+        minWidth: 131,
+        paddingTop: 5,
+        paddingBottom: 5,
+        textTransform: "none",
+        borderBottom: "5px solid #0000001A",
         borderRadius: "inherit",
+        "&:hover": {
+          backgroundColor: "rgba(255, 104, 26, 0.12)",
+          color: "#FF681A",
+        },
         "&.Mui-selected": {
-          fontWeight: 700,
-          fontStyle: "normal",
-          color: "#FFFFFF",
-          backgroundColor: "#EAA22B",
-          letterSpacing: 1,
+          borderColor: "#FF681A",
+          color: "#1D2129",
+          backgroundColor: "transparent",
           "&:hover": {
-            backgroundColor: "#EAA22B",
+            color: "#FF681A",
           },
           "@media (max-width: 600px)": {
             minWidth: 120,
