@@ -790,4 +790,50 @@
     }
   }
 
+  &.BullionmarkGeneralFooter {
+    .MuiContainer-root {
+      .FooterWrapper {
+        @include media($lg) {
+          flex-wrap: wrap;
+        }
+        @include media-between($ssm, $mmd) {
+          justify-content: space-between;
+        }
+        .LogoPart {
+          gap: 30px;
+          @include media($lg) {
+            flex: 1;
+          }
+          @include media-between($ssm, $mmd) {
+            text-align: left;
+            align-items: flex-start;
+          }
+          .ContactUs {
+            max-width: 280px;
+          }
+        }
+        .MenuWrapper {
+          @include media($lg) {
+            order: 1;
+          }
+          &.QuickLink {
+            .MuiList-root {
+              @include media-between($ssm, $mmd) {
+                grid-template-columns: 1fr;
+              }
+              @include media($xxs) {
+                grid-template-columns: 1fr;
+              }
+            }
+          }
+          &.Social {
+            @include media-between($ssm, $lg) {
+              width: 50%;
+              order: initial;
+            }
+          }
+        }
+      }
+    }
+  }
 }

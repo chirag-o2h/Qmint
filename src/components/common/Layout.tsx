@@ -2,6 +2,9 @@ import React, { Suspense, lazy, useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Skeleton, Stack } from "@mui/material";
 
+// Utils
+import { STORE_CODE } from "@/axiosfolder"
+
 // Components
 import LazyHeader from "../header/index"
 import { bodyForGetShoppingCartData, convertMinutesToMilliseconds, storeLastPage } from "@/utils/common";
@@ -13,6 +16,7 @@ import useInactiveLogout from "@/hooks/useInactiveLogout";
 import SessionExpiredDialog from "../header/SessionExpiredDialog";
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 const LazyFooter = lazy(() => import('../footer/index'));
+const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout({ children }: any) {
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
@@ -63,7 +67,7 @@ if(configDetailsState?.storefaviconiconurl?.value){
         <></>
         // <Skeleton height='30vh'></Skeleton>
       }>
-        <LazyFooter />
+        {STORE_CODE === "7" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </Suspense>}
       {openSessionExpireDialog && <SessionExpiredDialog
         open={openSessionExpireDialog}
