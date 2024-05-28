@@ -55,7 +55,7 @@ function Locations() {
         },
     }
     return (
-        (mainHomePageData && mainHomePageData?.beyond?.length > 0) ?
+        (mainHomePageData && mainHomePageData?.homepage_Section_1_Four_posts_in_a_row?.length > 0) ?
             <Box id="Location">
                 <Container maxWidth="lg">
                     <Box className="LocationsWrapper">
@@ -63,8 +63,8 @@ function Locations() {
                         <Box component="section" key={'Locations'}>
                             <Box className="SwiperContainer">
                                 <Swiper {...config} >
-                                    {(mainHomePageData && mainHomePageData?.beyond?.length > 0) ?
-                                        [...mainHomePageData?.beyond, ...mainHomePageData?.beyond]?.map((item) => {
+                                    {(mainHomePageData && mainHomePageData?.homepage_Section_1_Four_posts_in_a_row?.length > 0) ?
+                                        [...mainHomePageData?.homepage_Section_1_Four_posts_in_a_row, ...mainHomePageData?.homepage_Section_1_Four_posts_in_a_row]?.map((item) => {
                                             return (
                                                 <SwiperSlide onClick={() => {
                                                     navigate('/blog/' + item.friendlyName)

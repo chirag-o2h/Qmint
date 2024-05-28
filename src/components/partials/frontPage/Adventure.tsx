@@ -32,7 +32,7 @@ function Adventure() {
     };
 
     return (
-        (mainHomePageData && mainHomePageData?.adventure?.length > 0) ?
+        (mainHomePageData && mainHomePageData?.homepage_Section_2_One_big_post?.length > 0) ?
             <Box id="Adventure">
                 <Box className="AdventureWrapper">
                     <SectionHeading
@@ -41,8 +41,8 @@ function Adventure() {
                     <Box className="AdventureSlideWrapper" component="section" key={'Adventure'}>
                         <Box className="SwiperContainer">
                             <Swiper {...config}>
-                                {(mainHomePageData && mainHomePageData?.adventure?.length > 0) ?
-                                    mainHomePageData?.adventure?.map((item) => {
+                                {(mainHomePageData && mainHomePageData?.homepage_Section_2_One_big_post?.length > 0) ?
+                                    mainHomePageData?.homepage_Section_2_One_big_post?.map((item) => {
                                         return (
                                             <SwiperSlide onClick={() => {
                                                 navigate('/blog/' + item.friendlyName)

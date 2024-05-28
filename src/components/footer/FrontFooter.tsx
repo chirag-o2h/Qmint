@@ -60,8 +60,8 @@ function FrontFooter() {
                             <Typography className="MenuTitle" variant="subtitle2" component="p">Quick Links</Typography>
                             <List>
                                 {
-                                    mainHomePageData?.footerQuickLinks?.length ?? 0 > 0 ? <>{
-                                        mainHomePageData?.footerQuickLinks.map(quickLinks => {
+                                    mainHomePageData?.homepage_Section_9_Footer_Quick_Links?.length ?? 0 > 0 ? <>{
+                                        mainHomePageData?.homepage_Section_9_Footer_Quick_Links.map(quickLinks => {
                                             return (
                                                 <ListItem key={quickLinks.name}>
                                                     <ListItemButton onClick={() => navigate(`${quickLinks.linkUrl}`)}>

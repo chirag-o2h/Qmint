@@ -24,7 +24,7 @@ function Experience() {
     }, []);
 
     return (
-        (mainHomePageData && mainHomePageData?.experience?.length > 0) ?
+        (mainHomePageData && mainHomePageData?.homepage_Section_3_Video_showcase?.length > 0) ?
             <Box id="Experience">
                 <Container maxWidth="lg">
                     <Box className="ExperienceWrapper">
@@ -65,8 +65,8 @@ function Experience() {
                                 // onSlideChange={handleSlideChange}
                                 >
                                     {<SwiperNavigation handleSlideChange={handleSlideChange} />}
-                                    {(mainHomePageData && mainHomePageData?.experience?.length > 0) ?
-                                        [...mainHomePageData?.experience, ...mainHomePageData?.experience]?.map((item) => {
+                                    {(mainHomePageData && mainHomePageData?.homepage_Section_3_Video_showcase?.length > 0) ?
+                                        [...mainHomePageData?.homepage_Section_3_Video_showcase, ...mainHomePageData?.homepage_Section_3_Video_showcase]?.map((item) => {
                                             return (
                                                 <SwiperSlide
                                                 // onClick={() => {
