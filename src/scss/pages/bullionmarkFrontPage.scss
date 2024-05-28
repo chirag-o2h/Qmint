@@ -328,19 +328,19 @@
                 }
 
                 .ExclusiveJourneysImage2 {
-                    max-width: 100%;
+                    max-width: 50%;
                     max-height: 100%;
                     position: absolute;
                     bottom: 0;
                     right: 0;
 
-                    @include media($lg) {
-                        max-width: 70%;
-                    }
+                    // @include media($lg) {
+                    //     max-width: 70%;
+                    // }
 
-                    @include media($sm) {
-                        max-width: 60%;
-                    }
+                    // @include media($sm) {
+                    //     max-width: 60%;
+                    // }
 
                 }
             }
