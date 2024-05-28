@@ -286,118 +286,11 @@
     }
 
     #ExclusiveJourneys {
-        padding: 80px 0;
         background: rgba(255, 241, 234, 0.5);
-
-
-        @include media($md) {
-            padding: 50px 0;
-        }
-
-        .ExclusiveJourneysContent {
-            align-items: center;
-
-            @include media($md) {
-                flex-direction: column;
-                gap: 50px;
-            }
-
-            @include media($md) {
-                gap: 30px;
-            }
-
-            .LeftImage,
-            .RightContent {
-                flex: 1;
-            }
-
-            .LeftImage {
-                position: relative;
-                padding-right: 68px;
-                padding-bottom: 88px;
-
-
-                @include media($sm) {
-                    padding-right: 38px;
-                    padding-bottom: 28px;
-                }
-
-                .ExclusiveJourneysImage1 {
-                    width: 100%;
-                    object-fit: cover;
-                }
-
-                .ExclusiveJourneysImage2 {
-                    max-width: 100%;
-                    max-height: 100%;
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-
-                    @include media($lg) {
-                        max-width: 70%;
-                    }
-
-                    @include media($sm) {
-                        max-width: 60%;
-                    }
-
-                }
-            }
-
-            .RightContent {
-                .RightTitle {
-                    font-size: 45px;
-                    line-height: 53px;
-                    max-width: 499px;
-                    margin-bottom: 34px;
-
-                    @include media($md) {
-                        font-size: 26px;
-                        line-height: 35px;
-                        max-width: 100%;
-                        margin-bottom: 20px;
-                    }
-
-                }
-
-                .DescriptionButtonWrapper {
-                    padding-left: 67px;
-
-                    @include media($md) {
-                        padding-left: 0;
-                    }
-                }
-
-                .RightDescription {
-                    font-size: 19px;
-                    line-height: 26px;
-                    margin-bottom: 9px;
-
-                    @include media($md) {
-                        font-size: 16px;
-                        line-height: 22px;
-                    }
-                }
-
-                .MuiButton-root {
-                    margin-top: 32px;
-
-                    @include media($md) {
-                        margin-top: 20px;
-                    }
-                }
-            }
-        }
     }
 
     #ExclusiveJourneysWithSlider {
-        padding: 95px 0;
-
-        @include media($md) {
-            padding: 50px 0;
-        }
-
+        padding-bottom: 40px;
         .swiper-pagination {
             display: none;
         }
@@ -615,25 +508,30 @@
     #SectionNewsletter {
         overflow: hidden;
         .NewsletterBG {
-            width: 100%;
-            object-fit: cover;
-            @include media($ssm) {
-                scale: 1.5;
-                padding-top: 50px;
-            }
-            @include media($xs) {
-                scale: 2;
+            img {
+                width: 100%;
+                object-fit: cover;
+                @include media($ssm) {
+                    scale: 1.5;
+                    padding-top: 70px;
+                }
+                @include media($xs) {
+                    scale: 2;
+                }
             }
         }
         .BackgroundHolder {
-            margin-top: -320px;
+            margin-top: -400px;
             padding-bottom: 105px;
             background-color: $peachSoft;
             @include media($xl) {
-                margin-top: -150px;
+                margin-top: -300px;
             }
             @include media($lg) {
                 padding-bottom: 60px;
+            }
+            @include media($md) {
+                margin-top: -210px;
             }
             @include media($ssm) {
                 margin-top: -80px;

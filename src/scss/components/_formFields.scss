@@ -59,3 +59,13 @@ input {
   @include btn;
   @include btn-contained-color($dark, $yellowFuel);
 }
+
+.bmk-primary-outline-btn {
+  @include btn;
+  @include btn-outline-color($pumpkinOrange);
+}
+
+.white-outline-btn {
+  @include btn;
+  @include btn-outline-color($white);
+}
