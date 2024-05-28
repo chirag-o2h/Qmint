@@ -8,6 +8,10 @@
                         font-size: 20px;
                         font-weight: 600;
                         margin-top: 0;
+
+                        @include media($md) {
+                            font-size: 14px;
+                        }
                     }
 
                     .SlideTitle {
@@ -19,9 +23,9 @@
                         margin: auto;
 
                         @include media($md) {
-                            font-size: 40px;
-                            line-height: 45px;
-                            padding: 20px 10px;
+                            font-size: 30px;
+                            line-height: 35px;
+                            padding: 20px 10px 39px;
                             max-width: 100%;
                         }
                     }
@@ -32,22 +36,21 @@
                     color: $white;
 
                     @include media($md) {
-                        top: auto;
-                        bottom: 10%;
+                        display: none;
                     }
                 }
 
-                .swiper-button-prev {
-                    @include media($md) {
-                        left: 40%;
-                    }
-                }
+                // .swiper-button-prev {
+                //     @include media($md) {
+                //         left: 40%;
+                //     }
+                // }
 
-                .swiper-button-next {
-                    @include media($md) {
-                        right: 40%;
-                    }
-                }
+                // .swiper-button-next {
+                //     @include media($md) {
+                //         right: 40%;
+                //     }
+                // }
 
             }
 
@@ -120,7 +123,7 @@
         background-color: #FFF8F5;
 
         @include media($md) {
-            padding: 50px 0 20px;
+            padding: 64px 0 71px;
         }
 
         .BullionmarkSectionHeading {
@@ -128,7 +131,9 @@
                 margin-bottom: 60px;
 
                 @include media($md) {
-                    margin-bottom: 20px;
+                    margin-bottom: 38px;
+                    letter-spacing: -2px;
+
                 }
             }
         }
@@ -139,9 +144,11 @@
                     display: flex;
                     flex-direction: column;
                     height: 100%;
+
                     img {
                         flex: 1;
                     }
+
                     .AdventureCardLink {
                         text-decoration: none;
                         padding: 20px;
@@ -191,38 +198,58 @@
         $leftSpacing: 24px;
         padding-left: $leftSpacing;
         @include padding-vertical(108);
+
         @include media($lg) {
             @include padding-vertical(80);
         }
+
         @include media($ssm) {
             padding-left: 0;
-            @include padding-vertical(50, 60);
+            @include padding-vertical(67, 85);
         }
+
         .LayoutWrapper {
             align-items: center;
             gap: 22px;
             padding-left: calc((100% - $xxl - $leftSpacing) / 2);
+
             @include media-between($lg, $xxl) {
                 padding-left: calc((100% - $lg - $leftSpacing) / 2);
             }
+
             @include media($ssm) {
                 flex-direction: column;
                 @include padding-horizontal(24);
             }
+
             .BullionmarkSectionHeading {
                 @include media-min($ssm) {
                     text-align: left;
                 }
+
                 .Title {
-                    margin-bottom: 8px;
+                    margin-bottom: 10px;
+
                     @include media-min($ssm) {
                         width: max-content;
                     }
                 }
+
+                .Description {
+                    @include media($ssm) {
+                        font-size: 15px;
+                    }
+
+                    @include media-min($ssm) {
+                        max-width: 310px;
+                    }
+                }
             }
+
             .InspiredCardWrapper {
                 max-width: 100%;
                 overflow: hidden;
+
                 .InspiredCard {
                     flex-direction: column;
                     justify-content: space-between;
@@ -234,49 +261,62 @@
                     background-position: center;
                     padding: 20px 24px 24px;
                     color: $white;
+
                     .Head {
                         align-items: center;
                         gap: 10px;
+
                         .ProfileImage {
                             width: 50px;
                             height: 50px;
                             overflow: hidden;
                             border-radius: 50%;
                             flex-shrink: 0;
+
                             @include media($ssm) {
                                 width: 40px;
                                 height: 40px;
                             }
+
                             @include media($xs) {
                                 width: 34px;
                                 height: 34px;
                             }
                         }
+
                         .Title {
                             font-size: 18px;
                             line-height: 26px;
                             font-weight: 700;
                         }
                     }
+
                     .Content {
                         .Title {
                             font-size: 35px;
                             line-height: 39px;
                             font-weight: 700;
                             letter-spacing: -2px;
-                            @include media($ssm) {
-                                font-size: 24px;
-                                line-height: 1.2;
-                            }
+
+                            // @include media($ssm) {
+                            //     font-size: 24px;
+                            //     line-height: 1.2;
+                            // }
                         }
+
                         .Description {
                             font-weight: 600;
                             line-height: 20px;
                             min-height: 80px;
                             margin-top: 7px;
                             @include max-line(4);
+
+                            @include media($ssm) {
+                                font-size: 14px;
+                            }
                         }
                     }
+
                     .MuiButton-root {
                         margin-top: 32px;
                     }
@@ -331,8 +371,11 @@
             margin: 0 auto 50px;
 
             @include media($md) {
-                max-width: 100%;
                 margin-bottom: 30px;
+            }
+
+            @include media($ssm) {
+                max-width: 220px;
             }
         }
 
@@ -377,6 +420,7 @@
                         width: 100%;
                         max-height: 580px;
                         object-fit: cover;
+
                         @include media($sm) {
                             max-height: 60vh;
                         }
@@ -424,6 +468,10 @@
                     padding-top: 40px;
                 }
 
+                @include media($ssm) {
+                    display: none;
+                }
+
                 .swiper-pagination-bullet {
                     height: 7px;
                     width: 7px;
@@ -461,12 +509,14 @@
 
             @include media($md) {
                 flex-direction: column;
+                gap: 77px;
             }
 
             .LeftContent,
             .RightContent {
                 flex: 1;
                 cursor: pointer;
+
                 img {
                     width: 100%;
                 }
@@ -481,8 +531,8 @@
 
 
                         @include media($md) {
-                            font-size: 22px;
-                            line-height: 26px;
+                            font-size: 25px;
+                            line-height: 35px;
                         }
 
                     }
@@ -497,6 +547,10 @@
                     @include media($md) {
                         margin-top: 10px;
                     }
+
+                    @include media($ssm) {
+                        margin-top: 22px;
+                    }
                 }
             }
 
@@ -507,6 +561,7 @@
 
     #SectionNewsletter {
         overflow: hidden;
+
         .NewsletterBG {
             img {
                 width: 100%;
@@ -520,13 +575,16 @@
                 }
             }
         }
+
         .BackgroundHolder {
             margin-top: -400px;
             padding-bottom: 105px;
             background-color: $peachSoft;
+
             @include media($xl) {
                 margin-top: -300px;
             }
+
             @include media($lg) {
                 padding-bottom: 60px;
             }
@@ -536,22 +594,37 @@
             @include media($ssm) {
                 margin-top: -80px;
             }
+
             @include media($xs) {
                 margin-top: -30px;
             }
+
+            .BullionmarkSectionHeading {
+                .Title {
+                    @include media($md) {
+                        font-size: 32px;
+                        line-height: 43px;
+                    }
+                }
+            }
         }
+
         .MuiContainer-root {
             max-width: 643px;
+
             @include media($md) {
                 position: relative;
                 z-index: 1;
             }
+
             .BullionmarkSectionHeading {
                 margin-bottom: 35px;
+
                 @include media($md) {
-                    margin-bottom: 15px;
+                    margin-bottom: 20px;
                 }
             }
+
             form {
                 .InputRow {
                     &.Agreement {
@@ -559,26 +632,43 @@
                             .MuiFormLabel-root {
                                 display: none;
                             }
+
+                            .MuiFormGroup-root {
+                                .MuiFormControlLabel-root {
+                                    .MuiFormControlLabel-label {
+                                        @include media($sm) {
+                                            font-size: 11px;
+                                        }
+                                    }
+
+                                }
+                            }
                         }
                     }
+
                     .MuiTextField-root {
                         .MuiInputBase-root {
                             background-color: rgba($white, 0.3);
+
                             .MuiInputBase-input {
                                 padding: 16px 18px;
-                                @include media($sm) {
-                                    padding: 10px 16px;
-                                }
+
+                                // @include media($sm) {
+                                //     padding: 10px 16px;
+                                // }
                             }
+
                             .MuiOutlinedInput-notchedOutline {
                                 border-radius: 5px;
                             }
                         }
                     }
                 }
+
                 .ActionWrapper {
                     justify-content: center;
                     margin-top: 35px;
+
                     .MuiButton-root {
                         @include media-min($md) {
                             min-width: 191px;
