@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/hooks';
 import { Stack } from '@mui/material'
 import React, { Suspense, lazy, useEffect, useState } from 'react'
-import BullionmarkFooter from '../footer/BullionmarkFooter';
+import BullionmarkFrontFooter from '../footer/BullionmarkFrontFooter';
 import { useLocation } from '@reach/router';
 import { STORE_CODE } from '@/axiosfolder';
 
@@ -58,7 +58,7 @@ const MainLayout = (props: MainLayout) => {
                     }}
                 ></div>
             }>
-                {isBullionmarkHomePage ? <BullionmarkFooter /> : <LazyFrontFooter />}
+                {isBullionmarkHomePage ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
             </Suspense>}
         </Stack>
     )

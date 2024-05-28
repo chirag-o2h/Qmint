@@ -11,12 +11,12 @@ import { navigate } from "gatsby";
 // Hooks
 import { useAppSelector } from "@/hooks"
 
-function BullionmarkFooter() {
+function BullionmarkFrontFooter() {
     const { configDetails: configDetailsState , bullionMarkPage} = useAppSelector((state) => state.homePage)
     const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
 
     return (
-        <Box id="BullionmarkFooterSection" className='BullionmarkFooter' component="footer">
+        <Box id="BullionmarkFooterSection" className='BullionmarkFrontFooter' component="footer">
             <Container className="Container">
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
@@ -67,4 +67,4 @@ function BullionmarkFooter() {
     )
 }
 
-export default BullionmarkFooter
+export default BullionmarkFrontFooter
