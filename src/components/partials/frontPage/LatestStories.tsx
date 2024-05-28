@@ -20,8 +20,8 @@ function LatestStories() {
                     <Box className="LatestStoriesMainWrapper">
                         <Stack className='SectionHeadingWrapper'>
                             <Box className="SectionHeading">
-                                <Typography variant="h2" component="h2" className="Title">{configDetails?.["mainhomepage.lateststoriesdtital"]?.value}</Typography>
-                                <Typography className="Description">{configDetails?.["mainhomepage.lateststoriesdsubtital"]?.value}</Typography>
+                                <Typography variant="h2" component="h2" className="Title">{configDetails?.["Homepage_Section_5_Three_posts_in_collage_view_Title"]?.value}</Typography>
+                                <Typography className="Description">{configDetails?.["Homepage_Section_5_Three_posts_in_collage_view_Subtitle"]?.value}</Typography>
                             </Box>
                             <Button className='SectionButton' variant="contained" endIcon={<ArrowRight />} onClick={() => {
                                 navigate('/blog')

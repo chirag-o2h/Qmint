@@ -28,7 +28,7 @@ function Experience() {
             <Box id="Experience">
                 <Container maxWidth="lg">
                     <Box className="ExperienceWrapper">
-                        <SectionHeading title={configDetails?.["mainhomepage.experiencetital"]?.value} description={configDetails?.["mainhomepage.experiencesubtital"]?.value} />
+                        <SectionHeading title={configDetails?.["Homepage_Section_3_Video_showcase_Title"]?.value} description={configDetails?.["Homepage_Section_3_Video_showcase_Subtitle"]?.value} />
                         <Box className="ExperienceSlideWrapper" component="section" key={'Experience'}>
                             <Box className="SwiperContainer">
                                 <Swiper

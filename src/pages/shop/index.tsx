@@ -80,7 +80,7 @@ function IndexPage() {
         />
         {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
 
-        {configDetailsState?.sliderenableinhome?.value === false || isMobile ? null : <Banner />}
+        {configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? null : <Banner />}
         <Suspense fallback={<></>}> <ProductsSlider /></Suspense>
         {configDetailsState?.["home.featuredproductsenable"]?.value !== false && <Suspense fallback={<></>}> <FeaturedProducts /></Suspense>}
         {configDetailsState?.["home.lookingforenable"]?.value !== false && <Suspense fallback={<></>}> <LookingFor /></Suspense>}

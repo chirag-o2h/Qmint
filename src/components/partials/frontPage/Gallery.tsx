@@ -14,7 +14,7 @@ function Gallery() {
             <Box id="Gallery">
                 <Container maxWidth="lg">
                     <Box className="GalleryWrapper">
-                        <SectionHeading title={configDetails?.["mainhomepage.gallerytital"]?.value} description={configDetails?.["mainhomepage.gallerysubtital"]?.value} />
+                        <SectionHeading title={configDetails?.["Homepage_Section_6_Picture_Gallery_Title"]?.value} description={configDetails?.["Homepage_Section_6_Picture_Gallery_Subtitle"]?.value} />
                         <Box className="GalleryContentWrapper" component="section" key={'Gallery'}>
                             <Box className="TopImageWrapper">
                                 <Box className="Left">

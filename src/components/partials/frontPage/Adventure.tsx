@@ -36,7 +36,7 @@ function Adventure() {
             <Box id="Adventure">
                 <Box className="AdventureWrapper">
                     <SectionHeading
-                        title={configDetails?.["mainhomepage.adventuretital"]?.value} description={configDetails?.["mainhomepage.adventuresubtital"]?.value}
+                        title={configDetails?.["Homepage_Section_2_One_big_post_Title"]?.value} description={configDetails?.["Homepage_Section_2_One_big_post_Subtitle"]?.value}
                     />
                     <Box className="AdventureSlideWrapper" component="section" key={'Adventure'}>
                         <Box className="SwiperContainer">

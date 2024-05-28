@@ -46,7 +46,7 @@ function FrontFooter() {
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
                         <LogoLink to="/" style={{ cursor: 'pointer' }}>
-                            <img src={configDetailsState?.["mainhomepage.footerlogo"]?.value} alt="Footer logo" loading="lazy" />
+                            <img src={configDetailsState?.["Homepage_FooterLogo_URLfooterlogo"]?.value} alt="Footer logo" loading="lazy" />
                         </LogoLink>
                         <Stack className="SocialWrapper">
                             <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.facebooklink?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>

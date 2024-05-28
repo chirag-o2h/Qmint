@@ -59,7 +59,7 @@ function Locations() {
             <Box id="Location">
                 <Container maxWidth="lg">
                     <Box className="LocationsWrapper">
-                        <SectionHeading title={configDetails?.["mainhomepage.beyondtital"]?.value} description={configDetails?.["mainhomepage.beyondsubtital"]?.value} />
+                        <SectionHeading title={configDetails?.["Homepage_Section_1_Four_posts_in_a_row_Title"]?.value} description={configDetails?.["Homepage_Section_1_Four_posts_in_a_row_Subtitle"]?.value} />
                         <Box component="section" key={'Locations'}>
                             <Box className="SwiperContainer">
                                 <Swiper {...config} >
