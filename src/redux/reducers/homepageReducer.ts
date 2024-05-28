@@ -37,15 +37,15 @@ interface Item {
 }
 
 interface IMainHomePage {
-  beyond: Item[]; // You can replace 'any' with a more specific type if needed
-  adventure: Item[]; // You can replace 'any' with a more specific type if needed
-  experience: Item[]; // You can replace 'any' with a more specific type if needed
-  knowMore: Item[]; // You can replace 'any' with a more specific type if needed
-  stories: Item[]; // You can replace 'any' with a more specific type if needed
-  gallery: Item[]; // You can replace 'any' with a more specific type if needed
-  closerLook: Item[];
-  bestAdventure: Item[]; // You can replace 'any' with a more specific type if needed
-  footerQuickLinks: {
+  homepage_Section_1_Four_posts_in_a_row: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_2_One_big_post: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_3_Video_showcase: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_4_Four_posts_in_wavy_layout: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_5_Three_posts_in_collage_view: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_6_Picture_Gallery: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_7_Three_posts_in_a_row: Item[];
+  homepage_Section_8_Two_posts_in_two_rows_each: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_9_Footer_Quick_Links: {
     name: string,
     linkType: number,
     linkUrl: string,

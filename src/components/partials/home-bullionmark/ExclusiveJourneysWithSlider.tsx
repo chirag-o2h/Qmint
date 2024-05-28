@@ -45,10 +45,10 @@ function ExclusiveJourneysWithSlider() {
             delay: 8000,
         },
     }
-  const exclusiveJourneysWithSlider = bullionMarkPage?.homepage_Section_5_One_big_pic_and_content
-  return (
+    const exclusiveJourneysWithSlider = bullionMarkPage?.homepage_Section_5_One_big_pic_and_content
+    return (
         <>
-            {(exclusiveJourneysWithSlider && exclusiveJourneysWithSlider.length > 0) && (
+            {(exclusiveJourneysWithSlider && exclusiveJourneysWithSlider?.length > 0) && (
                 <Box id="ExclusiveJourneysWithSlider" component="section">
                     <Container>
                         <Box className="SwiperContainer">

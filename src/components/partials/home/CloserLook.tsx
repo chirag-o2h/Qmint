@@ -115,12 +115,12 @@ function CloserLook() {
           description={configDetails?.["home.closerlook.subtital"]?.value ?? "description*"}
         />
         <Container className="DestinationWrapper" maxWidth="lg">
-          {homePageSectionDetails?.closerLook?.length !== 0 ?
+          {homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length !== 0 ?
             <Box className="SwiperContainer">
               <Swiper {...config} >
                 {
                   !loading ?
-                    (homePageSectionDetails?.closerLook?.length > 0 ? homePageSectionDetails?.closerLook?.map((destination: { id: React.Key | null | undefined; friendlyName: any; title: any; overview: any; imageUrl: any }) => (
+                    (homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length > 0 ? homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.map((destination: { id: React.Key | null | undefined; friendlyName: any; title: any; overview: any; imageUrl: any }) => (
                       <SwiperSlide key={destination.id}>
                         <TravelCard
                           friendlyName={destination?.friendlyName}
