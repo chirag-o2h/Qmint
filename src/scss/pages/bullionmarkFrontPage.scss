@@ -645,6 +645,19 @@
                             }
                         }
                     }
+                    &.ContactSelect {
+                        .MuiFormControl-root {
+                            .react-tel-input {
+                                .form-control {
+                                    border-radius: 5px;
+                                    background-color: rgba($white, 0.3);
+                                    &:focus {
+                                        outline-color: $pumpkinOrange;
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     .MuiTextField-root {
                         .MuiInputBase-root {
