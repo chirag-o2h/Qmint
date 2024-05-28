@@ -13,7 +13,7 @@ import { SwiperNavigation } from "@/components/common/Utils"
 import { navigate } from "gatsby"
 import { openNewTab } from "@/utils/common"
 
-interface IbannerData {
+export interface IbannerData {
   id: number,
   storeCode: number,
   url: Url,
@@ -24,6 +24,7 @@ interface IbannerData {
   cdnUrlLarge: any,
   cdnUrlSmall: any
 }
+
 function Banner() {
   const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '1'));
   const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));

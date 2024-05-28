@@ -46,26 +46,8 @@ function IndexPage() {
   useAPIoneTime({ service: HomePageSectionDetails, endPoint: ENDPOINTS.homePageSection })
   // useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, body })
   useUserDetailsFromToken()
-  const [wait1, setWait1] = useState(false)
-  const [wait2, setWait2] = useState(false)
-  const [wait3, setWait3] = useState(false)
   useEffect(() => {
     dispatch(serProgressLoaderStatus(true))
-    const timeout1 = setTimeout(() => {
-      setWait1(true);
-    }, 400); // Wait for 300ms before rendering the first component
-    const timeout2 = setTimeout(() => {
-      setWait2(true);
-    }, 900);
-    const timeout3 = setTimeout(() => {
-      setWait3(true)
-    }, 1100);
-    return () => {
-      dispatch(serProgressLoaderStatus(false))
-      clearTimeout(timeout1)
-      clearTimeout(timeout2)
-      clearTimeout(timeout3)
-    }
   }, [])
   useAlertPopUp({ pageName: 'Home', openPopup: toggleSessionExpireDialog })
   return (

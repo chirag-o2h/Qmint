@@ -1,12 +1,10 @@
 import React from 'react'
-import { Box, Container, Typography, Button } from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Autoplay, Pagination, A11y, EffectCoverflow } from 'swiper/modules'
-import { SwiperNavigation } from "@/components/common/Utils"
+import { Autoplay, Pagination, A11y } from 'swiper/modules'
 
 // Utills
 import { SectionHeading } from "../../common/Utils"
-import { PlayIcon } from "../../../assets/icons/index"
 import { useAppSelector } from '@/hooks'
 import { navigate } from 'gatsby'
 
@@ -54,7 +52,7 @@ function KnowMore() {
                         <Box className="SwiperContainer">
                             <Swiper {...config}>
                                 {(mainHomePageData && mainHomePageData?.knowMore?.length > 0) ?
-                                    [...mainHomePageData?.knowMore,...mainHomePageData?.knowMore]?.map((item) => {
+                                    [...mainHomePageData?.knowMore, ...mainHomePageData?.knowMore]?.map((item) => {
                                         return (
                                             <SwiperSlide onClick={() => {
                                                 navigate('/blog/' + item.friendlyName)

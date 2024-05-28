@@ -1,13 +1,16 @@
-import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Button, Theme, Typography, useMediaQuery } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
-
+import useApiRequest from '@/hooks/useAPIRequest';
+import { ENDPOINTS } from '@/utils/constants';
+import { IbannerData } from '../home/Banner';
 
 function BannerSlider() {
+    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
+    const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
     const config = {
         slidesPerView: 1,
@@ -25,42 +28,31 @@ function BannerSlider() {
             delay: 8000,
         },
     }
+
     return (
         <>
             <Box id="Banner" className="BullionmarkHomeBanner" component="section" key={'banner'}>
                 <Box className="SwiperContainer">
-                    <Swiper {...config}>
-                        <SwiperSlide>
-                            <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: 'url("https://fastly.picsum.photos/id/124/3504/2336.jpg?hmac=B1Avp6or9Df8vpnN4kQsGNfD66j8hH3gLtootCoTw4M")' }}>
-                                <Box className="HeroBannerTopWrapper">
-                                    <Typography variant="body1" className="SlideDescription">Around The Worldx</Typography>
-                                    <Typography className="SlideTitle">Unforgettable travel experiences
-                                        with a positive impact</Typography>
-                                </Box>
-                                <Button variant="contained">Discover More</Button>
-                            </Box>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: 'url("https://fastly.picsum.photos/id/124/3504/2336.jpg?hmac=B1Avp6or9Df8vpnN4kQsGNfD66j8hH3gLtootCoTw4M")' }}>
-                                <Box className="HeroBannerTopWrapper">
-                                    <Typography variant="body1" className="SlideDescription">Around The Worldx</Typography>
-                                    <Typography className="SlideTitle">Unforgettable travel experiences
-                                        with a positive impact</Typography>
-                                </Box>
-                                <Button variant="contained" sx={{ backgroundColor: '#FF681A' }}>Discover More</Button>
-                            </Box>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: 'url("https://fastly.picsum.photos/id/124/3504/2336.jpg?hmac=B1Avp6or9Df8vpnN4kQsGNfD66j8hH3gLtootCoTw4M")' }}>
-                                <Box className="HeroBannerTopWrapper">
-                                    <Typography variant="body1" className="SlideDescription">Around The Worldx</Typography>
-                                    <Typography className="SlideTitle">Unforgettable travel experiences
-                                        with a positive impact</Typography>
-                                </Box>
-                                <Button variant="contained" sx={{ backgroundColor: '#FF681A' }}>Discover More</Button>
-                            </Box>
-                        </SwiperSlide>
-                    </Swiper>
+                    {data?.data?.length > 0 &&
+                        <Swiper {...config} >
+                            {
+                                data?.data?.map((item: IbannerData, index: number) => {
+                                    return (
+                                        <SwiperSlide key={`BannerSlider-${index}`}>
+                                            <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: `url(${isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall})` }}>
+                                                <Box className="HeroBannerTopWrapper">
+                                                    <Typography variant="body1" className="SlideDescription">Around The Worldx</Typography>
+                                                    <Typography className="SlideTitle">Unforgettable travel experiences
+                                                        with a positive impact</Typography>
+                                                </Box>
+                                                <Button variant="contained">Discover More</Button>
+                                            </Box>
+                                        </SwiperSlide>
+                                    )
+                                })
+                            }
+                        </Swiper>
+                    }
                 </Box>
             </Box>
         </>
