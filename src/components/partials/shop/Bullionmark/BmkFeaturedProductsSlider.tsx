@@ -5,8 +5,10 @@ import { Box, Card, Skeleton, useMediaQuery, Container } from "@mui/material"
 
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 import BmkProductCard from "./BmkProductCard"
+import classNames from "classnames"
 
 function BmkFeaturedProductsSlider() {
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
 
     const config = {
         slidesPerView: 1,
@@ -53,7 +55,7 @@ function BmkFeaturedProductsSlider() {
             <Container>
                 <BullionmarkSectionHeading title="Featured Products" />
                 <Box className="BmkProductsWrapper">
-                    <Box className="SwiperContainer BmkSwiperContainer">
+                    <Box className={classNames("SwiperContainer", [isMobile ? "CircleSwiperPagination" : "LinedSwiperPagination"])}>
                         <Swiper {...config}>
                             <SwiperSlide>
                                 <BmkProductCard />
@@ -91,8 +93,8 @@ function BmkFeaturedProductsSlider() {
                         </Swiper>
                     </Box>
                 </Box>
-            </Container>
-        </Box>
+            </Container >
+        </Box >
     )
 }
 

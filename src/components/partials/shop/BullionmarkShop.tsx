@@ -10,6 +10,9 @@ import Seo from "@/components/common/Seo";
 import BestCategorySlider from "./Bullionmark/BestCategorySlider";
 import BmkFeaturedProductsSlider from "./Bullionmark/BmkFeaturedProductsSlider";
 import BmkPopularProductSlider from "./Bullionmark/BmkPopularProductSlider";
+import BannerSlider from "../home-bullionmark/BannerSlider";
+import InspiringStories from "../home-bullionmark/InspiringStories";
+import ExclusiveJourneys from "../home-bullionmark/ExclusiveJourneys";
 
 
 function BullionmarkShop() {
@@ -25,9 +28,12 @@ function BullionmarkShop() {
           title="Home"
           lang="en"
         />
+        <Suspense fallback={<></>}><BannerSlider /></Suspense>
         <Suspense fallback={<></>}> <BestCategorySlider /></Suspense>
         <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
         <Suspense fallback={<></>}> <BmkPopularProductSlider /></Suspense>
+        <Suspense fallback={<></>}><ExclusiveJourneys /></Suspense>
+        <Suspense fallback={<></>}><InspiringStories /></Suspense>
       </>
     </Layout>)
 }

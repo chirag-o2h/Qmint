@@ -62,7 +62,7 @@ function BestCategorySlider() {
                 <BullionmarkSectionHeading
                     title="Shop Our Best Category" />
                 <Box className="BmkProductsSliderWrapper">
-                    <Box className="SwiperContainer BmkSwiperContainer">
+                    <Box className="SwiperContainer CircleSwiperPagination">
                         <Swiper  {...config}>
                             <SwiperSlide>
                                 <Link to="#" className="BmkProductCardLink">
