@@ -15,6 +15,8 @@ import InspiringStories from "../home-bullionmark/InspiringStories";
 import ExclusiveJourneys from "../home-bullionmark/ExclusiveJourneys";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { getBullionMarkShopPageSections } from "@/redux/reducers/homepageReducer";
+import ThreePicsRow from "./Bullionmark/ThreePicsRow";
+import OneBigPicSlider from "./Bullionmark/OneBigPicSlider";
 
 
 function BullionmarkShop() {
@@ -34,6 +36,8 @@ function BullionmarkShop() {
         <Suspense fallback={<></>}><BannerSlider /></Suspense>
         <Suspense fallback={<></>}> <BestCategorySlider /></Suspense>
         <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
+        <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>
+        <Suspense fallback={<></>}> <OneBigPicSlider /></Suspense>
         <Suspense fallback={<></>}> <BmkPopularProductSlider /></Suspense>
         <Suspense fallback={<></>}><ExclusiveJourneys data={bmkShopPageSections?.shopHomepage_Section_6_Two_pics_and_content
         } /></Suspense>
