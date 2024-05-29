@@ -13,6 +13,8 @@ import BmkPopularProductSlider from "./Bullionmark/BmkPopularProductSlider";
 import BannerSlider from "../home-bullionmark/BannerSlider";
 import InspiringStories from "../home-bullionmark/InspiringStories";
 import ExclusiveJourneys from "../home-bullionmark/ExclusiveJourneys";
+import ThreePicsRow from "./Bullionmark/ThreePicsRow";
+import OneBigPicSlider from "./Bullionmark/OneBigPicSlider";
 
 
 function BullionmarkShop() {
@@ -31,6 +33,8 @@ function BullionmarkShop() {
         <Suspense fallback={<></>}><BannerSlider /></Suspense>
         <Suspense fallback={<></>}> <BestCategorySlider /></Suspense>
         <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
+        <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>
+        <Suspense fallback={<></>}> <OneBigPicSlider /></Suspense>
         <Suspense fallback={<></>}> <BmkPopularProductSlider /></Suspense>
         <Suspense fallback={<></>}><ExclusiveJourneys /></Suspense>
         <Suspense fallback={<></>}><InspiringStories /></Suspense>
