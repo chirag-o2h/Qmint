@@ -324,9 +324,11 @@
                   .Flipper {
                     .Value {
                       text-align: left;
+
                       &.Front {
                         color: $sinopia;
                       }
+
                       &.Back {
                         color: $sinopia;
                       }
@@ -506,9 +508,11 @@
                     font-size: pxToRem(18);
                     color: $yellowFuel;
                     background-color: transparent;
-                    @include media($md){
+
+                    @include media($md) {
                       font-size: pxToRem(16);
                     }
+
                     .MuiInputBase-input {
                       text-align: center;
                       padding: 0;
@@ -518,6 +522,7 @@
                         height: auto;
                       }
                     }
+
                     .MuiOutlinedInput-notchedOutline {
                       display: none;
                     }
@@ -803,6 +808,18 @@
             .PrimaryAction {
               letter-spacing: normal;
             }
+          }
+        }
+      }
+    }
+  }
+
+  &.BmkPageProductDetail {
+    .AboutProduct {
+      .AboutWrapper {
+        .ProductAbout {
+          form {
+            .AdditionalDetails {}
           }
         }
       }
