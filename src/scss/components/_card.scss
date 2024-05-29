@@ -1180,3 +1180,151 @@
 }
 
 // End :: PrivateHoldingCard css
+
+
+
+
+.BmkCommonProductCard {
+  &.MuiCard-root {
+    background-color: transparent;
+    border-radius: 0;
+    @include transition;
+
+    &:hover {
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .ImageWrapper {
+      .ImageLink {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        padding: 130px 16px 20px;
+        height: 280px;
+
+        @include media-min($sm) {
+          height: 300px;
+        }
+
+        img {
+          object-fit: contain;
+          height: 100%;
+          width: auto;
+        }
+      }
+    }
+
+    .MuiCardContent-root {
+      text-align: center;
+
+      .BmkProductStockStatus {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 3px;
+
+        .Message {
+          font-size: 10px;
+          line-height: 13px;
+          font-weight: 600;
+        }
+
+        &.Available {
+          border: 1px solid #008001;
+          color: #008001;
+        }
+
+        &.NotAvailable {
+          border: 1px solid #FF0012;
+          color: #FF0012;
+        }
+      }
+
+      .ProductName {
+        max-width: 260px;
+        margin: 16px auto 12px;
+        color: $black;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .PriceContentWrapper {
+        flex-direction: column;
+
+        .Top {
+          font-size: 13px;
+          line-height: 26px;
+          color: #777777;
+        }
+
+        .Bottom {
+          gap: 8px;
+          justify-content: center;
+          align-items: center;
+
+          .DiscountedPrice {
+            font-size: 20px;
+            line-height: 28px;
+          }
+
+          .ActualPrice {
+            font-size: 15px;
+            line-height: 20px;
+            font-weight: 400;
+            color: rgb($dark, 50%);
+            text-decoration: line-through;
+          }
+        }
+      }
+
+      .OfferBadge {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 6px;
+        position: absolute;
+        top: 75px;
+        left: 8px;
+        color: $white;
+
+        &.Blue {
+          background-color: #3491FA;
+        }
+
+        &.Purple {
+          background-color: #8B34FA;
+        }
+
+        &.Red {
+          background-color: #FA4034;
+        }
+      }
+
+    }
+
+    .MuiCardActions-root {
+      .PrimaryAction {
+        border-radius: 0;
+      }
+
+      .MuiIconButton-root {
+        position: absolute;
+        top: 12px;
+        left: 8px;
+        border-radius: 50%;
+        color: $pumpkinOrange;
+        border: 1px solid #E5E6EB;
+
+        &:hover {
+          border-color: $pumpkinOrange;
+        }
+      }
+
+    }
+  }
+}

@@ -3,12 +3,13 @@ import { Container, Stack, Typography, Link, Divider } from "@mui/material"
 import { useAppSelector } from "@/hooks"
 
 function BullionmarkCopyRight() {
+    const { configDetails: configDetailsState} = useAppSelector((state) => state.homePage)
 
     return (
         <Container className="BullionmarkCopyRightWrapper">
             <Divider />
             <Stack className="CopyRightContent">
-                <Typography className="CopyRightText">Copyright © 2024 Bullionmark. All rights reserved.</Typography>
+                <Typography className="CopyRightText">{configDetailsState?.Footer_Copyright_Text?.value}</Typography>
                 {/* <Stack sx={{
                     gap: "16px",
                 }} className="PolicyWrapper">

@@ -58,7 +58,7 @@ function TravelInspiration() {
                     {(travelInspiration && travelInspiration.length > 0) && (
                         <Box className="SwiperContainer">
                             <Swiper {...config}>
-                                {[...(travelInspiration?.length > 3 ? travelInspiration :  [...travelInspiration,travelInspiration[0]])].map((item) => {
+                                {[...(travelInspiration?.length > 3 ? travelInspiration :  [...travelInspiration, ...travelInspiration])].map((item) => {
                                     return (
                                         <SwiperSlide key={item.id}>
                                             <Box className="TravelInspirationSlideWrapper">

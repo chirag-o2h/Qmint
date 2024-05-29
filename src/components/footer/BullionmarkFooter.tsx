@@ -21,7 +21,7 @@ function BullionmarkFooter() {
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
                         <GatsbyLink to="/" style={{ cursor: 'pointer' }}>
-                            <img src={configDetailsState.Homepage_FooterLogo_URL.value} alt="Bullionmark Footer logo" loading="lazy" />
+                            <img src={configDetailsState?.Homepage_FooterLogo_URL?.value} alt="Bullionmark Footer logo" loading="lazy" />
                         </GatsbyLink>
                         <Typography className='FooterTagLine'>{configDetailsState?.Homepage_Footer_Text_below_logo?.value}</Typography>
                     </Stack>
