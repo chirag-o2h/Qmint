@@ -748,7 +748,11 @@ const bmkComponents: Components = {
         fontSize: pxToRem(16),
         lineHeight: pxToRem(20),
         fontWeight: 600,
-        padding: "17px 23px",
+        padding: "15px 23px",
+        "@media (max-width: 425px)": {
+          paddingTop: 12,
+          paddingBottom: 12,
+        },
       },
       outlinedSizeMedium: {
         fontSize: "16px",

@@ -77,6 +77,7 @@ import NewlLongArrowRight from "./NewlLongArrowRight";
 import BullionmarkSwiperButtonPrev from "./BullionmarkSwiperButtonPrev";
 import BullionmarkSwiperButtonNext from "./BullionmarkSwiperButtonNext";
 import BullionmarkSwiperDash from "./BullionmarkSwiperDash";
+import TickIcon from "./TickIcon";
 
 // Social
 import FacebookIcon from "./social/FacebookIcon";
@@ -201,6 +202,7 @@ export {
   BullionmarkSwiperButtonPrev,
   BullionmarkSwiperButtonNext,
   BullionmarkSwiperDash,
+  TickIcon,
   BullionmarkSignInIcon,
 
   // Social
