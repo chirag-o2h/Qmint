@@ -819,7 +819,32 @@
       .AboutWrapper {
         .ProductAbout {
           form {
-            .AdditionalDetails {}
+            .AdditionalDetails {
+              padding-top: 40px;
+
+              .MuiAccordion-root {
+                .MuiAccordionDetails-root {
+                  padding-top: 22px;
+
+
+                  .GreyTable {
+                    .MuiTable-root {
+                      .MuiTableHead-root {
+                        background: #D9D9D966;
+                      }
+                    }
+                  }
+                }
+
+                .MuiAccordionSummary-root {
+                  background: #FCF8F5;
+                  border: 1px solid #0000000F;
+                  padding: 12px 15px;
+                  justify-content: space-between;
+
+                }
+              }
+            }
           }
         }
       }
