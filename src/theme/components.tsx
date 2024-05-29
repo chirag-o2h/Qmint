@@ -718,6 +718,7 @@ const bmkComponents: Components = {
       root: {
         textTransform: "initial",
         minWidth: "initial",
+        borderRadius: 0,
       },
       text: {
         padding: 0,
@@ -753,7 +754,6 @@ const bmkComponents: Components = {
         fontSize: "16px",
         lineHeight: "24px",
         fontWeight: "600",
-        borderRadius: "9px",
         borderWidth: "2px",
         padding: "11px 18px",
         "&:hover": {
@@ -764,8 +764,7 @@ const bmkComponents: Components = {
         fontSize: pxToRem(16),
         lineHeight: pxToRem(20),
         fontWeight: 600,
-        border: "2px solid #FF681A",
-        borderRadius: 9,
+        border: "1px solid #FF681A",
         padding: "16px 23px",
       },
       containedInfo: {
