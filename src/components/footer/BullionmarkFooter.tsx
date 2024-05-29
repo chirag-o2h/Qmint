@@ -21,7 +21,7 @@ function BullionmarkFooter() {
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
                         <GatsbyLink to="/" style={{ cursor: 'pointer' }}>
-                            <img src={configDetailsState.Homepage_FooterLogo_URL.value} alt="Bullionmark Footer logo" loading="lazy" />
+                            <img src={configDetailsState?.Homepage_FooterLogo_URL?.value} alt="Bullionmark Footer logo" loading="lazy" />
                         </GatsbyLink>
                         <Typography className='FooterTagLine'>{configDetailsState?.Homepage_Footer_Text_below_logo?.value}</Typography>
                     </Stack>
@@ -42,11 +42,11 @@ function BullionmarkFooter() {
                         <Stack className="ItemWrapper">
                             <Stack className="Item">
                                 <Map4Icon />
-                                <Typography>Level 6, 102 Adelaide St, Brisbane, Queensland, 4000 Australia</Typography>
+                                <Typography>{configDetailsState?.Store_Address?.value}</Typography>
                             </Stack>
                             <Stack className="Item">
                                 <PhoneCall1Icon />
-                                <GatsbyLink to={`tel:+61731848300`}>61731848300</GatsbyLink>
+                                <GatsbyLink to={`tel:${configDetailsState?.StorePhoneNumber_AU?.value}`}>{configDetailsState?.StorePhoneNumber_AU?.value}</GatsbyLink>
                             </Stack>
                         </Stack>
                     </Box>
