@@ -7,6 +7,7 @@ import { STORE_CODE } from "@/axiosfolder"
 
 // Components
 import LazyHeader from "../header/index"
+import BullionmarkHeader from "../header/BullionmarkHeader"
 import { bodyForGetShoppingCartData, convertMinutesToMilliseconds, storeLastPage } from "@/utils/common";
 import { configDetails, getFooterLinks, getLiveDashboardChartData } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
@@ -56,7 +57,7 @@ if(configDetailsState?.storefaviconiconurl?.value){
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      <LazyHeader />
+      {STORE_CODE === "7" ? <BullionmarkHeader /> : <LazyHeader />}
       {/* </Suspense> */}
       <main>
         {/* <Suspense fallback={<Box></Box>}> */}
