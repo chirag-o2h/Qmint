@@ -10,6 +10,7 @@ import { IbannerData } from '../home/Banner';
 
 function BannerSlider() {
     const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
+    // console.log("🚀 ~ BannerSlider ~ data:", data)
     const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
     const config = {
@@ -39,13 +40,17 @@ function BannerSlider() {
                                 data?.data?.map((item: IbannerData, index: number) => {
                                     return (
                                         <SwiperSlide key={`BannerSlider-${index}`}>
-                                            <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: `url(${isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall})` }}>
-                                                <Box className="HeroBannerTopWrapper">
+                                            <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: `url(${isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall})` }} dangerouslySetInnerHTML={{
+                  __html: item?.htmlCode
+                }}>
+                                                {/* <Box className="HeroBannerTopWrapper" dangerouslySetInnerHTML={{
+                  __html: item?.htmlCode
+                }}>
                                                     <Typography variant="body1" className="SlideDescription">Around The Worldx</Typography>
                                                     <Typography className="SlideTitle">Unforgettable travel experiences
                                                         with a positive impact</Typography>
                                                 </Box>
-                                                <Button variant="contained">Discover More</Button>
+                                                <Button variant="contained">Discover More</Button> */}
                                             </Box>
                                         </SwiperSlide>
                                     )
