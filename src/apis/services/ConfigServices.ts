@@ -16,7 +16,7 @@ export interface ISavePopUpDetails {
   "Popupid": number
 }
 export interface IupgradPlan {
-  "FkqHBCX" : number
+  "FkqHBCX": number
 }
 export interface IBullionMarkSubscriptionDetails {
   FirstName: string;
@@ -46,7 +46,7 @@ class ConfigServices {
     // })
   }
   static async categoriesList(url: string, params: any) {
-    return axiosInstance.post(url, {},{params:params})
+    return axiosInstance.post(url, {}, { params: params })
 
   }
   static async loginUser(url: string, data: IloginUserBody) {
@@ -106,16 +106,16 @@ class ConfigServices {
     return await axiosInstance.post(ENDPOINTS.getPopUpDetails, {}, { params: params })
   }
   static async savePoPUpDetails(body: ISavePopUpDetails) {
-    return await axiosInstance.post(ENDPOINTS.savePopUpData,body)
+    return await axiosInstance.post(ENDPOINTS.savePopUpData, body)
   }
-  static async getSiteMapData(body:any) {
-    return axiosInstance.post(ENDPOINTS.siteMapUrl,body)
+  static async getSiteMapData(body: any) {
+    return axiosInstance.post(ENDPOINTS.siteMapUrl, body)
   }
   static async getPrivateHoldingList() {
     return axiosInstance.get(ENDPOINTS.getPrivateHoldingsList)
   }
   static async reOrderAPI(orderId: string | number) {
-    return axiosInstance.get(ENDPOINTS.reOrder.replace('Orderid',orderId.toString()))
+    return axiosInstance.get(ENDPOINTS.reOrder.replace('Orderid', orderId.toString()))
   }
   static async getMainHomePageAPI() {
     return axiosInstance.get(ENDPOINTS.mainHomePage)
@@ -123,14 +123,18 @@ class ConfigServices {
   static async getBullionMarkPageAPI() {
     return axiosInstance.get(ENDPOINTS.bullionMarkPage)
   }
-  static async getFooterSections(){
+  static async getFooterSections() {
     return axiosInstance.get(ENDPOINTS.getFooterLink)
   }
-  static async upgradMemberShipPlan(params:IupgradPlan){
-    return await axiosInstance.get(ENDPOINTS.upgradPlan,{params:params})
+  static async upgradMemberShipPlan(params: IupgradPlan) {
+    return await axiosInstance.get(ENDPOINTS.upgradPlan, { params: params })
   }
-  static async sendSubscriptionDetailsForTheBullionmarkHomePage(body:IBullionMarkSubscriptionDetails) {
-    return axiosInstance.post(ENDPOINTS.subscriptionBullionMark,body)
+  static async sendSubscriptionDetailsForTheBullionmarkHomePage(body: IBullionMarkSubscriptionDetails) {
+    return axiosInstance.post(ENDPOINTS.subscriptionBullionMark, body)
+  }
+
+  static async getBullionMarkShopPageSections() {
+    return axiosInstance.get(ENDPOINTS.bullionMarkShopSections);
   }
 }
 export default ConfigServices
