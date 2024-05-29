@@ -1,18 +1,19 @@
-import { BullionmarkSectionHeading, SectionHeading } from '@/components/common/Utils'
-import { Box, Button, Container, Stack, Typography } from '@mui/material'
+import { BullionmarkSectionHeading } from '@/components/common/Utils'
+import { Box, Container, Stack, Typography } from '@mui/material'
 import { Link } from "gatsby";
-import React from 'react'
+import React, { useRef } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 import { Island, NewlLongArrowRight } from '@/assets/icons'
+import { SwiperOptions } from 'swiper/types';
 
 // Hooks
 import { useAppSelector } from "@/hooks"
 
 function BestAdventures() {
     const { bullionMarkPage } = useAppSelector((state) => state.homePage)
-    
-    const config = {
+
+    const config: SwiperOptions = {
         slidesPerView: 1,
         spaceBetween: 20,
         pagination: {
@@ -45,7 +46,7 @@ function BestAdventures() {
     }
 
     const bestAdventures = bullionMarkPage?.homepage_Section_2_Four_posts_in_a_row
-    
+
     return (
         <>
             <Box id="BestAdventures" className="BestAdventures" component="section">
@@ -53,9 +54,9 @@ function BestAdventures() {
                     <BullionmarkSectionHeading
                         title="The Best Of Adventure" />
                     {(bestAdventures && bestAdventures.length > 0) && (
-                        <Box className="SwiperContainer">
+                        <Box className="SwiperContainer  CircleSwiperPagination">
                             <Swiper {...config}>
-                                {[...bestAdventures,...bestAdventures].map((item) => {
+                                {[...bestAdventures, ...bestAdventures].map((item) => {
                                     return (
                                         <SwiperSlide key={item.id}>
                                             <Box className="AdventureCardWrapper">

@@ -5,8 +5,11 @@ import { Box, Card, Skeleton, useMediaQuery, Container, Stack, ToggleButtonGroup
 
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 import BmkProductCard from "./BmkProductCard"
+import classNames from "classnames"
 
 function BmkPopularProductSlider() {
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+
 
     const config = {
         slidesPerView: 1,
@@ -66,7 +69,7 @@ function BmkPopularProductSlider() {
                     </ToggleButtonGroup>
                 </Stack>
                 <Box className="BmkProductsWrapper">
-                    <Box className="SwiperContainer BmkSwiperContainer">
+                    <Box className={classNames("SwiperContainer", [isMobile ? "CircleSwiperPagination" : "LinedSwiperPagination"])}>
                         <Swiper {...config}>
                             <SwiperSlide>
                                 <BmkProductCard />

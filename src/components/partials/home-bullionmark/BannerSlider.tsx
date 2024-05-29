@@ -32,7 +32,7 @@ function BannerSlider() {
 
     return (
         <>
-            <Box id="Banner" className="BullionmarkHomeBanner" component="section" key={'banner'}>
+            <Box id="BmkBanner" className="BullionmarkHomeBanner" component="section" key={'banner'}>
                 <Box className="SwiperContainer">
                     {data?.data?.length > 0 &&
                         <Swiper {...config} >

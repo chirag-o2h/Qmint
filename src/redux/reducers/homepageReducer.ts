@@ -84,6 +84,7 @@ interface CreateGuidelineState {
   configDetails: any,
   sectionDetails: any,
   loading: boolean,
+  bmkShopPageSections: any,
   categoriesList: any,
   userDetails: {
     customerId: number,
@@ -219,6 +220,7 @@ const initialState: CreateGuidelineState = {
   siteMapData: null,
   mainHomePageData: null,
   bullionMarkPage: null,
+  bmkShopPageSections: null,
 }
 
 export const configDetails = appCreateAsyncThunk(
@@ -323,6 +325,14 @@ export const getBullionMarkPageAPI = appCreateAsyncThunk(
   }
 )
 
+export const getBullionMarkShopPageSections = appCreateAsyncThunk(
+  'getBullionMarkShopPageSections',
+  async () => {
+    return await ConfigServices.getBullionMarkShopPageSections()
+  }
+)
+
+
 export const getFooterLinks = appCreateAsyncThunk(
   "getFooterLinks",
   async () => {
@@ -402,7 +412,7 @@ export const createHomepageSlice = createSlice({
     setMainHomePageData: (state, action) => {
       state.mainHomePageData = action.payload
     },
-    setConfigDetails:(state,action)=>{
+    setConfigDetails: (state, action) => {
       const data = action?.payload?.reduce((acc: any, curr: any) => {
         acc[curr.key] = curr
         return acc
@@ -619,6 +629,19 @@ export const createHomepageSlice = createSlice({
       state.loading = false
     })
     builder.addCase(getBullionMarkPageAPI.rejected, (state, action) => {
+      state.loading = false
+    })
+
+    // Bullion Mark
+    builder.addCase(getBullionMarkShopPageSections.pending, (state, action) => {
+      state.loading = true
+    })
+    builder.addCase(getBullionMarkShopPageSections.fulfilled, (state, action) => {
+      const res = action.payload.data.data;
+      state.bmkShopPageSections = res;
+      state.loading = false
+    })
+    builder.addCase(getBullionMarkShopPageSections.rejected, (state, action) => {
       state.loading = false
     })
   },

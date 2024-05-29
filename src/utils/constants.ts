@@ -8,7 +8,7 @@ export const ENDPOINTS = {
     getFooterLink: 'home/N2KdtXS5z0W3EbgvHaDCGw',
     homePageSection: 'home/sMwXo8EJm8Pad',
     bullionMarkPage: 'home/py3CVkInPwDRX4n1TbvMjQfOmXoJ2',
-    getBlog: 'Blog/jk9mPhOPvkiq6luNZrwanA', 
+    getBlog: 'Blog/jk9mPhOPvkiq6luNZrwanA',
     postNewsLetter: 'home/kQTLjU9dZ0KZSxQFBegdRQ',
     postSubscribeNewsletter: 'home/kQTLjU9dZ0KZSxQFBegdRQ',
     topCategoriesListWithSubCategories: "category/xwfjo7TszkKNuYNfIbYrog",
@@ -133,7 +133,8 @@ export const ENDPOINTS = {
     //    upgrade Plan
     upgradPlan: "Checkout/ZQtAuhUHduOX",
     // bullion mark subscription
-    subscriptionBullionMark: "ContactUs/WJoEyC3ZHvdaS7DS9Xv3H"
+    subscriptionBullionMark: "ContactUs/WJoEyC3ZHvdaS7DS9Xv3H",
+    bullionMarkShopSections: "home/Wcclw6GGBRHcOIlIp74AYgp0wHUOGh9Y"
 }
 export const StoreData = {
     storeCode: 12,

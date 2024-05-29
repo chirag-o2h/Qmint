@@ -18,9 +18,7 @@ function TravelInspiration() {
         loop: true,
         speed: 300,
         initialSlide: 1,
-        pagination: {
-            clickable: true,
-        },
+        pagination: false,
         modules: [Autoplay, Pagination, A11y],
         scrollbar: {
             draggable: true
@@ -58,7 +56,7 @@ function TravelInspiration() {
                     {(travelInspiration && travelInspiration.length > 0) && (
                         <Box className="SwiperContainer">
                             <Swiper {...config}>
-                                {[...(travelInspiration?.length > 3 ? travelInspiration :  [...travelInspiration, ...travelInspiration])].map((item) => {
+                                {[...(travelInspiration?.length > 3 ? travelInspiration : [...travelInspiration, ...travelInspiration])].map((item) => {
                                     return (
                                         <SwiperSlide key={item.id}>
                                             <Box className="TravelInspirationSlideWrapper">
@@ -68,7 +66,7 @@ function TravelInspiration() {
                                                 </Box>
                                                 <Box className="TravelInspirationSlideBottomContent">
                                                     <BullionmarkSectionHeading description={item.overview} />
-                                                    <Button variant="outlined" onClick={()=>{navigate(`/${item.friendlyName}`)}}>Discover More</Button>
+                                                    <Button variant="outlined" onClick={() => { navigate(`/${item.friendlyName}`) }}>Discover More</Button>
                                                 </Box>
                                             </Box>
                                         </SwiperSlide>

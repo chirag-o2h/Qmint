@@ -46,14 +46,14 @@ function Layout({ children }: any) {
   }, [isLoggedIn])
   useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
-if(configDetailsState?.storefaviconiconurl?.value){
-  const faviconUrl = configDetailsState?.storefaviconiconurl?.value; // Assuming API response contains favicon URL
-  // Update favicon dynamically
-  const link:any = document.querySelector("link[rel='icon']") || document.createElement('link');
-  link.rel = 'icon';
-  link.href = faviconUrl;
-  document.head.appendChild(link);
-}
+  if (configDetailsState?.storefaviconiconurl?.value) {
+    const faviconUrl = configDetailsState?.storefaviconiconurl?.value; // Assuming API response contains favicon URL
+    // Update favicon dynamically
+    const link: any = document.querySelector("link[rel='icon']") || document.createElement('link');
+    link.rel = 'icon';
+    link.href = faviconUrl;
+    document.head.appendChild(link);
+  }
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
