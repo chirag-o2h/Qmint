@@ -16,6 +16,9 @@ import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import useShowToaster from "@/hooks/useShowToaster"
 import PageNotFound from "@/components/partials/productDetail/PageNotFound"
+import classNames from "classnames"
+import { STORE_CODE } from "@/axiosfolder"
+
 
 function ProductDetail({ params }: any) {
   const configDetails = useAppSelector(state => state.homePage.configDetails)
@@ -52,10 +55,10 @@ function ProductDetail({ params }: any) {
         lang="en"
       />
       {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />
-        <Container id="PageProductDetail">
+        <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": STORE_CODE == '7' })}>
           {productDetailsData?.productId && <AboutProduct productId={productDetailsData?.productId} />}
           {productDetailsData?.relatedProducts?.length > 0 && <RelatedProduct relatedProductsList={structuredClone(productDetailsData?.relatedProducts)} heading={configDetails["productdetails.relatedproducttital"]?.value} description={configDetails["productdetails.relatedproductsubtital"]?.value} />}
-        </Container></>) : <PageNotFound/>}
+        </Container></>) : <PageNotFound />}
     </Layout>
   )
 }

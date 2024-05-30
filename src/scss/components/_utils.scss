@@ -243,6 +243,36 @@
       }
     }
   }
+
+  &.BmkBreadcrumb {
+    .MuiBreadcrumbs-ol {
+      .MuiBreadcrumbs-li {
+        .MuiTypography-root {
+          color: #000000;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 26px;
+
+          &:hover {
+            color: $pumpkinOrange;
+          }
+
+          &.Active {
+            color: $pumpkinOrange;
+          }
+        }
+      }
+
+      .MuiBreadcrumbs-separator {
+        svg {
+          path {
+            stroke: #000000;
+          }
+        }
+      }
+    }
+
+  }
 }
 
 .ProductStockStatus {
