@@ -844,6 +844,15 @@
           }
         }
 
+        .LeftPart {
+          @include media($xl + 1) {
+            gap: 30px;
+          }
+          .MuiDivider-root {
+            display: none;
+          }
+        }
+
         .RightPart {
           gap: 20px;
           color: $white;
@@ -911,7 +920,10 @@
 
     &.BmkBlackHeader {
       background-color: #000000;
-
+      #PricingHeader {
+        color: $white;
+        background-color: inherit;
+      }
       header {
         background-color: #000000;
 
@@ -940,6 +952,10 @@
                   .MuiInputBase-root {
                     .MuiInputBase-input {
                       color: $white;
+                      &::-webkit-input-placeholder, &::placeholder {
+                        color: currentColor;
+                        opacity: 1;
+                      }
                     }
                   }
                 }

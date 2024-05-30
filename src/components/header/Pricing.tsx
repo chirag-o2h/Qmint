@@ -7,6 +7,7 @@ import useApiRequest from "@/hooks/useAPIRequest"
 import { ENDPOINTS } from "@/utils/constants"
 import { useAppSelector } from "@/hooks"
 import DraggableMarquee from "./DraggableMarquee";
+import { THEME_TYPE } from "@/axiosfolder"
 
 interface ItickerData {
   data: Array<{
@@ -32,8 +33,9 @@ function Pricing() {
       tickerboxfontcolor: configDetailsState?.tickerboxfontcolor?.value,
       tickertype: configDetailsState?.tickertype?.value,
     }
+    const isItForBullionMark = THEME_TYPE === "1"
     return (configDetailsState?.tickermetalpriceenableforguests?.value || isLoggedIn) ? data?.data?.map((stock) => (
-      <StockReturnWithName key={stock.name} name={stock.name} value={stock.current} charturl={stock.charturl} status={stock.position === 1} percentage={stock.percentage} move={stock.move} tickerStyle={tickerStyle} />
+      <StockReturnWithName key={stock.name} name={stock.name} value={stock.current} charturl={stock.charturl} status={stock.position === 1} percentage={stock.percentage} move={stock.move} tickerStyle={tickerStyle} isItForBullionMark={isItForBullionMark} />
     )) : null
   }, [data, isLoggedIn, configDetailsState]);
 
