@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useCallback, useState } from "react"
+import React, { Suspense, lazy, useCallback, useEffect, useState } from "react"
 import { useMediaQuery, useScrollTrigger, Theme, AppBar, Box, Divider, IconButton } from "@mui/material"
 
 import classNames from "classnames"
@@ -21,6 +21,8 @@ const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
 const Navigation = lazy(() => import('./Navigation'))
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
+const frontHeaderList = ["/", "/shop"]
+
 const BullionmarkHeader = () => {
   const [params] = useState({ page: 1 })
   useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
@@ -35,10 +37,18 @@ const BullionmarkHeader = () => {
   const toggleMobileMenu = useCallback(() => {
     setOpenMobileMenu(!openMobileMenu)
   }, [openMobileMenu])
+  const [isFrontHeader, setIsFrontHeader] = useState(true)
+
+  useEffect(() => {
+    if (!frontHeaderList.includes(window.location.pathname)) {
+      setIsFrontHeader(false)
+    }
+  }, [])
+
 
   return (
     <>
-      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader FrontHeader")}>
+      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader", { "FrontHeader": isFrontHeader })}>
         {!isMobile && <>
           <Suspense fallback={<></>}>
             <Pricing />
