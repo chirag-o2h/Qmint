@@ -36,6 +36,7 @@
           height: 100%;
           backface-visibility: hidden;
           text-align: right;
+          font-weight: 500;
 
           &.Back {
             transform: rotateX(180deg);

@@ -196,7 +196,7 @@
 
           .SignInButton {
             flex-shrink: 0;
-
+            border-radius: 8px;
             @include media($xs) {
               padding: 5px;
 
