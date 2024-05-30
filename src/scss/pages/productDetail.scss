@@ -819,6 +819,85 @@
       .AboutWrapper {
         .ProductAbout {
           form {
+            .PricingDetails {
+              .Top {
+                .Left {
+                  .DiscountWrapper {
+                    color: #FF1F1F;
+                  }
+                }
+
+                .Right {
+                  .ProductUpdateCountdown {
+                    .progress-bar {
+                      border: 1px solid #FF681A;
+
+                      .CircularProgressbar {
+                        .CircularProgressbar-path {
+                          stroke: #FF681A !important;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              .Bottom {
+                .SliderWrapper {
+                  .Slider {
+                    color: $pumpkinOrange;
+
+                    .MuiSlider-thumb {
+                      border-bottom-color: inherit;
+                    }
+                  }
+                }
+              }
+            }
+
+            .OrderDetails {
+              color: #000000;
+            }
+
+            .OrderActions {
+              .QuantityWrapper {
+                border-radius: 0;
+                border-color: #00000036;
+
+                .MuiIconButton-root {
+                  color: #000000;
+                }
+
+                .InputRow {
+                  .MuiFormControl-root {
+                    .MuiInputBase-root {
+                      color: #000000;
+                    }
+                  }
+                }
+              }
+            }
+
+            .SocialConnects {
+              .IconWithText {
+                &:hover {
+                  color: $pumpkinOrange;
+
+                  .IconWrapper {
+                    color: inherit;
+                    border-color: inherit;
+                  }
+                }
+              }
+
+              .IconWrapper {
+                &:hover {
+                  color: $pumpkinOrange;
+                  border-color: $pumpkinOrange;
+                }
+              }
+            }
+
             .AdditionalDetails {
               padding-top: 40px;
 
@@ -843,6 +922,29 @@
                   justify-content: space-between;
 
                 }
+              }
+            }
+
+          }
+        }
+      }
+
+      .TabsWrapper {
+        .ProductDescriptionTabs {
+          width: 100%;
+          border-color: #E6E6E6;
+          border-radius: 0;
+
+          .MuiTabs-flexContainer {
+            justify-content: center;
+
+            .MuiTab-root {
+              color: #000000;
+              font-weight: 600;
+
+              &.Mui-selected {
+                background-color: $white;
+                border-bottom: 3px solid #FF681A;
               }
             }
           }
