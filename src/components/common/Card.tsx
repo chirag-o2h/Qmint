@@ -46,7 +46,7 @@ import noImage from '../../assets/images/noImage.png'
 import { ProductStockStatus, ProductUpdateCountdown } from "./Utils"
 import { IFeaturedProducts } from "../partials/shop/Qmint/FeaturedProducts"
 import { Link as NavigationLink, navigate } from "gatsby"
-import { bodyForGetShoppingCartData, calculationOfThePremiumAndDiscount, deliveryMethodMessage, roundOfThePrice } from "@/utils/common"
+import { bodyForGetShoppingCartData, calculationOfThePremiumAndDiscount, deliveryMethodMessage, formatDate, roundOfThePrice } from "@/utils/common"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { productImages } from "@/utils/data"
 import { CartItem } from "@/types/shoppingCart";
@@ -67,6 +67,8 @@ interface Iproduct {
 }
 
 interface IBmkPostCard {
+  details: any
+  navigate: any
 }
 
 export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Iproduct) => {
@@ -620,14 +622,18 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
 }
 
 export const BmkPostCard = (props: IBmkPostCard) => {
-  const {} = props
+  const { details, navigate } = props
   return (
     <GatsbyLink to="#" className="BmkPostCard">
       <Box className="Content" color="text.primary">
-        <img src="https://picsum.photos/500/300" className="ThumbnailImage" alt="Post thumbnail image" />
-        <Typography variant="h4" component="p" className="Title">Exclusive Journeys and Select Departures to Remote Corners of</Typography>
-        <Typography variant="subtitle1" component="p" className="Description">We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging. We are committed to offering unique travel opportunities, to unusual destinations, that are mutually beneficial to all involved.</Typography>
-        <Typography variant="body2" color="primary.main" className="Date">27 Jan 2024</Typography>
+        <img src={details?.imageUrl} className="ThumbnailImage" alt="Post thumbnail image" onClick={() => {
+          if (navigate) {
+            navigate()
+          }
+        }} />
+        <Typography variant="h4" component="p" className="Title">{details?.title}</Typography>
+        <Typography variant="subtitle1" component="p" className="Description">{details?.bodyOverview}</Typography>
+        <Typography variant="body2" color="primary.main" className="Date">{formatDate(details?.createdOnUtc)}</Typography>
       </Box>
     </GatsbyLink>
   )

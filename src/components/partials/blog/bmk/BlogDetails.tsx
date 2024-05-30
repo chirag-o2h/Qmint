@@ -24,7 +24,7 @@ import useSubscription from "@/hooks/useSubscription";
 
 // Utils
 import { formatDate } from "@/utils/common";
-import { BlogDetailsAPI } from "@/redux/reducers/blogReducer";
+import { BlogDetailsAPI, BlogList } from "@/redux/reducers/blogReducer";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/reducers/homepageReducer";
 
 // Components
@@ -32,6 +32,10 @@ import Layout from "@/components/common/Layout";
 import Loader from "@/components/common/Loader";
 import { Breadcrumb } from "@/components/common/Utils";
 import { BmkPostCard } from "@/components/common/Card";
+import { navigate } from "gatsby";
+import useAPIoneTime from "@/hooks/useAPIoneTime";
+import { ENDPOINTS } from "@/utils/constants";
+import { bodyData } from "@/pages/blog";
 
 function BlogDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
@@ -49,6 +53,14 @@ function BlogDetails(params: any) {
     }
     apiCall()
   }, [params?.params?.["blog-details-friendly-name"]])
+  useAPIoneTime({
+    service: BlogList,
+    endPoint: ENDPOINTS.BlogList,
+    body: bodyData,
+    // if ssr then uncommit this below line
+    // conditionalCall: Object.keys(debounce ?? {}).length > 0
+  });
+
   return (
     <Layout>
       <Loader open={checkLoadingStatus} />
@@ -133,22 +145,24 @@ function BlogDetails(params: any) {
               </Box>
             </Box>
           </Box>
-            {true && (
-              <Box className="RecentPost">
-                <Box className="RecentPost-Header">
-                  <Typography variant="h2" component="h2">
-                    Related posts
-                  </Typography>
-                </Box>
-                <Box className="PostsWrapper">
-                    {[1,2].map((item: any) => {
-                      return (
-                        <BmkPostCard />
-                      );
-                    })}
-                </Box>
+          {blogList?.items?.length > 0 ? (
+            <Box className="RecentPost">
+              <Box className="RecentPost-Header">
+                <Typography variant="h2" component="h2">
+                  Related posts
+                </Typography>
               </Box>
-            )}
+              <Box className="PostsWrapper">
+                {blogList?.items?.slice(0, 2).map((item: any) => {
+                  return (
+                    <BmkPostCard details={item} navigate={() =>
+                      navigate(`/blog/${item?.friendlyName}`)
+                    } />
+                  );
+                })}
+              </Box>
+            </Box>
+          ) : null}
         </Container>
       </Box>
     </Layout>
