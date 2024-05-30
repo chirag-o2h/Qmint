@@ -47,13 +47,13 @@ function TravelInspiration() {
     };
     const travelInspiration = bullionMarkPage?.homepage_Section_6_Three_posts_in_wavy_layout
     return (
-        <Box id="TravelInspiration" component="section">
+        (travelInspiration && travelInspiration.length > 0) ? <Box id="TravelInspiration" component="section">
             <Container>
                 <Box className="TravelInspirationTitle">
                     <BullionmarkSectionHeading title="Find Travel Inspiration By Style" />
                 </Box>
                 <Box className="TravelInspirationSliderWrapper">
-                    {(travelInspiration && travelInspiration.length > 0) && (
+                    {(
                         <Box className="SwiperContainer">
                             <Swiper {...config}>
                                 {[...(travelInspiration?.length > 3 ? travelInspiration : [...travelInspiration, ...travelInspiration])].map((item) => {
@@ -77,7 +77,7 @@ function TravelInspiration() {
                     )}
                 </Box>
             </Container>
-        </Box>
+        </Box> : null
     )
 }
 

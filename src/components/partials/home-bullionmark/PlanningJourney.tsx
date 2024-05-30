@@ -10,7 +10,7 @@ function PlanningJourney() {
     const planningJourney = bullionMarkPage?.homepage_Section_1_Picture_and_content
     return (
         <>
-            {planningJourney && <Box id="PlanningJourney" component="section">
+            {planningJourney && planningJourney?.[0] ? <Box id="PlanningJourney" component="section">
                 <Container>
                     <Box className="ck-content">
                         <Box dangerouslySetInnerHTML={{
@@ -19,7 +19,7 @@ function PlanningJourney() {
                         </Box>
                     </Box>
                 </Container>
-            </Box>}
+            </Box> : null}
 
         </>
     )

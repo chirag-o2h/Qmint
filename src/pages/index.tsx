@@ -126,7 +126,7 @@ function indexBulliomark() {
                         <PlanningJourney />
                         <BestAdventures />
                         <GetInspired />
-                        <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
+                        {bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview ? <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} /> : null}
                         <ExclusiveJourneysWithSlider />
                         <TravelInspiration />
                         <InspiringStories data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} />
