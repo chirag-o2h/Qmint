@@ -1189,7 +1189,9 @@
     background-color: transparent;
     border-radius: 0;
     @include transition;
-
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     &:hover {
       box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
     }
@@ -1217,7 +1219,7 @@
 
     .MuiCardContent-root {
       text-align: center;
-
+      flex-grow: 1;
       .BmkProductStockStatus {
         display: inline-block;
         padding: 4px 12px;

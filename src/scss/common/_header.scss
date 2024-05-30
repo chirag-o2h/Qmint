@@ -933,6 +933,9 @@
 
               .MenuLink {
                 color: $white;
+                &:hover {
+                  color: $pumpkinOrange;
+                }
               }
             }
           }
