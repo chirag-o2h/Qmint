@@ -78,6 +78,7 @@ import BullionmarkSwiperButtonPrev from "./BullionmarkSwiperButtonPrev";
 import BullionmarkSwiperButtonNext from "./BullionmarkSwiperButtonNext";
 import BullionmarkSwiperDash from "./BullionmarkSwiperDash";
 import TickIcon from "./TickIcon";
+import CalenderIcon from "./CalenderIcon";
 
 // Social
 import FacebookIcon from "./social/FacebookIcon";
@@ -203,6 +204,7 @@ export {
   BullionmarkSwiperButtonNext,
   BullionmarkSwiperDash,
   TickIcon,
+  CalenderIcon,
   BullionmarkSignInIcon,
 
   // Social
