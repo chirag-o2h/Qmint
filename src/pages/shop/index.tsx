@@ -1,5 +1,6 @@
-import { STORE_CODE } from "@/axiosfolder"
+import React from "react"
+import { THEME_TYPE } from "@/axiosfolder"
 import BullionmarkShop from "@/components/partials/shop/Bullionmark"
 import QmintShop from "@/components/partials/shop/Qmint"
 
-export default (STORE_CODE == '7' ? BullionmarkShop : QmintShop)
+export default (THEME_TYPE == '1' ? BullionmarkShop : QmintShop)

@@ -87,7 +87,7 @@ function Newsletter() {
   const newsletter = bullionMarkPage?.homepage_Section_8_Footer_background_pic
 
   return (
-    <Box id="SectionNewsletter" component="section">
+    newsletter?.[0]?.overview ?  <Box id="SectionNewsletter" component="section">
       {openToaster && <Toaster />}
       {/* <img className="NewsletterBG" src={NewsletterBG} alt="" /> */}
       <Box className="NewsletterBG" dangerouslySetInnerHTML={{
@@ -153,7 +153,7 @@ function Newsletter() {
           </form>
         </Container>
       </Box>
-    </Box>
+    </Box> : null
   )
 }
 

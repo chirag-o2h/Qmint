@@ -49,11 +49,11 @@ function BestAdventures() {
 
     return (
         <>
-            <Box id="BestAdventures" className="BestAdventures" component="section">
+            {(bestAdventures && bestAdventures.length > 0) ? <Box id="BestAdventures" className="BestAdventures" component="section">
                 <Container component="section">
                     <BullionmarkSectionHeading
                         title="The Best Of Adventure" />
-                    {(bestAdventures && bestAdventures.length > 0) && (
+                    {(
                         <Box className="SwiperContainer  CircleSwiperPagination">
                             <Swiper {...config}>
                                 {[...bestAdventures, ...bestAdventures].map((item) => {
@@ -80,7 +80,7 @@ function BestAdventures() {
                         </Box>
                     )}
                 </Container>
-            </Box>
+            </Box>:null}
         </>
     )
 }
