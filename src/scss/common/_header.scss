@@ -749,6 +749,10 @@
     .HeaderContainerWrapper {
       .MainHeader__Wrapper {
         .Center {
+          .NavigationHeader {
+            padding: 0;
+          }
+
           .MenuLink {
             &:hover {
               color: $pumpkinOrange;
