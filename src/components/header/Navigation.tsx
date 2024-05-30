@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, lazy, useEffect, useMemo, useState } from "react"
 import { Container, Stack, Divider, Button, Box, Typography, IconButton, useMediaQuery, Theme } from "@mui/material"
 import classNames from "classnames"
-import { STORE_CODE } from "@/axiosfolder";
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
 
 // Components
 import { HoverTooltip } from "../common/CustomTooltip"
@@ -92,7 +92,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
     <Box className="NavigationHeader">
       <Container>
         <Stack className="NavigationHeader__Wrapper">
-          {STORE_CODE === "7" && !showNavigation ? <SearchField /> : <Stack
+          {THEME_TYPE === "1" && !showNavigation ? <SearchField /> : <Stack
             className="LeftPart"
             divider={<Divider orientation="vertical" flexItem />}
           >
@@ -137,7 +137,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
               {/* {needToShowProgressLoader &&  */}
               <ProductUpdateCountdown needToShowText={false} />
               {/* } */}
-              {(STORE_CODE === "7" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>)}
+              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>)}
               {/* {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?  */}
               <Suspense fallback={<></>}> <ChartMenu /></Suspense>
               {/* : null} */}
@@ -165,7 +165,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
           )}
         </Stack>
       </Container>
-      {STORE_CODE !== "7" && (<ConstantApiLoader />)}
+      {THEME_TYPE !== "1" && (<ConstantApiLoader />)}
     </Box>
   )
 }
