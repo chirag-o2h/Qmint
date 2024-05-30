@@ -31,6 +31,7 @@ import useRemainingTime from "@/hooks/useRemainingTime";
 import { navigate } from "gatsby";
 import CountDownTimer from "../partials/productDetail/CountDownTImer";
 import { roundOfThePrice } from "@/utils/common";
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
 interface Iprops {
   name: string;
   value: number;
@@ -190,15 +191,13 @@ export const PageTitle = React.memo(({ title, backToDashboard, maxWidth, redirec
 });
 export const Breadcrumb = React.memo(({ arr }: any) => {
   return (
-    <Box
-      className="Breadcrumb"
-    >
+    <Box className={classNames("Breadcrumb", { "BmkBreadcrumb": THEME_TYPE === "1" })}>
       <Container>
         <Breadcrumbs aria-label="breadcrumb" separator={<ChevronRight />}>
           <Link color="inherit" variant="body2" onClick={() => { navigate('/shop', { replace: true }) }}>
             Home
           </Link>
-          {arr.map((item: any, index: any) => <Link key={index} color={true ? variable.dark : "inherit"} variant="body2" onClick={() => { navigate(item.navigate) }}>
+          {arr.map((item: any, index: any) => <Link key={index} color={true ? variable.dark : "inherit"} variant="body2" className={classNames({ "Active": arr.length === (index + 1) })} onClick={() => { navigate(item.navigate) }}>
             {item.name}
           </Link>)
           }
