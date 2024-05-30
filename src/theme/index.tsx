@@ -1,45 +1,16 @@
-import React from 'react';
 import { Theme } from '@mui/material/';
 import createTheme from "@mui/material/styles/createTheme";
 
-// Assets
-import { ArrowDown, CheckboxCheckedIcon, CheckboxUncheckedIcon, RadioCheckedIcon, RadioUncheckedIcon } from '../assets/icons/index';
-
 // Utils
 import { pxToRem } from '../utils/helper';
-import * as  variable from '../scss/settings/variables.module.scss'
 import { THEME_TYPE } from '../axiosfolder';
 
 // Components
 import components from "./components"
-
-const themeTypes: any = {
-  0: "#EAA22B",
-  1: "#FF681A",
-}
+import palette from "./palette"
 
 const theme: Theme = createTheme({
-  palette: {
-    primary: {
-      main: themeTypes[THEME_TYPE ?? 0],
-      contrastText: "#FFFFFF",
-    },
-    secondary: {
-      main: "#1D2129",
-      contrastText: "#FFFFFF",
-    },
-    success: {
-      main: variable.success,
-    },
-    error: {
-      main: variable.error,
-    },
-    divider: "#1d212933",
-    tonalOffset: 0.1,
-    text: {
-      primary: "#1D2129",
-    },
-  },
+  palette: {...palette(THEME_TYPE)},
   typography: {
     fontFamily: "'Open Sans', sans-serif",
     button: {
