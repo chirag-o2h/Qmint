@@ -41,7 +41,7 @@ import TravelInspiration from '@/components/partials/home-bullionmark/TravelInsp
 import Newsletter from '@/components/partials/home-bullionmark/Newsletter'
 import {  getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
 // import useAPIoneTime from '@/hooks/useAPIoneTime'
-import { STORE_CODE } from "@/axiosfolder"
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
 
 function MainHomePage(
     // { serverData }: { serverData: { configDetails: any,mainHomePageData:any, bannerData:any } }
@@ -138,7 +138,7 @@ function indexBulliomark() {
     )
 }
 
-export default (STORE_CODE == '7' ? indexBulliomark : MainHomePage)
+export default (THEME_TYPE == '1' ? indexBulliomark : MainHomePage)
 // export const getServerData = async () => {
 //     try {
 //         const endpointBaseURL = "https://qmapistaging.qmint.com/api/v1/";

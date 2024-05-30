@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { Skeleton, Stack } from "@mui/material";
 
 // Utils
-import { STORE_CODE } from "@/axiosfolder"
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
 
 // Components
 import LazyHeader from "../header/index"
@@ -57,7 +57,7 @@ function Layout({ children }: any) {
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      {STORE_CODE === "7" ? <BullionmarkHeader /> : <LazyHeader />}
+      {THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
       {/* </Suspense> */}
       <main>
         {/* <Suspense fallback={<Box></Box>}> */}
@@ -68,7 +68,7 @@ function Layout({ children }: any) {
         <></>
         // <Skeleton height='30vh'></Skeleton>
       }>
-        {STORE_CODE === "7" ? <LazyBullionmarkFooter /> : <LazyFooter />}
+        {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </Suspense>}
       {openSessionExpireDialog && <SessionExpiredDialog
         open={openSessionExpireDialog}
