@@ -18,6 +18,8 @@ import {
 } from "@mui/material";
 import classNames from "classnames";
 import { Account } from "@/types/myVault"
+import { Link as GatsbyLink } from "gatsby"
+
 // Type
 import type { SelectChangeEvent } from "@mui/material"
 
@@ -63,6 +65,10 @@ interface Iproduct {
   product: IFeaturedProducts;
   stickyProduct?: boolean
 }
+
+interface IBmkPostCard {
+}
+
 export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Iproduct) => {
   const dispatch = useAppDispatch()
   const { loading: loadingForAddToCart, error: errorForAddToCart, apiCallFunction } = useCallAPI()
@@ -610,6 +616,20 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
       <Divider />
       <Typography className="DeliveryMethod" variant="overline" component="p">Delivery Method: <Typography variant="inherit" component="span">{deliveryMethod}</Typography></Typography>
     </Card>
+  )
+}
+
+export const BmkPostCard = (props: IBmkPostCard) => {
+  const {} = props
+  return (
+    <GatsbyLink to="#" className="BmkPostCard">
+      <Box className="Content" color="text.primary">
+        <img src="https://picsum.photos/500/300" className="ThumbnailImage" alt="Post thumbnail image" />
+        <Typography variant="h4" component="p" className="Title">Exclusive Journeys and Select Departures to Remote Corners of</Typography>
+        <Typography variant="subtitle1" component="p" className="Description">We specialise in providing curious travellers with access to regions and communities that would otherwise prove challenging. We are committed to offering unique travel opportunities, to unusual destinations, that are mutually beneficial to all involved.</Typography>
+        <Typography variant="body2" color="primary.main" className="Date">27 Jan 2024</Typography>
+      </Box>
+    </GatsbyLink>
   )
 }
 

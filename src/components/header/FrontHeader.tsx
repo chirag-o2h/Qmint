@@ -30,8 +30,8 @@ const FrontHeader = (props: FrontHeader) => {
     }, [openMobileMenu])
 
     return (
-        <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": STORE_CODE == '7' })}>
-            {(!isMobile && configDetailsState?.["mainhomepage.tickerenable"]?.value) || (STORE_CODE == '7') && <>
+        <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": THEME_TYPE == '1' })}>
+            {(!isMobile && configDetailsState?.["mainhomepage.tickerenable"]?.value) || (THEME_TYPE == '1') && <>
                 <Suspense fallback={
                     <></>
                     // <Skeleton style={{ minHeight: '60px' }} />
