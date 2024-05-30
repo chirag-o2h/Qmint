@@ -47,7 +47,7 @@ function ExclusiveJourneysWithSlider() {
     }
     return (
         <>
-            {(bullionMarkPage && bullionMarkPage.homepage_Section_5_One_big_post.length > 0) && (
+            {(bullionMarkPage && bullionMarkPage?.homepage_Section_5_One_big_post?.length > 0) && (
                 <Box id="ExclusiveJourneysWithSlider" component="section">
                     <Container>
                         <Box className="SwiperContainer">
