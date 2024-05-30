@@ -65,7 +65,7 @@ function BlogDetails(params: any) {
     <Layout>
       <Loader open={checkLoadingStatus} />
       <Box className="BmkBlogDetailPage">
-        <Breadcrumb arr={[{ navigate: '/my-vault', name: 'My Vault' }]} />
+        <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
         <Container className="BlogContainer">
           <Box className="BlogDetail">
             <Stack className="Header">
@@ -154,10 +154,9 @@ function BlogDetails(params: any) {
               </Box>
               <Box className="PostsWrapper">
                 {blogList?.items?.slice(0, 2).map((item: any) => {
+                  console.log("🚀 ~ {blogList?.items?.slice ~ item:", item)
                   return (
-                    <BmkPostCard details={item} navigate={() =>
-                      navigate(`/blog/${item?.friendlyName}`)
-                    } />
+                    <BmkPostCard details={item} navigate={`/blog/${item?.friendlyName}`} />
                   );
                 })}
               </Box>

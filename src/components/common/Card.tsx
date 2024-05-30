@@ -624,13 +624,9 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
 export const BmkPostCard = (props: IBmkPostCard) => {
   const { details, navigate } = props
   return (
-    <GatsbyLink to="#" className="BmkPostCard">
+    <GatsbyLink to={navigate ?? "#"} className="BmkPostCard">
       <Box className="Content" color="text.primary">
-        <img src={details?.imageUrl} className="ThumbnailImage" alt="Post thumbnail image" onClick={() => {
-          if (navigate) {
-            navigate()
-          }
-        }} />
+        <img src={details?.imageUrl} className="ThumbnailImage" alt="Post thumbnail image" />
         <Typography variant="h4" component="p" className="Title">{details?.title}</Typography>
         <Typography variant="subtitle1" component="p" className="Description">{details?.bodyOverview}</Typography>
         <Typography variant="body2" color="primary.main" className="Date">{formatDate(details?.createdOnUtc)}</Typography>
