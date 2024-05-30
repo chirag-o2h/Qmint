@@ -999,7 +999,7 @@ const bmkComponents: Components = {
         lineHeight: "28px",
         fontWeight: 500,
         "&.Mui-selected": {
-          backgroundColor: variable.yellowFuel,
+          backgroundColor: variable.pumpkinOrange,
           color: variable.white,
           fontWeight: 700,
         },
