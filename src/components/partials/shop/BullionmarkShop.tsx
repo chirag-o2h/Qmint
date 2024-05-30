@@ -13,10 +13,15 @@ import BmkPopularProductSlider from "./Bullionmark/BmkPopularProductSlider";
 import BannerSlider from "../home-bullionmark/BannerSlider";
 import InspiringStories from "../home-bullionmark/InspiringStories";
 import ExclusiveJourneys from "../home-bullionmark/ExclusiveJourneys";
+import useAPIoneTime from "@/hooks/useAPIoneTime";
+import { getBullionMarkShopPageSections } from "@/redux/reducers/homepageReducer";
+import ThreePicsRow from "./Bullionmark/ThreePicsRow";
+import OneBigPicAndContent from "./Bullionmark/OneBigPicAndContent";
 
 
 function BullionmarkShop() {
-  const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
+  const { openToaster, loading, bmkShopPageSections } = useAppSelector((state) => state.homePage)
+  useAPIoneTime({ service: getBullionMarkShopPageSections })
 
   return (
     <Layout>
@@ -31,9 +36,12 @@ function BullionmarkShop() {
         <Suspense fallback={<></>}><BannerSlider /></Suspense>
         <Suspense fallback={<></>}> <BestCategorySlider /></Suspense>
         <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
+        <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>
+        <Suspense fallback={<></>}> <OneBigPicAndContent /></Suspense>
         <Suspense fallback={<></>}> <BmkPopularProductSlider /></Suspense>
-        <Suspense fallback={<></>}><ExclusiveJourneys /></Suspense>
-        <Suspense fallback={<></>}><InspiringStories /></Suspense>
+        <Suspense fallback={<></>}><ExclusiveJourneys data={bmkShopPageSections?.shopHomepage_Section_6_Two_pics_and_content
+        } /></Suspense>
+        <Suspense fallback={<></>}><InspiringStories data={bmkShopPageSections?.shopHomepage_Section_7_Two_pics_in_a_rows} /></Suspense>
       </>
     </Layout>)
 }

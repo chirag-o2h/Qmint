@@ -12,7 +12,7 @@ import { navigate } from "gatsby";
 import { useAppSelector } from "@/hooks"
 
 function BullionmarkFrontFooter() {
-    const { configDetails: configDetailsState , bullionMarkPage} = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
 
     return (
@@ -42,11 +42,11 @@ function BullionmarkFrontFooter() {
                         <Stack className="ItemWrapper">
                             <Stack className="Item">
                                 <Map4Icon />
-                                <Typography>Level 6, 102 Adelaide St, Brisbane, Queensland, 4000 Australia</Typography>
+                                <Typography>{configDetailsState?.Store_Address?.value}</Typography>
                             </Stack>
                             <Stack className="Item">
                                 <PhoneCall1Icon />
-                                <GatsbyLink to={`tel:+61731848300`}>61731848300</GatsbyLink>
+                                <GatsbyLink to={`tel:${configDetailsState?.StorePhoneNumber_AU?.value}`}>{configDetailsState?.StorePhoneNumber_AU?.value}</GatsbyLink>
                             </Stack>
                         </Stack>
                     </Box>
@@ -56,8 +56,7 @@ function BullionmarkFrontFooter() {
                             <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.facebooklink?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>
                             <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.instagramlink?.value ?? window?.location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
                             <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.youtubelink?.value ?? window?.location?.href}><YoutubeIcon /></IconButton>
-                            <IconButton title="Follow us on LinkedinIcon" target={"_blank"} href={configDetailsState?.youtubelink?.value ?? window?.location?.href}><LinkedinIcon /></IconButton>
-                            {/* <IconButton title="Follow us on Feed" target={"_blank"} href={configDetailsState?.feedIcon?.value ?? window?.location?.href}><FeedIcon /></IconButton> */}
+                            <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.twitterlink?.value ?? window?.location?.href}><TwitterIcon fontSize="small" /></IconButton>
                         </Stack>
                     </Box>
                 </Stack>

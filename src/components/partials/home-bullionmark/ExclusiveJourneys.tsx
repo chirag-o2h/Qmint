@@ -1,19 +1,15 @@
-import { Box, Button, Container, Stack, Typography } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import React from 'react'
 
-// Hooks
-import { useAppSelector } from "@/hooks"
-
-function ExclusiveJourneys() {
-    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
-    const exclusiveJourneys = bullionMarkPage?.homepage_Section_4_Two_pics_and_content
+function ExclusiveJourneys({ data }: { data: any }) {
+    console.log("🚀 ~ ExclusiveJourneys ~ data:", data)
     return (
         <>
-            {exclusiveJourneys && <Box id="ExclusiveJourneys" component="section">
+            {data && <Box id="ExclusiveJourneys" component="section">
                 <Container>
                     <Box className="ck-content">
                         <Box dangerouslySetInnerHTML={{
-                            __html: exclusiveJourneys?.[0]?.overview
+                            __html: data
                         }}>
                         </Box>
                     </Box>

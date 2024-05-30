@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Box, Stack, Button, Container } from "@mui/material"
 import { useForm } from "react-hook-form";
 import * as yup from "yup"
@@ -9,29 +9,34 @@ import NewsletterBG from "@/assets/images/NewsletterBG.png"
 
 // Components
 import RenderFields from "@/components/common/RenderFields";
-import { BullionmarkSectionHeading } from "@/components/common/Utils";
+import { BullionmarkSectionHeading, isValidPhoneNumber } from "@/components/common/Utils";
 import ConfigServices, { IBullionMarkSubscriptionDetails } from "@/apis/services/ConfigServices";
 import useShowToaster from "@/hooks/useShowToaster";
 import { useAppSelector } from "@/hooks";
 import Toaster from "@/components/common/Toaster";
 
 
-const schema = yup.object().shape({
-  FirstName: yup.string().required('First name is required'),
-  LastName: yup.string().required('Last name is required'),
-  PhoneNumber: yup.string()
-    .matches(/^(\+?[0-9]{1,3})?[0-9]{6,15}$/, 'Phone number must be a valid format, optionally with country code')
-    .min(6, 'Phone number must be at least 6 digits')
-    .max(15, 'Phone number must be at most 15 digits')
-    .required('Phone number is required'),
-  Email: yup.string().email('Invalid email address').required('Email address is required'),
-  AllowEmailSend: yup.boolean(),
-});
+
 function Newsletter() {
+  const schema = yup.object().shape({
+    FirstName: yup.string().required('First name is required'),
+    LastName: yup.string().required('Last name is required'),
+    PhoneNumber: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
+      function (value) {
+        if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
+        else return false;
+      }),
+    Email: yup.string().email('Invalid email address').required('Email address is required'),
+    AllowEmailSend: yup.boolean(),
+  });
+  const firstTimeRender = useRef(true);
+
   const {
     register,
     handleSubmit,
     control,
+    clearErrors,
+    setError,
     setValue,
     reset,
     formState: { errors },
@@ -45,28 +50,38 @@ function Newsletter() {
     country: {}
   })
 
+  useEffect(() => {
+    if (firstTimeRender.current) {
+      firstTimeRender.current = false;
+      return;
+    }
+    if (!isValidPhoneNumber(phoneNumberValue.value, phoneNumberValue?.country?.countryCode)) {
+      setError("PhoneNumber", {
+        type: "manual",
+        message: "Please enter a valid phone number"
+      });
+    }
+    else {
+      clearErrors("PhoneNumber")
+    }
+  }, [phoneNumberValue])
+
   const onSubmit = async (data: IBullionMarkSubscriptionDetails) => {
     try {
-      const response = await ConfigServices.sendSubscriptionDetailsForTheBullionmarkHomePage({...data} as IBullionMarkSubscriptionDetails)
+      const response = await ConfigServices.sendSubscriptionDetailsForTheBullionmarkHomePage({ ...data } as IBullionMarkSubscriptionDetails)
       showToaster({
         message: response?.data?.message,
         severity: 'success'
       })
       reset()
-      console.log("🚀 ~ onSubmit ~ res:", response)
-    } catch (error:any) {
-      console.log("🚀 ~ onSubmit ~ error:", error)
+      setPhoneNumberValue({ value: "", country: {} })
+      firstTimeRender.current = true;
+    } catch (error: any) {
       showToaster({
         message: error?.response?.data?.message,
         severity: 'error'
       })
     }
-    // if(){
-    //   showToaster({
-    //     message: `Can not add more than  items to cart.`,
-    //     severity: 'error'
-    //   })
-    // }
   }
 
   const newsletter = bullionMarkPage?.homepage_Section_8_Footer_background_pic
@@ -76,7 +91,7 @@ function Newsletter() {
       {openToaster && <Toaster />}
       {/* <img className="NewsletterBG" src={NewsletterBG} alt="" /> */}
       <Box className="NewsletterBG" dangerouslySetInnerHTML={{
-          __html: newsletter?.[0]?.overview
+        __html: newsletter?.[0]?.overview
       }}></Box>
       <Box className="BackgroundHolder">
         <Container maxWidth="sm">
@@ -104,19 +119,10 @@ function Newsletter() {
             />
             <RenderFields
               register={register}
-              error={errors["PhoneNumber"]}
-              name="PhoneNumber"
-              placeholder="Phone Number"
-              control={control}
-              variant="outlined"
-              fullWidth
-            />
-            <RenderFields
-              register={register}
               type="phoneInput"
               control={control}
               setValue={setValue}
-              name="Contact"
+              name="PhoneNumber"
               error={errors.PhoneNumber}
               value={phoneNumberValue.value}
               setPhoneNumberValue={setPhoneNumberValue}

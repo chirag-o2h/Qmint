@@ -1,0 +1,40 @@
+#Confirmation {
+  @include padding-vertical(60);
+  .Content {
+    text-align: center;
+    .TickIcon {
+      font-size: 79px;
+      margin-bottom: 36px;
+      @include media($md) {
+        font-size: 50px;
+      }
+      @include media($sm) {
+        margin-bottom: 20px;
+      }
+    }
+    .Title {
+      margin-bottom: 12px;
+    }
+    .Description {
+      max-width: 520px;
+      margin-bottom: 21px;
+      @include margin-auto;
+      @include media($sm) {
+        max-width: 100%;
+      }
+      .Link {
+        color: $blueTealish;
+        text-decoration: none;
+        @include transition;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .ActionButton {
+      @include media-min($llg) {
+        min-width: 204px;
+      }
+    }
+  }
+}
