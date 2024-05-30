@@ -35,7 +35,7 @@ import axiosInstance from "@/axiosfolder";
 import BlogServices from "@/apis/services/blogAndNewsServices";
 import MainLayout from "@/components/common/MainLayout";
 import axios from "axios";
-const bodyData = {
+export const bodyData = {
   search: "",
   pageNo: 0,
   pageSize: -1,

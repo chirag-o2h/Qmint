@@ -53,7 +53,7 @@ function Pricing() {
         <Stack
           className="PricingHeader__Wrapper"
         >
-          <img src={configDetailsState?.australiaflagurl?.value} alt="Australia flag" width={36} height={24} loading="eager" />
+          <img src={configDetailsState?.Australia_flag_url?.value} alt="Australia flag" width={36} height={24} loading="eager" />
           <DraggableMarquee>
             <Stack id={"mark-id"} className="PricingHeader__Wrapper--Content">
               {renderedStockItems}

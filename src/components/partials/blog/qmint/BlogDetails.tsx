@@ -28,7 +28,7 @@ import {
   TwitterIcon
 } from "@/assets/icons";
 import { formatDate } from "@/utils/common";
-import { BlogDetailsAPI } from "@/redux/reducers/blogReducer";
+import { BlogDetailsAPI, BlogList } from "@/redux/reducers/blogReducer";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import useSubscription from "@/hooks/useSubscription";
 import { navigate } from "gatsby";
@@ -36,6 +36,9 @@ import { setLoadingFalse, setLoadingTrue } from "@/redux/reducers/homepageReduce
 import { FacebookShareButton,TwitterShareButton, WhatsappShareButton } from "react-share";
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import Loader from "@/components/common/Loader";
+import useAPIoneTime from "@/hooks/useAPIoneTime";
+import { ENDPOINTS } from "@/utils/constants";
+import { bodyData } from "@/pages/blog";
 
 function BlogDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
@@ -54,6 +57,14 @@ function BlogDetails(params: any) {
     }
     apiCall()
   }, [params?.params?.["blog-details-friendly-name"]])
+  useAPIoneTime({
+    service: BlogList,
+    endPoint: ENDPOINTS.BlogList,
+    body: bodyData,
+    // if ssr then uncommit this below line
+    // conditionalCall: Object.keys(debounce ?? {}).length > 0
+  });
+
   return (
     <MainLayout blackTheme>
       <Loader open = {checkLoadingStatus} />
