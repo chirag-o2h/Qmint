@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Container, Typography, Button } from '@mui/material'
-import noImage from '../../../assets/images/noImage.png'
+import noImage from '@/assets/images/noImage.png'
 
 // Utills
-import { SectionHeading } from "../../common/Utils"
+import { SectionHeading } from "../../../common/Utils"
 import { useAppSelector } from '@/hooks'
 
 function Gallery() {

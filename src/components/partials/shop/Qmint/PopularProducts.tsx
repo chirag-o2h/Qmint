@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { Container, Stack, Box, ToggleButtonGroup, ToggleButton, Button, Card, Skeleton } from "@mui/material"
 
 // Utils
-import { SectionHeading } from "../../common/Utils"
-import { ProductCard } from "../../common/Card"
+import { SectionHeading } from "../../../common/Utils"
+import { ProductCard } from "../../../common/Card"
 import useApiRequest from "@/hooks/useAPIRequest"
 import { Idata, IpriceForEachId } from "./FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"

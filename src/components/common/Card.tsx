@@ -42,7 +42,7 @@ import {
 import noImage from '../../assets/images/noImage.png'
 // Utils
 import { ProductStockStatus, ProductUpdateCountdown } from "./Utils"
-import { IFeaturedProducts } from "../partials/home/FeaturedProducts"
+import { IFeaturedProducts } from "../partials/shop/Qmint/FeaturedProducts"
 import { Link as NavigationLink, navigate } from "gatsby"
 import { bodyForGetShoppingCartData, calculationOfThePremiumAndDiscount, deliveryMethodMessage, roundOfThePrice } from "@/utils/common"
 import { useAppDispatch, useAppSelector } from "@/hooks"

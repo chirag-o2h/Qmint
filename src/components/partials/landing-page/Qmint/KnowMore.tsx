@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 
 // Utills
-import { SectionHeading } from "../../common/Utils"
+import { SectionHeading } from "../../../common/Utils"
 import { useAppSelector } from '@/hooks'
 import { navigate } from 'gatsby'
 

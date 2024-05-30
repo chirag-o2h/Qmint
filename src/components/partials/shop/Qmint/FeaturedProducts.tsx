@@ -5,8 +5,8 @@ import { Box, Card, Skeleton, useMediaQuery, Container } from "@mui/material"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 
 // Utils
-import { SectionHeading } from "../../common/Utils"
-import { ProductCard } from "../../common/Card"
+import { SectionHeading } from "../../../common/Utils"
+import { ProductCard } from "../../../common/Card"
 import { useAppSelector } from "@/hooks"
 import useGetFeaturesProductaData from "@/hooks/useGetFeaturedProductaData"
 export interface IFeaturedProducts {

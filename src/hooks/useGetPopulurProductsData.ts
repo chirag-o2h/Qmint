@@ -1,4 +1,4 @@
-import { Idata, IpriceForEachId } from "@/components/partials/home/FeaturedProducts";
+import { Idata, IpriceForEachId } from "@/components/partials/shop/Qmint/FeaturedProducts";
 import { ENDPOINTS } from "@/utils/constants";
 import { useEffect, useState } from "react";
 import useApiRequest from "./useAPIRequest";

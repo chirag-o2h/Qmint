@@ -11,7 +11,7 @@ import { useAppSelector } from "@/hooks"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import useApiRequest from "@/hooks/useAPIRequest"
 import { ENDPOINTS } from "@/utils/constants"
-import { IpriceForEachId } from "@/components/partials/home/FeaturedProducts"
+import { IpriceForEachId } from "@/components/partials/shop/Qmint/FeaturedProducts"
 import Loader from "@/components/common/Loader"
 import Toaster from "@/components/common/Toaster"
 

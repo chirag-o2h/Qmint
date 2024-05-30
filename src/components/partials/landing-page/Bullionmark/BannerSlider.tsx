@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import useApiRequest from '@/hooks/useAPIRequest';
 import { ENDPOINTS } from '@/utils/constants';
-import { IbannerData } from '../home/Banner';
+import { IbannerData } from '../../shop/Qmint/Banner';
 
 function BannerSlider() {
     const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));

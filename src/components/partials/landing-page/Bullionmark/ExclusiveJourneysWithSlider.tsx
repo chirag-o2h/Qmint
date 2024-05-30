@@ -10,7 +10,7 @@ import { useAppSelector } from "@/hooks"
 
 import { BullionmarkSectionHeading } from '@/components/common/Utils';
 
-import { prefixZeroIfOneDigitNumber } from "../../../utils/helper"
+import { prefixZeroIfOneDigitNumber } from "../../../../utils/helper"
 import { BullionmarkSwiperButtonPrev, BullionmarkSwiperButtonNext, BullionmarkSwiperDash } from '@/assets/icons'
 
 

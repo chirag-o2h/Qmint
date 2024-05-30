@@ -5,9 +5,9 @@ import { Navigation, Autoplay, Pagination, A11y, Grid } from 'swiper/modules'
 import { SwiperNavigation } from "@/components/common/Utils"
 
 // Utills
-import { SectionHeading } from "../../common/Utils"
+import { SectionHeading } from "../../../common/Utils"
 import { useAppSelector } from '@/hooks'
-import noImage from '../../../assets/images/noImage.png'
+import noImage from '@/assets/images/noImage.png'
 import { navigate } from 'gatsby'
 
 function Locations() {

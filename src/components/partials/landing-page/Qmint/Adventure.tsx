@@ -1,14 +1,13 @@
 import React from 'react'
-import { Box, Container, Typography, Button } from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
-import { SwiperNavigation } from "@/components/common/Utils"
+import { Autoplay, Pagination, A11y } from 'swiper/modules'
 
 // Utills
-import { SectionHeading } from "../../common/Utils"
+import { SectionHeading } from "../../../common/Utils"
 import { useAppSelector } from '@/hooks'
 import { navigate } from 'gatsby'
-import noImage from '../../../assets/images/noImage.png'
+import noImage from '@/assets/images/noImage.png'
 
 function Adventure() {
     const { mainHomePageData, configDetails } = useAppSelector((state) => state.homePage)

@@ -5,11 +5,11 @@ import { Navigation, Autoplay, Pagination, A11y, EffectCoverflow } from 'swiper/
 import { SwiperNavigation } from "@/components/common/Utils"
 
 // Utills
-import { SectionHeading } from "../../common/Utils"
-import { ArrowRight } from "../../../assets/icons/index"
+import { SectionHeading } from "../../../common/Utils"
+import { ArrowRight } from "../../../../assets/icons/index"
 import { useAppSelector } from '@/hooks'
 import { navigate } from 'gatsby'
-import noImage from '../../../assets/images/noImage.png'
+import noImage from '@/assets/images/noImage.png'
 
 function LatestStories() {
     const { mainHomePageData, configDetails } = useAppSelector((state) => state.homePage)

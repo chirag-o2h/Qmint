@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 
 // Utils
-import { SectionHeading } from "../../common/Utils"
-import { TravelCard } from "../../common/Card"
+import { SectionHeading } from "../../../common/Utils"
+import { TravelCard } from "../../../common/Card"
 import useApiRequest from '@/hooks/useAPIRequest'
 import { ENDPOINTS } from '@/utils/constants'
 import { navigate } from 'gatsby'

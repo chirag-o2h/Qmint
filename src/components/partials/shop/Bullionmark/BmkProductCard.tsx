@@ -14,7 +14,7 @@ import { BmkProductStockStatus } from '@/components/common/Utils'
 import classNames from 'classnames'
 import { AddToCartIcon } from '@/assets/icons'
 import noImage from '@/assets/images/noImage.png'
-import { IFeaturedProducts } from '../../home/FeaturedProducts'
+import { IFeaturedProducts } from '../Qmint/FeaturedProducts'
 import { useAppSelector } from '@/hooks'
 
 
