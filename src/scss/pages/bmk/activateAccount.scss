@@ -1,0 +1,50 @@
+#ActivateAccount {
+  @include padding-vertical(100);
+  @include media($md) {
+    @include padding-vertical(80);
+  }
+  .Content {
+    text-align: center;
+    .Title {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .Description {
+      font-size: pxToRem(19);
+      font-weight: 400;
+      margin-bottom: 26px;
+      .MuiTypography-root {
+        font-weight: 600;
+      }
+    }
+    .HelperText {
+      margin-bottom: 11px;
+    }
+    .ResendLink {
+      color: $blueTealish;
+      font-size: pxToRem(16);
+      @include transition;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .MuiDivider-root {
+      max-width: 550px;
+      border-width: 1px;
+      @include margin-auto;
+      @include margin-vertical(29);
+      @include media($sm) {
+        max-width: 100%;
+        @include margin-vertical(16);
+      }
+    }
+    .NavigateText {
+      margin-bottom: 22px;
+    }
+    .ActionButton {
+      @include media-min($llg) {
+        min-width: 204px;
+      }
+    }
+  }
+}
