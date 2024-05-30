@@ -17,7 +17,7 @@ import Loader from "@/components/common/Loader"
 import useShowToaster from "@/hooks/useShowToaster"
 import PageNotFound from "@/components/partials/productDetail/PageNotFound"
 import classNames from "classnames"
-import { STORE_CODE } from "@/axiosfolder"
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
 
 
 function ProductDetail({ params }: any) {
@@ -55,7 +55,7 @@ function ProductDetail({ params }: any) {
         lang="en"
       />
       {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />
-        <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": STORE_CODE == '7' })}>
+        <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": THEME_TYPE == '1' })}>
           {productDetailsData?.productId && <AboutProduct productId={productDetailsData?.productId} />}
           {productDetailsData?.relatedProducts?.length > 0 && <RelatedProduct relatedProductsList={structuredClone(productDetailsData?.relatedProducts)} heading={configDetails["productdetails.relatedproducttital"]?.value} description={configDetails["productdetails.relatedproductsubtital"]?.value} />}
         </Container></>) : <PageNotFound />}
