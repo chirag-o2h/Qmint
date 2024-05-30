@@ -44,11 +44,11 @@ const BullionmarkHeader = () => {
       setIsFrontHeader(true)
     }
   }, [window.location.pathname])
-  console.log("🚀 ~ useEffect ~ window.location.pathname:", window.location.pathname,isFrontHeader)
+  console.log("🚀 ~ useEffect ~ window.location.pathname:", window.location.pathname, isFrontHeader)
 
   return (
     <>
-      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader",  isFrontHeader ? "FrontHeader":"" )}>
+      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader", isFrontHeader ? "FrontHeader" : "BmkBlackHeader")}>
         {!isMobile && <>
           <Suspense fallback={<></>}>
             <Pricing />

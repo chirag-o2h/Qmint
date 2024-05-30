@@ -197,6 +197,7 @@
           .SignInButton {
             flex-shrink: 0;
             border-radius: 8px;
+
             @include media($xs) {
               padding: 5px;
 
@@ -902,6 +903,51 @@
             .MenuButton,
             a {
               color: inherit;
+            }
+          }
+        }
+      }
+    }
+
+    &.BmkBlackHeader {
+      background-color: #000000;
+
+      header {
+        background-color: #000000;
+
+        .HeaderContainerWrapper {
+          .MainHeader__Wrapper {
+            .Center {
+
+              .MenuLink {
+                color: $white;
+              }
+            }
+          }
+        }
+
+        &.MuiAppBar-positionFixed {
+          .NavigationHeader {
+            .NavigationHeader__Wrapper {
+              .SearchField {
+                .Wrapper {
+                  .SearchButton {
+                    color: $white;
+                  }
+                }
+
+                .MuiTextField-root {
+                  .MuiInputBase-root {
+                    .MuiInputBase-input {
+                      color: $white;
+                    }
+                  }
+                }
+              }
+
+              .RightPart {
+                color: $white;
+              }
             }
           }
         }
