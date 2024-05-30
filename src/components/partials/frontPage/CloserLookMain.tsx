@@ -108,7 +108,7 @@ function CloserLookMain() {
   }
 
   return (
-    (mainHomePageData && mainHomePageData?.closerLook?.length > 0) ?
+    (mainHomePageData && mainHomePageData?.homepage_Section_7_Three_posts_in_a_row?.length > 0) ?
       <Box id="CloserLook">
         <Container component="section">
           <SectionHeading
@@ -116,12 +116,12 @@ function CloserLookMain() {
             description={configDetails?.["home.closerlook.subtital"]?.value ?? "description*"}
           />
           <Container className="DestinationWrapper" maxWidth="lg">
-            {mainHomePageData?.closerLook?.length !== 0 ?
+            {mainHomePageData?.homepage_Section_7_Three_posts_in_a_row?.length !== 0 ?
               <Box className="SwiperContainer">
                 <Swiper {...config} >
                   {
                     !loading ?
-                      (mainHomePageData?.closerLook?.length > 0 ? mainHomePageData?.closerLook?.map((destination) => (
+                      (mainHomePageData?.homepage_Section_7_Three_posts_in_a_row?.length > 0 ? mainHomePageData?.homepage_Section_7_Three_posts_in_a_row?.map((destination) => (
                         <SwiperSlide key={destination.title}>
                           <TravelCard
                             friendlyName={destination?.friendlyName}

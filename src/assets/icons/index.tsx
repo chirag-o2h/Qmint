@@ -118,6 +118,7 @@ import SuperFundIcon from "./SuperFundIcon";
 import PlayIcon from "./PlayIcon";
 import PhoneCall from "./PhoneCall";
 import PhoneCall1Icon from "./PhoneCall1Icon";
+import BullionmarkSignInIcon from "./BullionmarkSignInIcon";
 
 
 export {
@@ -200,6 +201,7 @@ export {
   BullionmarkSwiperButtonPrev,
   BullionmarkSwiperButtonNext,
   BullionmarkSwiperDash,
+  BullionmarkSignInIcon,
 
   // Social
   FacebookIcon,

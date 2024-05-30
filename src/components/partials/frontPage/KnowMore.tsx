@@ -1,12 +1,10 @@
 import React from 'react'
-import { Box, Container, Typography, Button } from '@mui/material'
+import { Box, Typography, Button } from '@mui/material'
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Autoplay, Pagination, A11y, EffectCoverflow } from 'swiper/modules'
-import { SwiperNavigation } from "@/components/common/Utils"
+import { Autoplay, Pagination, A11y } from 'swiper/modules'
 
 // Utills
 import { SectionHeading } from "../../common/Utils"
-import { PlayIcon } from "../../../assets/icons/index"
 import { useAppSelector } from '@/hooks'
 import { navigate } from 'gatsby'
 
@@ -46,15 +44,15 @@ function KnowMore() {
     };
 
     return (
-        (mainHomePageData && mainHomePageData?.knowMore?.length > 0) ?
+        (mainHomePageData && mainHomePageData?.homepage_Section_4_Four_posts_in_wavy_layout?.length > 0) ?
             <Box id="KnowMore">
                 <Box className="KnowMoreWrapper">
-                    <SectionHeading title={configDetails?.["mainhomepage.knowmoretital"]?.value} description={configDetails?.["mainhomepage.knowmoresubtital"]?.value} />
+                    <SectionHeading title={configDetails?.["Homepage_Section_4_Four_posts_in_wavy_layout_Title"]?.value} description={configDetails?.["Homepage_Section_4_Four_posts_in_wavy_layout_Subtitle"]?.value} />
                     <Box className="KnowMoreSlideWrapper" component="section" key={'KnowMore'}>
                         <Box className="SwiperContainer">
                             <Swiper {...config}>
-                                {(mainHomePageData && mainHomePageData?.knowMore?.length > 0) ?
-                                    [...mainHomePageData?.knowMore,...mainHomePageData?.knowMore]?.map((item) => {
+                                {(mainHomePageData && mainHomePageData?.homepage_Section_4_Four_posts_in_wavy_layout?.length > 0) ?
+                                    [...mainHomePageData?.homepage_Section_4_Four_posts_in_wavy_layout, ...mainHomePageData?.homepage_Section_4_Four_posts_in_wavy_layout]?.map((item) => {
                                         return (
                                             <SwiperSlide onClick={() => {
                                                 navigate('/blog/' + item.friendlyName)

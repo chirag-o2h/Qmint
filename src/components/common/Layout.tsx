@@ -2,8 +2,12 @@ import React, { Suspense, lazy, useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Skeleton, Stack } from "@mui/material";
 
+// Utils
+import { STORE_CODE } from "@/axiosfolder"
+
 // Components
 import LazyHeader from "../header/index"
+import BullionmarkHeader from "../header/BullionmarkHeader"
 import { bodyForGetShoppingCartData, convertMinutesToMilliseconds, storeLastPage } from "@/utils/common";
 import { configDetails, getFooterLinks, getLiveDashboardChartData } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
@@ -13,6 +17,7 @@ import useInactiveLogout from "@/hooks/useInactiveLogout";
 import SessionExpiredDialog from "../header/SessionExpiredDialog";
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 const LazyFooter = lazy(() => import('../footer/index'));
+const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout({ children }: any) {
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
@@ -41,18 +46,18 @@ function Layout({ children }: any) {
   }, [isLoggedIn])
   useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
-if(configDetailsState?.storefaviconiconurl?.value){
-  const faviconUrl = configDetailsState?.storefaviconiconurl?.value; // Assuming API response contains favicon URL
-  // Update favicon dynamically
-  const link:any = document.querySelector("link[rel='icon']") || document.createElement('link');
-  link.rel = 'icon';
-  link.href = faviconUrl;
-  document.head.appendChild(link);
-}
+  if (configDetailsState?.storefaviconiconurl?.value) {
+    const faviconUrl = configDetailsState?.storefaviconiconurl?.value; // Assuming API response contains favicon URL
+    // Update favicon dynamically
+    const link: any = document.querySelector("link[rel='icon']") || document.createElement('link');
+    link.rel = 'icon';
+    link.href = faviconUrl;
+    document.head.appendChild(link);
+  }
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      <LazyHeader />
+      {STORE_CODE === "7" ? <BullionmarkHeader /> : <LazyHeader />}
       {/* </Suspense> */}
       <main>
         {/* <Suspense fallback={<Box></Box>}> */}
@@ -63,7 +68,7 @@ if(configDetailsState?.storefaviconiconurl?.value){
         <></>
         // <Skeleton height='30vh'></Skeleton>
       }>
-        <LazyFooter />
+        {STORE_CODE === "7" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </Suspense>}
       {openSessionExpireDialog && <SessionExpiredDialog
         open={openSessionExpireDialog}

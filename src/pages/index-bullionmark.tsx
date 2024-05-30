@@ -38,17 +38,15 @@ function indexBulliomark() {
                         lang="en"
                         description={configDetailsState?.storemetadescription?.value}
                     />
-                    <Box className="FrontPage BullionmarkFrontPage">
-                        <BannerSlider />
-                        <PlanningJourney />
-                        <BestAdventures />
-                        <GetInspired />
-                        <ExclusiveJourneys />
-                        <ExclusiveJourneysWithSlider />
-                        <TravelInspiration />
-                        <InspiringStories />
-                        <Newsletter />
-                    </Box>
+                    <BannerSlider />
+                    <PlanningJourney />
+                    <BestAdventures />
+                    <GetInspired />
+                    <ExclusiveJourneys />
+                    <ExclusiveJourneysWithSlider />
+                    <TravelInspiration />
+                    <InspiringStories />
+                    <Newsletter />
                 </MainLayout>
             </Suspense>
         </>

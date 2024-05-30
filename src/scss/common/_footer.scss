@@ -562,7 +562,7 @@
     }
 
     @include media($ssm) {
-      gap: 30px;
+      gap: 39px;
     }
 
 
@@ -576,19 +576,27 @@
         text-align: center;
         align-items: center;
       }
-      img{
-          max-width: 327px;
-          object-fit: contain;
 
-          @include media($lg) {
-            max-width: 250px;
-          }
-          @include media($mmd) {
-            max-width: 200px;
-          }
-          @include media($sm) {
-            max-width: 150px;
-          }
+      @include media($ssm) {
+        text-align: left;
+        align-items: flex-start;
+      }
+
+      img {
+        max-width: 327px;
+        object-fit: contain;
+
+        @include media($lg) {
+          max-width: 250px;
+        }
+
+        @include media($mmd) {
+          max-width: 200px;
+        }
+
+        @include media($sm) {
+          max-width: 150px;
+        }
       }
 
       .FooterTagLine {
@@ -615,7 +623,8 @@
 
     .MenuWrapper {
       @include media($ssm) {
-        text-align: center;
+        text-align: left;
+        width: 100%;
       }
 
       .MenuTitle {
@@ -626,25 +635,32 @@
         margin-bottom: 15px;
         text-transform: uppercase;
       }
+
       &.ContactUs {
         max-width: 220px;
+
+        @include media($ssm) {
+          max-width: 100%;
+        }
+
         .ItemWrapper {
           flex-direction: column;
           gap: 20px;
-          @include media($ssm) {
-            align-items: center;
-          }
+
           .Item {
             gap: 12px;
             color: $white;
+
             svg {
               width: 22px;
               height: 22px;
               flex-shrink: 0;
             }
+
             a {
               color: inherit;
               text-decoration: none;
+
               &:hover {
                 color: $pumpkinOrange;
               }
@@ -652,10 +668,12 @@
           }
         }
       }
+
       &.Social {
         .SocialMedia {
           align-items: center;
           gap: 20px;
+
           .MuiIconButton-root {
             color: $white;
             border-radius: 50%;
@@ -663,6 +681,7 @@
             height: 34px;
             background-color: rgba($white, 0.19);
             @include transition;
+
             &:hover {
               border: 1px solid currentColor;
             }
@@ -672,10 +691,20 @@
     }
 
     .QuickLink {
+      .MuiList-root {
+        display: grid;
+        grid-template-columns: 1fr;
+
+        @include media($mmd) {
+          grid-template-columns: 1fr 1fr;
+          gap: 0 30px;
+        }
+      }
+
       .MuiButtonBase-root {
         font-size: 16px;
         line-height: 28px;
-        font-weight: 300;
+        font-weight: 400;
         color: $white;
         padding: 0;
         @include transition;
@@ -684,14 +713,9 @@
           color: $pumpkinOrange;
         }
 
-        @include media($ssm) {
-          text-align: center;
-          justify-content: center;
-        }
 
         @include media($sm) {
-          font-size: 18px;
-          line-height: 33px;
+          line-height: 26px;
         }
       }
     }
@@ -759,9 +783,57 @@
 
         @include media($mmd) {
           text-align: center;
+          font-size: 13px;
+          line-height: 24px;
         }
       }
     }
   }
 
+  &.BullionmarkGeneralFooter {
+    .MuiContainer-root {
+      .FooterWrapper {
+        @include media($lg) {
+          flex-wrap: wrap;
+        }
+        @include media-between($ssm, $mmd) {
+          justify-content: space-between;
+        }
+        .LogoPart {
+          gap: 30px;
+          @include media($lg) {
+            flex: 1;
+          }
+          @include media-between($ssm, $mmd) {
+            text-align: left;
+            align-items: flex-start;
+          }
+          .ContactUs {
+            max-width: 280px;
+          }
+        }
+        .MenuWrapper {
+          @include media($lg) {
+            order: 1;
+          }
+          &.QuickLink {
+            .MuiList-root {
+              @include media-between($ssm, $mmd) {
+                grid-template-columns: 1fr;
+              }
+              @include media($xxs) {
+                grid-template-columns: 1fr;
+              }
+            }
+          }
+          &.Social {
+            @include media-between($ssm, $lg) {
+              width: 50%;
+              order: initial;
+            }
+          }
+        }
+      }
+    }
+  }
 }

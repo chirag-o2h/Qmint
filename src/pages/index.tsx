@@ -83,10 +83,10 @@ function MainHomePage(
                     />
                     {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
                     <Box className="FrontPage">
-                        {configDetailsState?.sliderenableinhome?.value === false ? null :
+                        {configDetailsState?.Sliders_Homepage_Enable?.value === false ? null :
                             <Banner bannerData={null} />
                         }
-                        {/* <RenderOnViewportEntry rootMargin={'300px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.sliderenableinhome?.value === false ? null :<Banner bannerData={null} /> }</RenderOnViewportEntry> */}
+                        {/* <RenderOnViewportEntry rootMargin={'300px'} threshold={0.25} minHeight={'100vh'}>{configDetailsState?.Sliders_Homepage_Enable?.value === false ? null :<Banner bannerData={null} /> }</RenderOnViewportEntry> */}
                         <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={774}><Locations /></RenderOnViewportEntry>
                         <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={1025}><Adventure /></RenderOnViewportEntry>
                         <RenderOnViewportEntry rootMargin={'200px'} threshold={0.25} minHeight={614}><Experience /></RenderOnViewportEntry>

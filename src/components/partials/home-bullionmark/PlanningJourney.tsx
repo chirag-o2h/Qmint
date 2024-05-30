@@ -10,7 +10,7 @@ function PlanningJourney() {
     const planningJourney = bullionMarkPage?.homepage_Section_1_Picture_and_content
     return (
         <>
-            {planningJourney && <Box id="PlanningJourney" component="section" style={{padding: "30px 0px"}}>
+            {planningJourney && <Box id="PlanningJourney" component="section">
                 <Container>
                     <Box className="ck-content">
                         <Box dangerouslySetInnerHTML={{

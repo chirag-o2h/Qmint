@@ -37,15 +37,15 @@ interface Item {
 }
 
 interface IMainHomePage {
-  beyond: Item[]; // You can replace 'any' with a more specific type if needed
-  adventure: Item[]; // You can replace 'any' with a more specific type if needed
-  experience: Item[]; // You can replace 'any' with a more specific type if needed
-  knowMore: Item[]; // You can replace 'any' with a more specific type if needed
-  stories: Item[]; // You can replace 'any' with a more specific type if needed
-  gallery: Item[]; // You can replace 'any' with a more specific type if needed
-  closerLook: Item[];
-  bestAdventure: Item[]; // You can replace 'any' with a more specific type if needed
-  footerQuickLinks: {
+  homepage_Section_1_Four_posts_in_a_row: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_2_One_big_post: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_3_Video_showcase: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_4_Four_posts_in_wavy_layout: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_5_Three_posts_in_collage_view: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_6_Picture_Gallery: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_7_Three_posts_in_a_row: Item[];
+  homepage_Section_8_Two_posts_in_two_rows_each: Item[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_9_Footer_Quick_Links: {
     name: string,
     linkType: number,
     linkUrl: string,
@@ -68,7 +68,7 @@ interface IBullionMarkPage {
   homepage_Section_2_Four_posts_in_a_row: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_3_Three_posts_in_a_row: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_4_Two_pics_and_content: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
-  homepage_Section_5_One_big_post: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
+  homepage_Section_5_One_big_pic_and_content: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_6_Three_posts_in_wavy_layout: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
   homepage_Section_7_Two_posts_in_a_row: BullionMarkItem[];
   homepage_Section_8_Footer_background_pic: BullionMarkItem[]; // You can replace 'any' with a more specific type if needed
@@ -84,6 +84,7 @@ interface CreateGuidelineState {
   configDetails: any,
   sectionDetails: any,
   loading: boolean,
+  bmkShopPageSections: any,
   categoriesList: any,
   userDetails: {
     customerId: number,
@@ -219,6 +220,7 @@ const initialState: CreateGuidelineState = {
   siteMapData: null,
   mainHomePageData: null,
   bullionMarkPage: null,
+  bmkShopPageSections: null,
 }
 
 export const configDetails = appCreateAsyncThunk(
@@ -323,6 +325,14 @@ export const getBullionMarkPageAPI = appCreateAsyncThunk(
   }
 )
 
+export const getBullionMarkShopPageSections = appCreateAsyncThunk(
+  'getBullionMarkShopPageSections',
+  async () => {
+    return await ConfigServices.getBullionMarkShopPageSections()
+  }
+)
+
+
 export const getFooterLinks = appCreateAsyncThunk(
   "getFooterLinks",
   async () => {
@@ -402,7 +412,7 @@ export const createHomepageSlice = createSlice({
     setMainHomePageData: (state, action) => {
       state.mainHomePageData = action.payload
     },
-    setConfigDetails:(state,action)=>{
+    setConfigDetails: (state, action) => {
       const data = action?.payload?.reduce((acc: any, curr: any) => {
         acc[curr.key] = curr
         return acc
@@ -619,6 +629,19 @@ export const createHomepageSlice = createSlice({
       state.loading = false
     })
     builder.addCase(getBullionMarkPageAPI.rejected, (state, action) => {
+      state.loading = false
+    })
+
+    // Bullion Mark
+    builder.addCase(getBullionMarkShopPageSections.pending, (state, action) => {
+      state.loading = true
+    })
+    builder.addCase(getBullionMarkShopPageSections.fulfilled, (state, action) => {
+      const res = action.payload.data.data;
+      state.bmkShopPageSections = res;
+      state.loading = false
+    })
+    builder.addCase(getBullionMarkShopPageSections.rejected, (state, action) => {
       state.loading = false
     })
   },

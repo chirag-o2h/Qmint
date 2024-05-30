@@ -1,618 +1,209 @@
-.BullionmarkFrontPage {
+#BmkBanner {
+    &.BullionmarkHomeBanner {
+        .SwiperContainer {
+            .HeroBannerSliderWrapper {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-size: cover;
+                position: relative;
+                z-index: 1;
 
-    #Banner {
-        &.BullionmarkHomeBanner {
-            .SwiperContainer {
-                .HeroBannerSliderWrapper {
+                &:after {
+                    position: absolute;
+                    background: linear-gradient(287.69deg, rgba(0, 0, 0, 0) 5.28%, rgba(0, 0, 0, 0.58) 95.14%);
+                    z-index: -1;
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    transform: rotate(-180deg);
+                }
+
+                .HeroBannerTopWrapper {
+                    text-align: center;
+                    position: relative;
+                    width: 100%;
+
                     .SlideDescription {
                         font-size: 20px;
+                        color: $white;
                         font-weight: 600;
                         margin-top: 0;
+
+                        @include media($md) {
+                            font-size: 14px;
+                        }
                     }
 
                     .SlideTitle {
                         font-size: 60px;
                         line-height: 71px;
                         font-weight: 800;
+                        color: $white;
                         padding: 35px 10px 57px;
                         max-width: 1060px;
                         margin: auto;
 
                         @include media($md) {
-                            font-size: 40px;
-                            line-height: 45px;
-                            padding: 20px 10px;
+                            font-size: 30px;
+                            line-height: 35px;
+                            padding: 20px 10px 39px;
                             max-width: 100%;
                         }
                     }
                 }
 
-                .swiper-button-prev,
-                .swiper-button-next {
-                    color: $white;
 
-                    @include media($md) {
-                        top: auto;
-                        bottom: 10%;
-                    }
-                }
-
-                .swiper-button-prev {
-                    @include media($md) {
-                        left: 40%;
-                    }
-                }
-
-                .swiper-button-next {
-                    @include media($md) {
-                        right: 40%;
-                    }
-                }
-
-            }
-
-        }
-    }
-
-    #PlanningJourney {
-        .PlanningJourneyContent {
-            padding: 80px 0;
-            justify-content: center;
-            align-items: center;
-            gap: 70px;
-
-            @include media($md) {
-                padding: 50px 0;
-                flex-direction: column;
-                gap: 50px;
-            }
-
-            .LeftImage,
-            .RightContent {
-                flex: 1;
-            }
-
-            .LeftImage {
-                img {
-                    width: 100%;
-                    object-fit: cover;
-                }
-            }
-
-            .RightContent {
-                .RightTitle {
-                    font-size: 45px;
-                    line-height: 53px;
-                    max-width: 499px;
-
-                    @include media($md) {
-                        font-size: 26px;
-                        line-height: 35px;
-                        max-width: 100%;
-                    }
-
-                }
-
-                .RightDescription {
-                    font-size: 19px;
-                    line-height: 26px;
-                    margin-top: 20px;
-
-                    @include media($md) {
-                        font-size: 16px;
-                        line-height: 22px;
-                    }
-                }
 
                 .MuiButton-root {
-                    margin-top: 55px;
-
-                    @include media($md) {
-                        margin-top: 30px;
+                    @include media($sm) {
+                        margin-top: 15px;
                     }
                 }
             }
-        }
-    }
 
-    #BestAdventures {
-        padding: 82px 0 60px;
-        background-color: #FFF8F5;
+            .swiper-pagination {
+                @include media($lg) {
+                    display: none;
+                }
+            }
 
-        @include media($md) {
-            padding: 50px 0 20px;
-        }
-
-        .BullionmarkSectionHeading {
-            .Title {
-                margin-bottom: 60px;
+            .SwiperNavigation {
+                @include media($lg) {
+                    left: 0;
+                    right: 0;
+                    justify-content: center;
+                }
 
                 @include media($md) {
-                    margin-bottom: 20px;
-                }
-            }
-        }
-
-        .SwiperContainer {
-            .swiper {
-                .AdventureCardWrapper {
                     display: flex;
-                    flex-direction: column;
-                    height: 100%;
-                    img {
-                        flex: 1;
-                    }
-                    .AdventureCardLink {
-                        text-decoration: none;
-                        padding: 20px;
-                        background-color: $pumpkinOrange;
-                        border-radius: 0 0 5px 5px;
-                        color: $white;
-
-                        .BottomWrapper {
-                            justify-content: space-between;
-                            align-items: center;
-
-                            .LeftContent {
-                                gap: 8px;
-
-                                .AdventuresTitle {
-                                    font-size: 14px;
-                                    font-weight: 600;
-                                }
-                            }
-                        }
-                    }
                 }
+            }
 
-                .swiper-pagination {
-                    position: static;
-                    gap: 6px;
-                    align-items: center;
+            .swiper-button-prev,
+            .swiper-button-next {
+                color: $white;
 
-
-                    .swiper-pagination-bullet {
-                        height: 7px;
-                        width: 7px;
-                        background-color: #D9D9D9;
-
-                        &.swiper-pagination-bullet-active {
-                            border: 2px solid $pumpkinOrange;
-                            box-sizing: content-box;
-                        }
-                    }
+                @include media($md) {
+                    display: none;
                 }
             }
         }
 
     }
+}
 
-    #SectionGetInspired {
-        $leftSpacing: 24px;
-        padding-left: $leftSpacing;
-        @include padding-vertical(108);
-        @include media($lg) {
-            @include padding-vertical(80);
-        }
-        @include media($ssm) {
-            padding-left: 0;
-            @include padding-vertical(50, 60);
-        }
-        .LayoutWrapper {
-            align-items: center;
-            gap: 22px;
-            padding-left: calc((100% - $xxl - $leftSpacing) / 2);
-            @include media-between($lg, $xxl) {
-                padding-left: calc((100% - $lg - $leftSpacing) / 2);
-            }
-            @include media($ssm) {
-                flex-direction: column;
-                @include padding-horizontal(24);
-            }
-            .BullionmarkSectionHeading {
-                @include media-min($ssm) {
-                    text-align: left;
-                }
-                .Title {
-                    margin-bottom: 8px;
-                    @include media-min($ssm) {
-                        width: max-content;
-                    }
-                }
-                .Description {
-                    @include media-min($ssm) {
-                        max-width: 310px;
-                    }
-                }
-            }
-            .InspiredCardWrapper {
-                max-width: 100%;
-                overflow: hidden;
-                .InspiredCard {
-                    flex-direction: column;
-                    justify-content: space-between;
-                    min-height: 500px;
-                    height: 60vh;
-                    max-height: 700px;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    background-position: center;
-                    padding: 20px 24px 24px;
-                    color: $white;
-                    .Head {
-                        align-items: center;
-                        gap: 10px;
-                        .ProfileImage {
-                            width: 50px;
-                            height: 50px;
-                            overflow: hidden;
-                            border-radius: 50%;
-                            flex-shrink: 0;
-                            @include media($ssm) {
-                                width: 40px;
-                                height: 40px;
-                            }
-                            @include media($xs) {
-                                width: 34px;
-                                height: 34px;
-                            }
-                        }
-                        .Title {
-                            font-size: 18px;
-                            line-height: 26px;
-                            font-weight: 700;
-                        }
-                    }
-                    .Content {
-                        .Title {
-                            font-size: 35px;
-                            line-height: 39px;
-                            font-weight: 700;
-                            letter-spacing: -2px;
-                            @include media($ssm) {
-                                font-size: 24px;
-                                line-height: 1.2;
-                            }
-                        }
-                        .Description {
-                            font-weight: 600;
-                            line-height: 20px;
-                            min-height: 80px;
-                            margin-top: 7px;
-                            @include max-line(4);
-                        }
-                    }
-                    .MuiButton-root {
-                        margin-top: 32px;
-                    }
-                }
-            }
-        }
-    }
-
-    #ExclusiveJourneys {
+#PlanningJourney {
+    .PlanningJourneyContent {
         padding: 80px 0;
-        background: rgba(255, 241, 234, 0.5);
-
-
-        @include media($md) {
-            padding: 50px 0;
-        }
-
-        .ExclusiveJourneysContent {
-            align-items: center;
-
-            @include media($md) {
-                flex-direction: column;
-                gap: 50px;
-            }
-
-            @include media($md) {
-                gap: 30px;
-            }
-
-            .LeftImage,
-            .RightContent {
-                flex: 1;
-            }
-
-            .LeftImage {
-                position: relative;
-                padding-right: 68px;
-                padding-bottom: 88px;
-
-
-                @include media($sm) {
-                    padding-right: 38px;
-                    padding-bottom: 28px;
-                }
-
-                .ExclusiveJourneysImage1 {
-                    width: 100%;
-                    object-fit: cover;
-                }
-
-                .ExclusiveJourneysImage2 {
-                    max-width: 100%;
-                    max-height: 100%;
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-
-                    @include media($lg) {
-                        max-width: 70%;
-                    }
-
-                    @include media($sm) {
-                        max-width: 60%;
-                    }
-
-                }
-            }
-
-            .RightContent {
-                .RightTitle {
-                    font-size: 45px;
-                    line-height: 53px;
-                    max-width: 499px;
-                    margin-bottom: 34px;
-
-                    @include media($md) {
-                        font-size: 26px;
-                        line-height: 35px;
-                        max-width: 100%;
-                        margin-bottom: 20px;
-                    }
-
-                }
-
-                .DescriptionButtonWrapper {
-                    padding-left: 67px;
-
-                    @include media($md) {
-                        padding-left: 0;
-                    }
-                }
-
-                .RightDescription {
-                    font-size: 19px;
-                    line-height: 26px;
-                    margin-bottom: 9px;
-
-                    @include media($md) {
-                        font-size: 16px;
-                        line-height: 22px;
-                    }
-                }
-
-                .MuiButton-root {
-                    margin-top: 32px;
-
-                    @include media($md) {
-                        margin-top: 20px;
-                    }
-                }
-            }
-        }
-    }
-
-    #ExclusiveJourneysWithSlider {
-        padding: 95px 0;
+        justify-content: center;
+        align-items: center;
+        gap: 70px;
 
         @include media($md) {
             padding: 50px 0;
+            flex-direction: column;
+            gap: 50px;
         }
 
-        .ExclusiveJourneysWrapper {
-            padding-right: 19%;
-            position: relative;
-            z-index: -1;
+        .LeftImage,
+        .RightContent {
+            flex: 1;
+        }
 
-            @include media($lg) {
-                padding-right: 6%;
-            }
-
-            @include media($md) {
-                padding-right: 0;
-                padding-bottom: 10%;
-            }
-
-            @include media($sm) {
-                padding-bottom: 30%;
-            }
-
-            @include media($xs) {
-                padding-bottom: 40%;
-            }
-
-
+        .LeftImage {
             img {
                 width: 100%;
+                object-fit: cover;
             }
+        }
 
-            .ExclusiveJourneysContent {
-                position: absolute;
-                right: 0;
-                z-index: 1;
-                top: 50%;
-                transform: translateY(-50%);
-                max-width: 603px;
-                padding: 64px 50px;
-                background-color: $pumpkinOrange;
-
-                @include media($lg) {
-                    padding: 40px;
-                }
+        .RightContent {
+            .RightTitle {
+                font-size: 45px;
+                line-height: 53px;
+                max-width: 499px;
 
                 @include media($md) {
-                    margin: 0 auto;
-                    transform: none;
-                    left: 0;
-                    bottom: 0;
-                    top: auto;
+                    font-size: 26px;
+                    line-height: 35px;
+                    max-width: 100%;
                 }
 
-                @include media($ssm) {
-                    padding: 30px;
-                    max-width: 85%;
-                }
+            }
 
-                @include media($sm) {
-                    padding: 20px;
-                }
+            .RightDescription {
+                font-size: 19px;
+                line-height: 26px;
+                margin-top: 20px;
 
-                .BullionmarkSectionHeading {
-                    text-align: left;
-
-                    .Title {
-                        color: $white;
-
-                        @include media($ssm) {
-                            font-size: 21px;
-                            line-height: 28px;
-                        }
-
-                        @include media($xs) {
-                            font-size: 16px;
-                            line-height: 20px;
-                        }
-                    }
-
-                    .Description {
-                        font-weight: 400;
-                        margin: 12px 0 50px;
-                        color: $white;
-
-                        @include media($md) {
-                            margin: 10px 0 20px;
-                        }
-
-                        @include media($xs) {
-                            font-size: 12px;
-                            line-height: 18px;
-                        }
-                    }
+                @include media($md) {
+                    font-size: 16px;
+                    line-height: 22px;
                 }
             }
 
-        }
+            .MuiButton-root {
+                margin-top: 55px;
 
-        .swiper-pagination {
-            display: none;
+                @include media($md) {
+                    margin-top: 30px;
+                }
+            }
         }
+    }
+}
 
-        .BullionmarkSwiperNavigation {
-            justify-content: center;
-            align-items: center;
-            margin-top: 30px;
-            gap: 5px;
-        }
+#BestAdventures {
+    padding: 82px 0 60px;
+    background-color: #FFF8F5;
 
+    @include media($md) {
+        padding: 64px 0 71px;
     }
 
-    #TravelInspiration {
-        position: relative;
-        padding: 80px 0 0;
-        z-index: 1;
-
-        @include media($md) {
-            padding: 50px 0 0;
-        }
-
-        &::after {
-            position: absolute;
-            content: "";
-            top: 0;
-            width: 100%;
-            height: 40%;
-            left: 0;
-            right: 0;
-            z-index: -1;
-            background-color: #F1EFEC;
-        }
-
-        .TravelInspirationTitle {
-            text-align: center;
-            max-width: 250px;
-            margin: 0 auto 50px;
+    .BullionmarkSectionHeading {
+        .Title {
+            margin-bottom: 60px;
 
             @include media($md) {
-                max-width: 100%;
-                margin-bottom: 30px;
+                margin-bottom: 38px;
+                letter-spacing: -2px;
+
             }
         }
+    }
 
-        .TravelInspirationSliderWrapper {
-            position: relative;
-            top: -50px;
+    .SwiperContainer {
+        .swiper {
+            .AdventureCardWrapper {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
 
-            @include media($md) {
-                top: 0;
-            }
-
-            .swiper-slide {
-                padding-bottom: 80px;
-
-                @include media($md) {
-                    padding-bottom: 0;
+                img {
+                    flex: 1;
                 }
 
-                &.swiper-slide-active {
-                    top: 80px;
+                .AdventureCardLink {
+                    text-decoration: none;
+                    padding: 20px;
+                    background-color: $pumpkinOrange;
+                    border-radius: 0 0 5px 5px;
+                    color: $white;
 
-                    @include media($md) {
-                        top: 0;
-                    }
-                }
+                    .BottomWrapper {
+                        justify-content: space-between;
+                        align-items: center;
 
-                &.swiper-slide-prev,
-                &.swiper-slide-next {
-                    top: 20px;
+                        .LeftContent {
+                            gap: 8px;
 
-                    @include media($md) {
-                        top: 0;
-                    }
-                }
-            }
-
-            .TravelInspirationSlideWrapper {
-                .TravelInspirationSlideImageWrapper {
-                    position: relative;
-
-                    img {
-                        width: 100%;
-                        max-height: 580px;
-                        object-fit: cover;
-                        @include media($sm) {
-                            max-height: 60vh;
-                        }
-                    }
-
-                    .TravelInspirationSlideTitle {
-                        position: absolute;
-                        top: 47px;
-                        left: 0;
-                        right: 0;
-                        margin: 0 auto;
-                        font-size: 25px;
-                        line-height: 30px;
-                        font-weight: 700;
-                        color: $white;
-                        text-align: center;
-                        display: inline-block;
-                    }
-                }
-
-                .TravelInspirationSlideBottomContent {
-                    padding: 0 13px;
-                    text-align: center;
-
-                    .BullionmarkSectionHeading {
-                        .Description {
-                            margin: 33px 0 17px;
-
-                            @include media($md) {
-                                margin: 20px 0 10px;
+                            .AdventuresTitle {
+                                font-size: 14px;
+                                font-weight: 600;
                             }
                         }
                     }
@@ -622,13 +213,8 @@
             .swiper-pagination {
                 position: static;
                 gap: 6px;
-                padding-top: 60px;
                 align-items: center;
 
-
-                @include media($md) {
-                    padding-top: 40px;
-                }
 
                 .swiper-pagination-bullet {
                     height: 7px;
@@ -638,157 +224,513 @@
                     &.swiper-pagination-bullet-active {
                         border: 2px solid $pumpkinOrange;
                         box-sizing: content-box;
-
                     }
                 }
             }
         }
     }
 
-    #InspiringStories {
-        padding: 0 0 80px;
+}
 
-        @include media($md) {
-            padding: 50px 0;
+#SectionGetInspired {
+    $leftSpacing: 24px;
+    padding-left: $leftSpacing;
+    @include padding-vertical(108);
+
+    @include media($lg) {
+        @include padding-vertical(80);
+    }
+
+    @include media($ssm) {
+        padding-left: 0;
+        @include padding-vertical(67, 85);
+    }
+
+    .LayoutWrapper {
+        align-items: center;
+        gap: 22px;
+        padding-left: calc((100% - $xxl - $leftSpacing) / 2);
+
+        @include media-between($lg, $xxl) {
+            padding-left: calc((100% - $lg - $leftSpacing) / 2);
         }
 
-        .InspiringStoriesTitle {
-            margin-bottom: 41px;
+        @include media($ssm) {
+            flex-direction: column;
+            @include padding-horizontal(24);
+        }
+
+        .BullionmarkSectionHeading {
+            @include media-min($ssm) {
+                text-align: left;
+            }
+
+            .Title {
+                margin-bottom: 10px;
+
+                @include media-min($ssm) {
+                    width: max-content;
+                }
+            }
+
+            .Description {
+                @include media($ssm) {
+                    font-size: 15px;
+                }
+
+                @include media-min($ssm) {
+                    max-width: 310px;
+                }
+            }
+        }
+
+        .InspiredCardWrapper {
+            max-width: 100%;
+            overflow: hidden;
+
+            .InspiredCard {
+                flex-direction: column;
+                justify-content: space-between;
+                min-height: 500px;
+                height: 60vh;
+                max-height: 700px;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                padding: 20px 24px 24px;
+                color: $white;
+
+                .Head {
+                    align-items: center;
+                    gap: 10px;
+
+                    .ProfileImage {
+                        width: 50px;
+                        height: 50px;
+                        overflow: hidden;
+                        border-radius: 50%;
+                        flex-shrink: 0;
+
+                        @include media($ssm) {
+                            width: 40px;
+                            height: 40px;
+                        }
+
+                        @include media($xs) {
+                            width: 34px;
+                            height: 34px;
+                        }
+                    }
+
+                    .Title {
+                        font-size: 18px;
+                        line-height: 26px;
+                        font-weight: 700;
+                    }
+                }
+
+                .Content {
+                    .Title {
+                        font-size: 35px;
+                        line-height: 39px;
+                        font-weight: 700;
+                        letter-spacing: -2px;
+
+                        // @include media($ssm) {
+                        //     font-size: 24px;
+                        //     line-height: 1.2;
+                        // }
+                    }
+
+                    .Description {
+                        font-weight: 600;
+                        line-height: 20px;
+                        min-height: 80px;
+                        margin-top: 7px;
+                        @include max-line(4);
+
+                        @include media($ssm) {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .MuiButton-root {
+                    margin-top: 32px;
+                }
+            }
+        }
+    }
+}
+
+#ExclusiveJourneys {
+    background: rgba(255, 241, 234, 0.5);
+}
+
+#ExclusiveJourneysWithSlider {
+    padding-bottom: 40px;
+
+    .swiper-pagination {
+        display: none;
+    }
+
+    .BullionmarkSwiperNavigation {
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        gap: 5px;
+    }
+
+}
+
+#TravelInspiration {
+    position: relative;
+    padding: 80px 0 0;
+    z-index: 1;
+
+    @include media($md) {
+        padding: 50px 0 0;
+    }
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        width: 100%;
+        height: 40%;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        background-color: #F1EFEC;
+    }
+
+    .TravelInspirationTitle {
+        text-align: center;
+        max-width: 250px;
+        margin: 0 auto 50px;
+
+        @include media($md) {
+            margin-bottom: 30px;
+        }
+
+        @include media($ssm) {
+            max-width: 220px;
+        }
+    }
+
+    .TravelInspirationSliderWrapper {
+        position: relative;
+        top: -50px;
+
+        @include media($md) {
+            top: 0;
+        }
+
+        .swiper-slide {
+            padding-bottom: 80px;
+
+            @include media($md) {
+                padding-bottom: 0;
+            }
+
+            &.swiper-slide-active {
+                top: 80px;
+
+                @include media($md) {
+                    top: 0;
+                }
+            }
+
+            &.swiper-slide-prev,
+            &.swiper-slide-next {
+                top: 20px;
+
+                @include media($md) {
+                    top: 0;
+                }
+            }
+        }
+
+        .TravelInspirationSlideWrapper {
+            .TravelInspirationSlideImageWrapper {
+                position: relative;
+
+                img {
+                    width: 100%;
+                    max-height: 580px;
+                    object-fit: cover;
+
+                    @include media($sm) {
+                        max-height: 60vh;
+                    }
+                }
+
+                .TravelInspirationSlideTitle {
+                    position: absolute;
+                    top: 47px;
+                    left: 0;
+                    right: 0;
+                    margin: 0 auto;
+                    font-size: 25px;
+                    line-height: 30px;
+                    font-weight: 700;
+                    color: $white;
+                    text-align: center;
+                    display: inline-block;
+                }
+            }
+
+            .TravelInspirationSlideBottomContent {
+                padding: 0 13px;
+                text-align: center;
+
+                .BullionmarkSectionHeading {
+                    .Description {
+                        margin: 33px 0 17px;
+
+                        @include media($md) {
+                            margin: 20px 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .swiper-pagination {
+            position: static;
+            gap: 6px;
+            padding-top: 60px;
+            align-items: center;
+
+
+            @include media($md) {
+                padding-top: 40px;
+            }
+
+            @include media($ssm) {
+                display: none;
+            }
+
+            .swiper-pagination-bullet {
+                height: 7px;
+                width: 7px;
+                background-color: #D9D9D9;
+
+                &.swiper-pagination-bullet-active {
+                    border: 2px solid $pumpkinOrange;
+                    box-sizing: content-box;
+
+                }
+            }
+        }
+    }
+}
+
+#InspiringStories {
+    padding: 0 0 80px;
+
+    @include media($md) {
+        padding: 50px 0;
+    }
+
+    .InspiringStoriesTitle {
+        margin-bottom: 41px;
+
+        @include media($md) {
+            margin-bottom: 20px;
+        }
+    }
+
+    .InspiringStoriesContent {
+        justify-content: center;
+        align-items: center;
+        gap: 36px;
+
+        @include media($md) {
+            flex-direction: column;
+            gap: 77px;
+        }
+
+        .LeftContent,
+        .RightContent {
+            flex: 1;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+            }
+
+            .BullionmarkSectionHeading {
+                text-align: left;
+
+                .Title {
+                    font-size: 30px;
+                    line-height: 42px;
+                    margin: 12px 0 9px;
+
+
+                    @include media($md) {
+                        font-size: 25px;
+                        line-height: 35px;
+                    }
+
+                }
+            }
+
+            .Date {
+                line-height: 26px;
+                font-weight: 700;
+                margin-top: 14px;
+                color: $pumpkinOrange;
+
+                @include media($md) {
+                    margin-top: 10px;
+                }
+
+                @include media($ssm) {
+                    margin-top: 22px;
+                }
+            }
+        }
+
+    }
+}
+
+#SectionNewsletter {
+    overflow: hidden;
+
+    .NewsletterBG {
+        img {
+            width: 100%;
+            object-fit: cover;
+
+            @include media($ssm) {
+                scale: 1.5;
+                padding-top: 70px;
+            }
+
+            @include media($xs) {
+                scale: 2;
+            }
+        }
+    }
+
+    .BackgroundHolder {
+        margin-top: -400px;
+        padding-bottom: 105px;
+        background-color: $peachSoft;
+
+        @include media($xl) {
+            margin-top: -300px;
+        }
+
+        @include media($lg) {
+            padding-bottom: 60px;
+        }
+
+        @include media($md) {
+            margin-top: -210px;
+        }
+
+        @include media($ssm) {
+            margin-top: -80px;
+        }
+
+        @include media($xs) {
+            margin-top: -30px;
+        }
+
+        .BullionmarkSectionHeading {
+            .Title {
+                @include media($md) {
+                    font-size: 32px;
+                    line-height: 43px;
+                }
+            }
+        }
+    }
+
+    .MuiContainer-root {
+        max-width: 643px;
+
+        @include media($md) {
+            position: relative;
+            z-index: 1;
+        }
+
+        .BullionmarkSectionHeading {
+            margin-bottom: 35px;
 
             @include media($md) {
                 margin-bottom: 20px;
             }
         }
 
-        .InspiringStoriesContent {
-            justify-content: center;
-            align-items: center;
-            gap: 36px;
-
-            @include media($md) {
-                flex-direction: column;
-            }
-
-            .LeftContent,
-            .RightContent {
-                flex: 1;
-                cursor: pointer;
-                img {
-                    width: 100%;
-                }
-
-                .BullionmarkSectionHeading {
-                    text-align: left;
-
-                    .Title {
-                        font-size: 30px;
-                        line-height: 42px;
-                        margin: 12px 0 9px;
-
-
-                        @include media($md) {
-                            font-size: 22px;
-                            line-height: 26px;
+        form {
+            .InputRow {
+                &.Agreement {
+                    .MuiFormControl-root {
+                        .MuiFormLabel-root {
+                            display: none;
                         }
 
-                    }
-                }
+                        .MuiFormGroup-root {
+                            .MuiFormControlLabel-root {
+                                .MuiFormControlLabel-label {
+                                    @include media($sm) {
+                                        font-size: 11px;
+                                    }
+                                }
 
-                .Date {
-                    line-height: 26px;
-                    font-weight: 700;
-                    margin-top: 14px;
-                    color: $pumpkinOrange;
-
-                    @include media($md) {
-                        margin-top: 10px;
-                    }
-                }
-            }
-
-        }
-    }
-
-
-
-    #SectionNewsletter {
-        overflow: hidden;
-        .NewsletterBG {
-            width: 100%;
-            object-fit: cover;
-            @include media($ssm) {
-                scale: 1.5;
-                padding-top: 50px;
-            }
-            @include media($xs) {
-                scale: 2;
-            }
-        }
-        .BackgroundHolder {
-            margin-top: -320px;
-            padding-bottom: 105px;
-            background-color: $peachSoft;
-            @include media($xl) {
-                margin-top: -150px;
-            }
-            @include media($lg) {
-                padding-bottom: 60px;
-            }
-            @include media($ssm) {
-                margin-top: -80px;
-            }
-            @include media($xs) {
-                margin-top: -30px;
-            }
-        }
-        .MuiContainer-root {
-            max-width: 643px;
-            @include media($md) {
-                position: relative;
-                z-index: 1;
-            }
-            .BullionmarkSectionHeading {
-                margin-bottom: 35px;
-                @include media($md) {
-                    margin-bottom: 15px;
-                }
-            }
-            form {
-                .InputRow {
-                    &.Agreement {
-                        .MuiFormControl-root {
-                            .MuiFormLabel-root {
-                                display: none;
                             }
                         }
                     }
-                    .MuiTextField-root {
-                        .MuiInputBase-root {
-                            background-color: rgba($white, 0.3);
-                            .MuiInputBase-input {
-                                padding: 16px 18px;
-                                @include media($sm) {
-                                    padding: 10px 16px;
+                }
+
+                &.ContactSelect {
+                    .MuiFormControl-root {
+                        .react-tel-input {
+                            .form-control {
+                                border-radius: 5px;
+                                background-color: rgba($white, 0.3);
+
+                                &:focus {
+                                    outline-color: $pumpkinOrange;
                                 }
                             }
-                            .MuiOutlinedInput-notchedOutline {
-                                border-radius: 5px;
-                            }
                         }
                     }
                 }
-                .ActionWrapper {
-                    justify-content: center;
-                    margin-top: 35px;
-                    .MuiButton-root {
-                        @include media-min($md) {
-                            min-width: 191px;
+
+                .MuiTextField-root {
+                    .MuiInputBase-root {
+                        background-color: rgba($white, 0.3);
+
+                        .MuiInputBase-input {
+                            padding: 16px 18px;
+
+                            // @include media($sm) {
+                            //     padding: 10px 16px;
+                            // }
                         }
+
+                        .MuiOutlinedInput-notchedOutline {
+                            border-radius: 5px;
+                        }
+                    }
+                }
+            }
+
+            .ActionWrapper {
+                justify-content: center;
+                margin-top: 35px;
+
+                .MuiButton-root {
+                    @include media-min($md) {
+                        min-width: 191px;
                     }
                 }
             }
         }
     }
-
-
 }

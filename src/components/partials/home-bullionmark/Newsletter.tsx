@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import { Box, Stack, Button, Container } from "@mui/material"
 import { useForm } from "react-hook-form";
 import * as yup from "yup"
@@ -32,13 +32,18 @@ function Newsletter() {
     register,
     handleSubmit,
     control,
+    setValue,
     reset,
     formState: { errors },
   } = useForm<IBullionMarkSubscriptionDetails>({
     resolver: yupResolver(schema)
   })
-  const { openToaster } = useAppSelector(state => state.homePage)
+  const { bullionMarkPage, openToaster } = useAppSelector(state => state.homePage)
   const { showToaster } = useShowToaster();
+  const [phoneNumberValue, setPhoneNumberValue] = useState<{ value: string, country: any }>({
+    value: "",
+    country: {}
+  })
 
   const onSubmit = async (data: IBullionMarkSubscriptionDetails) => {
     try {
@@ -64,10 +69,15 @@ function Newsletter() {
     // }
   }
 
+  const newsletter = bullionMarkPage?.homepage_Section_8_Footer_background_pic
+
   return (
     <Box id="SectionNewsletter" component="section">
       {openToaster && <Toaster />}
-      <img className="NewsletterBG" src={NewsletterBG} alt="" />
+      {/* <img className="NewsletterBG" src={NewsletterBG} alt="" /> */}
+      <Box className="NewsletterBG" dangerouslySetInnerHTML={{
+          __html: newsletter?.[0]?.overview
+      }}></Box>
       <Box className="BackgroundHolder">
         <Container maxWidth="sm">
           <BullionmarkSectionHeading
@@ -98,6 +108,19 @@ function Newsletter() {
               name="PhoneNumber"
               placeholder="Phone Number"
               control={control}
+              variant="outlined"
+              fullWidth
+            />
+            <RenderFields
+              register={register}
+              type="phoneInput"
+              control={control}
+              setValue={setValue}
+              name="Contact"
+              error={errors.PhoneNumber}
+              value={phoneNumberValue.value}
+              setPhoneNumberValue={setPhoneNumberValue}
+              className="ContactSelect"
               variant="outlined"
               fullWidth
             />

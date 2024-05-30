@@ -55,13 +55,13 @@ function TheJournal() {
     const { mainHomePageData, configDetails } = useAppSelector((state) => state.homePage)
 
     return (
-        (mainHomePageData && mainHomePageData?.bestAdventure?.length > 0) ?
+        (mainHomePageData && mainHomePageData?.homepage_Section_8_Two_posts_in_two_rows_each?.length > 0) ?
             <Box id="TheJournal">
                 <Container component="section">
-                    <SectionHeading title={configDetails?.["mainhomepage.bestadventuretital"]?.value} description={configDetails?.["mainhomepage.bestadventuresubtital"]?.value} />
+                    <SectionHeading title={configDetails?.["Homepage_Section_8_Two_posts_in_two_rows_each_Title"]?.value} description={configDetails?.["Homepage_Section_8_Two_posts_in_two_rows_each_Subtitle"]?.value} />
                     <Container className="TheJounalPostWrapperContainer" maxWidth="lg">
                         <Box className="TheJounalPostWrapper">
-                            {mainHomePageData?.bestAdventure?.map((item) => (
+                            {mainHomePageData?.homepage_Section_8_Two_posts_in_two_rows_each?.map((item) => (
                                 <Box className="TheJounalPost" key={item.title}>
                                     <TravelCard
                                         friendlyName={item?.friendlyName}

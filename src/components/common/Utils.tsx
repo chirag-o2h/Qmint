@@ -58,6 +58,10 @@ interface ProductStockStatus {
   colorClass?: string
   iconClass?: string
 }
+interface BmkProductStockStatus {
+  availability: string
+}
+
 
 export const isValidPhoneNumber = (phoneNumber: string, country: string) => {
   try {
@@ -244,6 +248,22 @@ export const ProductStockStatus = React.memo(
     );
   }
 );
+
+export const BmkProductStockStatus = React.memo(
+  ({ availability }: ProductStockStatus) => {
+    return (
+      <Box className={classNames("BmkProductStockStatus", [
+        availability !== "Sold" ? "Available" : "NotAvailable",
+      ])}>
+        <Typography className="Message">
+          {availability}
+        </Typography>
+      </Box>
+    );
+  }
+);
+
+
 export const LinkWithIcon = React.memo(({ icon, href, text }: any) => {
   return (
     <Link className="LinkWithIcon" onClick={() => {
