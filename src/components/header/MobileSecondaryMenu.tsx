@@ -14,7 +14,7 @@ import ActionMenu from "./ActionMenu"
 import SearchField from "./SearchField"
 import { useAppSelector } from "@/hooks"
 import { navigate } from "gatsby"
-import { STORE_CODE } from "@/axiosfolder";
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
 
 function MobileSecondaryMenu() {
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
@@ -43,7 +43,7 @@ function MobileSecondaryMenu() {
     setHeaderHeight(header ?? 0)
   }, [])
   return (
-    <Box id="MobileSecondaryMenu" className={classNames({ "BmkMobileSecondaryMenu": STORE_CODE === "7" }, { "BmkWhiteToolbar": trigger && STORE_CODE === "7" })}>
+    <Box id="MobileSecondaryMenu" className={classNames({ "BmkMobileSecondaryMenu": THEME_TYPE === "1" }, { "BmkWhiteToolbar": trigger && STORE_THEME_TYPECODE === "1" })}>
       <AppBar
         position="static"
         component="div"
@@ -79,7 +79,7 @@ function MobileSecondaryMenu() {
             <ActionMenu />
           </Stack>
         </Container>
-        {STORE_CODE !== "7" && (<ConstantApiLoader />)}
+        {THEME_TYPE !== "1" && (<ConstantApiLoader />)}
       </AppBar>
     </Box >
   )
