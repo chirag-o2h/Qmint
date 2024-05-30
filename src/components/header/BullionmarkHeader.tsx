@@ -21,7 +21,7 @@ const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
 const Navigation = lazy(() => import('./Navigation'))
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
-const frontHeaderList = ["/", "/shop"]
+const frontHeaderList = ["/shop/"]
 
 const BullionmarkHeader = () => {
   const [params] = useState({ page: 1 })
@@ -37,18 +37,18 @@ const BullionmarkHeader = () => {
   const toggleMobileMenu = useCallback(() => {
     setOpenMobileMenu(!openMobileMenu)
   }, [openMobileMenu])
-  const [isFrontHeader, setIsFrontHeader] = useState(true)
+  const [isFrontHeader, setIsFrontHeader] = useState(false)
 
   useEffect(() => {
-    if (!frontHeaderList.includes(window.location.pathname)) {
-      setIsFrontHeader(false)
+    if (frontHeaderList.includes(window.location.pathname)) {
+      setIsFrontHeader(true)
     }
-  }, [])
-
+  }, [window.location.pathname])
+  console.log("🚀 ~ useEffect ~ window.location.pathname:", window.location.pathname,isFrontHeader)
 
   return (
     <>
-      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader", { "FrontHeader": isFrontHeader })}>
+      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader",  isFrontHeader ? "FrontHeader":"" )}>
         {!isMobile && <>
           <Suspense fallback={<></>}>
             <Pricing />
