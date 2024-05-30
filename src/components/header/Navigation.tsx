@@ -1,6 +1,7 @@
 import React, { Fragment, Suspense, lazy, useEffect, useMemo, useState } from "react"
-import { Container, Stack, Divider, Button, Box, Typography } from "@mui/material"
+import { Container, Stack, Divider, Button, Box, Typography, IconButton, useMediaQuery, Theme } from "@mui/material"
 import classNames from "classnames"
+import { STORE_CODE } from "@/axiosfolder";
 
 // Components
 import { HoverTooltip } from "../common/CustomTooltip"
@@ -26,6 +27,8 @@ import { CategoriesListDetails, getLiveDashboardChartData } from "@/redux/reduce
 import useApiRequest from "@/hooks/useAPIRequest"
 import { CartItem } from "@/types/shoppingCart"
 import { CartItemsWithLivePriceDetails } from "../partials/shopping-cart/CartDetails"
+import SearchField from "./SearchField";
+import { Call } from "@/assets/icons";
 
 
 export interface Icategory {
@@ -40,7 +43,7 @@ export interface Icategory {
   subCategories: Icategory[],
   categoryImages: any[]
 }
-function Navigation({ frontPage = false }: { frontPage?: boolean }) {
+function Navigation({ frontPage = false, showNavigation = false }: { frontPage?: boolean, showNavigation?: boolean }) {
   const dispatch = useAppDispatch()
   const { configDetails: configDetailsState, categoriesList, needToShowProgressLoader, isLoggedIn } = useAppSelector((state) => state.homePage)
   const { cartItems } = useAppSelector((state) => state.shoppingCart)
@@ -84,11 +87,12 @@ function Navigation({ frontPage = false }: { frontPage?: boolean }) {
     }
   }, [cartItems])
   const isThisInsideCategory = getLengthOfThePaths(window?.location?.pathname?.toLocaleLowerCase()).length == 2
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   return (
     <Box className="NavigationHeader">
       <Container>
         <Stack className="NavigationHeader__Wrapper">
-          <Stack
+          {STORE_CODE === "7" && !showNavigation ? <SearchField /> : <Stack
             className="LeftPart"
             divider={<Divider orientation="vertical" flexItem />}
           >
@@ -126,11 +130,19 @@ function Navigation({ frontPage = false }: { frontPage?: boolean }) {
                 : null
             }
           </Stack>
+          }
+
           {!frontPage && (
             <Stack className="RightPart">
-              {needToShowProgressLoader && <ProductUpdateCountdown needToShowText={false} />}
-              {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ? <Suspense fallback={<></>}> <ChartMenu /></Suspense> : null}
-              {configDetailsState?.enablecart?.value ? <Suspense fallback={<></>}>
+              {/* {needToShowProgressLoader &&  */}
+              <ProductUpdateCountdown needToShowText={false} />
+              {/* } */}
+              {(STORE_CODE === "7" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>)}
+              {/* {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?  */}
+              <Suspense fallback={<></>}> <ChartMenu /></Suspense>
+              {/* : null} */}
+              {/* {configDetailsState?.enablecart?.value ?  */}
+              <Suspense fallback={<></>}>
                 <HoverTooltip
                   className="CartHoverList"
                   placement="bottom-start"
@@ -144,15 +156,16 @@ function Navigation({ frontPage = false }: { frontPage?: boolean }) {
                   disablePortal
                   lightTheme
                 >
-                  {configDetailsState?.minishoppingcartenable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.minishoppingcartproductnumber?.value ?? 3}/>}
+                  {configDetailsState?.minishoppingcartenable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.minishoppingcartproductnumber?.value ?? 3} />}
                 </HoverTooltip>
-              </Suspense> : null}
+              </Suspense>
+              {/* : null} */}
               <ActionMenu />
             </Stack>
           )}
         </Stack>
       </Container>
-      <ConstantApiLoader />
+      {STORE_CODE !== "7" && (<ConstantApiLoader />)}
     </Box>
   )
 }

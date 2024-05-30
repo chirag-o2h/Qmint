@@ -1,5 +1,7 @@
 import React, { Suspense, lazy, useCallback, useState } from "react"
-import { useMediaQuery, useScrollTrigger, Theme, AppBar, Box, Divider } from "@mui/material"
+import { useMediaQuery, useScrollTrigger, Theme, AppBar, Box, Divider, IconButton } from "@mui/material"
+
+import classNames from "classnames"
 
 // Hooks
 import useAPIoneTime from "@/hooks/useAPIoneTime";
@@ -11,6 +13,8 @@ import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 
 // Components
 import { PageLoader } from './Loader'
+import FrontMain from "./FrontMain";
+import { Call } from "@/assets/icons";
 const Pricing = lazy(() => import('./Pricing'))
 const Main = lazy(() => import('./Main'))
 const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
@@ -34,17 +38,17 @@ const BullionmarkHeader = () => {
 
   return (
     <>
-      {!isMobile && configDetailsState?.tickerenable?.value && <>
-        <Suspense fallback={<></>}>
-          <Pricing />
-        </Suspense>
-        <Divider />
-      </>}
-      <Box id="HeaderWrapper">
-        <AppBar position="static">
+      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader FrontHeader")}>
+        {!isMobile && <>
+          <Suspense fallback={<></>}>
+            <Pricing />
+          </Suspense>
+          <Divider />
+        </>}
+        <AppBar position={trigger ? "fixed" : "static"}>
           {loading && <PageLoader />}
           <Suspense fallback={<></>}>
-            <Main toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} />
+            <FrontMain />
           </Suspense>
           <Divider />
           <Suspense fallback={<></>}><Navigation /></Suspense>
