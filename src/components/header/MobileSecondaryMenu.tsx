@@ -14,6 +14,7 @@ import ActionMenu from "./ActionMenu"
 import SearchField from "./SearchField"
 import { useAppSelector } from "@/hooks"
 import { navigate } from "gatsby"
+import { STORE_CODE } from "@/axiosfolder";
 
 function MobileSecondaryMenu() {
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
@@ -42,7 +43,7 @@ function MobileSecondaryMenu() {
     setHeaderHeight(header ?? 0)
   }, [])
   return (
-    <Box id="MobileSecondaryMenu">
+    <Box id="MobileSecondaryMenu" className={classNames({ "BmkMobileSecondaryMenu": STORE_CODE === "7" }, { "BmkWhiteToolbar": trigger && STORE_CODE === "7" })}>
       <AppBar
         position="static"
         component="div"
@@ -57,7 +58,8 @@ function MobileSecondaryMenu() {
               onClose={toggleOpenSearch}
               onClickAway={handleClickAway}
               renderComponent={
-                configDetailsState?.enablesearch?.value && <IconButton aria-label='SearchButton' ref={searchButtonRef} className={classNames("MenuButton", { "Active": false })} onClick={toggleOpenSearch}><Search /></IconButton>
+                // configDetailsState?.enablesearch?.value &&
+                <IconButton aria-label='SearchButton' ref={searchButtonRef} className={classNames("MenuButton", { "Active": false })} onClick={toggleOpenSearch}><Search /></IconButton>
               }
               lightTheme
               disablePortal={true}
@@ -68,18 +70,18 @@ function MobileSecondaryMenu() {
               </Container>
             </ClickTooltip>
             {configDetailsState?.enablephone?.value !== false && <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>}
-            {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?
-              <ChartMenu />
-              : null}
-            {configDetailsState?.enablecart?.value ?
-              <CartMenu onClick={handleCartMenu} />
-              : null}
+            {/* {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ? */}
+            <ChartMenu />
+            {/* : null} */}
+            {/* {configDetailsState?.enablecart?.value ? */}
+            <CartMenu onClick={handleCartMenu} />
+            {/* : null} */}
             <ActionMenu />
           </Stack>
         </Container>
-        <ConstantApiLoader />
+        {STORE_CODE !== "7" && (<ConstantApiLoader />)}
       </AppBar>
-    </Box>
+    </Box >
   )
 }
 
