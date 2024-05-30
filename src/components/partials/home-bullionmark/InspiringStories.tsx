@@ -7,25 +7,24 @@ import { navigate } from "gatsby";
 
 // Hooks
 import { useAppSelector } from "@/hooks"
+import { BullionMarkItem } from '@/redux/reducers/homepageReducer'
 
-function InspiringStories() {
-    const { bullionMarkPage } = useAppSelector((state) => state.homePage)
-    const inspiringStories = bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row
+function InspiringStories({ data }: { data: BullionMarkItem[] | undefined}) {
     return (
-        inspiringStories && (<Box id="InspiringStories" component="section">
+        data && (<Box id="InspiringStories" component="section">
             <Container>
                 <Box className="InspiringStoriesTitle">
                     <BullionmarkSectionHeading title="Inspiring Stories" />
                 </Box>
                 <Stack className="InspiringStoriesContent">
-                    <Box className="LeftContent" onClick={() => { navigate(`${inspiringStories[0].friendlyName}`) }}>
+                    <Box className="LeftContent" onClick={() => { navigate(`${data[0].friendlyName}`) }}>
                         <img src={InspiringStoriesLeftImage} alt="left-image" loading="lazy" />
-                        <BullionmarkSectionHeading title={inspiringStories[0].title} description={inspiringStories[0].overview} />
+                        <BullionmarkSectionHeading title={data[0].title} description={data[0].overview} />
                         {/* <Typography variant="body2" className='Date'>27 Jan 2024</Typography> */}
                     </Box>
-                    <Box className="RightContent" onClick={() => { navigate(`${inspiringStories[1].friendlyName}`) }}>
+                    <Box className="RightContent" onClick={() => { navigate(`${data[1].friendlyName}`) }}>
                         <img src={InspiringStoriesRightImage} alt="right-image" loading="lazy" />
-                        <BullionmarkSectionHeading title={inspiringStories[1]?.title} description={inspiringStories[1].overview} />
+                        <BullionmarkSectionHeading title={data[1]?.title} description={data[1].overview} />
                         {/* <Typography variant="body2" className='Date'>27 Jan 2024</Typography> */}
                     </Box>
                 </Stack>

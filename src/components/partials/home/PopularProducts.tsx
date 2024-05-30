@@ -9,6 +9,7 @@ import { Idata, IpriceForEachId } from "./FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"
 import { navigate } from "gatsby"
 import { useAppSelector } from "@/hooks"
+import useGetPopulurProductsData from "@/hooks/useGetPopulurProductsData"
 const defaultData = {
   "search": "",
   "pageNo": 0,
@@ -30,29 +31,8 @@ function SkeletonPopularProducts({ index }: { index: number | string }) {
 }
 function PopularProducts() {
   const { configDetails } = useAppSelector((state) => state.homePage)
-  const [productType, setProductType] = useState('all');
-  const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
-  const [dataforbody, setDataforbody] = useState<any>(defaultData)
-  const [productIds, setProductIds] = useState({})
-  const { data }: Idata = useApiRequest(ENDPOINTS.getProduct, 'post', dataforbody);
-  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);
-  useEffect(() => {
-    const metalId = productType === 'gold' ? 17 : productType === 'silver' ? 18 : undefined;
-    setDataforbody({ ...dataforbody, filters: { ...dataforbody.filters, metalId } })
-  }, [productType])
-  useEffect(() => {
-    if (priceData?.data?.length > 0) {
-      const idwithpriceObj: any = {}
-      priceData?.data?.forEach((product: any) => idwithpriceObj[product?.productId] = product)
-      setPriceForEachId(idwithpriceObj)
-    }
-  }, [priceData])
-  useEffect(() => {
-    if (data?.data?.items?.length > 0) {
-      const productIds = data?.data?.items?.map(product => product?.productId);
-      setProductIds({ productIds })
-    }
-  }, [data])
+  const { data, priceForEachId, productType, setProductType } = useGetPopulurProductsData()
+
   const handleChange = (event: any, newProductType: any) => {
     if (newProductType !== null) {
       setProductType(newProductType)
@@ -101,7 +81,7 @@ function PopularProducts() {
           }
         </Box>
         <Stack className="Action">
-          <Button className="DiscoverMore" name='DiscoverMore' aria-label="DiscoverMore" variant="contained" onClick={()=>{
+          <Button className="DiscoverMore" name='DiscoverMore' aria-label="DiscoverMore" variant="contained" onClick={() => {
             navigate('/shop')
           }}>Discover More</Button>
         </Stack>

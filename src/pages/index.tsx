@@ -39,7 +39,7 @@ import ExclusiveJourneysWithSlider from '@/components/partials/home-bullionmark/
 import InspiringStories from '@/components/partials/home-bullionmark/InspiringStories'
 import TravelInspiration from '@/components/partials/home-bullionmark/TravelInspiration'
 import Newsletter from '@/components/partials/home-bullionmark/Newsletter'
-import {  getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
+import { getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
 // import useAPIoneTime from '@/hooks/useAPIoneTime'
 import { STORE_CODE } from "@/axiosfolder"
 
@@ -103,7 +103,7 @@ function MainHomePage(
 }
 
 function indexBulliomark() {
-    const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState, openToaster, loading, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
 
     useAPIoneTime({ service: getBullionMarkPageAPI })
@@ -126,10 +126,10 @@ function indexBulliomark() {
                         <PlanningJourney />
                         <BestAdventures />
                         <GetInspired />
-                        <ExclusiveJourneys />
+                        <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
                         <ExclusiveJourneysWithSlider />
                         <TravelInspiration />
-                        <InspiringStories />
+                        <InspiringStories data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} />
                         <Newsletter />
                     </Box>
                 </MainLayout>
