@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { Box, Card, Skeleton, useMediaQuery, Container, Typography, } from "@mui/material"
+import React from "react"
+import { Box, Card, useMediaQuery, Container, Typography, } from "@mui/material"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import { Link } from "gatsby";
@@ -7,13 +7,13 @@ import { Link } from "gatsby";
 import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 
 
-import { BullionmarkSectionHeading, SwiperNavigation } from "@/components/common/Utils"
+import { BullionmarkSectionHeading} from "@/components/common/Utils"
 import { useAppSelector } from "@/hooks";
 
-import BestCategoryImage2 from "../../../../assets/images/BestCategoryImage2.png"
 
 function BestCategorySlider() {
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+    const bmkShopSections = useAppSelector(state => state.homePage.bmkShopPageSections)
 
     const config = {
         slidesPerView: 1.3,
@@ -64,162 +64,20 @@ function BestCategorySlider() {
                 <Box className="BmkProductsSliderWrapper">
                     <Box className="SwiperContainer CircleSwiperPagination">
                         <Swiper  {...config}>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Popular Gold</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Silver Favorites</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Bundle & Save</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>  <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to="#" className="BmkProductCardLink">
-                                    <Card className="BmkProductCard">
-                                        <Box className="ProductImageWrapper">
-                                            <img className="ProductImage" src={BestCategoryImage2} alt="product-image" />
-                                        </Box>
-                                        <Box className="ProductTitle">
-                                            <Typography variant="h4">Gold Bars</Typography>
-                                        </Box>
-                                    </Card>
-                                </Link>
-                            </SwiperSlide>
-
+                            {bmkShopSections && bmkShopSections?.quickCategoryLinks?.map((category: any) => {
+                                return (<SwiperSlide>
+                                    <Link to={category.linkUrl} className="BmkProductCardLink">
+                                        <Card className="BmkProductCard">
+                                            <Box className="ProductImageWrapper">
+                                                <img className="ProductImage" src={category.imageUrl} alt={category.name} />
+                                            </Box>
+                                            <Box className="ProductTitle">
+                                                <Typography variant="h4">{category.name}</Typography>
+                                            </Box>
+                                        </Card>
+                                    </Link>
+                                </SwiperSlide>)
+                            })}
                         </Swiper>
                     </Box>
                 </Box>

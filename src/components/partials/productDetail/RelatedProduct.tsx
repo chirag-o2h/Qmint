@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/common/Utils"
 import { ProductCard } from "@/components/common/Card"
 
 // Type
-import type { Idata, IpriceForEachId } from "../home/FeaturedProducts"
+import type { Idata, IpriceForEachId } from "../shop/Qmint/FeaturedProducts"
 
 // Utils
 import { ENDPOINTS } from "@/utils/constants"

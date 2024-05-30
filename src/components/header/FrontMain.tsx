@@ -16,7 +16,7 @@ import { ENDPOINTS } from "../../utils/constants"
 import { Link, navigate } from "gatsby"
 import { CategoriesListDetails, LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
-import { STORE_CODE } from "@/axiosfolder";
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
 const Navigation = lazy(() => import('./Navigation'))
 
 function FrontMain(props: any) {
@@ -40,7 +40,7 @@ function FrontMain(props: any) {
     useEffect(() => {
         console.log(location.pathname);
 
-        if (STORE_CODE === "7") {
+        if (THEME_TYPE === "1") {
             setIsBullionmarkHomePage(true)
         }
     }, [])
@@ -52,11 +52,11 @@ function FrontMain(props: any) {
                         <Link className="Logo" to="/"><img src={configDetailsState?.["Homepage_HeaderLogo_URL"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
                     </Stack>
                     <Stack className="Center">
-                        <Navigation frontPage={true} />
+                        <Navigation frontPage={true} showNavigation={true} />
                     </Stack>
                     <Stack className="Right">
                         {/* <Link to={ENDPOINTS.login}> */}
-                        <Button name='signIn' aria-label='signIn' onClick={handleAuth} className={classNames("SignInButton ActionButton", { "WhiteButton": !trigger && isBullionmarkHomePage })} variant="outlined" startIcon={!isLoggedIn ? (isBullionmarkHomePage ? <BullionmarkSignInIcon /> : <SignInIcon />) : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
+                        <Button name='signIn' aria-label='signIn' onClick={handleAuth} className={classNames("SignInButton ActionButton")} variant="outlined" startIcon={!isLoggedIn ? (isBullionmarkHomePage ? <BullionmarkSignInIcon /> : <SignInIcon />) : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
                         {/* <Button name='Contact us' aria-label='Contact us' onClick={() => { 
                             navigate('/contactus')
                         }} variant="outlined" className="ActionButton">Contact Us</Button> */}

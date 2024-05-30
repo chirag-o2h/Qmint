@@ -3,7 +3,7 @@ import { Box, Container, Typography, Button, ToggleButtonGroup, Card, Skeleton, 
 import { SectionHeading } from "@/components/common/Utils"
 import { useAppSelector } from "@/hooks"
 import { ENDPOINTS } from "@/utils/constants"
-import { Idata, IpriceForEachId } from "@/components/partials/home/FeaturedProducts"
+import { Idata, IpriceForEachId } from "@/components/partials/shop/Qmint/FeaturedProducts"
 import useApiRequest from "@/hooks/useAPIRequest"
 import { ProductCard } from "@/components/common/Card"
 import { navigate } from "gatsby"

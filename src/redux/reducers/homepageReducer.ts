@@ -53,7 +53,7 @@ interface IMainHomePage {
   }[]
 }
 
-interface BullionMarkItem {
+export interface BullionMarkItem {
   id: number
   friendlyName: string
   imageUrl: string

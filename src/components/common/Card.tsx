@@ -42,7 +42,7 @@ import {
 import noImage from '../../assets/images/noImage.png'
 // Utils
 import { ProductStockStatus, ProductUpdateCountdown } from "./Utils"
-import { IFeaturedProducts } from "../partials/home/FeaturedProducts"
+import { IFeaturedProducts } from "../partials/shop/Qmint/FeaturedProducts"
 import { Link as NavigationLink, navigate } from "gatsby"
 import { bodyForGetShoppingCartData, calculationOfThePremiumAndDiscount, deliveryMethodMessage, roundOfThePrice } from "@/utils/common"
 import { useAppDispatch, useAppSelector } from "@/hooks"
@@ -123,7 +123,7 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
     <Card className={classNames("ProductCard", { "Sticky": stickyProduct })} key={product.productId}>
       <Stack className="ImageWrapper">
         <NavigationLink className="ImageLink" to={`/product-details/${product?.friendlypagename}`} style={{ ...((!renderStockStatus) && { paddingBottom: '18px' }) }}>
-          <img src={product.imageUrl ?? noImage} alt="Product image" loading="lazy" />
+          <img src={product?.imageUrl ?? noImage} alt="Product image" loading="lazy" />
         </NavigationLink>
         {(renderStockStatus) && <ProductStockStatus
           availability={product.availability}

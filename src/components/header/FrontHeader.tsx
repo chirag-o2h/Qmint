@@ -7,7 +7,7 @@ const FrontPricing = lazy(() => import('./FrontPricing'))
 const FrontMain = lazy(() => import('./FrontMain'))
 import { PageLoader } from './Loader'
 import { useAppSelector } from "@/hooks"
-import { STORE_CODE } from "@/axiosfolder"
+import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
 interface FrontHeader {
@@ -30,8 +30,8 @@ const FrontHeader = (props: FrontHeader) => {
     }, [openMobileMenu])
 
     return (
-        <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme })}>
-            {(!isMobile && configDetailsState?.["mainhomepage.tickerenable"]?.value ) || (STORE_CODE == '7') && <>
+        <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": STORE_CODE == '7' })}>
+            {(!isMobile && configDetailsState?.["mainhomepage.tickerenable"]?.value) || (STORE_CODE == '7') && <>
                 <Suspense fallback={
                     <></>
                     // <Skeleton style={{ minHeight: '60px' }} />

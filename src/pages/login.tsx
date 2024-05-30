@@ -6,6 +6,7 @@ import { EyeOffIcon, EyeOnIcon } from "../assets/icons/index"
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { useForm } from "react-hook-form";
 import { LoginUserAPI, configDetails } from '@/redux/reducers/homepageReducer';
+import { STORE_CODE } from "@/axiosfolder"
 import { ENDPOINTS, StoreData } from '@/utils/constants';
 import { Dispatch } from '@reduxjs/toolkit';
 import { isActionRejected } from '@/components/common/Utils';
@@ -17,6 +18,7 @@ import useAPIoneTime from '@/hooks/useAPIoneTime';
 import ConfigServices from '@/apis/services/ConfigServices';
 import useShowToaster from '@/hooks/useShowToaster';
 import Toaster from '@/components/common/Toaster';
+import Layout from '@/components/common/Layout';
 export interface IdispatchType {
   type: string,
   meta: {
@@ -124,84 +126,164 @@ function SignInPage() {
     <>
       {openToaster && <Toaster />}
       <Loader open={checkLoadingStatus || loadingForNavigate} />
-      <Box id="SignInPage">
-        <Container maxWidth="sm" >
-          <DialogTitle component="p">
-            <img onClick={() => { navigate('/') }} src={configDetailsState?.storelogourl?.value} alt="QMint logo" loading='eager' />
-          </DialogTitle>
-          {loginError && <Typography variant='subtitle1' component="p" className='LoginError' dangerouslySetInnerHTML={{
-            __html: loginError
-          }}></Typography>}
-          <DialogContent>
-            <form id='login-form' onKeyDown={handleEnterKeyPress}>
-              <Stack className="FieldWrapper">
-                <TextField
-                  variant="standard"
-                  placeholder="Enter email address"
-                  label="Email Address"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: "Invalid email address"
-                    }
-                  })}
-                  type="email"
-                  error={!!errors.email && touchedFields.email}
-                  helperText={errors.email && touchedFields.email ? errors.email.message as string : ""}
-                  required
-                />
+      {STORE_CODE == '7' ? (
+        <Layout>
+          <Stack id="BmkSignInPage">
+            <Box className="LeftPart">
+              <img className="LoginImage" src="https://picsum.photos/400/500" alt="" />
+            </Box>
+            <Stack className="RightPart">
+              <form id="login-form" onKeyDown={handleEnterKeyPress}>
+                <Box className="Header">
+                  <Typography variant="h3" component="p">Hello Again!</Typography>
+                  <Typography variant="body2" className="Description" component="p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</Typography>
+                </Box>
+                <Stack className="FieldWrapper">
+                  <TextField
+                    variant="standard"
+                    placeholder="Enter email address"
+                    label="Email Address"
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "Invalid email address"
+                      }
+                    })}
+                    type="email"
+                    error={!!errors.email && touchedFields.email}
+                    helperText={errors.email && touchedFields.email ? errors.email.message as string : ""}
+                    margin="none"
+                    required
+                    fullWidth
+                  />
 
-                <TextField
-                  label="Password"
-                  variant="standard"
-                  placeholder="Enter password"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          size="small"
-                          onClick={togglePasswordVisibility}
-                        >
-                          {!passwordVisible ? (
-                            <EyeOffIcon />
-                          ) : (
-                            <EyeOnIcon />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 5,
-                      message: "Password must be at least 5 characters long"
-                    }
-                  })}
-                  type={passwordVisible ? "text" : "password"}
-                  error={!!errors.password && touchedFields.password}
-                  helperText={errors.password && touchedFields.password ? errors.password.message as string : ""}
-                  required
-                />
-              </Stack>
-              <Link target='_blank' to={ENDPOINTS.forgotPasswordLink + '/?id=' + StoreData.storeCode}>
-                <Button name='Forgot Your Password' aria-label='Forgot Your Password' className="ForgotPassword" color="secondary" onClick={() => {
-                }}>Forgot Your Password?</Button></Link>
-            </form>
-          </DialogContent>
-          <DialogActions>
-            <Button name='signIn' aria-label='signIn' onClick={handleSubmit(onSubmit)} variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Sign Me In</Button>
-            {/* <Link target='_blank' to={ENDPOINTS.createMyAccount + StoreData.returnUrl}> */}
-            <Button onClick={navigateToRegister} name='Create My Account' aria-label='Create My Account' variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
-            {/* </Link> */}
-            <Stack className="SignUpAction">
-              <Typography className="Message" variant="overline">Don't have an account?</Typography>
-              <Button name='Sign Up' aria-label='Sign Up' color="secondary" onClick={navigateToRegister} disabled={loadingForNavigate}>Sign Up</Button>
+                  <TextField
+                    label="Password"
+                    variant="standard"
+                    placeholder="Enter password"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            size="small"
+                            onClick={togglePasswordVisibility}
+                          >
+                            {!passwordVisible ? (
+                              <EyeOffIcon />
+                            ) : (
+                              <EyeOnIcon />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 5,
+                        message: "Password must be at least 5 characters long"
+                      }
+                    })}
+                    type={passwordVisible ? "text" : "password"}
+                    error={!!errors.password && touchedFields.password}
+                    helperText={errors.password && touchedFields.password ? errors.password.message as string : ""}
+                    margin="none"
+                    required
+                    fullWidth
+                  />
+                </Stack>
+                <Link target="_blank" to={ENDPOINTS.forgotPasswordLink + "/?id=" + StoreData.storeCode}>
+                  <Button name="Forgot Your Password" aria-label="Forgot Your Password" className="ForgotPassword" color="secondary" onClick={() => {
+                  }}>Forgot Password?</Button></Link>
+                <Stack className="FormAction">
+                  <Button name="signIn" aria-label="signIn" onClick={handleSubmit(onSubmit)} variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Sign Me In</Button>
+                  <Button onClick={navigateToRegister} name="Create My Account" aria-label="Create My Account" variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
+                </Stack>
+              </form>
             </Stack>
-          </DialogActions>
-        </Container>
-      </Box>
+          </Stack>
+        </Layout>
+      ) : (
+        <Box id="SignInPage">
+          <Container maxWidth="sm" >
+            <DialogTitle component="p">
+              <img onClick={() => { navigate('/') }} src={configDetailsState?.storelogourl?.value} alt="QMint logo" loading='eager' />
+            </DialogTitle>
+            {loginError && <Typography variant='subtitle1' component="p" className='LoginError' dangerouslySetInnerHTML={{
+              __html: loginError
+            }}></Typography>}
+            <DialogContent>
+              <form id='login-form' onKeyDown={handleEnterKeyPress}>
+                <Stack className="FieldWrapper">
+                  <TextField
+                    variant="standard"
+                    placeholder="Enter email address"
+                    label="Email Address"
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "Invalid email address"
+                      }
+                    })}
+                    type="email"
+                    error={!!errors.email && touchedFields.email}
+                    helperText={errors.email && touchedFields.email ? errors.email.message as string : ""}
+                    required
+                  />
+
+                  <TextField
+                    label="Password"
+                    variant="standard"
+                    placeholder="Enter password"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            size="small"
+                            onClick={togglePasswordVisibility}
+                          >
+                            {!passwordVisible ? (
+                              <EyeOffIcon />
+                            ) : (
+                              <EyeOnIcon />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 5,
+                        message: "Password must be at least 5 characters long"
+                      }
+                    })}
+                    type={passwordVisible ? "text" : "password"}
+                    error={!!errors.password && touchedFields.password}
+                    helperText={errors.password && touchedFields.password ? errors.password.message as string : ""}
+                    required
+                  />
+                </Stack>
+                <Link target='_blank' to={ENDPOINTS.forgotPasswordLink + '/?id=' + StoreData.storeCode}>
+                  <Button name='Forgot Your Password' aria-label='Forgot Your Password' className="ForgotPassword" color="secondary" onClick={() => {
+                  }}>Forgot Your Password?</Button></Link>
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button name='signIn' aria-label='signIn' onClick={handleSubmit(onSubmit)} variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Sign Me In</Button>
+              {/* <Link target='_blank' to={ENDPOINTS.createMyAccount + StoreData.returnUrl}> */}
+              <Button onClick={navigateToRegister} name='Create My Account' aria-label='Create My Account' variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
+              {/* </Link> */}
+              <Stack className="SignUpAction">
+                <Typography className="Message" variant="overline">Don't have an account?</Typography>
+                <Button name='Sign Up' aria-label='Sign Up' color="secondary" onClick={navigateToRegister} disabled={loadingForNavigate}>Sign Up</Button>
+              </Stack>
+            </DialogActions>
+          </Container>
+        </Box>
+      )}
     </>
   )
 }
