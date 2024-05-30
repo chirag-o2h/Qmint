@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import classNames from 'classnames'
 import { Box, Card, Skeleton, useMediaQuery, Container } from "@mui/material"
 
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
@@ -8,10 +7,8 @@ import { Autoplay, Pagination, A11y } from 'swiper/modules'
 // Utils
 import { SectionHeading } from "../../common/Utils"
 import { ProductCard } from "../../common/Card"
-import useApiRequest from "@/hooks/useAPIRequest"
-import axiosInstance from "@/axiosfolder"
-import { ENDPOINTS } from "@/utils/constants"
 import { useAppSelector } from "@/hooks"
+import useGetFeaturesProductaData from "@/hooks/useGetFeaturedProductaData"
 export interface IFeaturedProducts {
   productId: number,
   categoryId: number,
@@ -67,76 +64,12 @@ export interface IproductPrice {
 export interface IpriceForEachId {
   [key: number]: IproductPrice
 }
-let cancellationSource: AbortController | null = null;
-let timeoutId: number | any = null;
 
 function FeaturedProducts() {
   const { configDetails } = useAppSelector((state) => state.homePage)
-  // console.log("🚀 ~ FeaturedProducts ~ configDetails:", configDetails)
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-  const [dataforbody] = useState({
-    "search": "",
-    "pageNo": 0,
-    "pageSize": -1,
-    "sortBy": "",
-    "sortOrder": "",
-    "filters": {
-      "isFeatureProduct": true
-    }
-  })
-  const { data }: Idata = useApiRequest(ENDPOINTS.getProduct, 'post', dataforbody);
-  const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
 
-  useEffect(() => {
-    if (data?.data?.items?.length > 0) {
-      const ids: number[] = data?.data?.items?.map((product) => product.productId)
-      const fetchData = async () => {
-        // Clear any pending timeout or request
-        timeoutId && clearTimeout(timeoutId);
-        if (cancellationSource) {
-          cancellationSource.abort();
-        }
-
-        // Create a new cancellation source for this request
-        cancellationSource = new AbortController();
-
-        timeoutId = setTimeout(() => {
-          // Debounce delay passed, trigger the actual API call
-          cancellationSource?.signal.addEventListener('abort', () => {
-            // If request was cancelled before completing, clear state
-            clearTimeout(timeoutId);
-            cancellationSource = null;
-          });
-
-          axiosInstance
-            .post(ENDPOINTS.productPrices, { productIds: ids }, { signal: cancellationSource?.signal })
-            .then(response => {
-              if (response?.data?.data) {
-                const idwithpriceObj: any = {}
-                response?.data?.data?.forEach((product: any) => idwithpriceObj[product?.productId] = product)
-                setPriceForEachId(idwithpriceObj)
-              }
-              clearTimeout(timeoutId);
-              cancellationSource = null;
-            })
-            .catch(error => {
-              if (error.name !== 'AbortError') {
-                // console.error(error);
-              }
-              clearTimeout(timeoutId);
-              cancellationSource = null;
-            });
-        }, 100); // Adjust debounce delay as needed
-      };
-      fetchData();
-    }
-    return () => {
-      clearTimeout(timeoutId);
-      if (cancellationSource) {
-        cancellationSource.abort();
-      }
-    };
-  }, [data]);
+  const { data, priceForEachId } = useGetFeaturesProductaData();
 
   const config = {
     slidesPerView: 1.3,
