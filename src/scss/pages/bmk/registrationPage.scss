@@ -2,34 +2,48 @@
   .LeftPart {
     flex-direction: column;
     width: 50%;
+    .StickyWrapper {
+      // position: sticky;
+      // top: 0;
+    }
     @include media($xl) {
       width: 55%;
     }
     .ContentWrapper {
       color: $white;
       text-align: center;
-      padding: 30px 50px;
+      padding: 70px 30px;
       background-repeat: no-repeat;
       background-size: cover;
       .Title {
         font-weight: 900;
         letter-spacing: -2px;
+        @include media($xl) {
+          font-size: pxToRem(24);
+        }
       }
     }
     .SliderWrapper {
-      flex-grow: 1;
+      .ImageWrapper {
+        img {
+          width: 100%;
+          height: 500px;
+          object-position: center;
+          object-fit: cover;
+        }
+      }
     }
   }
   .RightPart {
-    padding: 50px 40px;
+    padding: 50px;
     width: 50%;
     @include media($xl) {
       width: 45%;
     }
     form {
       @include margin-auto;
-      @include media($xl) {
-        max-width: 500px;
+      @include media-min($xl) {
+        max-width: 800px;
       }
       .Header {
         text-align: center;
@@ -42,13 +56,38 @@
         $spacing: 11px;
         flex-direction: column;
         gap: $spacing;
+        .InputRow {
+          &.Password {
+            .MuiFormControl-root {
+              .MuiInputBase-root {
+                .MuiInputAdornment-root {
+                  .MuiIconButton-root {
+                    opacity: 0.5;
+                    background-color: $greyLight;
+                    &:hover {
+                      background-color: darken($greyLight, 10%);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
         .Column {
           gap: $spacing;
+          @include media($mmd){
+            flex-direction: column;
+          }
           .InputRow {
-            width: 100%;
+            flex-grow: 1;
           }
         }
         .PasswordCondition {
+          padding-bottom: 10px;
+          .Message {
+            font-weight: 600;
+            margin-bottom: 10px;
+          }
           .ConditionWrapper {
             flex-direction: column;
             .PasswordConditionItem {
@@ -62,6 +101,13 @@
           }
         }
         .OTPWrapper {
+          .Column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            @include media($xl){
+              grid-template-columns: repeat(1, 1fr);
+            }
+          }
           .PhoneNumber {
             position: relative;
             width: 100%;
@@ -74,8 +120,14 @@
                     padding-right: 40px;
                     padding-left: 62px;
                     @include padding-vertical(12);
+                    &:focus {
+                      outline-color: $pumpkinOrange;
+                      &:hover {
+                        outline-color: rgba($dark, 0.2);
+                      }
+                    }
                   }
-                  .flag-dropdown  {
+                  .flag-dropdown {
                     .selected-flag {
                       width: 50px;
                       padding-right: 14px;
@@ -89,7 +141,7 @@
               top: 0;
               right: 0;
               padding: 6px;
-              height: 47px;
+              height: 48px;
               .MuiSvgIcon-root {
                 font-size: 13px;
               }
@@ -98,7 +150,6 @@
           .OTPField {
             .MuiFormControl-root {
               .MuiInputBase-root {
-                padding-right: 0;
                 .MuiInputAdornment-root {
                   height: initial;
                   max-height: initial;
@@ -106,9 +157,6 @@
                   margin-left: 0;
                   margin-right: 0;
                   .MuiIconButton-root {
-                    padding: 0;
-                    height: 100%;
-                    border-radius: 0;
                     color: $white;
                     background-color: $success;
                     &:hover {
@@ -126,11 +174,25 @@
             justify-content: space-between;
             margin-top: 6px;
             .Message {
-              color: #939393;
+              font-weight: 400;
+              color: $greyWarm;
             }
             .MuiButton-root {
               text-decoration: underline;
             }
+          }
+        }
+        .UserType {
+          .MuiRadioGroup-root {
+            .MuiFormControlLabel-root {
+              padding-right: 10px;
+              margin-left: 0;
+              margin-right: $spacing;
+              background-color: $Seashell;
+            }
+          }
+          .AgentCode {
+            margin-top: $spacing;
           }
         }
       }

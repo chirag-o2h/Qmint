@@ -130,7 +130,7 @@ function Registration() {
   }, [phoneNumberValue])
 
   const config: SwiperOptions = {
-    slidesPerView: 1.5,
+    slidesPerView: 1,
     centeredSlides: true,
     spaceBetween: 20,
     pagination: {
@@ -152,21 +152,25 @@ function Registration() {
     <Layout>
       <Stack id="RegistrationPage">
         <Stack className="LeftPart">
-          <Box className="ContentWrapper" sx={{ backgroundImage: `url("https://picsum.photos/200/300")` }}>
-            <Typography className="Title" variant="h1" component="p">Need account for your Business</Typography>
-            <Typography className="Subtitle" variant="subtitle2">Superfund or Trust</Typography>
-          </Box>
-          <Box className="SliderWrapper">
-            <Box className="SwiperContainer CircleSwiperPagination">
-              <Swiper {...config}>
-                {[1, 2, 3].map((item) => {
-                  return (
-                    <SwiperSlide>
-                      {item}
-                    </SwiperSlide>
-                  )
-                })}
-              </Swiper>
+          <Box className="StickyWrapper">
+            <Box className="ContentWrapper" sx={{ backgroundImage: `url("https://picsum.photos/200/300")` }}>
+              <Typography className="Title" variant="h1" component="p">Need account for your Business</Typography>
+              <Typography className="Subtitle" variant="subtitle2">Superfund or Trust</Typography>
+            </Box>
+            <Box className="SliderWrapper">
+              <Box className="SwiperContainer CircleSwiperPaginationWhite">
+                <Swiper {...config}>
+                  {[1, 2, 3].map((item) => {
+                    return (
+                      <SwiperSlide>
+                        <Box className="ImageWrapper">
+                          <img src="https://picsum.photos/500/700" />
+                        </Box>
+                      </SwiperSlide>
+                    )
+                  })}
+                </Swiper>
+              </Box>
             </Box>
           </Box>
         </Stack>
@@ -206,6 +210,7 @@ function Registration() {
                   error={errors.Password}
                   name="Password"
                   placeholder="Password"
+                  className="Password"
                   control={control}
                   variant="outlined"
                   margin="none"
@@ -217,6 +222,7 @@ function Registration() {
                   error={errors["Confirm password"]}
                   name="ConfirmPassword"
                   placeholder="Confirm Password"
+                  className="Password"
                   control={control}
                   variant="outlined"
                   margin="none"
@@ -224,7 +230,7 @@ function Registration() {
                 />
               </Stack>
               <Box className="PasswordCondition">
-                <Typography>Your Password Must :</Typography>
+                <Typography className="Message">Your Password Must :</Typography>
                 <Stack className="ConditionWrapper">
                   {renderPasswordConditionItem("Be at least 8 character in length", true)}
                   {renderPasswordConditionItem("An uppercase letter ( A - Z )", false)}
@@ -416,6 +422,7 @@ function Registration() {
                   name="AgentCode"
                   placeholder="Agent Code"
                   control={control}
+                  className="AgentCode"
                   variant="outlined"
                   margin="none"
                   fullWidth

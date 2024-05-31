@@ -81,6 +81,22 @@
       }
     }
   }
+  &.CircleSwiperPaginationWhite {
+    .swiper-pagination {
+      position: absolute;
+      .swiper-pagination-bullet {
+        $size: 10px;
+        height: $size;
+        width: $size;
+        background-color: $white;
+        &.swiper-pagination-bullet-active {
+          height: $size;
+          width: $size;
+          outline: 5px solid rgba($white, 0.4);
+        }
+      }
+    }
+  }
 
   &.LinedSwiperPagination {
     .swiper-pagination {

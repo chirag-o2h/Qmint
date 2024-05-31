@@ -615,6 +615,29 @@ const bmkComponents: Components = {
       },
     },
   },
+  MuiInputBase:{
+    styleOverrides: {
+      root:{
+        "&.MuiInputBase-adornedEnd": {
+          paddingRight: 0,
+        },
+      },
+    },
+  },
+  MuiInputAdornment: {
+    styleOverrides: {
+      positionEnd: {
+        height: "initial",
+        maxHeight: "initial",
+        alignSelf:"stretch",
+        marginLeft: 0,
+        "& .MuiIconButton-root": {
+          height: "100%",
+          borderRadius: 0,
+        },
+      },
+    },
+  },
   MuiFilledInput: {
     defaultProps: {
       disableUnderline: true,
