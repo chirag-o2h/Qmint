@@ -740,7 +740,7 @@ const bmkComponents: Components = {
         fontWeight: 600,
         textDecoration: "underline",
         "&:hover": {
-          color: "#EAA22B",
+          color: "#FF681A",
           backgroundColor: "transparent",
           textDecoration: "underline",
         },
@@ -955,7 +955,7 @@ const bmkComponents: Components = {
     styleOverrides: {
       colorPrimary: {
         "&.Mui-disabled": {
-          color: "#EAA22B",
+          color: "#FF681A",
           opacity: 0.2,
           "svg": {
             "path:first-of-type": {
@@ -1014,7 +1014,7 @@ const bmkComponents: Components = {
       option: {
         transition: '400ms all ease',
         "&:hover": {
-          color: `${variable.yellowFuel}`,
+          color: `${variable.pumpkinOrange}`,
           backgroundColor: 'transparent !important',
         },
         "@media (max-width: 600px)": {
