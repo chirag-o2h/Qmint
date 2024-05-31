@@ -110,7 +110,7 @@ function NewsDetails(params: any) {
                       variant="titleLarge"
                       component="p"
                     >
-                      {formatDate(newsDetailsData?.createdOnUtc)}
+                      {formatDate(newsDetailsData?.createdDate)}
                     </Typography>
                   </Box>
                 </Stack>
