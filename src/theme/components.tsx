@@ -755,14 +755,8 @@ const bmkComponents: Components = {
         },
       },
       outlinedSizeMedium: {
-        fontSize: "16px",
-        lineHeight: "24px",
-        fontWeight: "600",
-        borderWidth: "2px",
-        padding: "11px 18px",
-        "&:hover": {
-          borderWidth: "2px",
-        },
+        fontSize: "1rem",
+        padding: "8px 18px",
       },
       outlinedSizeLarge: {
         fontSize: pxToRem(16),
