@@ -1,0 +1,74 @@
+#RegistrationPage {
+  .LeftPart {
+    flex-direction: column;
+    width: 55%;
+    .ContentWrapper {
+      color: $white;
+      text-align: center;
+      padding: 30px 50px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      .Title {
+        font-weight: 900;
+        letter-spacing: -2px;
+      }
+    }
+    .SliderWrapper {
+      flex-grow: 1;
+    }
+  }
+  .RightPart {
+    width: 45%;
+    padding: 50px 24px;
+    form {
+      max-width: 500px;
+      @include margin-auto;
+      .Header {
+        text-align: center;
+        margin-bottom: 37px;
+        .Description {
+          margin-top: 16px;
+        }
+      }
+      .AllFields {
+        $spacing: 11px;
+        flex-direction: column;
+        gap: $spacing;
+        .Column {
+          gap: $spacing;
+          .InputRow {
+            width: 100%;
+          }
+        }
+        .PasswordCondition {
+          .ConditionWrapper {
+            flex-direction: column;
+            .PasswordConditionItem {
+              align-items: center;
+              gap: 11px;
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+        }
+        .OTPWrapper {
+          .ContactSelect {
+            .MuiFormControl-root {
+              .form-control {
+                height: inherit;
+              }
+            }
+          }
+          .ResendOTP {
+            justify-content: space-between;
+          }
+        }
+      }
+      .ActionWrapper {
+        margin-top: 35px;
+      }
+    }
+  }
+}

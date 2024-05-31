@@ -27,7 +27,7 @@ interface RenderFieldProps {
   error?: FieldError | boolean
   register?: UseFormRegister<any>
   placeholder?: string
-  label?: string
+  label?: string | React.ReactElement
   variant?: 'standard' | 'outlined' | 'filled'
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'
   value?: string
@@ -236,7 +236,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
     case 'checkbox':
       fieldType = (
         <FormControl margin={margin} {...(error ? { error: true } : {})}>
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {(label && options) && <FormLabel htmlFor={name}>{label}</FormLabel>}
           <FormGroup row={row}>
             {options ? (
               options.map((checkboxOption) => (
