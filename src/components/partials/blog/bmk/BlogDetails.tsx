@@ -66,13 +66,13 @@ function BlogDetails(params: any) {
       <Loader open={checkLoadingStatus} />
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
-        <Container className="BlogContainer">
-          <Box className="BlogDetail">
+        <Container className="PostContainer">
+          <Box className="PostDetail">
             <Stack className="Header">
-              <Typography variant="subtitle1" className="BlogSubtitle">
+              <Typography variant="subtitle1" className="PostSubtitle">
                 {blogDetailsData?.bodyOverview}
               </Typography>
-              <Typography variant="h2" component="h2" className="BlogTitle">
+              <Typography variant="h2" component="h2" className="PostTitle">
                 {blogDetailsData?.title}
               </Typography>
             </Stack>
@@ -118,17 +118,17 @@ function BlogDetails(params: any) {
               <Stack className="SocialMedia">
                 <Typography className="Title">Share this post</Typography>
                 <Stack className="SocialIconWrapper">
-                  <WhatsappShareButton url={window.location.href} title="Qmint blog">
+                  <WhatsappShareButton url={window.location.href} title="Bullionmark blog">
                     <IconButton className="CircleButton SocialIcon" aria-label="Whatsapp Icon">
                       <WhatsappIcon />
                     </IconButton>
                   </WhatsappShareButton>
-                  <FacebookShareButton url={window.location.href} hashtag="qmint" title="Qmint blog">
+                  <FacebookShareButton url={window.location.href} hashtag="bmk" title="Bullionmark blog">
                     <IconButton className="CircleButton SocialIcon" aria-label="Facebook Icon" >
                       <FacebookIcon />
                     </IconButton>
                   </FacebookShareButton>
-                  <TwitterShareButton url={window.location.href} title="Qmint blog" hashtags={["qmint", "blog"]}>
+                  <TwitterShareButton url={window.location.href} title="Bullionmark blog" hashtags={["bmk", "blog"]}>
                     <IconButton className="CircleButton SocialIcon" aria-label="Twitter Icon">
                       <TwitterIcon />
                     </IconButton>

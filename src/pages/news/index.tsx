@@ -34,6 +34,17 @@ import useDebounce from "@/hooks/useDebounce";
 import { navigate } from "gatsby";
 import Loader from "@/components/common/Loader";
 
+export const bodyData = {
+  "search": "",
+  "pageNo": 0,
+  "pageSize": -1,
+  "sortBy": "",
+  "sortOrder": "",
+  "filters": {
+    "keyword": null
+  }
+}
+
 function News() {
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
@@ -41,16 +52,7 @@ function News() {
   const [value, setValue] = React.useState<any>('all');
   const [searchValue, setSearchValue] = useState<string>('')
 
-  const [body, setbody] = useState<any>({
-    "search": "",
-    "pageNo": 0,
-    "pageSize": -1,
-    "sortBy": "",
-    "sortOrder": "",
-    "filters": {
-      "keyword": null
-    }
-  })
+  const [body, setbody] = useState<any>(bodyData)
   const debounce = useDebounce(body, 500)
 
 
