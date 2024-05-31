@@ -15,6 +15,7 @@ import { updateFinalDataForTheCheckout } from "@/redux/reducers/checkoutReducer"
 function TermsServices() {
   const dispatch = useAppDispatch()
   const { checkoutPageData } = useAppSelector((state) => state.checkoutPage)
+  console.log("🚀 ~ TermsServices ~ checkoutPageData:", checkoutPageData)
   const [openTermsServices, toggleTermsServices] = useToggle(false)
   const [readedTermAndServices, setreadedTermAndServices] = useState(false)
   useEffect(() => {

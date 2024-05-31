@@ -70,10 +70,10 @@ function MobileSecondaryMenu() {
               </Container>
             </ClickTooltip>
             {configDetailsState?.enablephone?.value !== false && <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>}
-            {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?
+            {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ?
               <ChartMenu />
               : null}
-            {configDetailsState?.enablecart?.value ?
+            {configDetailsState?.Cart_MenuIcon_Enable?.value ?
               <CartMenu onClick={handleCartMenu} />
               : null}
             <ActionMenu />
