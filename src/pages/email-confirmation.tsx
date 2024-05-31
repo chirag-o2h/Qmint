@@ -17,7 +17,6 @@ function EmailConfirmation() {
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
   if (isLoggedIn) {
     const lastPage = getLastPage();
-    console.log("🚀 ~ ActivateAccount ~ lastPage:", lastPage)
     if (lastPage && !lastPage.includes('activate-account')) {
       navigate(lastPage, { replace: true });
     }else{
