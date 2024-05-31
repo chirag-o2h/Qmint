@@ -627,9 +627,23 @@ export const BmkPostCard = (props: IBmkPostCard) => {
     <GatsbyLink to={navigate ?? "#"} className="BmkPostCard">
       <Box className="Content" color="text.primary">
         <img src={details?.imageUrl} className="ThumbnailImage" alt="Post thumbnail image" />
-        <Typography variant="h4" component="p" className="Title">{details?.title}</Typography>
-        <Typography variant="subtitle1" component="p" className="Description">{details?.bodyOverview}</Typography>
-        <Typography variant="body2" color="primary.main" className="Date">{formatDate(details?.createdOnUtc)}</Typography>
+        <Typography variant="h4" component="p" className="Title" onClick={() => {
+          if (navigate) {
+            navigate()
+          }
+        }}>{details?.title}</Typography>
+        <Typography variant="subtitle1" component="p" className="Description" dangerouslySetInnerHTML={{
+          __html: details?.shortDescription
+        }} onClick={() => {
+          if (navigate) {
+            navigate()
+          }
+        }}></Typography>
+        <Typography variant="body2" color="primary.main" className="Date" onClick={() => {
+            if (navigate) {
+              navigate()
+            }
+          }}>{formatDate(details?.createdOnUtc)}</Typography>
       </Box>
     </GatsbyLink>
   )
