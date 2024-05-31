@@ -41,8 +41,8 @@ function PopularProducts() {
   return (
     <Container id="PopularProducts" component="section">
       <SectionHeading
-        title={configDetails?.["home.popularproducts.tital"]?.value ?? "Popular Products*"}
-        description={configDetails?.["home.popularproducts.subtital"]?.value ?? "description*"}
+        title={configDetails?.["ShopHomepage_Section_4_Popular_Products_Title"]?.value ?? "Popular Products*"}
+        description={configDetails?.["ShopHomepage_Section_4_Popular_Products_Subtitle"]?.value ?? "description*"}
       />
       <Stack className="ToggleWrapper">
         <ToggleButtonGroup

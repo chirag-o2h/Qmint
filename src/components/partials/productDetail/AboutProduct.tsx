@@ -203,9 +203,9 @@ function AboutProduct({ productId }: any) {
         "sortOrder": "", "filters": {}
       }, url: ENDPOINTS.getWishListData
     }))
-    if (responseOFCurrentCount?.payload?.data?.data?.items?.length >= configDetailsState?.maximumwishlistitems?.value) {
+    if (responseOFCurrentCount?.payload?.data?.data?.items?.length >= configDetailsState?.Watchlist_MaxItems?.value) {
       showToaster({
-        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to Watchlist.`,
+        message: `Can not add more than ${configDetailsState?.Shoppingcart_MaxItems?.value} items to Watchlist.`,
         severity: 'error'
       })
       return
@@ -246,9 +246,9 @@ function AboutProduct({ productId }: any) {
         severity: 'error'
       })
     }
-    if (cartItems?.length && (cartItems?.length >= configDetailsState?.maximumshoppingcartitems?.value)) {
+    if (cartItems?.length && (cartItems?.length >= configDetailsState?.Shoppingcart_MaxItems?.value)) {
       showToaster({
-        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to cart.`,
+        message: `Can not add more than ${configDetailsState?.Shoppingcart_MaxItems?.value} items to cart.`,
         severity: 'error'
       })
       return
@@ -347,7 +347,7 @@ function AboutProduct({ productId }: any) {
             </Box>
             <Divider />
             <Box className="PricingDetails">
-              {(isLoggedIn || configDetailsState?.productpriceenableforguests?.value) ? <>
+              {(isLoggedIn || configDetailsState?.ProductPricing_Guests_Enable?.value) ? <>
                 <Stack className="Top">
                   <Stack className="Left">
                     <Box className="PriceWrapper">
@@ -403,7 +403,7 @@ function AboutProduct({ productId }: any) {
             </Box>
             <Box className="FixWrapper">
               <Box className="PricingDetails">
-                {(isLoggedIn || configDetailsState?.productpriceenableforguests?.value) ? <>
+                {(isLoggedIn || configDetailsState?.ProductPricing_Guests_Enable?.value) ? <>
                   <Stack className="Top">
                     <Stack className="Left">
                       <Stack className="PriceWrapper">
@@ -461,19 +461,19 @@ function AboutProduct({ productId }: any) {
               <Divider />
               <Box className="Mobileflex">
                 <Stack className="OrderDetails">
-                  {isLoggedIn || configDetailsState?.availabilityenableforguests?.value ?
+                  {isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value ?
                     <><ProductStockStatus availability={productDetailsData?.availability} colorClass={productDetailsData?.colorClass} iconClass={productDetailsData?.iconClass} />
                       {productDetailsData?.condition && <Typography className="ProductMessage">{productDetailsData?.condition}</Typography>}
                       <Typography className="ShipmentDetail">{productDetailsData?.description}</Typography></>
                     :
-                    <Typography className="ProductMessage">{configDetailsState?.membershipunloacktext?.value}</Typography>
+                    <Typography className="ProductMessage">{configDetailsState?.ProductDetails_Text_Guests?.value}</Typography>
                   }
                 </Stack>
                 {productDetailsData?.availability !== "Sold Out" &&
                   <>
                     <Divider />
                     <Stack className="OrderActions">
-                      {(isLoggedIn || configDetailsState?.buybuttonenableforguests?.value) ? (!productDetailsData?.disableBuyButton && <><Stack className="QuantityWrapper">
+                      {(isLoggedIn || configDetailsState?.BuyButtonsForGuests_Enable?.value) ? (!productDetailsData?.disableBuyButton && <><Stack className="QuantityWrapper">
                         <IconButton id='minus' className="Minus" onClick={(e) => {
                           e.stopPropagation()
                           handleQuentityUpdate('minus')
@@ -551,9 +551,9 @@ function AboutProduct({ productId }: any) {
                 </IconButton>
               </WhatsappShareButton>
 
-              {/* <IconButton href={configDetailsState?.youtubelink?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><YoutubeIcon /></IconButton>
-              <IconButton href={configDetailsState?.facebooklink?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><FacebookIcon /></IconButton>
-              <IconButton href={configDetailsState?.twitterlink?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><TwitterIcon /></IconButton> */}
+              {/* <IconButton href={configDetailsState?.SocialLinks_Youtube?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><YoutubeIcon /></IconButton>
+              <IconButton href={configDetailsState?.SocialLinks_Facebook?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><FacebookIcon /></IconButton>
+              <IconButton href={configDetailsState?.SocialLinks_Twitter?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><TwitterIcon /></IconButton> */}
             </Stack>
             <Divider />
             {(priceData?.data?.[0]?.tierPriceList?.length > 0 || productDetailsData?.isGradingShow) ? <Stack className="AdditionalDetails">
@@ -652,7 +652,7 @@ function AboutProduct({ productId }: any) {
               <Divider /></> : null}
             {!!productDetailsData?.imageConditionEnable && <Stack className="InfoMessage">
               <CameraIcon />
-              <Typography variant="body2">{configDetailsState?.imageconditiontext?.value}</Typography>
+              <Typography variant="body2">{configDetailsState?.ProductDetails_ConditionText?.value}</Typography>
             </Stack>}
           </form>
         </Box>

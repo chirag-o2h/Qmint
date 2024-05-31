@@ -116,8 +116,8 @@ function FeaturedProducts() {
     <Box id="FeaturedProducts" component="section">
       <Container>
         <SectionHeading
-          title={configDetails?.["home.featuredproducts.tital"]?.value ?? "Featured Products*"}
-          description={configDetails?.["home.featuredproducts.subtital"]?.value ?? "description*"}
+          title={configDetails?.["ShopHomepage_Section_2_Featured_Products_Title"]?.value ?? "Featured Products*"}
+          description={configDetails?.["ShopHomepage_Section_2_Featured_Products_Subtitle"]?.value ?? "description*"}
         />
       </Container>
       <Box className="ProductsWrapper">

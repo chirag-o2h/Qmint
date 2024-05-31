@@ -28,43 +28,43 @@ export const actionMenuItems = [
     text: "My Vault",
     href: "/my-vault",
     icon: <VaultIcon />,
-    key: 'enablemyvault'
+    key: 'MyVault_MenuIcon_Enable'
   },
   {
     text: "Sell to Us",
     icon: <SellToUsIcon />,
     href: "/topic/sell-to-us",
-    key: 'enableselltous'
+    key: 'SellToUs_MenuIcon_Enable'
   },
   {
     text: "Calculators",
     icon: <CalculatorIcon />,
     href: "/calculators",
-    key: 'enablecalculators'
+    key: 'Calculators_MenuIcon_Enable'
   },
   {
     text: "Loans",
     icon: <LoanIcon />,
     href: "/topic/loans",
-    key: 'enableloans'
+    key: 'Loans_MenuIcon_Enable'
   },
   {
     text: "Watchlist",
     icon: <WishlistIcon />,
     href: "/watchlist",
-    key: 'enablewishlist'
+    key: 'Watchlist_MenuIcon_Enable'
   },
   {
     text: "Recent",
     icon: <RecentIcon />,
     href: "/recently-viewed-products",
-    key: 'enablerecent'
+    key: 'Recent_MenuIcon_Enable'
   },
   {
     text: "Compare",
     icon: <CompareIcon />,
     href: "/compare-products",
-    key: 'enablecompare'
+    key: 'Compare_MenuIcon_Enable'
   },
 ]
 

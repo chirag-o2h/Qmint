@@ -131,9 +131,9 @@ const WishListDetails = ({ toggleEmailFriend }: { toggleEmailFriend: () => any }
                 })
             }
         }
-        if (cartItems?.length && (cartItems?.length + checkedItemsWithQuantity?.length >= configDetailsState?.maximumshoppingcartitems?.value)) {
+        if (cartItems?.length && (cartItems?.length + checkedItemsWithQuantity?.length >= configDetailsState?.Shoppingcart_MaxItems?.value)) {
             showToaster({
-                message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to cart.`,
+                message: `Can not add more than ${configDetailsState?.Shoppingcart_MaxItems?.value} items to cart.`,
                 severity: 'error'
             })
             return

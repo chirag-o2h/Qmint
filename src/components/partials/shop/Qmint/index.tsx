@@ -79,13 +79,13 @@ function QmintShop() {
                 />
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
 
-                {configDetailsState?.sliderenableinhome?.value === false || isMobile ? null : <Banner />}
+                {configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? null : <Banner />}
                 <Suspense fallback={<></>}> <ProductsSlider /></Suspense>
-                {configDetailsState?.["home.featuredproductsenable"]?.value !== false && <Suspense fallback={<></>}> <FeaturedProducts /></Suspense>}
-                {configDetailsState?.["home.lookingforenable"]?.value !== false && <Suspense fallback={<></>}> <LookingFor /></Suspense>}
-                {configDetailsState?.["home.popularproductsenable"]?.value !== false && <Suspense fallback={<></>}><PopularProducts /></Suspense>}
-                {configDetailsState?.["home.discovertreasureenable"]?.value !== false && <Suspense fallback={<></>}><DiscoverTreasure /></Suspense>}
-                {configDetailsState?.["home.closerlookenable"]?.value !== false && <Suspense fallback={<></>}><CloserLook /></Suspense>}
+                {configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false && <Suspense fallback={<></>}> <FeaturedProducts /></Suspense>}
+                {configDetailsState?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <Suspense fallback={<></>}> <LookingFor /></Suspense>}
+                {configDetailsState?.["ShopHomepage_Section_4_Popular_Products_Enable"]?.value !== false && <Suspense fallback={<></>}><PopularProducts /></Suspense>}
+                {configDetailsState?.["Shoppage_Section_5_One_pic_and_content_Enable"]?.value !== false && <Suspense fallback={<></>}><DiscoverTreasure /></Suspense>}
+                {configDetailsState?.["ShopHomepage_Section_6_Three_posts_in_a_row_Enable"]?.value !== false && <Suspense fallback={<></>}><CloserLook /></Suspense>}
                 {openSessionExpireDialog && <SessionExpiredDialog
                     open={openSessionExpireDialog}
                     onClose={toggleSessionExpireDialog}

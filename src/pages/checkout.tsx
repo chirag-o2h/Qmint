@@ -36,10 +36,10 @@ function Checkout() {
   const [state, setState] = useState({ service: getCheckoutPageData, endPoint: ENDPOINTS.checkoutDetails })
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
   useEffect(() => {
-    if(configDetailsState?.enabletermsofserviceonorderconfirm?.value == false){
+    if(configDetailsState?.Checkout_TermsOfService_Enable?.value == false){
       dispatch(updateFinalDataForTheCheckout({ termAndServiceIsRead: true }))
     }
-  }, [configDetailsState?.enabletermsofserviceonorderconfirm?.value])
+  }, [configDetailsState?.Checkout_TermsOfService_Enable?.value])
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const isInstantBuy = urlParams.get('isInstantBuy')
@@ -47,7 +47,7 @@ function Checkout() {
   }, [window.location.search, cartItems?.length])
   useAPIoneTime(state)
   useAlertPopUp({ pageName: 'Checkout', openPopup: toggleSessionExpireDialog })
-  if(configDetailsState?.checkoutenable?.value !== true){
+  if(configDetailsState?.Checkout_Enable?.value !== true){
     navigate('/shop')
   }
   if (loadingForCheckingLogin) {
@@ -70,7 +70,7 @@ function Checkout() {
               <Step1 />
               <Step2 />
               <Step3 />
-            {configDetailsState?.enabletermsofserviceonorderconfirm?.value !== false && <TermsServices />}
+            {configDetailsState?.Checkout_TermsOfService_Enable?.value !== false && <TermsServices />}
             </Stack>
             <OrderSummary />
           </>) : null}

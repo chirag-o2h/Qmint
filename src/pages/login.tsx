@@ -208,7 +208,7 @@ function SignInPage() {
         <Box id="SignInPage">
           <Container maxWidth="sm" >
             <DialogTitle component="p">
-              <img onClick={() => { navigate('/') }} src={configDetailsState?.storelogourl?.value} alt="QMint logo" loading='eager' />
+              <img onClick={() => { navigate('/') }} src={configDetailsState?.BrandLogoURL_Header?.value} alt="QMint logo" loading='eager' />
             </DialogTitle>
             {loginError && <Typography variant='subtitle1' component="p" className='LoginError' dangerouslySetInnerHTML={{
               __html: loginError

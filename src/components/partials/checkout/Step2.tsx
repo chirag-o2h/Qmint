@@ -28,9 +28,9 @@ function Step2() {
 
   const enabledPaymentMethods = useMemo(() => {
     const defaultPaymentType = getDefaultOption([
-      { enabled: configDetailsState?.secureShippingenable?.value, value: 'SecureShipping' },
+      { enabled: configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value, value: 'SecureShipping' },
       { enabled: configDetailsState?.localpickupenable?.value, value: 'LocalShipping' },
-      { enabled: configDetailsState?.vaultstorageenable?.value, value: 'VaultStorage' }
+      { enabled: configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value, value: 'VaultStorage' }
     ], 'SecureShipping');
     return defaultPaymentType
   }, [configDetailsState]);
@@ -205,7 +205,7 @@ function Step2() {
               infoTooltip
               arrow
             >
-              {configDetailsState?.["checkout.deliveryinfotext"]?.value}
+              {configDetailsState?.["Checkout_DeliveryInfoText"]?.value}
             </HoverTooltip>
           </Typography>
           <Select
@@ -216,8 +216,8 @@ function Step2() {
             IconComponent={SelectDropdown}
           >
             {configDetailsState?.localpickupenable?.value && <MenuItem value="LocalShipping">Local Pick Up</MenuItem>}
-            {configDetailsState?.secureShippingenable?.value && <MenuItem value="SecureShipping">Secure Shipping</MenuItem>}
-            {configDetailsState?.vaultstorageenable?.value && <MenuItem value="VaultStorage">Vault Storage</MenuItem>}
+            {configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value && <MenuItem value="SecureShipping">Secure Shipping</MenuItem>}
+            {configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value && <MenuItem value="VaultStorage">Vault Storage</MenuItem>}
           </Select>
         </Stack>
         {cartItemsWithLivePrice?.length > 1 && <FormControlLabel
@@ -237,7 +237,7 @@ function Step2() {
       </Stack>
       <Typography className="StepNote">
         {/* <Typography variant="titleLarge">Note:</Typography> */}
-        {configDetailsState?.["checkout.pricelockedtext"]?.value}</Typography>
+        {configDetailsState?.["Checkout_PriceLocking_Text"]?.value}</Typography>
     </StepWrapper>
   )
 }

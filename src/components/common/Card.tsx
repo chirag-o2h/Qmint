@@ -91,9 +91,9 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
   const { showToaster } = useShowToaster();
   const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const handleAddToCart = async () => {
-    if (cartItems?.length && (cartItems?.length >= configDetailsState?.maximumshoppingcartitems?.value)) {
+    if (cartItems?.length && (cartItems?.length >= configDetailsState?.Shoppingcart_MaxItems?.value)) {
       showToaster({
-        message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to cart.`,
+        message: `Can not add more than ${configDetailsState?.Shoppingcart_MaxItems?.value} items to cart.`,
         severity: 'error'
       })
       return
@@ -126,7 +126,7 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
       })
     }
   }
-  const renderStockStatus = isLoggedIn || configDetailsState?.availabilityenableforguests?.value
+  const renderStockStatus = isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value
   return (
     <Card className={classNames("ProductCard", { "Sticky": stickyProduct })} key={product.productId}>
       <Stack className="ImageWrapper">
@@ -145,7 +145,7 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
         }}>
           <Typography component="h3">{product.productName}</Typography>
         </Link>
-        {(isLoggedIn || configDetailsState?.productpriceenableforguests?.value) && <Stack className="ContentWrapper">
+        {(isLoggedIn || configDetailsState?.ProductPricing_Guests_Enable?.value) && <Stack className="ContentWrapper">
           <Stack className="Top">
             <Stack className="Left">
               { /*{product.productPrice !== 0 ? <Typography variant="subtitle1" className="ActualPrice">${product.productPrice}</Typography> : <><Typography variant="subtitle1" className="ActualPrice">${(product?.priceWithDetails?.tierPriceList && product?.priceWithDetails?.tierPriceList?.length > 0) ?

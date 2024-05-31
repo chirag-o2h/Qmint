@@ -18,8 +18,8 @@ interface MainLayout {
 const MainLayout = (props: MainLayout) => {
     const { children, blackTheme } = props
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
-    if (configDetailsState?.storefaviconiconurl?.value) {
-        const faviconUrl = configDetailsState?.storefaviconiconurl?.value; // Assuming API response contains favicon URL
+    if (configDetailsState?.Store_FaviconURL?.value) {
+        const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
         // Update favicon dynamically
         const link: any = document.querySelector("link[rel='icon']") || document.createElement('link');
         link.rel = 'icon';

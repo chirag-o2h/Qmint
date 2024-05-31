@@ -30,25 +30,25 @@ function FrontPricing() {
     const { data }: IApiResponse<ItickerData> = useApiRequest(ENDPOINTS.getTicker, 'get', null, 60);
     const renderedStockItems = useMemo(() => {
         const tickerStyle = {
-            tickerboxfontcolor: configDetailsState?.tickerboxfontcolor?.value,
-            tickertype: configDetailsState?.tickertype?.value,
+            tickerboxfontcolor: configDetailsState?.Store_Ticker_BoxFontColor?.value,
+            tickertype: configDetailsState?.Store_Ticker_Type?.value,
         }
         const isItForBullionMark = THEME_TYPE == '1'
-        return configDetailsState?.["mainhomepage.tickermetalpriceenable"]?.value || (isItForBullionMark) ? data?.data?.map((stock) => (
+        return configDetailsState?.["Ticker_HomePage_EnableforGuests"]?.value || (isItForBullionMark) ? data?.data?.map((stock) => (
             <StockReturnWithName key={stock.name} name={stock.name} value={stock.current} charturl={stock.charturl} status={stock.position === 1} percentage={stock.percentage} move={stock.move} tickerStyle={tickerStyle} isItForBullionMark={isItForBullionMark} />
         )) : null;
     }, [data, configDetailsState]);
     const renderdTextAfterText = useMemo(() => {
         //todo if ues is logged in the use this headerticker insted of this guestheaderticker
-        // <AfterStockReturnWithName text={configDetailsState?.headerticker?.value} />
-        return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.["mainhomepage.loginheaderticker"]?.value : configDetailsState?.["mainhomepage.guestheaderticker"]?.value} />
+        // <AfterStockReturnWithName text={configDetailsState?.Header_ShopHomePage_Ticker_Text?.value} />
+        return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.["Main_home_page_ticker_text"]?.value : configDetailsState?.["mainhomepage.Header_ShopHomePage_Ticker_Text_Guest"]?.value} />
     }, [configDetailsState])
     return (
         <Box
             id="PricingHeader"
             sx={{
-                fontFamily: configDetailsState?.tickerfontstyle?.value,
-                color: configDetailsState?.tickerfontcolor?.value,
+                fontFamily: configDetailsState?.Store_Ticker_FontStyle?.value,
+                color: configDetailsState?.Store_Ticker_FontColor?.value,
             }}>
             <Container className="PricingHeader">
                 <Stack

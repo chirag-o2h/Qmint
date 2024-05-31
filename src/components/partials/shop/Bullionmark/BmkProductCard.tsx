@@ -21,7 +21,7 @@ import { useAppSelector } from '@/hooks'
 function BmkProductCard({ product }: { product: IFeaturedProducts }) {
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
 
-    const renderStockStatus = isLoggedIn || configDetailsState?.availabilityenableforguests?.value
+    const renderStockStatus = isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value
 
     const handleAddToCart = () => {
 
