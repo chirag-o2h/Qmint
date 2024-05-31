@@ -69,7 +69,7 @@ interface Iproduct {
 interface IBmkPostCard {
   details: any
   navigate: any
-  isNews: boolean
+  isNews?: boolean
 }
 
 export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Iproduct) => {
@@ -624,6 +624,7 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
 
 export const BmkPostCard = (props: IBmkPostCard) => {
   const { details, navigate, isNews = false } = props
+  console.log("🚀 ~ BmkPostCard ~ details:", details)
   return (
     <GatsbyLink to={navigate ?? "#"} className="BmkPostCard">
       <Box className="Content" color="text.primary">
