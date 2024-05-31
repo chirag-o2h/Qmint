@@ -36,6 +36,7 @@ import { resetProductDetails } from "@/redux/reducers/categoryReducer"
 import noImage from '../../../assets/images/noImage.png'
 import useShowToaster from "@/hooks/useShowToaster"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
+import { THEME_TYPE } from "@/axiosfolder"
 
 function createData(
   quantity: string,
@@ -193,7 +194,7 @@ function AboutProduct({ productId }: any) {
 
   }
   const addToWatchList = async (id: any) => {
-    const responseOFCurrentCount:any = await dispatch(getWishListData({
+    const responseOFCurrentCount: any = await dispatch(getWishListData({
       body: {
         "search": "",
         "pageNo": 0,
@@ -202,7 +203,7 @@ function AboutProduct({ productId }: any) {
         "sortOrder": "", "filters": {}
       }, url: ENDPOINTS.getWishListData
     }))
-    if(responseOFCurrentCount?.payload?.data?.data?.items?.length >= configDetailsState?.maximumwishlistitems?.value){
+    if (responseOFCurrentCount?.payload?.data?.data?.items?.length >= configDetailsState?.maximumwishlistitems?.value) {
       showToaster({
         message: `Can not add more than ${configDetailsState?.maximumshoppingcartitems?.value} items to Watchlist.`,
         severity: 'error'
@@ -501,7 +502,7 @@ function AboutProduct({ productId }: any) {
                           handleQuentityUpdate('plus')
                         }}><PlusIcon /></IconButton>
                       </Stack>
-                        <Button color="success" variant="contained" endIcon={<AddToCartIcon />} onClick={async () => {
+                        <Button color={THEME_TYPE === '1' ? 'primary' : 'success'} variant="contained" endIcon={<AddToCartIcon />} onClick={async () => {
                           await addToCartFunction(false)
                           // navigate('/shopping-cart')
                         }} disabled={loadingForAddToCart}>Add to cart</Button>
