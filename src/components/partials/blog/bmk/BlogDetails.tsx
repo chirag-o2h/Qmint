@@ -64,7 +64,7 @@ function BlogDetails(params: any) {
   return (
     <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />
-      <Box className="BmkBlogDetailPage">
+      <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
         <Container className="BlogContainer">
           <Box className="BlogDetail">
