@@ -24,11 +24,11 @@ import useSubscription from "@/hooks/useSubscription";
 
 // Utils
 import { formatDate } from "@/utils/common";
-import { BlogDetailsAPI, BlogList } from "@/redux/reducers/blogReducer";
+import { NewsDetailsAPI, NewsList } from "@/redux/reducers/newsReducer";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/reducers/homepageReducer";
 
 // Components
-import MainLayout from "@/components/common/MainLayout";
+import Layout from "@/components/common/Layout";
 import Loader from "@/components/common/Loader";
 import { Breadcrumb } from "@/components/common/Utils";
 import { BmkPostCard } from "@/components/common/Card";
@@ -37,48 +37,48 @@ import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
 
-function BlogDetails(params: any) {
-  const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
+function NewsDetails(params: any) {
+  const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
   const dispatch = useAppDispatch()
   useAppSelector((state) => state.homePage)
-  const { blogDetailsData, blogList }: any = useAppSelector((state) => state.blogPage);
+  const { newsDetailsData, newsList }: any = useAppSelector((state) => state.newsPage);
   useSubscription();
   useEffect(() => {
     const apiCall = async () => {
       dispatch(setLoadingTrue())
-      await dispatch(BlogDetailsAPI({ params: { pathName: params?.["blog-details-friendly-name"] } }))
+      await dispatch(NewsDetailsAPI({ params: { pathName: params?.["news-details-friendly-name"] } }))
       setTimeout(() => {
         dispatch(setLoadingFalse())
       }, 1500);
     }
     apiCall()
-  }, [params?.params?.["blog-details-friendly-name"]])
+  }, [params?.params?.["news-details-friendly-name"]])
   useAPIoneTime({
-    service: BlogList,
-    endPoint: ENDPOINTS.BlogList,
+    service: NewsList,
+    endPoint: ENDPOINTS.NewsList,
     body: bodyData,
     // if ssr then uncommit this below line
     // conditionalCall: Object.keys(debounce ?? {}).length > 0
   });
 
   return (
-    <MainLayout blackTheme>
+    <Layout>
       <Loader open={checkLoadingStatus} />
       <Box className="BmkPostDetailPage">
-        <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
+        <Breadcrumb arr={[{ navigate: '/news', name: 'news' }]} />
         <Container className="BlogContainer">
           <Box className="BlogDetail">
             <Stack className="Header">
               <Typography variant="subtitle1" className="BlogSubtitle">
-                {blogDetailsData?.bodyOverview}
+                {newsDetailsData?.bodyOverview}
               </Typography>
               <Typography variant="h2" component="h2" className="BlogTitle">
-                {blogDetailsData?.title}
+                {newsDetailsData?.title}
               </Typography>
             </Stack>
             <Box className="PostThumbnail">
               <img
-                src={blogDetailsData?.imageUrl}
+                src={newsDetailsData?.imageUrl}
                 alt={noImage}
               />
             </Box>
@@ -93,7 +93,7 @@ function BlogDetails(params: any) {
                       variant="titleLarge"
                       component="p"
                     >
-                      {blogDetailsData?.createdBy}
+                      {newsDetailsData?.createdBy}
                     </Typography>
                   </Box>
                 </Stack>
@@ -110,7 +110,7 @@ function BlogDetails(params: any) {
                       variant="titleLarge"
                       component="p"
                     >
-                      {formatDate(blogDetailsData?.createdOnUtc)}
+                      {formatDate(newsDetailsData?.createdOnUtc)}
                     </Typography>
                   </Box>
                 </Stack>
@@ -140,12 +140,12 @@ function BlogDetails(params: any) {
               <Box className="ck-content">
                 <Typography
                   variant="body1"
-                  dangerouslySetInnerHTML={{ __html: blogDetailsData?.body }}
+                  dangerouslySetInnerHTML={{ __html: newsDetailsData?.body }}
                 ></Typography>
               </Box>
             </Box>
           </Box>
-          {blogList?.items?.length > 0 ? (
+          {newsList?.items?.length > 0 ? (
             <Box className="RecentPost">
               <Box className="RecentPost-Header">
                 <Typography variant="h2" component="h2">
@@ -153,11 +153,11 @@ function BlogDetails(params: any) {
                 </Typography>
               </Box>
               <Box className="PostsWrapper">
-                {blogList?.items?.slice(0, 2).map((item: any) => {
-                  console.log("🚀 ~ {blogList?.items?.slice ~ item:", item)
+                {newsList?.items?.slice(0, 2).map((item: any) => {
+                  console.log("🚀 ~ {newsList?.items?.slice ~ item:", item)
                   return (
                     <BmkPostCard details={item} navigate={() => {
-                      navigate(`/blog/${item?.friendlyName}`, { replace: true })
+                      navigate(`/news/${item?.friendlyName}`, { replace: true })
                     }
                     } />
                   );
@@ -167,7 +167,7 @@ function BlogDetails(params: any) {
           ) : null}
         </Container>
       </Box>
-    </MainLayout>
+    </Layout>
   );
 }
-export default React.memo(BlogDetails);
+export default React.memo(NewsDetails);

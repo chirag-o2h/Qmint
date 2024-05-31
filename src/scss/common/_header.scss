@@ -848,6 +848,7 @@
           @include media($xl + 1) {
             gap: 30px;
           }
+
           .MuiDivider-root {
             display: none;
           }
@@ -859,18 +860,6 @@
 
           @include media($lg) {
             gap: 10px;
-          }
-
-          .ProductUpdateCountdown {
-            .progress-bar {
-              border: 1px solid #FF681A;
-
-              .CircularProgressbar {
-                .CircularProgressbar-path {
-                  stroke: #FF681A !important;
-                }
-              }
-            }
           }
 
           .MenuButton,
@@ -920,10 +909,12 @@
 
     &.BmkBlackHeader {
       background-color: #000000;
+
       #PricingHeader {
         color: $white;
         background-color: inherit;
       }
+
       header {
         background-color: #000000;
 
@@ -933,6 +924,7 @@
 
               .MenuLink {
                 color: $white;
+
                 &:hover {
                   color: $pumpkinOrange;
                 }
@@ -955,7 +947,9 @@
                   .MuiInputBase-root {
                     .MuiInputBase-input {
                       color: $white;
-                      &::-webkit-input-placeholder, &::placeholder {
+
+                      &::-webkit-input-placeholder,
+                      &::placeholder {
                         color: currentColor;
                         opacity: 1;
                       }
