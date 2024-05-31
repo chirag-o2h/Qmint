@@ -1,0 +1,122 @@
+.BmkPostDetailPage {
+  .BlogContainer {
+    .BlogDetail {
+      margin-bottom: 60px;
+
+      .Header {
+        flex-direction: column;
+        justify-content: center;
+        gap: 11px;
+        text-align: center;
+
+        @include media($sm) {
+          text-align: left;
+          flex-direction: column-reverse;
+        }
+
+        .BlogTitle {
+          letter-spacing: -2px;
+        }
+
+        .BlogSubtitle {
+          font-weight: 400;
+        }
+      }
+
+      .PostThumbnail {
+        margin-top: 32px;
+
+        img {
+          width: 100%;
+          max-height: 700px;
+          object-fit: cover;
+        }
+      }
+
+      .AboutWrapper {
+        $iconSize: 53px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 35px;
+
+        .CircleButton {
+          color: $elephant;
+          border-radius: 50%;
+          border: 1px solid $dark;
+
+          @include media-min($lg) {
+            width: $iconSize;
+            height: $iconSize;
+          }
+        }
+
+        .PostUploadInfo {
+          gap: 22px;
+
+          .InfoWrapper {
+            align-items: center;
+            gap: 12px;
+
+            .Title {
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 26px;
+              color: $greyCarbon;
+            }
+
+            .Value {
+              line-height: 1;
+            }
+
+            &.Profile {
+              .MuiAvatar-root {
+                @include media-min($lg) {
+                  width: $iconSize;
+                  height: $iconSize;
+                }
+              }
+            }
+          }
+        }
+
+        .SocialMedia {
+          align-items: center;
+          gap: 11px;
+
+          .SocialIconWrapper {
+            gap: 10px;
+          }
+        }
+      }
+
+      .ContentWrapper {
+        margin-top: 46px;
+      }
+    }
+
+    .RecentPost {
+      margin-bottom: 60px;
+
+      &-Header {
+        text-align: center;
+        margin-bottom: 41px;
+      }
+
+      .PostsWrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px 36px;
+
+        @include media($md) {
+          gap: 30px 20px;
+        }
+
+        @include media($ssm) {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+    }
+  }
+}
