@@ -839,6 +839,12 @@
                     }
                   }
                 }
+
+                .PriceChangeReturn {
+                  &.Nuetral {
+                    background-color: $pumpkinOrange;
+                  }
+                }
               }
             }
 

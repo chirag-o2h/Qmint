@@ -8,6 +8,8 @@ import * as  variable from '../scss/settings/variables.module.scss'
 // Utils
 import { pxToRem } from '../utils/helper';
 
+import { THEME_TYPE } from "@/axiosfolder"
+
 const commonComponents: Components = {
   MuiCssBaseline: {
     styleOverrides: {
@@ -43,6 +45,9 @@ const commonComponents: Components = {
         display: "flex",
         flexDirection: "column",
       },
+      a: {
+        color: THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`
+      }
     },
   },
   MuiBackdrop: {
@@ -798,7 +803,7 @@ const bmkComponents: Components = {
         // overflowWrap: anywhere;
         transition: "300ms all ease",
         "&:hover": {
-          color: "#EAA22B",
+          color: "#FF681A",
         },
       },
     },
@@ -1037,6 +1042,7 @@ const bmkComponents: Components = {
       },
     },
   },
+
 }
 
 const components = (theme?: string) => {
