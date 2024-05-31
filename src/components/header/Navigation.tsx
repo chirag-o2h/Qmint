@@ -46,7 +46,6 @@ export interface Icategory {
 function Navigation({ frontPage = false, showNavigation = false }: { frontPage?: boolean, showNavigation?: boolean }) {
   const dispatch = useAppDispatch()
   const { configDetails: configDetailsState, categoriesList, needToShowProgressLoader, isLoggedIn } = useAppSelector((state) => state.homePage)
-  console.log("🚀 ~ Navigation ~ configDetailsState:", configDetailsState?.enablechart?.value)
   const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const [currententlySelected, setCurrententlySelected] = useState('')
   useEffect(() => {

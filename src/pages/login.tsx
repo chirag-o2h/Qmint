@@ -83,6 +83,11 @@ function SignInPage() {
     }
   };
 
+  function navigateToRegister1(){
+    setLoadingForNavigate(true)
+    navigate('/registration');
+    setLoadingForNavigate(false)
+  }
   function navigateToRegister() {
     setLoadingForNavigate(true)
     navigate(ENDPOINTS.createMyAccount + StoreData.returnUrl);
@@ -129,13 +134,13 @@ function SignInPage() {
         <Layout>
           <Stack id="BmkSignInPage">
             <Box className="LeftPart">
-              <img className="LoginImage" src="https://picsum.photos/400/500" alt="" />
+              <img className="LoginImage" src={configDetailsState?.Loginpage_Leftside_pic?.value} alt="" />
             </Box>
             <Stack className="RightPart">
               <form id="login-form" onKeyDown={handleEnterKeyPress}>
                 <Box className="Header">
-                  <Typography variant="h3" component="p">Hello Again!</Typography>
-                  <Typography variant="body2" className="Description" component="p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</Typography>
+                  <Typography variant="h3" component="p">{configDetailsState?.Loginpage_Rightside_Title?.value}</Typography>
+                  <Typography variant="body2" className="Description" component="p">{configDetailsState?.Loginpage_Rightside_Subtitle?.value}</Typography>
                 </Box>
                 <Stack className="FieldWrapper">
                   <TextField
@@ -197,7 +202,7 @@ function SignInPage() {
                   }}>Forgot Password?</Button></Link>
                 <Stack className="FormAction">
                   <Button name="signIn" aria-label="signIn" onClick={handleSubmit(onSubmit)} variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Sign Me In</Button>
-                  <Button onClick={navigateToRegister} name="Create My Account" aria-label="Create My Account" variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
+                  <Button onClick={navigateToRegister1} name="Create My Account" aria-label="Create My Account" variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
                 </Stack>
               </form>
             </Stack>
