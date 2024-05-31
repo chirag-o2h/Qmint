@@ -23,16 +23,23 @@ import GoogleMaps from "@/components/common/GoogleMaps"
 import RenderFields from "@/components/common/RenderFields"
 import { AddressComponents } from "@/utils/parseAddressComponents"
 import { isValidPhoneNumber } from "@/components/common/Utils"
-import { StateOrCountry } from "@/redux/reducers/checkoutReducer";
+import { StateOrCountry, getStateAndCountryLists } from "@/redux/reducers/checkoutReducer";
+import useAPIoneTime from "@/hooks/useAPIoneTime"
+import { ENDPOINTS } from "@/utils/constants"
+import Toaster from "@/components/common/Toaster"
+import Loader from "@/components/common/Loader"
+import { getRegistrationOTP, registration, verifyRegistrationOTP } from "@/redux/reducers/authReducer"
+import { hasFulfilled } from "@/utils/common"
+import useShowToaster from "@/hooks/useShowToaster"
+import { AxiosError } from "axios"
 
 interface Inputs {
   FirstName: string,
   LastName: string,
   Password: string,
-  "Confirm password": string,
-  Contact: string,
-  Email: string,
+  ConfirmPassword: string,
   PhoneNumber: string,
+  Email: string,
   OTP: string,
   Address1: string,
   Address2: string,
@@ -40,18 +47,67 @@ interface Inputs {
   Country: string,
   State: string,
   Code: number,
-  "Agent code": string
+  AgentCode: string,
+  PrivacyPolicy: boolean,
+  TermsCondition: boolean
 }
 
+const config: SwiperOptions = {
+  slidesPerView: 1.5,
+  centeredSlides: true,
+  spaceBetween: 20,
+  pagination: {
+    clickable: true,
+  },
+  loop: true,
+  speed: 300,
+  modules: [Pagination, Autoplay, A11y],
+  scrollbar: {
+    draggable: true
+  },
+  grabCursor: true,
+  autoplay: {
+    delay: 8000,
+  },
+};
+
 function Registration() {
+  const loading = useAppSelector(state => state.auth.loading)
+  const openToaster = useAppSelector(state => state.homePage.openToaster)
   const dispatch = useAppDispatch();
   const countryList = useAppSelector(state => state.checkoutPage.countryList);
   const stateListall = useAppSelector(state => state.checkoutPage.stateList);
   const [stateList, setStateList] = useState<{ id: number, name: string }[]>([])
   const [googleAddressComponents, setGoogleAddressComponents] = useState<AddressComponents & { postalCode?: string } | null>(null);
   const [countryValue, setcountryValue] = useState<any>("none")
-  const [isAddressGoogleVerified, setIsAddressGoogleVerified] = useState<boolean>(false)
   const [stateValue, setstateValue] = useState<any>(undefined)
+  const [showOTPField, setShowOTPField] = useState<boolean>(false)
+  const [otpValue, setOtpvalue] = useState<string>('')
+  const { showToaster } = useShowToaster();
+  const [password, setPassword] = useState('');
+  const [radioButtonInput, setRadioButtonInput] = useState("agent");
+  const [timer, setTimer] = useState(20);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const [passwordConditions, setPasswordConditions] = useState({
+    minLength: false,
+    uppercase: false,
+    lowercase: false,
+    number: false,
+  });
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPassword(value);
+
+    setPasswordConditions({
+      minLength: value.length >= 8,
+      uppercase: /[A-Z]/.test(value),
+      lowercase: /[a-z]/.test(value),
+      number: /[0-9]/.test(value),
+    });
+  };
+
   const [phoneNumberValue, setPhoneNumberValue] = useState<{ value: string, country: any }>({
     value: "",
     country: {}
@@ -63,28 +119,47 @@ function Registration() {
     FirstName: yup.string().trim().required("First name is a required field"),
     LastName: yup.string().trim().required("Last name is a required field"),
     Company: yup.string().trim(),
-    Contact: yup.string().trim().test("valid-phone-number", "Please enter a valid phone number",
+    PhoneNumber: yup.string().trim().test("valid-phone-number", "Please enter a valid phone number",
       function (value) {
         if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
         else return false;
       }),
     Password: yup.string().trim().required(),
-    "Confirm password": yup.string().trim().required(),
+    ConfirmPassword: yup.string().trim().required().oneOf([yup.ref("Password"), null as any], "Passwords must match"),
     Email: yup.string().email().required(),
-    PhoneNumber: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
-      function (value) {
-        if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
-        else return false;
-      }),
-    OTP: yup.string().required().trim().required(),
     Address1: yup.string().trim().required("Address 1 in required field"),
     Address2: yup.string().trim(),
     City: yup.string().required().trim(),
     State: yup.string().required(),
     Country: yup.string().notOneOf(["none"], "Country is required field"),
     Code: yup.string().required("Zip / Postal code is required").trim(),
-    "Agent code": yup.string().required(),
+    AgentCode: yup.string().required(),
+    PrivacyPolicy: yup.boolean().oneOf([true], "Please accept the privacy policy"),
+    TermsCondition: yup.boolean().oneOf([true], "Please accept the terms and condition")
   })
+
+  useEffect(() => {
+    let interval: any;
+
+    if (timer > 0 && showOTPField) {
+      setIsButtonDisabled(true);
+      interval = setInterval(() => {
+        setTimer(prevTimer => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      setIsButtonDisabled(false);
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [timer, showOTPField]);
+
+  const handleResendClick = () => {
+    getOtpHandler();
+    setTimer(20); // Reset the timer
+  };
+
+  useAPIoneTime({ service: getStateAndCountryLists, endPoint: ENDPOINTS.getStateAndCountryLists });
 
   const {
     register,
@@ -100,18 +175,37 @@ function Registration() {
     resolver: yupResolver(addressSchema)
   })
 
-  const handleFormSubmit = (data: any) => {
-    console.log("🚀 ~ handleSubmit ~ data:", data)
-  }
+  useEffect(() => {
+    if (googleAddressComponents) {
+      setValue('Address1', googleAddressComponents.address)
+      countryList.forEach((country) => {
+        if (country.name === googleAddressComponents.country.trim()) {
+          setValue('Country', country.id.toString())
+          setcountryValue(country.id.toString())
+        }
+      })
+      setValue('State', googleAddressComponents.state)
+      setstateValue(googleAddressComponents.state)
+      setStateId(() => null);
+      setValue('City', googleAddressComponents?.city)
+      setValue('Address2', googleAddressComponents.address2)
+      if (googleAddressComponents?.postalCode) {
+        setValue("Code", Number(googleAddressComponents?.postalCode));
+      }
+      clearErrors('Country')
+      clearErrors('State')
+      clearErrors('City')
+      clearErrors('Address1')
+      clearErrors('Code')
+    }
+  }, [googleAddressComponents])
 
-  const renderPasswordConditionItem = (condition: string, status: boolean) => {
-    return (
-      <Stack className="PasswordConditionItem">
-        {status ? <ContainedCheckIcon /> : <ContainedCrossIcon />}
-        <Typography>{condition}</Typography>
-      </Stack>
-    )
-  }
+  useEffect(() => {
+    const data: any = stateListall.filter((state: any) => {
+      return state.enumValue == countryValue || countryValue == "none"
+    })
+    setStateList(data)
+  }, [stateListall, countryValue])
 
   useEffect(() => {
     if (firstTimeRender.current) {
@@ -129,27 +223,120 @@ function Registration() {
     }
   }, [phoneNumberValue])
 
-  const config: SwiperOptions = {
-    slidesPerView: 1,
-    centeredSlides: true,
-    spaceBetween: 20,
-    pagination: {
-      clickable: true,
-    },
-    loop: true,
-    speed: 300,
-    modules: [Pagination, Autoplay, A11y],
-    scrollbar: {
-      draggable: true
-    },
-    grabCursor: true,
-    autoplay: {
-      delay: 8000,
-    },
-  };
+  const renderPasswordConditionItem = (condition: string, status: boolean) => {
+    return (
+      <Stack className="PasswordConditionItem">
+        {status ? <ContainedCheckIcon /> : <ContainedCrossIcon />}
+        <Typography>{condition}</Typography>
+      </Stack>
+    )
+  }
+
+  const handleFormSubmit = async(data: any) => {
+    console.log("🚀 ~ handleFormSubmit ~ data:", data)
+
+    const payload = {
+      FirstName: data.FirstName,
+      LastName: data.LastName,
+      Password: data.Password,
+      ConfirmPassword: data.ConfirmPassword,
+      Email: data.Email,
+      Phonenumber: phoneNumberValue.value,
+      Address1: data.Address1,
+      Address2: data.Address2,
+      Country: data.Country,
+      StateName: data.State,
+      State: stateList.find((state) => state.name === data.State)?.id || 0,
+      City: data.City,
+      Pincode: data.Code,
+      IsAgentId: radioButtonInput === "agent",
+      AgentCode: radioButtonInput === "agent" ? data.AgentCode : null,
+      DailyPriceAlert: radioButtonInput === "dailyPriceAlert",
+      NewsLetter: radioButtonInput === "newsletter",
+      IAcceptPrivacyPolicy: true,
+      Termsofservice: false
+    }
+
+    const response = await dispatch(registration({ url: ENDPOINTS.registration, body: payload }));
+
+    if (hasFulfilled(response.type)) {
+      showToaster({
+        message: response?.payload?.data.message,
+        severity: "success"
+      })
+    }
+    else {
+      showToaster({
+        message: (response?.payload as AxiosError)?.response?.data?.message || "Failed to register",
+        severity: "error"
+      })
+    }
+  }
+
+  const OnChange = (value: any) => {
+    setcountryValue(value)
+    setValue('Country', value)
+  }
+
+  const getOtpHandler = async () => {
+    const response = await dispatch(getRegistrationOTP({ url: ENDPOINTS.getRegistrationOTP, body: { Phonenumber: getValues("PhoneNumber") } }));
+    console.log("🚀 ~ getOtpHandler ~ response:", response)
+
+    if (hasFulfilled(response.type)) {
+      const resData = response?.payload?.data.data;
+      if (resData == true) {
+        setShowOTPField(true)
+        showToaster({
+          message: response?.payload?.data.message,
+          severity: "success"
+        })
+      }
+      else {
+        showToaster({
+          message: "Failed to send OTP",
+          severity: "error"
+        })
+      }
+    }
+    else {
+      showToaster({
+        message: "Failed to send OTP",
+        severity: "error"
+      })
+    }
+  }
+
+  const verifyOtpHandler = async () => {
+    const response = await dispatch(verifyRegistrationOTP({ url: ENDPOINTS.verifyRegistrationOTP, body: { ContactNo: getValues("PhoneNumber"), OTP: getValues("OTP") } }));
+
+    if (hasFulfilled(response.type)) {
+      const resData = response?.payload?.data.data;
+      if (resData == true) {
+        setShowOTPField(true)
+        showToaster({
+          message: response?.payload?.data.message,
+          severity: "success"
+        })
+      }
+      else {
+        showToaster({
+          message: "Failed to send OTP",
+          severity: "error"
+        })
+      }
+    }
+    else {
+      showToaster({
+        message: "Failed to send OTP",
+        severity: "error"
+      })
+    }
+  }
 
   return (
     <Layout>
+      {openToaster && <Toaster />}
+      <Loader open={loading} />
       <Stack id="RegistrationPage">
         <Stack className="LeftPart">
           <Box className="StickyWrapper">
@@ -215,11 +402,12 @@ function Registration() {
                   variant="outlined"
                   margin="none"
                   fullWidth
+                  onChange={handlePasswordChange}
                 />
                 <RenderFields
                   type="password"
                   register={register}
-                  error={errors["Confirm password"]}
+                  error={errors.ConfirmPassword}
                   name="ConfirmPassword"
                   placeholder="Confirm Password"
                   className="Password"
@@ -232,10 +420,10 @@ function Registration() {
               <Box className="PasswordCondition">
                 <Typography className="Message">Your Password Must :</Typography>
                 <Stack className="ConditionWrapper">
-                  {renderPasswordConditionItem("Be at least 8 character in length", true)}
-                  {renderPasswordConditionItem("An uppercase letter ( A - Z )", false)}
-                  {renderPasswordConditionItem("An lowercase Letter (a - z )", true)}
-                  {renderPasswordConditionItem("A number ( 0 - 9 )", true)}
+                  {renderPasswordConditionItem("Be at least 8 character in length", passwordConditions.minLength)}
+                  {renderPasswordConditionItem("An uppercase letter ( A - Z )", passwordConditions.uppercase)}
+                  {renderPasswordConditionItem("An lowercase Letter (a - z )", passwordConditions.lowercase)}
+                  {renderPasswordConditionItem("A number ( 0 - 9 )", passwordConditions.number)}
                 </Stack>
               </Box>
               <RenderFields
@@ -265,31 +453,35 @@ function Registration() {
                       margin="none"
                       fullWidth
                     />
-                    <Button variant="contained">GET OTP</Button>
+                    <Button variant="contained" onClick={getOtpHandler}>GET OTP</Button>
                   </Box>
-                  <RenderFields
+                  {showOTPField && <RenderFields
                     register={register}
                     error={errors.OTP}
                     name="OTP"
                     placeholder="OTP"
                     control={control}
                     variant="outlined"
+                    value={otpValue}
+                    // onChange={(e) => setOtpvalue(e.target.value)}
                     margin="none"
                     className="OTPField"
                     endAdornment={
                       <InputAdornment position="end">
-                        <IconButton>
+                        <IconButton onClick={verifyOtpHandler}>
                           <SmallRightIcon />
                         </IconButton>
                       </InputAdornment>
                     }
                     fullWidth
-                  />
+                  />}
                 </Stack>
-                <Stack className="ResendOTP">
-                  <Typography className="Message">Didn't received OTP? <Typography color="primary.main" variant="inherit" component="span">00:20</Typography></Typography>
-                  <Button>Resend OTP</Button>
-                </Stack>
+                {showOTPField && <Stack className="ResendOTP">
+                  <Typography className="Message">Didn't received OTP? <Typography color="primary.main" variant="inherit" component="span">
+                    00:{timer < 10 ? `0${timer}` : timer}
+                  </Typography></Typography>
+                  <Button onClick={handleResendClick} disabled={isButtonDisabled}>Resend OTP</Button>
+                </Stack>}
               </Box>
               <GoogleMaps setParsedAddress={setGoogleAddressComponents} />
               <RenderFields
@@ -326,9 +518,7 @@ function Registration() {
                     margin="none"
                     value={countryValue}
                     setValue={setValue}
-                    onChange={() => {
-                      setIsAddressGoogleVerified(false)
-                    }}
+                    onChange={OnChange}
                     fullWidth
                   >
                     <MenuItem value="none">Select Country</MenuItem>
@@ -410,15 +600,17 @@ function Registration() {
                 <RadioGroup
                   defaultValue="agent"
                   name="UserType"
+                  value={radioButtonInput}
+                  onChange={(e) => setRadioButtonInput(e.target.value)}
                   row
                 >
                   <FormControlLabel value="agent" control={<Radio />} label="Agent" />
                   <FormControlLabel value="dailyPriceAlert" control={<Radio />} label="Daily Price Alert" />
                   <FormControlLabel value="newsletter" control={<Radio />} label="Newsletter" />
                 </RadioGroup>
-                <RenderFields
+                {radioButtonInput == "agent" && <RenderFields
                   register={register}
-                  error={errors["Agent code"]}
+                  error={errors.AgentCode}
                   name="AgentCode"
                   placeholder="Agent Code"
                   control={control}
@@ -426,7 +618,7 @@ function Registration() {
                   variant="outlined"
                   margin="none"
                   fullWidth
-                />
+                />}
               </Box>
               <Box className="AgreementWrapper">
                 <RenderFields
@@ -450,7 +642,7 @@ function Registration() {
               </Box>
             </Stack>
             <Stack className="ActionWrapper">
-              <Button type="submit" variant="contained" size="large" fullWidth>
+              <Button type="submit" variant="contained" size="large" fullWidth disabled={loading || getValues("PrivacyPolicy") === false || getValues("TermsCondition") === false}>
                 Agree And Create Account
               </Button>
             </Stack>

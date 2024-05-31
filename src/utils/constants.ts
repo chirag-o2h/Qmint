@@ -1,6 +1,11 @@
 import { STORE_CODE } from "@/axiosfolder"
 
 export const ENDPOINTS = {
+    // Registration
+    registration: "account/GSEYlTkJeVSWkGhXentuvoUQf2c",
+    getRegistrationOTP : "account/mPaSzPrFGIeznbUEAo0H",
+    verifyRegistrationOTP: "account/zVciOfK6fmgpnnpfs63okmgd3Gw",
+    
     getConfigStore: 'store/duMyjVf3k0KIi7Rq7CmHAA',
     getTicker: 'calculator/DMJqdS7VvR2VMk9R',
     getProduct: 'product/m9XieCcNOUOxk5ODsP6FXQ/0',

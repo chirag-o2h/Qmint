@@ -132,8 +132,8 @@ const RenderFields: React.FC<RenderFieldProps> = ({
     if (setValue)
       setValue(name, value)
   }, [value])
-  if(name === "State")
-  console.log("🚀 ~ useEffect ~ value:", value)
+  if (name === "State")
+    console.log("🚀 ~ useEffect ~ value:", value)
 
   let fieldType = null
   switch (type) {
@@ -317,6 +317,11 @@ const RenderFields: React.FC<RenderFieldProps> = ({
             }}
             {...register(name)}
             {...otherProps}
+            onChange={(e) => {
+              if (onChange) {
+                onChange(e)
+              }
+            }}
           />
         </FormControl>
       )
@@ -381,7 +386,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                   }
                   return option?.name;
                 }}
-                renderInput={(params) => <TextField placeholder="Enter state *" {...params} error={!!error}/>}
+                renderInput={(params) => <TextField placeholder="Enter state *" {...params} error={!!error} />}
                 fullWidth
                 onChange={(_, value) => {
                   if (!value) {
