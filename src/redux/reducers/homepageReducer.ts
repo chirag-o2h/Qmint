@@ -101,7 +101,7 @@ interface CreateGuidelineState {
   isLoggedIn: boolean,
   loadingForSignIn: boolean,
   mebershipPlanDetailsData: any,
-  recentlyViewedProducts: any[] | null,
+  recentlyViewedProducts: any[],
   // toaster
   openToaster: boolean,
   footerSections: FooterSection[] | null,
@@ -207,7 +207,7 @@ const initialState: CreateGuidelineState = {
   loadingForSignIn: false,
   mebershipPlanDetailsData: isBrowser && JSON.parse(localStorageGetItem('mebershipPlanDetailsData') ?? JSON.stringify({})),
   // recentlyViewedProducts: isBrowser && JSON.parse(localStorageGetItem('recentlyViewedProducts') ?? JSON.stringify([])),
-  recentlyViewedProducts: null,
+  recentlyViewedProducts: [],
   openToaster: false,
   buttonText: '',
   redirectButtonUrl: '',
@@ -362,7 +362,7 @@ export const createHomepageSlice = createSlice({
       state.loading = false
     },
     setRecentlyViewedProduct: (state, action) => {
-      if (!state.recentlyViewedProducts) return;
+      // if (!state.recentlyViewedProducts) return;
       const newProductId = action.payload;
       // Check if the product already exists in the recently viewed list
       const existingIndex = state.recentlyViewedProducts.findIndex(productId => productId === newProductId);
@@ -515,12 +515,12 @@ export const createHomepageSlice = createSlice({
       localStorageSetItem('userDetails', '')
       localStorageSetItem('isLoggedIn', JSON.stringify(false))
     })
-    builder.addCase(LogOutUserAPI.rejected, (state, action:any) => {
-      if(action?.payload?.response?.status == 401){
-      state.userDetails = null
-      state.isLoggedIn = false
-      localStorageSetItem('userDetails', '')
-      localStorageSetItem('isLoggedIn', JSON.stringify(false))
+    builder.addCase(LogOutUserAPI.rejected, (state, action: any) => {
+      if (action?.payload?.response?.status == 401) {
+        state.userDetails = null
+        state.isLoggedIn = false
+        localStorageSetItem('userDetails', '')
+        localStorageSetItem('isLoggedIn', JSON.stringify(false))
       }
       state.loading = false
     })

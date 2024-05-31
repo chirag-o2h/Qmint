@@ -1,6 +1,7 @@
 import { CrossIconWithOutlineCircle, VerifiedIcon } from '@/assets/icons'
 import RenderFields from '@/components/common/RenderFields'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import useDebounce from '@/hooks/useDebounce'
 import { getLocalAgentDetails } from '@/redux/reducers/checkoutReducer'
 import { hasFulfilled } from '@/utils/common'
 import { ENDPOINTS } from '@/utils/constants'
@@ -14,20 +15,19 @@ const AgentContent = () => {
     const dispatch = useAppDispatch();
     const [agentNotFoundMessage, setNotFoundMessage] = useState<string | null>(null)
 
-    const defferedInput = useDeferredValue(inputAgentId);
+    const debouncedInput = useDebounce(inputAgentId,700);
 
     useEffect(() => {
-        if (defferedInput && defferedInput?.trim().length >= 5) {
+        if (debouncedInput && debouncedInput?.trim().length >= 5) {
             const fetchAgentDetails = async () => {
                 const response = await dispatch(getLocalAgentDetails({ url: ENDPOINTS.getLocalAgentDetails + `?AgentId=${inputAgentId}` }))
                 if (!hasFulfilled(response.type) && (response.payload as any).response.status === 404) {
-                    console.log("🚀 ~ fetchAgentDetails ~ response:", response)
                     setNotFoundMessage((response.payload as any).response.data.message);
                 }
             }
             fetchAgentDetails();
         }
-    }, [defferedInput])
+    }, [debouncedInput])
 
     return (
         <Box className="FieldWrapper AgentCodeContent">
