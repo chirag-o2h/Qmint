@@ -10,8 +10,19 @@ import { ENDPOINTS } from "@/utils/constants"
 
 // Components
 import Layout from "@/components/common/Layout"
+import { useAppSelector } from "@/hooks"
+import { getLastPage } from "@/utils/common"
 
 function Confirmation() {
+  const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
+  if (isLoggedIn) {
+    const lastPage = getLastPage();
+    if (lastPage && !lastPage.includes('confirmation')) {
+      navigate(lastPage, { replace: true });
+    }else{
+      navigate('/', { replace: true });
+    }
+  }
   return (
     <Layout>
       <Container id="Confirmation">
