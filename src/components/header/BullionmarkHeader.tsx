@@ -44,7 +44,6 @@ const BullionmarkHeader = () => {
       setIsFrontHeader(true)
     }
   }, [window.location.pathname])
-  console.log("🚀 ~ useEffect ~ window.location.pathname:", window.location.pathname, isFrontHeader)
 
   return (
     <>

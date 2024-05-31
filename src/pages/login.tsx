@@ -111,14 +111,13 @@ function SignInPage() {
     console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
     const lastPage = getLastPage();
     console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
-    if (lastPage) {
+    if (lastPage && !lastPage.includes('login')) {
       // Redirect the user to the last visited page
       console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
       navigate(lastPage, { replace: true });
     } else {
       // Redirect the user to a default page
       navigate('/', { replace: true })
-
     }
     return;
   }

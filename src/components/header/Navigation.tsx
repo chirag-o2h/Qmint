@@ -134,32 +134,32 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
 
           {!frontPage && (
             <Stack className="RightPart">
-              {/* {needToShowProgressLoader &&  */}
-              <ProductUpdateCountdown needToShowText={false} />
-              {/* } */}
-              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>)}
-              {/* {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ?  */}
-              <Suspense fallback={<></>}> <ChartMenu /></Suspense>
-              {/* : null} */}
-              {/* {configDetailsState?.Cart_MenuIcon_Enable?.value ?  */}
-              <Suspense fallback={<></>}>
-                <HoverTooltip
-                  className="CartHoverList"
-                  placement="bottom-start"
-                  renderComponent={
-                    <Link area-label="shopping-cart-link" to="/shopping-cart">
-                      <Badge badgeContent={cartItems?.length?.toString()} color="primary" max={99}>
-                        <CartMenu />
-                      </Badge>
-                    </Link>
-                  }
-                  disablePortal
-                  lightTheme
-                >
-                  {configDetailsState?.Cart_Popup_Enable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.Cart_Popup_MaxProducts?.value ?? 3} />}
-                </HoverTooltip>
-              </Suspense>
-              {/* : null} */}
+              {needToShowProgressLoader &&
+                <ProductUpdateCountdown needToShowText={false} />
+              }
+              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>)}
+              {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?
+                <Suspense fallback={<></>}> <ChartMenu /></Suspense>
+                : null}
+              {configDetailsState?.enablecart?.value ?
+                <Suspense fallback={<></>}>
+                  <HoverTooltip
+                    className="CartHoverList"
+                    placement="bottom-start"
+                    renderComponent={
+                      <Link area-label="shopping-cart-link" to="/shopping-cart">
+                        <Badge badgeContent={cartItems?.length?.toString()} color="primary" max={99}>
+                          <CartMenu />
+                        </Badge>
+                      </Link>
+                    }
+                    disablePortal
+                    lightTheme
+                  >
+                    {configDetailsState?.minishoppingcartenable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.minishoppingcartproductnumber?.value ?? 3} />}
+                  </HoverTooltip>
+                </Suspense>
+                : null}
               <ActionMenu />
             </Stack>
           )}

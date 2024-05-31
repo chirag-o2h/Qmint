@@ -58,7 +58,7 @@ function MobileSecondaryMenu() {
               onClose={toggleOpenSearch}
               onClickAway={handleClickAway}
               renderComponent={
-                // configDetailsState?.Search_MenuIcon_Enable?.value &&
+                configDetailsState?.enablesearch?.value &&
                 <IconButton aria-label='SearchButton' ref={searchButtonRef} className={classNames("MenuButton", { "Active": false })} onClick={toggleOpenSearch}><Search /></IconButton>
               }
               lightTheme
@@ -69,13 +69,13 @@ function MobileSecondaryMenu() {
                 <SearchField />
               </Container>
             </ClickTooltip>
-            {configDetailsState?.Phone_MenuIcon_Enable?.value !== false && <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>}
-            {/* {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ? */}
-            <ChartMenu />
-            {/* : null} */}
-            {/* {configDetailsState?.Cart_MenuIcon_Enable?.value ? */}
-            <CartMenu onClick={handleCartMenu} />
-            {/* : null} */}
+            {configDetailsState?.enablephone?.value !== false && <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>}
+            {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?
+              <ChartMenu />
+              : null}
+            {configDetailsState?.enablecart?.value ?
+              <CartMenu onClick={handleCartMenu} />
+              : null}
             <ActionMenu />
           </Stack>
         </Container>
