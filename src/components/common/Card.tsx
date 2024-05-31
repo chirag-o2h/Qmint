@@ -69,6 +69,7 @@ interface Iproduct {
 interface IBmkPostCard {
   details: any
   navigate: any
+  isNews: boolean
 }
 
 export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Iproduct) => {
@@ -622,7 +623,7 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
 }
 
 export const BmkPostCard = (props: IBmkPostCard) => {
-  const { details, navigate } = props
+  const { details, navigate, isNews = false } = props
   return (
     <GatsbyLink to={navigate ?? "#"} className="BmkPostCard">
       <Box className="Content" color="text.primary">
@@ -633,7 +634,7 @@ export const BmkPostCard = (props: IBmkPostCard) => {
           }
         }}>{details?.title}</Typography>
         <Typography variant="subtitle1" component="p" className="Description" dangerouslySetInnerHTML={{
-          __html: details?.shortDescription
+          __html:isNews ? details?.shortDescription : details?.bodyOverview
         }} onClick={() => {
           if (navigate) {
             navigate()

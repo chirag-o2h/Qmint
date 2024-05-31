@@ -158,7 +158,9 @@ function NewsDetails(params: any) {
                     <BmkPostCard details={item} navigate={() => {
                       navigate(`/news/${item?.friendlyName}`, { replace: true })
                     }
-                    } />
+                    }
+                    isNews={true}
+                     />
                   );
                 })}
               </Box>
