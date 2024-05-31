@@ -28,7 +28,7 @@ import { BlogDetailsAPI, BlogList } from "@/redux/reducers/blogReducer";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/reducers/homepageReducer";
 
 // Components
-import Layout from "@/components/common/Layout";
+import MainLayout from "@/components/common/MainLayout";
 import Loader from "@/components/common/Loader";
 import { Breadcrumb } from "@/components/common/Utils";
 import { BmkPostCard } from "@/components/common/Card";
@@ -62,7 +62,7 @@ function BlogDetails(params: any) {
   });
 
   return (
-    <Layout>
+    <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />
       <Box className="BmkBlogDetailPage">
         <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
@@ -167,7 +167,7 @@ function BlogDetails(params: any) {
           ) : null}
         </Container>
       </Box>
-    </Layout>
+    </MainLayout>
   );
 }
 export default React.memo(BlogDetails);
