@@ -10,7 +10,7 @@ import { SwiperOptions } from "swiper/types"
 import { Link } from "gatsby"
 
 // Assets
-import { ContainedCheckIcon, ContainedCrossIcon, TickIcon } from "@/assets/icons"
+import { CheckboxUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon } from "@/assets/icons"
 
 // Hooks
 import { useAppDispatch, useAppSelector } from "@/hooks"
@@ -244,20 +244,23 @@ function Registration() {
               />
               <Box className="OTPWrapper">
                 <Stack className="Column">
-                  <RenderFields
-                    register={register}
-                    type="phoneInput"
-                    control={control}
-                    setValue={setValue}
-                    name="PhoneNumber"
-                    error={errors.PhoneNumber}
-                    value={phoneNumberValue.value}
-                    setPhoneNumberValue={setPhoneNumberValue}
-                    className="ContactSelect"
-                    variant="outlined"
-                    margin="none"
-                    fullWidth
-                  />
+                  <Box className="PhoneNumber">
+                    <RenderFields
+                      register={register}
+                      type="phoneInput"
+                      control={control}
+                      setValue={setValue}
+                      name="PhoneNumber"
+                      error={errors.PhoneNumber}
+                      value={phoneNumberValue.value}
+                      setPhoneNumberValue={setPhoneNumberValue}
+                      className="ContactSelect"
+                      variant="outlined"
+                      margin="none"
+                      fullWidth
+                    />
+                    <Button variant="contained">GET OTP</Button>
+                  </Box>
                   <RenderFields
                     register={register}
                     error={errors.OTP}
@@ -266,21 +269,20 @@ function Registration() {
                     control={control}
                     variant="outlined"
                     margin="none"
-                    fullWidth
+                    className="OTPField"
                     endAdornment={
                       <InputAdornment position="end">
-                        <IconButton
-                          edge="end"
-                        >
-                          <TickIcon />
+                        <IconButton>
+                          <SmallRightIcon />
                         </IconButton>
                       </InputAdornment>
                     }
+                    fullWidth
                   />
                 </Stack>
                 <Stack className="ResendOTP">
-                  <Typography>Didn't received OTP? <Typography color="primary.main" variant="inherit" component="span">00:20</Typography></Typography>
-                  <Button>Resent OTP</Button>
+                  <Typography className="Message">Didn't received OTP? <Typography color="primary.main" variant="inherit" component="span">00:20</Typography></Typography>
+                  <Button>Resend OTP</Button>
                 </Stack>
               </Box>
               <GoogleMaps setParsedAddress={setGoogleAddressComponents} />

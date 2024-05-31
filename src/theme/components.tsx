@@ -633,7 +633,6 @@ const bmkComponents: Components = {
   MuiOutlinedInput: {
     styleOverrides: {
       root: {
-        borderRadius: 10,
         '&:hover': {
           '.MuiOutlinedInput-notchedOutline': {
             borderColor: `${variable.dark}33`,
@@ -641,8 +640,8 @@ const bmkComponents: Components = {
         },
       },
       input: {
-        paddingTop: 18.5,
-        paddingBottom: 18.5,
+        paddingTop: 13,
+        paddingBottom: 13,
         paddingLeft: 23,
         paddingRight: 23,
       },
@@ -1006,6 +1005,15 @@ const bmkComponents: Components = {
   },
   MuiAutocomplete: {
     styleOverrides: {
+      root: {
+        "& .MuiOutlinedInput-root": {
+          paddingLeft: 18,
+          "& .MuiOutlinedInput-input": {
+            paddingTop: 4,
+            paddingBottom: 4,
+          },
+        },
+      },
       option: {
         transition: '400ms all ease',
         "&:hover": {

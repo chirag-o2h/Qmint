@@ -35,7 +35,9 @@ import EyeOffIcon from "./EyeOffIcon";
 import EyeOnIcon from "./EyeOnIcon";
 import InfoIcon from "./InfoIcon";
 import CheckboxCheckedIcon from "./CheckboxCheckedIcon";
+import CheckboxCheckedRoundIcon from "./CheckboxCheckedRoundIcon";
 import CheckboxUncheckedIcon from "./CheckboxUncheckedIcon";
+import CheckboxUncheckedRoundIcon from "./CheckboxUncheckedRoundIcon";
 import RadioCheckedIcon from "./RadioCheckedIcon";
 import RadioUncheckedIcon from "./RadioUncheckedIcon";
 import SortbyIcon from "./SortbyIcon";
@@ -79,6 +81,7 @@ import BullionmarkSwiperButtonNext from "./BullionmarkSwiperButtonNext";
 import BullionmarkSwiperDash from "./BullionmarkSwiperDash";
 import TickIcon from "./TickIcon";
 import CalenderIcon from "./CalenderIcon";
+import SmallRightIcon from "./SmallRightIcon";
 
 // Social
 import FacebookIcon from "./social/FacebookIcon";
@@ -161,7 +164,9 @@ export {
   EyeOnIcon,
   InfoIcon,
   CheckboxCheckedIcon,
+  CheckboxCheckedRoundIcon,
   CheckboxUncheckedIcon,
+  CheckboxUncheckedRoundIcon,
   RadioCheckedIcon,
   RadioUncheckedIcon,
   SortbyIcon,
@@ -205,6 +210,7 @@ export {
   BullionmarkSwiperDash,
   TickIcon,
   CalenderIcon,
+  SmallRightIcon,
   BullionmarkSignInIcon,
 
   // Social

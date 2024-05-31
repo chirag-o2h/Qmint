@@ -1,7 +1,10 @@
 #RegistrationPage {
   .LeftPart {
     flex-direction: column;
-    width: 55%;
+    width: 50%;
+    @include media($xl) {
+      width: 55%;
+    }
     .ContentWrapper {
       color: $white;
       text-align: center;
@@ -18,11 +21,16 @@
     }
   }
   .RightPart {
-    width: 45%;
-    padding: 50px 24px;
+    padding: 50px 40px;
+    width: 50%;
+    @include media($xl) {
+      width: 45%;
+    }
     form {
-      max-width: 500px;
       @include margin-auto;
+      @include media($xl) {
+        max-width: 500px;
+      }
       .Header {
         text-align: center;
         margin-bottom: 37px;
@@ -54,15 +62,75 @@
           }
         }
         .OTPWrapper {
-          .ContactSelect {
+          .PhoneNumber {
+            position: relative;
+            width: 100%;
+            .ContactSelect {
+              .MuiFormControl-root {
+                .react-tel-input {
+                  .form-control {
+                    height: inherit;
+                    border-radius: 0px;
+                    padding-right: 40px;
+                    padding-left: 62px;
+                    @include padding-vertical(12);
+                  }
+                  .flag-dropdown  {
+                    .selected-flag {
+                      width: 50px;
+                      padding-right: 14px;
+                    }
+                  }
+                }
+              }
+            }
+            .MuiButton-root {
+              position: absolute;
+              top: 0;
+              right: 0;
+              padding: 6px;
+              height: 47px;
+              .MuiSvgIcon-root {
+                font-size: 13px;
+              }
+            }
+          }
+          .OTPField {
             .MuiFormControl-root {
-              .form-control {
-                height: inherit;
+              .MuiInputBase-root {
+                padding-right: 0;
+                .MuiInputAdornment-root {
+                  height: initial;
+                  max-height: initial;
+                  align-self: stretch;
+                  margin-left: 0;
+                  margin-right: 0;
+                  .MuiIconButton-root {
+                    padding: 0;
+                    height: 100%;
+                    border-radius: 0;
+                    color: $white;
+                    background-color: $success;
+                    &:hover {
+                      background-color: darken($success, 10%);
+                    }
+                    .MuiSvgIcon-root {
+                      font-size: 13px;
+                    }
+                  }
+                }
               }
             }
           }
           .ResendOTP {
             justify-content: space-between;
+            margin-top: 6px;
+            .Message {
+              color: #939393;
+            }
+            .MuiButton-root {
+              text-decoration: underline;
+            }
           }
         }
       }
