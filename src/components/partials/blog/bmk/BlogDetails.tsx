@@ -156,7 +156,10 @@ function BlogDetails(params: any) {
                 {blogList?.items?.slice(0, 2).map((item: any) => {
                   console.log("🚀 ~ {blogList?.items?.slice ~ item:", item)
                   return (
-                    <BmkPostCard details={item} navigate={`/blog/${item?.friendlyName}`} />
+                    <BmkPostCard details={item} navigate={() => {
+                      navigate(`/blog/${item?.friendlyName}`, { replace: true })
+                    }
+                    } />
                   );
                 })}
               </Box>

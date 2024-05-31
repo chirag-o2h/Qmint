@@ -210,7 +210,7 @@ function BlogDetails(params: any) {
                           <PostCard
                             details={item}
                             navigate={() =>
-                              navigate(`/blog/${item?.friendlyName}`)
+                              navigate(`/blog/${item?.friendlyName}`,{replace:true})
                             }
                           />
                         </Grid>
