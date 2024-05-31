@@ -134,32 +134,32 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
 
           {!frontPage && (
             <Stack className="RightPart">
-              {/* {needToShowProgressLoader &&  */}
-              <ProductUpdateCountdown needToShowText={false} />
-              {/* } */}
+              {needToShowProgressLoader &&
+                <ProductUpdateCountdown needToShowText={false} />
+              }
               {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>)}
-              {/* {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?  */}
-              <Suspense fallback={<></>}> <ChartMenu /></Suspense>
-              {/* : null} */}
-              {/* {configDetailsState?.enablecart?.value ?  */}
-              <Suspense fallback={<></>}>
-                <HoverTooltip
-                  className="CartHoverList"
-                  placement="bottom-start"
-                  renderComponent={
-                    <Link area-label="shopping-cart-link" to="/shopping-cart">
-                      <Badge badgeContent={cartItems?.length?.toString()} color="primary" max={99}>
-                        <CartMenu />
-                      </Badge>
-                    </Link>
-                  }
-                  disablePortal
-                  lightTheme
-                >
-                  {configDetailsState?.minishoppingcartenable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.minishoppingcartproductnumber?.value ?? 3} />}
-                </HoverTooltip>
-              </Suspense>
-              {/* : null} */}
+              {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?
+                <Suspense fallback={<></>}> <ChartMenu /></Suspense>
+                : null}
+              {configDetailsState?.enablecart?.value ?
+                <Suspense fallback={<></>}>
+                  <HoverTooltip
+                    className="CartHoverList"
+                    placement="bottom-start"
+                    renderComponent={
+                      <Link area-label="shopping-cart-link" to="/shopping-cart">
+                        <Badge badgeContent={cartItems?.length?.toString()} color="primary" max={99}>
+                          <CartMenu />
+                        </Badge>
+                      </Link>
+                    }
+                    disablePortal
+                    lightTheme
+                  >
+                    {configDetailsState?.minishoppingcartenable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.minishoppingcartproductnumber?.value ?? 3} />}
+                  </HoverTooltip>
+                </Suspense>
+                : null}
               <ActionMenu />
             </Stack>
           )}

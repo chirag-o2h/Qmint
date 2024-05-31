@@ -111,14 +111,13 @@ function SignInPage() {
     console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
     const lastPage = getLastPage();
     console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
-    if (lastPage) {
+    if (lastPage && !lastPage.includes('login')) {
       // Redirect the user to the last visited page
       console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
       navigate(lastPage, { replace: true });
     } else {
       // Redirect the user to a default page
       navigate('/', { replace: true })
-
     }
     return;
   }
@@ -208,7 +207,7 @@ function SignInPage() {
         <Box id="SignInPage">
           <Container maxWidth="sm" >
             <DialogTitle component="p">
-              <img onClick={() => { navigate('/') }} src={configDetailsState?.storelogourl?.value} alt="QMint logo" loading='eager' />
+              <img onClick={() => { navigate('/') }} src={configDetailsState?.BrandLogoURL_Header?.value} alt="QMint logo" loading='eager' />
             </DialogTitle>
             {loginError && <Typography variant='subtitle1' component="p" className='LoginError' dangerouslySetInnerHTML={{
               __html: loginError

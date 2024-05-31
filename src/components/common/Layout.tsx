@@ -21,7 +21,7 @@ const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout({ children }: any) {
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
-  useInactiveLogout(isLoggedIn ? convertMinutesToMilliseconds(configDetailsState?.sessiontimeout?.value) : convertMinutesToMilliseconds(configDetailsState?.guestsessiontimeout?.value), toggleSessionExpireDialog);
+  useInactiveLogout(isLoggedIn ? convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_LoggedInUsers?.value) : convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_Guest?.value), toggleSessionExpireDialog);
   // useInactiveLogout(2000, toggleSessionExpireDialog);
   // const [loading, setLoading] = useState(true);
   const [wait, setWait] = useState(false)
@@ -46,8 +46,8 @@ function Layout({ children }: any) {
   }, [isLoggedIn])
   useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
-  if (configDetailsState?.storefaviconiconurl?.value) {
-    const faviconUrl = configDetailsState?.storefaviconiconurl?.value; // Assuming API response contains favicon URL
+  if (configDetailsState?.Store_FaviconURL?.value) {
+    const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
     // Update favicon dynamically
     const link: any = document.querySelector("link[rel='icon']") || document.createElement('link');
     link.rel = 'icon';

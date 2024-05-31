@@ -510,12 +510,18 @@ export const createHomepageSlice = createSlice({
     })
     builder.addCase(LogOutUserAPI.fulfilled, (state, action) => {
       state.userDetails = null
-      localStorageSetItem('userDetails', '')
       state.loading = false
       state.isLoggedIn = false
+      localStorageSetItem('userDetails', '')
       localStorageSetItem('isLoggedIn', JSON.stringify(false))
     })
-    builder.addCase(LogOutUserAPI.rejected, (state, action) => {
+    builder.addCase(LogOutUserAPI.rejected, (state, action:any) => {
+      if(action?.payload?.response?.status == 401){
+      state.userDetails = null
+      state.isLoggedIn = false
+      localStorageSetItem('userDetails', '')
+      localStorageSetItem('isLoggedIn', JSON.stringify(false))
+      }
       state.loading = false
     })
     // ImpersonateSignInAPI

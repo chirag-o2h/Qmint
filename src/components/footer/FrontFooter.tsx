@@ -49,10 +49,10 @@ function FrontFooter() {
                             <img src={configDetailsState?.["Homepage_FooterLogo_URLfooterlogo"]?.value} alt="Footer logo" loading="lazy" />
                         </LogoLink>
                         <Stack className="SocialWrapper">
-                            <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.facebooklink?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>
-                            <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.youtubelink?.value ?? window?.location?.href}><YoutubeIcon /></IconButton>
-                            <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.twitterlink?.value ?? window?.location?.href}><TwitterIcon fontSize="small" /></IconButton>
-                            <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.instagramlink?.value ?? window?.location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? window?.location?.href}><YoutubeIcon /></IconButton>
+                            <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? window?.location?.href}><TwitterIcon fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? window?.location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
                         </Stack>
                     </Stack>
                     <Stack className="MenuesPart" component="nav">
@@ -79,7 +79,7 @@ function FrontFooter() {
                             <Stack className="AboutWrapper">
                                 <Stack className="MailWrapper About">
                                     <PhoneCall />
-                                    <Link href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value} variant="body2" className="Mail">{configDetailsState?.["australia.phonenumber"]?.value}</Link>
+                                    <Link href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value} variant="body2" className="Mail">{configDetailsState?.["StorePhoneNumber_AU"]?.value}</Link>
                                 </Stack>
                                 {/* <Stack className="MailWrapper About">
                                     <MailIcon />
@@ -87,7 +87,7 @@ function FrontFooter() {
                                 </Stack> */}
                                 <Stack className="LocationWrapper About">
                                     <MapIcon />
-                                    <Typography className="Location" variant="body2" component="address">{configDetailsState?.storeaddress?.value}</Typography>
+                                    <Typography className="Location" variant="body2" component="address">{configDetailsState?.Store_Address?.value}</Typography>
                                 </Stack>
 
                             </Stack>

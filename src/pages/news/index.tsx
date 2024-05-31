@@ -72,13 +72,13 @@ function News() {
         <Box className="HeroSection">
           <Container>
             <Typography variant="h2" component="h2">
-              {configDetailsState?.["news.newstital"]?.value}
+              {configDetailsState?.["AllNews_Title"]?.value}
             </Typography>
             <Typography
               variant="body1"
               sx={{ mt: 1, color: variable.greyRegent }}
             >
-              {configDetailsState?.["news.newssubtital"]?.value}
+              {configDetailsState?.["AllNews_Subtitle"]?.value}
             </Typography>
             <Box className="PostWrapper">
               <Stack className="LeftPostWrapper">
@@ -95,13 +95,13 @@ function News() {
           <Container>
             <Box className="DiscoverPost__title">
               <Typography variant="h2" component="h2">
-                {configDetailsState?.["news.newstital"]?.value}
+                {configDetailsState?.["AllNews_Title"]?.value}
               </Typography>
               <Typography
                 variant="body1"
                 sx={{ mt: 1, color: variable.greyRegent }}
               >
-                {configDetailsState?.["news.newssubtital"]?.value}
+                {configDetailsState?.["AllNews_Subtitle"]?.value}
               </Typography>
             </Box>
             <Box className="SearchWrapper">

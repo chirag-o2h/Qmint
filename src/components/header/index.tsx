@@ -32,7 +32,7 @@ const Index = () => {
 
   return (
     <>
-      {!isMobile && configDetailsState?.tickerenable?.value && <>
+      {!isMobile && configDetailsState?.Store_ShopeHomePage_Ticker_Enable?.value && <>
         <Suspense fallback={
           <></>
           // <Skeleton style={{ minHeight: '60px' }} />

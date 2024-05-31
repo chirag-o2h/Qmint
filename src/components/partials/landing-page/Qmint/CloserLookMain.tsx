@@ -112,8 +112,8 @@ function CloserLookMain() {
       <Box id="CloserLook">
         <Container component="section">
           <SectionHeading
-            title={configDetails?.["home.closerlook.tital"]?.value ?? "Take a closer look*"}
-            description={configDetails?.["home.closerlook.subtital"]?.value ?? "description*"}
+            title={configDetails?.["ShopHomepage_Section_6_Three_posts_in_a_row_Title"]?.value ?? "Take a closer look*"}
+            description={configDetails?.["ShopHomepage_Section_6_Three_posts_in_a_row_Subtitle"]?.value ?? "description*"}
           />
           <Container className="DestinationWrapper" maxWidth="lg">
             {mainHomePageData?.homepage_Section_7_Three_posts_in_a_row?.length !== 0 ?

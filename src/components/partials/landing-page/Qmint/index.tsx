@@ -41,7 +41,7 @@ function QmintMainHomePage(
     }, [])
 
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
-    const keyWords = configDetailsState?.storemetakeywords?.value?.split(',')?.length > 0 ? configDetailsState?.storemetakeywords?.value?.split(',') : []
+    const keyWords = configDetailsState?.Store_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_Meta_Keywords?.value?.split(',') : []
     return (
         <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>
             <div className="flex flex-col min-h-screen">
@@ -50,9 +50,9 @@ function QmintMainHomePage(
                     {openToaster && <Toaster />}
                     <Seo
                         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
-                        title={configDetailsState?.storetital?.value}
+                        title={configDetailsState?.Store_Title?.value}
                         lang="en"
-                        description={configDetailsState?.storemetadescription?.value}
+                        description={configDetailsState?.Store_Meta_Description?.value}
                     />
                     {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
                     <Box className="FrontPage">

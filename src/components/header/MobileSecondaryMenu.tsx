@@ -43,7 +43,7 @@ function MobileSecondaryMenu() {
     setHeaderHeight(header ?? 0)
   }, [])
   return (
-    <Box id="MobileSecondaryMenu" className={classNames({ "BmkMobileSecondaryMenu": THEME_TYPE === "1" }, { "BmkWhiteToolbar": trigger && STORE_THEME_TYPECODE === "1" })}>
+    <Box id="MobileSecondaryMenu" className={classNames({ "BmkMobileSecondaryMenu": THEME_TYPE === "1" }, { "BmkWhiteToolbar": trigger && THEME_TYPE === "1" })}>
       <AppBar
         position="static"
         component="div"
@@ -58,7 +58,7 @@ function MobileSecondaryMenu() {
               onClose={toggleOpenSearch}
               onClickAway={handleClickAway}
               renderComponent={
-                // configDetailsState?.enablesearch?.value &&
+                configDetailsState?.enablesearch?.value &&
                 <IconButton aria-label='SearchButton' ref={searchButtonRef} className={classNames("MenuButton", { "Active": false })} onClick={toggleOpenSearch}><Search /></IconButton>
               }
               lightTheme
@@ -70,12 +70,12 @@ function MobileSecondaryMenu() {
               </Container>
             </ClickTooltip>
             {configDetailsState?.enablephone?.value !== false && <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>}
-            {/* {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ? */}
-            <ChartMenu />
-            {/* : null} */}
-            {/* {configDetailsState?.enablecart?.value ? */}
-            <CartMenu onClick={handleCartMenu} />
-            {/* : null} */}
+            {configDetailsState?.enablechart?.value && (configDetailsState.chartenableforguests.value || isLoggedIn) ?
+              <ChartMenu />
+              : null}
+            {configDetailsState?.enablecart?.value ?
+              <CartMenu onClick={handleCartMenu} />
+              : null}
             <ActionMenu />
           </Stack>
         </Container>

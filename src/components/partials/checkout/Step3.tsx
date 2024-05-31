@@ -18,9 +18,9 @@ function Step3() {
 
   const enabledPaymentMethods = useMemo(() => {
     const defaultPaymentType = getDefaultOption([
-      { enabled: configDetailsState?.banktransferenable?.value, value: 'BankTransfer' },
-      { enabled: configDetailsState?.cashenable?.value, value: 'Cash' },
-      { enabled: configDetailsState?.creditcardenable?.value, value: 'CreditCard' }
+      { enabled: configDetailsState?.Checkout_PaymentMethod_BankTransfer_Enable?.value, value: 'BankTransfer' },
+      { enabled: configDetailsState?.Checkout_PaymentMethod_Cash_Enable?.value, value: 'Cash' },
+      { enabled: configDetailsState?.Checkout_PaymentMethod_CC_Enable?.value, value: 'CreditCard' }
     ], 'BankTransfer');
     return defaultPaymentType
   }, [configDetailsState]);
@@ -58,13 +58,13 @@ function Step3() {
         <RadioGroup name="payment-method" defaultValue="BankTransfer" row value={paymentType} onChange={(e) => {
           setPaymentType(e.target.value)
         }}>
-          {configDetailsState?.banktransferenable?.value && <FormControlLabel value="BankTransfer" control={<Radio />} label={renderRadioLabelWithIcon("Bank Transfer", <BankIcon />, undefined, configDetailsState?.["checkout.payment.banktransferinfotext"]?.value)} />}
-          {configDetailsState?.cashenable?.value && <FormControlLabel value="Cash" control={<Radio />} label={renderRadioLabelWithIcon("Cash", <CashIcon />, undefined, configDetailsState?.["checkout.payment.cashinfotext"]?.value)} />}
-          {configDetailsState?.creditcardenable?.value && <FormControlLabel value="CreditCard" control={<Radio />} label={renderRadioLabelWithIcon("Credit Card", <CardIcon />, (craditCardCharges?.creditCardFeeIncludingTax as any) && Number(craditCardCharges?.creditCardFeeIncludingTax) !== 0 ? (
+          {configDetailsState?.Checkout_PaymentMethod_BankTransfer_Enable?.value && <FormControlLabel value="BankTransfer" control={<Radio />} label={renderRadioLabelWithIcon("Bank Transfer", <BankIcon />, undefined, configDetailsState?.["Checkout_Payment_BankTranferText"]?.value)} />}
+          {configDetailsState?.Checkout_PaymentMethod_Cash_Enable?.value && <FormControlLabel value="Cash" control={<Radio />} label={renderRadioLabelWithIcon("Cash", <CashIcon />, undefined, configDetailsState?.["Checkout_Payment_CashText"]?.value)} />}
+          {configDetailsState?.Checkout_PaymentMethod_CC_Enable?.value && <FormControlLabel value="CreditCard" control={<Radio />} label={renderRadioLabelWithIcon("Credit Card", <CardIcon />, (craditCardCharges?.creditCardFeeIncludingTax as any) && Number(craditCardCharges?.creditCardFeeIncludingTax) !== 0 ? (
             `${'$' + roundOfThePrice(Number(craditCardCharges?.creditCardFeeIncludingTax))}`
           ) : (
             "No charge"
-          ), configDetailsState?.["checkout.payment.creditcardinfotext"]?.value)} />}
+          ), configDetailsState?.["Checkout_Payment_CCText"]?.value)} />}
         </RadioGroup>
       </Stack>
     </StepWrapper>
