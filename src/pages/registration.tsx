@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Box, Typography, Button, Stack, MenuItem, Autocomplete, FormHelperText, TextField, IconButton, InputAdornment, FormControlLabel, Radio, RadioGroup } from "@mui/material"
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -71,6 +71,38 @@ const config: SwiperOptions = {
   },
 };
 
+const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: string, country: any }) => {
+  return yup.object().shape({
+    FirstName: yup.string().trim().required("First name is a required field"),
+    LastName: yup.string().trim().required("Last name is a required field"),
+    Company: yup.string().trim(),
+    PhoneNumber: yup.string().trim().test("valid-phone-number", "Please enter a valid phone number", function (value) {
+      if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
+      else return false;
+    }),
+    Password: yup.string()
+      .required('Password is required')
+      .min(8, 'Password must be at least 8 characters')
+      .matches(/[A-Z]/, 'Password must have at least one uppercase letter')
+      .matches(/[a-z]/, 'Password must have at least one lowercase letter')
+      .matches(/[0-9]/, 'Password must have at least one number'),
+    ConfirmPassword: yup.string()
+      .required('Confirm Password is required')
+      .oneOf([yup.ref('Password'), ''], 'Passwords must match'),
+    Email: yup.string().email().required(),
+    OTP: yup.string(),
+    Address1: yup.string().trim().required("Address 1 is a required field"),
+    Address2: yup.string().trim(),
+    City: yup.string().required().trim(),
+    State: yup.string().required(),
+    Country: yup.string().notOneOf(["none"], "Country is a required field"),
+    Code: yup.string().required("Zip / Postal code is required").trim(),
+    PrivacyPolicy: yup.boolean().oneOf([true], "Please accept the privacy policy"),
+    TermsCondition: yup.boolean().oneOf([true], "Please accept the terms and condition"),
+    ...(includeAgentCode && { AgentCode: yup.string().required("Agent code is required") })
+  });
+};
+
 function Registration() {
   const loading = useAppSelector(state => state.auth.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
@@ -82,31 +114,13 @@ function Registration() {
   const [countryValue, setcountryValue] = useState<any>("none")
   const [stateValue, setstateValue] = useState<any>(undefined)
   const [showOTPField, setShowOTPField] = useState<boolean>(false)
-  const [otpValue, setOtpvalue] = useState<string>('')
   const { showToaster } = useShowToaster();
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
+  const [isOtpVerified, setIsOtpVerified] = useState(false)
   const [radioButtonInput, setRadioButtonInput] = useState("agent");
   const [timer, setTimer] = useState(20);
+  const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  const [passwordConditions, setPasswordConditions] = useState({
-    minLength: false,
-    uppercase: false,
-    lowercase: false,
-    number: false,
-  });
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPassword(value);
-
-    setPasswordConditions({
-      minLength: value.length >= 8,
-      uppercase: /[A-Z]/.test(value),
-      lowercase: /[a-z]/.test(value),
-      number: /[0-9]/.test(value),
-    });
-  };
 
   const [phoneNumberValue, setPhoneNumberValue] = useState<{ value: string, country: any }>({
     value: "",
@@ -115,29 +129,7 @@ function Registration() {
 
   const firstTimeRender = useRef(true);
 
-  const addressSchema = yup.object().shape({
-    FirstName: yup.string().trim().required("First name is a required field"),
-    LastName: yup.string().trim().required("Last name is a required field"),
-    Company: yup.string().trim(),
-    PhoneNumber: yup.string().trim().test("valid-phone-number", "Please enter a valid phone number",
-      function (value) {
-        if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
-        else return false;
-      }),
-    Password: yup.string().trim().required(),
-    ConfirmPassword: yup.string().trim().required().oneOf([yup.ref("Password"), null as any], "Passwords must match"),
-    Email: yup.string().email().required(),
-    Address1: yup.string().trim().required("Address 1 in required field"),
-    Address2: yup.string().trim(),
-    City: yup.string().required().trim(),
-    State: yup.string().required(),
-    Country: yup.string().notOneOf(["none"], "Country is required field"),
-    Code: yup.string().required("Zip / Postal code is required").trim(),
-    AgentCode: yup.string().required(),
-    PrivacyPolicy: yup.boolean().oneOf([true], "Please accept the privacy policy"),
-    TermsCondition: yup.boolean().oneOf([true], "Please accept the terms and condition")
-  })
-
+  // this useEffect will handle the timer for the resend OTP button
   useEffect(() => {
     let interval: any;
 
@@ -156,11 +148,12 @@ function Registration() {
 
   const handleResendClick = () => {
     getOtpHandler();
-    setTimer(20); // Reset the timer
+    setTimer(20);
   };
 
   useAPIoneTime({ service: getStateAndCountryLists, endPoint: ENDPOINTS.getStateAndCountryLists });
 
+  const validationSchema = createSchema(includeAgentCode, phoneNumberValue);
   const {
     register,
     reset,
@@ -172,8 +165,12 @@ function Registration() {
     getValues,
     formState: { errors },
   } = useForm<Inputs>({
-    resolver: yupResolver(addressSchema)
+    resolver: yupResolver(validationSchema)
   })
+
+  const password = useWatch({ control, name: 'Password', defaultValue: '' });
+  const privacyPolicy = useWatch({ control, name: 'PrivacyPolicy' });
+  const termsAndCondition = useWatch({ control, name: 'TermsCondition' });
 
   useEffect(() => {
     if (googleAddressComponents) {
@@ -186,7 +183,6 @@ function Registration() {
       })
       setValue('State', googleAddressComponents.state)
       setstateValue(googleAddressComponents.state)
-      setStateId(() => null);
       setValue('City', googleAddressComponents?.city)
       setValue('Address2', googleAddressComponents.address2)
       if (googleAddressComponents?.postalCode) {
@@ -232,8 +228,14 @@ function Registration() {
     )
   }
 
-  const handleFormSubmit = async(data: any) => {
-    console.log("🚀 ~ handleFormSubmit ~ data:", data)
+  const handleFormSubmit = async (data: any) => {
+    if (!isOtpVerified) {
+      showToaster({
+        message: "Please verify OTP",
+        severity: "warning"
+      })
+      return;
+    }
 
     const payload = {
       FirstName: data.FirstName,
@@ -254,7 +256,7 @@ function Registration() {
       DailyPriceAlert: radioButtonInput === "dailyPriceAlert",
       NewsLetter: radioButtonInput === "newsletter",
       IAcceptPrivacyPolicy: true,
-      Termsofservice: false
+      Termsofservice: true
     }
 
     const response = await dispatch(registration({ url: ENDPOINTS.registration, body: payload }));
@@ -312,7 +314,7 @@ function Registration() {
     if (hasFulfilled(response.type)) {
       const resData = response?.payload?.data.data;
       if (resData == true) {
-        setShowOTPField(true)
+        setIsOtpVerified(true)
         showToaster({
           message: response?.payload?.data.message,
           severity: "success"
@@ -320,14 +322,14 @@ function Registration() {
       }
       else {
         showToaster({
-          message: "Failed to send OTP",
+          message: "Failed to veify OTP",
           severity: "error"
         })
       }
     }
     else {
       showToaster({
-        message: "Failed to send OTP",
+        message: "Failed to verify OTP",
         severity: "error"
       })
     }
@@ -402,7 +404,6 @@ function Registration() {
                   variant="outlined"
                   margin="none"
                   fullWidth
-                  onChange={handlePasswordChange}
                 />
                 <RenderFields
                   type="password"
@@ -420,10 +421,10 @@ function Registration() {
               <Box className="PasswordCondition">
                 <Typography className="Message">Your Password Must :</Typography>
                 <Stack className="ConditionWrapper">
-                  {renderPasswordConditionItem("Be at least 8 character in length", passwordConditions.minLength)}
-                  {renderPasswordConditionItem("An uppercase letter ( A - Z )", passwordConditions.uppercase)}
-                  {renderPasswordConditionItem("An lowercase Letter (a - z )", passwordConditions.lowercase)}
-                  {renderPasswordConditionItem("A number ( 0 - 9 )", passwordConditions.number)}
+                  {renderPasswordConditionItem("Be at least 8 characters in length", password.length >= 8)}
+                  {renderPasswordConditionItem("An uppercase letter (A - Z)", /[A-Z]/.test(password))}
+                  {renderPasswordConditionItem("A lowercase letter (a - z)", /[a-z]/.test(password))}
+                  {renderPasswordConditionItem("A number (0 - 9)", /[0-9]/.test(password))}
                 </Stack>
               </Box>
               <RenderFields
@@ -462,8 +463,6 @@ function Registration() {
                     placeholder="OTP"
                     control={control}
                     variant="outlined"
-                    value={otpValue}
-                    // onChange={(e) => setOtpvalue(e.target.value)}
                     margin="none"
                     className="OTPField"
                     endAdornment={
@@ -601,7 +600,15 @@ function Registration() {
                   defaultValue="agent"
                   name="UserType"
                   value={radioButtonInput}
-                  onChange={(e) => setRadioButtonInput(e.target.value)}
+                  onChange={(e) => {
+                    setRadioButtonInput(e.target.value)
+                    if (e.target.value === "agent") {
+                      setIncludeAgentCode(true)
+                    }
+                    else {
+                      setIncludeAgentCode(false)
+                    }
+                  }}
                   row
                 >
                   <FormControlLabel value="agent" control={<Radio />} label="Agent" />
@@ -642,7 +649,7 @@ function Registration() {
               </Box>
             </Stack>
             <Stack className="ActionWrapper">
-              <Button type="submit" variant="contained" size="large" fullWidth disabled={loading || getValues("PrivacyPolicy") === false || getValues("TermsCondition") === false}>
+              <Button type="submit" variant="contained" size="large" fullWidth disabled={loading || !privacyPolicy || !termsAndCondition}>
                 Agree And Create Account
               </Button>
             </Stack>

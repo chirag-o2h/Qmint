@@ -315,13 +315,13 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                 </InputAdornment>
               ),
             }}
-            {...register(name)}
-            {...otherProps}
             onChange={(e) => {
               if (onChange) {
                 onChange(e)
               }
             }}
+            {...register(name)}
+            {...otherProps}
           />
         </FormControl>
       )
