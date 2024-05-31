@@ -19,6 +19,7 @@ import { useAppSelector } from '@/hooks'
 
 
 function BmkProductCard({ product }: { product: IFeaturedProducts }) {
+    console.log("🚀 ~ BmkProductCard ~ product:", product)
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
 
     const renderStockStatus = isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value
@@ -49,9 +50,11 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
                             : "Best Price at"}</Typography>
                     </Box>
                     <Stack className="Bottom">
+                    <Typography variant="overline" className="DiscountedPrice">${(product?.priceWithDetails?.tierPriceList && product?.priceWithDetails?.tierPriceList?.length > 0) ?
+                            (product?.priceWithDetails?.productLowestPrice?.toFixed(2)) : product?.priceWithDetails?.price?.toFixed(2)}</Typography>
                         {(product?.priceWithDetails?.discount && product?.priceWithDetails?.discount !== 0)
                             ?
-                            <Typography variant="subtitle1" className="DiscountedPrice">
+                            <Typography variant="subtitle1" className="ActualPrice">
                                 $
                                 {(
                                     product?.priceWithDetails?.price +
@@ -59,8 +62,6 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
                                 ).toFixed(2)}
                             </Typography>
                             : null}
-                        <Typography variant="overline" className="ActualPrice">${(product?.priceWithDetails?.tierPriceList && product?.priceWithDetails?.tierPriceList?.length > 0) ?
-                            (product?.priceWithDetails?.productLowestPrice?.toFixed(2)) : product?.priceWithDetails?.price?.toFixed(2)}</Typography>
                     </Stack>
                 </Stack>
                 <Typography
