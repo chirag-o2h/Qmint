@@ -231,7 +231,7 @@ function Registration() {
   const handleFormSubmit = async (data: any) => {
     if (!isOtpVerified) {
       showToaster({
-        message: "Please verify OTP",
+        message: "Please verify Phone number to proceed",
         severity: "warning"
       })
       return;
