@@ -1,4 +1,7 @@
 #RegistrationPage {
+  @include media($md) {
+    flex-direction: column;
+  }
   .LeftPart {
     flex-direction: column;
     width: 50%;
@@ -6,8 +9,11 @@
       // position: sticky;
       // top: 0;
     }
-    @include media($xl) {
+    @include media-min($xl) {
       width: 55%;
+    }
+    @include media($md) {
+      width: 100%;
     }
     .ContentWrapper {
       color: $white;
@@ -18,9 +24,13 @@
       .Title {
         font-weight: 900;
         letter-spacing: -2px;
-        @include media($xl) {
-          font-size: pxToRem(24);
+        font-size: pxToRem(50);
+        @include media($md) {
+          font-size: pxToRem(30);
         }
+      }
+      .Subtitle {
+        margin-top: 12px;
       }
     }
     .SliderWrapper {
@@ -30,6 +40,9 @@
           height: 500px;
           object-position: center;
           object-fit: cover;
+          @include media($md) {
+            height: 300px;
+          }
         }
       }
     }
@@ -37,8 +50,14 @@
   .RightPart {
     padding: 50px;
     width: 50%;
-    @include media($xl) {
+    @include media-min($xl) {
       width: 45%;
+    }
+    @include media($md) {
+      width: 100%;
+    }
+    @include media($sm) {
+      padding: 24px;
     }
     form {
       @include margin-auto;
@@ -48,8 +67,14 @@
       .Header {
         text-align: center;
         margin-bottom: 37px;
+        @include media($sm) {
+          margin-bottom: 30px;
+        }
         .Description {
           margin-top: 16px;
+          @include media($sm) {
+            margin-top: 6px;
+          }
         }
       }
       .AllFields {
@@ -75,11 +100,11 @@
         }
         .Column {
           gap: $spacing;
-          @include media($mmd){
+          @include media($mmd) {
             flex-direction: column;
           }
           .InputRow {
-            flex-grow: 1;
+            width: 100%;
           }
         }
         .PasswordCondition {
@@ -104,7 +129,7 @@
           .Column {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            @include media($xl){
+            @include media($xl) {
               grid-template-columns: repeat(1, 1fr);
             }
           }
@@ -172,7 +197,7 @@
           }
           .ResendOTP {
             justify-content: space-between;
-            margin-top: 6px;
+            @include padding-vertical(6, 8);
             .Message {
               font-weight: 400;
               color: $greyWarm;
@@ -184,10 +209,11 @@
         }
         .UserType {
           .MuiRadioGroup-root {
+            gap: $spacing;
             .MuiFormControlLabel-root {
               padding-right: 10px;
               margin-left: 0;
-              margin-right: $spacing;
+              margin-right: 0;
               background-color: $Seashell;
             }
           }
@@ -198,6 +224,9 @@
       }
       .ActionWrapper {
         margin-top: 35px;
+        @include media($sm) {
+          margin-top: 24px;
+        }
       }
     }
   }

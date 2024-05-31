@@ -53,7 +53,7 @@ interface Inputs {
 }
 
 const config: SwiperOptions = {
-  slidesPerView: 1.5,
+  slidesPerView: 1,
   centeredSlides: true,
   spaceBetween: 20,
   pagination: {
@@ -342,7 +342,7 @@ function Registration() {
           <Box className="StickyWrapper">
             <Box className="ContentWrapper" sx={{ backgroundImage: `url("https://picsum.photos/200/300")` }}>
               <Typography className="Title" variant="h1" component="p">Need account for your Business</Typography>
-              <Typography className="Subtitle" variant="subtitle2">Superfund or Trust</Typography>
+              <Typography className="Subtitle" variant="subtitle2" component="p">Superfund or Trust</Typography>
             </Box>
             <Box className="SliderWrapper">
               <Box className="SwiperContainer CircleSwiperPaginationWhite">
