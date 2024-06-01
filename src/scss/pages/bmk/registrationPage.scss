@@ -127,10 +127,8 @@
         }
         .OTPWrapper {
           .Column {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
             @include media($xl) {
-              grid-template-columns: repeat(1, 1fr);
+              flex-direction: column;
             }
           }
           .PhoneNumber {
