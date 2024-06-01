@@ -104,6 +104,7 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
 };
 
 function Registration() {
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const loading = useAppSelector(state => state.auth.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const dispatch = useAppDispatch();
@@ -295,7 +296,7 @@ function Registration() {
       }
       else {
         showToaster({
-          message: "Failed to send OTP",
+          message: response?.payload?.data.message,
           severity: "error"
         })
       }
@@ -334,7 +335,6 @@ function Registration() {
       })
     }
   }
-
   return (
     <Layout>
       {openToaster && <Toaster />}
@@ -342,18 +342,27 @@ function Registration() {
       <Stack id="RegistrationPage">
         <Stack className="LeftPart">
           <Box className="StickyWrapper">
-            <Box className="ContentWrapper" sx={{ backgroundImage: `url("https://picsum.photos/200/300")` }}>
-              <Typography className="Title" variant="h1" component="p">Need account for your Business</Typography>
-              <Typography className="Subtitle" variant="subtitle2" component="p">Superfund or Trust</Typography>
+            <Box className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})` }}>
+              <Typography className="Title"
+              //  variant="h1"
+                component="p" dangerouslySetInnerHTML={{
+                  __html: configDetailsState?.Registrationpage_Top_Leftside_pic_Text?.value
+                }}></Typography>
+              {/* <Typography className="Subtitle" variant="subtitle2" component="p">Superfund or Trust</Typography> */}
             </Box>
             <Box className="SliderWrapper">
               <Box className="SwiperContainer CircleSwiperPaginationWhite">
                 <Swiper {...config}>
-                  {[1, 2, 3].map((item) => {
+                  {[configDetailsState?.Registrationpage_Bottom_Leftside_pic_one?.value,
+                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_two?.value,
+                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_three?.value,
+                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_four?.value,
+                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_five?.value,
+                  ].map((url) => {
                     return (
                       <SwiperSlide>
                         <Box className="ImageWrapper">
-                          <img src="https://picsum.photos/500/700" />
+                          <img src={url} alt="no Image"/>
                         </Box>
                       </SwiperSlide>
                     )
@@ -366,8 +375,8 @@ function Registration() {
         <Box className="RightPart">
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <Box className="Header">
-              <Typography className="Title" variant="h4" component="p">Personal Info & Address</Typography>
-              <Typography className="Description" variant="body2">An Easier way to Get Registered With Us</Typography>
+              <Typography className="Title" variant="h4" component="p">{configDetailsState?.Registrationpage_Title?.value}</Typography>
+              <Typography className="Description" variant="body2">{configDetailsState?.Registrationpage_Subtitle?.value}</Typography>
             </Box>
             <Stack className="AllFields">
               <Stack className="Column">
@@ -454,7 +463,7 @@ function Registration() {
                       margin="none"
                       fullWidth
                     />
-                    <Button variant="contained" onClick={getOtpHandler}>GET OTP</Button>
+                    <Button variant="contained" onClick={getOtpHandler} disabled={!!errors.PhoneNumber || !phoneNumberValue.value}>GET OTP</Button>
                   </Box>
                   {showOTPField && <RenderFields
                     register={register}
