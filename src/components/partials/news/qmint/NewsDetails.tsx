@@ -102,8 +102,8 @@ function NewsDetails(params: any) {
             <Box className="ContentWrapper">
               <Box className="PostThumbnail">
                 <img
-                  src={newsDetailsData?.imageUrl}
-                  alt={noImage}
+                  src={newsDetailsData?.imageUrl ?? noImage}
+                  alt={"no image"}
                 />
               </Box>
               <Box className="PostContent">

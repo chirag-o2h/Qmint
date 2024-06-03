@@ -15,6 +15,7 @@ import orderConfirmationDetails, { orderConfirmationDetailsPageSlice } from './r
 import topicReducer from './reducers/topicReducer';
 import orderDetailsReducer from './reducers/orderDetailsReducer';
 import myVaultReducer from './reducers/myVaultReducer';
+import authReducer from './reducers/authReducer';
 // Configuration for redux-persist
 const persistConfig = {
   key: 'root',
@@ -39,7 +40,8 @@ const store = configureStore({
     orderConfirmationDetails: orderConfirmationDetailsPageSlice.reducer,
     topic: topicReducer,
     orderDetails: orderDetailsReducer,
-    myVault: myVaultReducer
+    myVault: myVaultReducer,
+    auth: authReducer
 
 
     // profile: persistedProfileReducer,

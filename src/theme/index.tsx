@@ -115,7 +115,7 @@ const theme: Theme = createTheme({
   },
   components: { ...components(THEME_TYPE) },
   shape: {
-    borderRadius: 8,
+    borderRadius: THEME_TYPE === "1" ? 0 : 8,
   },
   zIndex: {
     mobileStepper: 1000,
