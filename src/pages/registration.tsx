@@ -10,7 +10,7 @@ import { SwiperOptions } from "swiper/types"
 import { Link } from "gatsby"
 
 // Assets
-import { CheckboxUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon } from "@/assets/icons"
+import { RadioUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon } from "@/assets/icons"
 
 // Hooks
 import { useAppDispatch, useAppSelector } from "@/hooks"
