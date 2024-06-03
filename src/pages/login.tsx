@@ -18,7 +18,7 @@ import useAPIoneTime from '@/hooks/useAPIoneTime';
 import ConfigServices from '@/apis/services/ConfigServices';
 import useShowToaster from '@/hooks/useShowToaster';
 import Toaster from '@/components/common/Toaster';
-import Layout from '@/components/common/Layout';
+import MainLayout from '@/components/common/MainLayout';
 export interface IdispatchType {
   type: string,
   meta: {
@@ -131,7 +131,7 @@ function SignInPage() {
       {openToaster && <Toaster />}
       <Loader open={checkLoadingStatus || loadingForNavigate} />
       {THEME_TYPE == '1' ? (
-        <Layout>
+        <MainLayout blackTheme>
           <Stack id="BmkSignInPage">
             <Box className="LeftPart">
               <img className="LoginImage" src={configDetailsState?.Loginpage_Leftside_pic?.value} alt="" />
@@ -207,7 +207,7 @@ function SignInPage() {
               </form>
             </Stack>
           </Stack>
-        </Layout>
+        </MainLayout>
       ) : (
         <Box id="SignInPage">
           <Container maxWidth="sm" >
