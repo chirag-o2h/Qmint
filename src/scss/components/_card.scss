@@ -432,6 +432,8 @@
 
 .PostCard {
   width: 100%;
+  height: 100%;
+
 
   .PostImage {
     cursor: pointer;
@@ -1192,6 +1194,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+
     &:hover {
       box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
     }
@@ -1220,6 +1223,7 @@
     .MuiCardContent-root {
       text-align: center;
       flex-grow: 1;
+
       .BmkProductStockStatus {
         display: inline-block;
         padding: 4px 12px;
@@ -1333,35 +1337,43 @@
 
 .BmkPostCard {
   text-decoration: none;
+
   .Content {
     .ThumbnailImage {
       width: 100%;
       height: 360px;
       object-fit: cover;
+
       @include media($xl) {
         height: 340px;
       }
+
       @include media($lg) {
         height: 300px;
       }
+
       @include media($md) {
         height: 260px;
       }
+
       @include media($sm) {
         height: auto;
         aspect-ratio: 16 / 9;
       }
     }
+
     .Title {
       letter-spacing: -1px;
       line-height: 1.2;
       margin-top: 12px;
     }
+
     .Description {
       font-weight: 400;
       margin-top: 9px;
       @include max-line(4)
     }
+
     .Date {
       font-weight: 600;
       margin-top: 14px;
