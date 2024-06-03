@@ -46,7 +46,8 @@ const commonComponents: Components = {
         flexDirection: "column",
       },
       a: {
-        color: THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`
+        color: THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`,
+        textDecoration: "none",
       }
     },
   },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Box, Typography, Button, Stack, MenuItem, Autocomplete, FormHelperText, TextField, IconButton, InputAdornment, FormControlLabel, Radio, RadioGroup } from "@mui/material"
+import { useMediaQuery, useScrollTrigger, Box, Typography, Button, Stack, MenuItem, Autocomplete, FormHelperText, TextField, IconButton, InputAdornment, FormControlLabel, Radio, RadioGroup } from "@mui/material"
 import { useForm, useWatch } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -122,6 +122,14 @@ function Registration() {
   const [timer, setTimer] = useState(20);
   const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState<number>(0);
+  const [sliderImageHeight, setSliderImageHeight] = useState<number>(0);
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: isMobile ? 68 : 50,
+  })
+  const topImageMinHeight = 300
 
   const [phoneNumberValue, setPhoneNumberValue] = useState<{ value: string, country: any }>({
     value: "",
@@ -338,46 +346,49 @@ function Registration() {
   const [validImageUrls, setValidImageUrls] = useState<any[]>([]);
 
   useEffect(() => {
-      const fetchValidUrls = async () => {
-        // if want to any new pic then update here 
-          const imageUrls = [
-              configDetailsState?.Registrationpage_Bottom_Leftside_pic_one?.value,
-              configDetailsState?.Registrationpage_Bottom_Leftside_pic_two?.value,
-              configDetailsState?.Registrationpage_Bottom_Leftside_pic_three?.value,
-              configDetailsState?.Registrationpage_Bottom_Leftside_pic_four?.value,
-              configDetailsState?.Registrationpage_Bottom_Leftside_pic_five?.value,
-          ];
+    const fetchValidUrls = async () => {
+      // if want to any new pic then update here 
+      const imageUrls = [
+        configDetailsState?.Registrationpage_Bottom_Leftside_pic_one?.value,
+        configDetailsState?.Registrationpage_Bottom_Leftside_pic_two?.value,
+        configDetailsState?.Registrationpage_Bottom_Leftside_pic_three?.value,
+        configDetailsState?.Registrationpage_Bottom_Leftside_pic_four?.value,
+        configDetailsState?.Registrationpage_Bottom_Leftside_pic_five?.value,
+      ];
 
-          const validUrls:any[] = [];
-          for (const url of imageUrls) {
-              if (url) {
-                  const isValid = await checkImageUrl(url);
-                  console.log("🚀 ~ fetchValidUrls ~ isValid:", isValid)
-                  if (isValid) {
-                    validUrls.push(url);
-                  }
-              }
+      const validUrls: any[] = [];
+      for (const url of imageUrls) {
+        if (url) {
+          const isValid = await checkImageUrl(url);
+          console.log("🚀 ~ fetchValidUrls ~ isValid:", isValid)
+          if (isValid) {
+            validUrls.push(url);
           }
-          setValidImageUrls(validUrls);
-      };
+        }
+      }
+      setValidImageUrls(validUrls);
+    };
 
-      fetchValidUrls();
+    fetchValidUrls();
   }, [configDetailsState]);
+
+  useEffect(() => {
+    setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
+    setSliderImageHeight(document.body.clientHeight - headerHeight - topImageMinHeight)
+  }, [trigger, headerHeight, sliderImageHeight])
+
   return (
     <MainLayout blackTheme>
       {openToaster && <Toaster />}
       <Loader open={loading} />
       <Stack id="RegistrationPage">
         <Stack className="LeftPart">
-          <Box className="StickyWrapper">
-            <Box className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})` }}>
-              <Typography className="Title"
-              //  variant="h1"
-                component="p" dangerouslySetInnerHTML={{
-                  __html: configDetailsState?.Registrationpage_Top_Leftside_pic_Text?.value
-                }}></Typography>
-              {/* <Typography className="Subtitle" variant="subtitle2" component="p">Superfund or Trust</Typography> */}
-            </Box>
+          <Box className="StickyWrapper" sx={{ top: headerHeight }}>
+            <Stack className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})`, minHeight: topImageMinHeight }}>
+              <Box dangerouslySetInnerHTML={{
+                __html: configDetailsState?.Registrationpage_Top_Leftside_pic_Text?.value
+              }}></Box>
+            </Stack>
             <Box className="SliderWrapper">
               <Box className="SwiperContainer CircleSwiperPaginationWhite">
                 <Swiper {...config}>
@@ -385,7 +396,7 @@ function Registration() {
                     return (
                       <SwiperSlide>
                         <Box className="ImageWrapper">
-                          <img src={url} alt="no Image"/>
+                          <img src={url} alt="Registration featured image" style={{ height: sliderImageHeight }} />
                         </Box>
                       </SwiperSlide>
                     )
