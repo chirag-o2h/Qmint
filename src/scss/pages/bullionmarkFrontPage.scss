@@ -95,67 +95,6 @@
     }
 }
 
-#PlanningJourney {
-    .PlanningJourneyContent {
-        padding: 80px 0;
-        justify-content: center;
-        align-items: center;
-        gap: 70px;
-
-        @include media($md) {
-            padding: 50px 0;
-            flex-direction: column;
-            gap: 50px;
-        }
-
-        .LeftImage,
-        .RightContent {
-            flex: 1;
-        }
-
-        .LeftImage {
-            img {
-                width: 100%;
-                object-fit: cover;
-            }
-        }
-
-        .RightContent {
-            .RightTitle {
-                font-size: 45px;
-                line-height: 53px;
-                max-width: 499px;
-
-                @include media($md) {
-                    font-size: 26px;
-                    line-height: 35px;
-                    max-width: 100%;
-                }
-
-            }
-
-            .RightDescription {
-                font-size: 19px;
-                line-height: 26px;
-                margin-top: 20px;
-
-                @include media($md) {
-                    font-size: 16px;
-                    line-height: 22px;
-                }
-            }
-
-            .MuiButton-root {
-                margin-top: 55px;
-
-                @include media($md) {
-                    margin-top: 30px;
-                }
-            }
-        }
-    }
-}
-
 #BestAdventures {
     padding: 82px 0 60px;
     background-color: #FFF8F5;
