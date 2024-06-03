@@ -106,7 +106,7 @@ export const debounceFunction = (func: any, delay: any) => {
   return function (...args: any) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
-      func.apply(this, args);
+      func.apply(this as any, args);
     }, delay);
   };
 };

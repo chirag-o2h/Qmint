@@ -28,10 +28,11 @@ import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { ENDPOINTS } from "@/utils/constants"
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
-import { getRegistrationOTP, registration, verifyRegistrationOTP } from "@/redux/reducers/authReducer"
-import { hasFulfilled } from "@/utils/common"
+import { getRegistrationOTP, registration, registrationLog, verifyRegistrationOTP } from "@/redux/reducers/authReducer"
+import { getLastPage, hasFulfilled } from "@/utils/common"
 import useShowToaster from "@/hooks/useShowToaster"
 import { AxiosError } from "axios"
+import { IGetRegistrationOTPPayload, IRegistrationPayload } from "@/apis/services/authServices"
 
 interface Inputs {
   FirstName: string,
@@ -138,6 +139,7 @@ function Registration() {
 
   const firstTimeRender = useRef(true);
 
+  console.log("🚀 ~ Registration ~ phoneNumberValue:", phoneNumberValue)
   // this useEffect will handle the timer for the resend OTP button
   useEffect(() => {
     let interval: any;
@@ -246,7 +248,7 @@ function Registration() {
       return;
     }
 
-    const payload = {
+    const payload: IRegistrationPayload = {
       FirstName: data.FirstName,
       LastName: data.LastName,
       Password: data.Password,
@@ -257,7 +259,7 @@ function Registration() {
       Address2: data.Address2,
       Country: data.Country,
       StateName: data.State,
-      State: stateList.find((state) => state.name === data.State)?.id || 0,
+      State: (stateList.find((state) => state.name === data.State)?.id || 0) as any,
       City: data.City,
       Pincode: data.Code,
       IsAgentId: radioButtonInput === "agent",
@@ -268,7 +270,7 @@ function Registration() {
       Termsofservice: true
     }
 
-    const response = await dispatch(registration({ url: ENDPOINTS.registration, body: payload }));
+    const response: any = await dispatch(registration({ url: ENDPOINTS.registration, body: payload }));
 
     if (hasFulfilled(response.type)) {
       showToaster({
@@ -278,7 +280,7 @@ function Registration() {
     }
     else {
       showToaster({
-        message: (response?.payload as AxiosError)?.response?.data?.message || "Failed to register",
+        message: response?.payload?.response?.data?.message || "Failed to register",
         severity: "error"
       })
     }
@@ -290,7 +292,12 @@ function Registration() {
   }
 
   const getOtpHandler = async () => {
-    const response = await dispatch(getRegistrationOTP({ url: ENDPOINTS.getRegistrationOTP, body: { Phonenumber: getValues("PhoneNumber") } }));
+    const bodyData: IGetRegistrationOTPPayload = {
+      Phonenumber: getValues("PhoneNumber"),
+      CountryCode: phoneNumberValue.country.dialCode,
+      CountryName: phoneNumberValue.country.name
+    }
+    const response: any = await dispatch(getRegistrationOTP({ url: ENDPOINTS.getRegistrationOTP, body: bodyData }));
     console.log("🚀 ~ getOtpHandler ~ response:", response)
 
     if (hasFulfilled(response.type)) {
@@ -318,20 +325,22 @@ function Registration() {
   }
 
   const verifyOtpHandler = async () => {
-    const response = await dispatch(verifyRegistrationOTP({ url: ENDPOINTS.verifyRegistrationOTP, body: { ContactNo: getValues("PhoneNumber"), OTP: getValues("OTP") } }));
+    const response: any = await dispatch(verifyRegistrationOTP({ url: ENDPOINTS.verifyRegistrationOTP, body: { ContactNo: getValues("PhoneNumber"), OTP: getValues("OTP") } }));
+    console.log("🚀 ~ verifyOtpHandler ~ response:", response)
 
     if (hasFulfilled(response.type)) {
-      const resData = response?.payload?.data.data;
+      const resData: boolean = response?.payload?.data?.data?.isOTPVerified;
       if (resData == true) {
         setIsOtpVerified(true)
         showToaster({
-          message: response?.payload?.data.message,
+          message: response?.payload?.data?.message,
           severity: "success"
         })
+        setShowOTPField(false)
       }
       else {
         showToaster({
-          message: "Failed to veify OTP",
+          message: response?.payload?.data?.message ?? "Failed to veify OTP",
           severity: "error"
         })
       }
@@ -377,6 +386,10 @@ function Registration() {
     setSliderImageHeight(document.body.clientHeight - headerHeight - topImageMinHeight)
   }, [trigger, headerHeight, sliderImageHeight, isMobile])
 
+  useEffect(() => {
+    const lastPage = getLastPage();
+    dispatch(registrationLog({ url: ENDPOINTS.regisrationRecoveryLog.replace('{{previousPath}}', (lastPage ? lastPage?.replace(/\//g, "") : "registration")) }))
+  }, [])
   return (
     <MainLayout blackTheme>
       {openToaster && <Toaster />}
@@ -396,7 +409,7 @@ function Registration() {
                     return (
                       <SwiperSlide>
                         <Box className="ImageWrapper">
-                          <img src={url} alt="Registration featured image" style={{ height: !isMobile ? sliderImageHeight : null }} />
+                          <img src={url} alt="Registration featured image" style={!isMobile ? { height: sliderImageHeight } : {}} />
                         </Box>
                       </SwiperSlide>
                     )
@@ -496,10 +509,11 @@ function Registration() {
                       variant="outlined"
                       margin="none"
                       fullWidth
+                      disabled={isOtpVerified}
                     />
-                    <Button variant="contained" onClick={getOtpHandler} disabled={!!errors.PhoneNumber || !phoneNumberValue.value}>GET OTP</Button>
+                    <Button variant="contained" onClick={getOtpHandler} disabled={!!errors.PhoneNumber || !phoneNumberValue.value || isOtpVerified}>GET OTP</Button>
                   </Box>
-                  {showOTPField && <RenderFields
+                  {showOTPField && !isOtpVerified && <RenderFields
                     register={register}
                     error={errors.OTP}
                     name="OTP"
@@ -518,12 +532,13 @@ function Registration() {
                     fullWidth
                   />}
                 </Stack>
-                {showOTPField && <Stack className="ResendOTP">
+                {showOTPField && !isOtpVerified && <Stack className="ResendOTP">
                   <Typography className="Message">Didn't received OTP? <Typography color="primary.main" variant="inherit" component="span">
                     00:{timer < 10 ? `0${timer}` : timer}
                   </Typography></Typography>
                   <Button onClick={handleResendClick} disabled={isButtonDisabled}>Resend OTP</Button>
                 </Stack>}
+                {isOtpVerified && <Box className="PasswordCondition mt-3"><Stack className="ConditionWrapper">{renderPasswordConditionItem("Your number is verified.", isOtpVerified)}</Stack></Box>}
               </Box>
               <GoogleMaps setParsedAddress={setGoogleAddressComponents} />
               <RenderFields
@@ -676,7 +691,7 @@ function Registration() {
                   register={register}
                   name="PrivacyPolicy"
                   label={
-                    <Typography>I Have Read And Agree The <Link to="#">Privacy Policy</Link></Typography>
+                    <Typography>I Have Read And Agree The <Link to="/topic/privacy-policy/">Privacy Policy</Link></Typography>
                   }
                   margin="none"
                 />
@@ -685,7 +700,7 @@ function Registration() {
                   register={register}
                   name="TermsCondition"
                   label={
-                    <Typography>I Have Read And Agree The <Link to="#">Terms & Condition</Link></Typography>
+                    <Typography>I Have Read And Agree The <Link to="/topic/terms-of-service">Terms & Condition</Link></Typography>
                   }
                   margin="none"
                 />

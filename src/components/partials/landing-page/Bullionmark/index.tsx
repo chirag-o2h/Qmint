@@ -21,7 +21,6 @@ import Newsletter from './Newsletter'
 const BulliomarkMainHomePage = () => {
     const { configDetails: configDetailsState, openToaster, loading, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const keyWords = configDetailsState?.Store_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_Meta_Keywords?.value?.split(',') : []
-
     useAPIoneTime({ service: getBullionMarkPageAPI })
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
 

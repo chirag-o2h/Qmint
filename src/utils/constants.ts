@@ -9,6 +9,7 @@ export const ENDPOINTS = {
     getConfigStore: 'store/duMyjVf3k0KIi7Rq7CmHAA',
     getTicker: 'calculator/DMJqdS7VvR2VMk9R',
     getProduct: 'product/m9XieCcNOUOxk5ODsP6FXQ/0',
+    // slidertype 1 for the main page and 0 for the home page
     getSlider: 'home/Y9w8nK5PhEyKFBZQNbV2Ow/?SliderType=typeEnum',
     getFooterLink: 'home/N2KdtXS5z0W3EbgvHaDCGw',
     homePageSection: 'home/sMwXo8EJm8Pad',
@@ -139,7 +140,14 @@ export const ENDPOINTS = {
     upgradPlan: "Checkout/ZQtAuhUHduOX",
     // bullion mark subscription
     subscriptionBullionMark: "ContactUs/WJoEyC3ZHvdaS7DS9Xv3H",
-    bullionMarkShopSections: "home/Wcclw6GGBRHcOIlIp74AYgp0wHUOGh9Y"
+    bullionMarkShopSections: "home/Wcclw6GGBRHcOIlIp74AYgp0wHUOGh9Y",
+    // registratino recovery log
+    regisrationRecoveryLog  : "account/Y369fKy45Ouua7vZrn1t/{{previousPath}}",
+    // password recovery email
+    passwordRecoveryEmail : "account/xjLagRE6BnpekIlrg3dED/{{email}}",
+    passwordRecoverySave : "account/Y12vw0O2AmFSztz1pMzUy23HX8OoG",
+    // verify token of the reset password
+    passwordRecoveryTokenVarified : "account/xjLagdr3wcfJ8c/{{token}}"
 }
 export const StoreData = {
     storeCode: 12,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Container, Box, DialogActions, DialogContent, DialogTitle, InputAdornment, Stack, TextField, Typography, IconButton } from "@mui/material"
 
 // Assets
@@ -12,7 +12,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { isActionRejected } from '@/components/common/Utils';
 import { Link, navigate } from 'gatsby';
 import { AxiosError } from 'axios';
-import { getLastPage } from '@/utils/common';
+import { getLastPage, storeLastPage } from '@/utils/common';
 import Loader from '@/components/common/Loader';
 import useAPIoneTime from '@/hooks/useAPIoneTime';
 import ConfigServices from '@/apis/services/ConfigServices';
@@ -51,7 +51,6 @@ function SignInPage() {
   const checkLoadingStatus = useAppSelector(state => state.homePage.loadingForSignIn);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
-  console.log("🚀 ~ SignInPage ~ openToaster:", openToaster)
   const { showToaster } = useShowToaster();
 
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -83,7 +82,7 @@ function SignInPage() {
     }
   };
 
-  function navigateToRegister1(){
+  function navigateToRegister1() {
     setLoadingForNavigate(true)
     navigate('/registration');
     setLoadingForNavigate(false)
@@ -112,6 +111,13 @@ function SignInPage() {
       handleSubmit(onSubmit)()
     }
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      storeLastPage(window.location.pathname)
+    }, 2000);
+  }, [])
+
   if (isLoggedIn) {
     console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
     const lastPage = getLastPage();
@@ -197,7 +203,7 @@ function SignInPage() {
                     fullWidth
                   />
                 </Stack>
-                <Link target="_blank" to={ENDPOINTS.forgotPasswordLink + "/?id=" + StoreData.storeCode}>
+                <Link target="_blank" to={'/forgot-password'}>
                   <Button name="Forgot Your Password" aria-label="Forgot Your Password" className="ForgotPassword" color="secondary" onClick={() => {
                   }}>Forgot Password?</Button></Link>
                 <Stack className="FormAction">

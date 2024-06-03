@@ -32,7 +32,7 @@ function BullionmarkShop() {
                     title="Home"
                     lang="en"
                 />
-                <Suspense fallback={<></>}><BannerSlider /></Suspense>
+                <Suspense fallback={<></>}><BannerSlider isItShopPage={true}/></Suspense>
                 <Suspense fallback={<></>}> <BestCategorySlider /></Suspense>
                 <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
                 <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>

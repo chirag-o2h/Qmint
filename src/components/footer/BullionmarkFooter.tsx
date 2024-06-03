@@ -11,9 +11,14 @@ import { useAppSelector } from "@/hooks"
 // Components
 import BullionmarkCopyRight from './BullionmarkCopyRight'
 import { navigationItems } from '@/utils/data';
+import useAPIoneTime from '@/hooks/useAPIoneTime';
+import { getFooterLinks } from '@/redux/reducers/homepageReducer';
+import { ENDPOINTS } from '@/utils/constants';
 
 function BullionmarkFooter() {
   const { configDetails: configDetailsState, bullionMarkPage } = useAppSelector((state) => state.homePage)
+  useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
+  const data = useAppSelector((state) => state.homePage.footerSections)
 
   return (
     <Box id="BullionmarkFooterSection" className='BullionmarkGeneralFooter' component="footer">
@@ -36,15 +41,15 @@ function BullionmarkFooter() {
               </Stack>
             </Box>
           </Stack>
-          {navigationItems.map((navigation) => {
+          {data?.map((menu) => {
             return (
               <Box className="MenuWrapper QuickLink">
-                <Typography className="MenuTitle" variant="subtitle2" component="p">{navigation.title}</Typography>
+                <Typography className="MenuTitle" variant="subtitle2" component="p">{menu?.mainTitle?.toLocaleLowerCase()}</Typography>
                 <List>
-                  {navigation.menues.map((item) => {
+                  {menu?.links?.map((item) => {
                     return (
-                      <ListItem key={item}>
-                        <ListItemButton onClick={() => navigate(`${item}`)}>{item}</ListItemButton>
+                      <ListItem key={item.linkTitle}>
+                        <ListItemButton onClick={() => navigate(`${item.linkUrl}`)}>{item.linkTitle}</ListItemButton>
                       </ListItem>
                     )
                   })}

@@ -18,6 +18,7 @@ import ConfigServices from '@/apis/services/ConfigServices';
 import useShowToaster from '@/hooks/useShowToaster';
 import Toaster from '@/components/common/Toaster';
 import MainLayout from '@/components/common/MainLayout';
+import { passwordRecoveryEmail } from '@/redux/reducers/authReducer';
 export interface IdispatchType {
   type: string,
   meta: {
@@ -46,65 +47,33 @@ declare global {
 }
 
 function ForgotPassword() {
-  const { configDetails: configDetailsState, loadingForSignIn } = useAppSelector((state) => state.homePage)
-  const checkLoadingStatus = useAppSelector(state => state.homePage.loadingForSignIn);
-  const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
-  const openToaster = useAppSelector(state => state.homePage.openToaster)
-  console.log("🚀 ~ ForgotPassword ~ openToaster:", openToaster)
-  const { showToaster } = useShowToaster();
-
-  const [passwordVisible, setPasswordVisible] = useState(false)
-  const [loadingForNavigate, setLoadingForNavigate] = useState(false)
-  const [loginError, setLoginError] = useState<string | null>(null);
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const dispatch: Dispatch<any> = useAppDispatch()
+  const openToaster = useAppSelector(state => state.homePage.openToaster)
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible)
-  }
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   const { register, handleSubmit, formState: { errors, touchedFields }, getValues } = useForm();
 
   const onSubmit = async (data: any) => {
-    const response: any = await dispatch<any>(LoginUserAPI({ url: ENDPOINTS.loginUser, body: data }))
+    setLoginError(null)
+    setMessage(null)
+    setLoading(() => true)
+    const response: any = await dispatch(passwordRecoveryEmail({ url: ENDPOINTS.passwordRecoveryEmail.replace('{{email}}', data?.email) }))
     if (isActionRejected(response.type)) {
       setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
+      setLoading(() => false)
       return
     }
-    const lastPage = getLastPage();
-    console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
-    if (lastPage) {
-      // Redirect the user to the last visited page
-      console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
-      navigate(lastPage);
-    } else {
-      // Redirect the user to a default page
-      navigate('/');
-    }
+    setMessage(()=>response?.payload?.data?.message)
+    setLoginError(null)
+    setLoading(() => false)
   };
 
-  function navigateToRegister1() {
-    setLoadingForNavigate(true)
-    navigate('/registration');
-    setLoadingForNavigate(false)
-  }
-  function navigateToRegister() {
-    setLoadingForNavigate(true)
-    navigate(ENDPOINTS.createMyAccount + StoreData.returnUrl);
-    setLoadingForNavigate(false)
-  }
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
 
-  window.handleLinkClick = async () => {
-    setLoadingForNavigate(true)
-    const email = getValues('email');
-    const response = await ConfigServices.sendVerificationEmailAPI(ENDPOINTS.sendVerificationEmail.replace('useEmail', email));
-    setLoadingForNavigate(false)
-    setLoginError(null)
-    showToaster({
-      message: response.data.message,
-      severity: 'success'
-    })
-  };
 
   const handleEnterKeyPress = (e: any) => {
     if (e.key === 'Enter') {
@@ -115,7 +84,7 @@ function ForgotPassword() {
   return (
     <>
       {openToaster && <Toaster />}
-      {/* <Loader open={checkLoadingStatus || loadingForNavigate} /> */}
+      <Loader open={loading} />
       <MainLayout blackTheme>
         <Stack id="BmkForgotPassword">
           <Box className="LeftPart">
@@ -125,7 +94,8 @@ function ForgotPassword() {
             <form id="forgot-password-form" onKeyDown={handleEnterKeyPress}>
               <Box className="Header">
                 <Typography variant="h3" component="p">Forgot Password</Typography>
-                <Typography variant="body2" component="p" className="SuccessMessage">Email with instructions has been sent to you.</Typography>
+                {loginError && <Typography variant="body2" component="p" className="ErrorMessage">{loginError}</Typography>}
+                {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage">{message}</Typography>}
               </Box>
               <Stack className="FieldWrapper">
                 <TextField
@@ -147,7 +117,7 @@ function ForgotPassword() {
                   fullWidth
                 />
               </Stack>
-              <Link target="_blank" to="#">
+              <Link target="_blank" to="/login">
                 <Button name="Back To Login" aria-label="Back To Login" className="BackToLogin" color="secondary" onClick={() => {
                 }}>Back To Login</Button></Link>
               <Stack className="FormAction">

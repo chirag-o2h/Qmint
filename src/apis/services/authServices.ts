@@ -20,19 +20,23 @@ export interface IRegistrationPayload {
     NewsLetter: boolean;
     IAcceptPrivacyPolicy: boolean;
     Termsofservice: boolean;
+    ConfirmPassword?: any
 }
 
 export interface IGetRegistrationOTPPayload {
     Phonenumber: string;
-    CountryCode?: number;
-    CountryName?: string;
+    CountryCode: number;
+    CountryName: string;
 }
 
 export interface IVerifyRegistrationOTPPayload {
     ContactNo: string;
     OTP: string;
 }
-
+export interface IrecoveryPasswordSave {
+    "Password": string,
+    "CustomerId": number
+}
 class AuthServices {
     static async register(url: string, data: IRegistrationPayload) {
         return axiosInstance.post(url, data);
@@ -42,6 +46,18 @@ class AuthServices {
     }
     static async verifyRegistrationOTP(url: string, data: IVerifyRegistrationOTPPayload) {
         return axiosInstance.post(url, data);
+    }
+    static async registrationLog(url: string) {
+        return axiosInstance.post(url);
+    }
+    static async passwordRecoveryEmail(url: string) {
+        return axiosInstance.post(url);
+    }
+    static async passwordRecoverySave(url: string, data: IrecoveryPasswordSave) {
+        return axiosInstance.post(url,data);
+    }
+    static async passwordRecoveryTokenVarified(url: string) {
+        return axiosInstance.post(url);
     }
 }
 export default AuthServices

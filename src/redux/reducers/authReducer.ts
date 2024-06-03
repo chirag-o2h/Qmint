@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { appCreateAsyncThunk } from "../middleware/thunkMiddleware";
-import AuthServices, { IGetRegistrationOTPPayload, IRegistrationPayload, IVerifyRegistrationOTPPayload } from "@/apis/services/authServices";
+import AuthServices, { IGetRegistrationOTPPayload, IrecoveryPasswordSave, IRegistrationPayload, IVerifyRegistrationOTPPayload } from "@/apis/services/authServices";
 import { ENDPOINTS } from "@/utils/constants";
 
 interface IAuthIntialState {
@@ -30,6 +30,31 @@ export const verifyRegistrationOTP = appCreateAsyncThunk(
     }
 )
 
+export const registrationLog = appCreateAsyncThunk(
+    'registrationLog',
+    async ({ url }: { url: string }) => {
+        return await AuthServices.registrationLog(url)
+    }
+)
+
+export const passwordRecoveryEmail = appCreateAsyncThunk(
+    'passwordRecoveryEmail',
+    async ({ url }: { url: string }) => {
+        return await AuthServices.passwordRecoveryEmail(url)
+    }
+)
+export const passwordRecoverySave = appCreateAsyncThunk(
+    'passwordRecoverySave',
+    async ({ url, data }: { url: string ,data: IrecoveryPasswordSave }) => {
+        return await AuthServices.passwordRecoverySave(url, data)
+    }
+)
+export const passwordRecoveryTokenVarified = appCreateAsyncThunk(
+    'passwordRecoveryTokenVarified',
+    async ({ url}: { url: string }) => {
+        return await AuthServices.passwordRecoveryTokenVarified(url)
+    }
+)
 export const authSlice = createSlice({
     name: "auth",
     initialState,
