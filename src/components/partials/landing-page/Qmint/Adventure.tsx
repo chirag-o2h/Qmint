@@ -26,7 +26,7 @@ function Adventure() {
         },
         grabCursor: true,
         autoplay: {
-            delay: 800000,
+            delay: 8000,
         },
     };
 

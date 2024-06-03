@@ -70,7 +70,7 @@ function NewsDetails(params: any) {
           <Box className="PostDetail">
             <Stack className="Header">
               <Typography variant="subtitle1" className="PostSubtitle">
-                {newsDetailsData?.bodyOverview}
+                {newsDetailsData?.shortDescription}
               </Typography>
               <Typography variant="h2" component="h2" className="PostTitle">
                 {newsDetailsData?.title}
@@ -78,8 +78,8 @@ function NewsDetails(params: any) {
             </Stack>
             <Box className="PostThumbnail">
               <img
-                src={newsDetailsData?.imageUrl}
-                alt={noImage}
+                src={newsDetailsData?.imageUrl ?? noImage}
+                alt={"no image"}
               />
             </Box>
             <Stack className="AboutWrapper">
@@ -110,7 +110,7 @@ function NewsDetails(params: any) {
                       variant="titleLarge"
                       component="p"
                     >
-                      {formatDate(newsDetailsData?.createdOnUtc)}
+                      {formatDate(newsDetailsData?.createdDate)}
                     </Typography>
                   </Box>
                 </Stack>
@@ -140,7 +140,7 @@ function NewsDetails(params: any) {
               <Box className="ck-content">
                 <Typography
                   variant="body1"
-                  dangerouslySetInnerHTML={{ __html: newsDetailsData?.body }}
+                  dangerouslySetInnerHTML={{ __html: newsDetailsData?.fullDescription }}
                 ></Typography>
               </Box>
             </Box>
@@ -154,12 +154,13 @@ function NewsDetails(params: any) {
               </Box>
               <Box className="PostsWrapper">
                 {newsList?.items?.slice(0, 2).map((item: any) => {
-                  console.log("🚀 ~ {newsList?.items?.slice ~ item:", item)
                   return (
                     <BmkPostCard details={item} navigate={() => {
                       navigate(`/news/${item?.friendlyName}`, { replace: true })
                     }
-                    } />
+                    }
+                    isNews={true}
+                     />
                   );
                 })}
               </Box>
