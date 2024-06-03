@@ -27,6 +27,7 @@ interface IApiResponse<T> {
 }
 function FrontPricing() {
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
+    console.log("🚀 ~ FrontPricing ~ configDetailsState:", configDetailsState)
     const { data }: IApiResponse<ItickerData> = useApiRequest(ENDPOINTS.getTicker, 'get', null, 60);
     const renderedStockItems = useMemo(() => {
         const tickerStyle = {
@@ -41,7 +42,7 @@ function FrontPricing() {
     const renderdTextAfterText = useMemo(() => {
         //todo if ues is logged in the use this headerticker insted of this guestheaderticker
         // <AfterStockReturnWithName text={configDetailsState?.Header_ShopHomePage_Ticker_Text?.value} />
-        return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.["Main_home_page_ticker_text"]?.value : configDetailsState?.["mainhomepage.Header_ShopHomePage_Ticker_Text_Guest"]?.value} />
+        return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.["Main_home_page_ticker_text"]?.value : configDetailsState?.["Header_ShopHomePage_Ticker_Text_Guest"]?.value} />
     }, [configDetailsState])
     return (
         <Box
