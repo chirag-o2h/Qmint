@@ -65,7 +65,7 @@ function GetInspired() {
                           <Box className="Content">
                             <Typography className="Title">{item.title}</Typography>
                             <Typography className="Description">{item.overview}</Typography>
-                            <Button variant="outlined" className="WhiteButton" onClick={() => { navigate(`/${item.friendlyName}`) }}>Discover</Button>
+                            <Button variant="outlined" className="WhiteButton" onClick={() => { navigate(`${item.friendlyName}`) }}>Discover</Button>
                           </Box>
                         </Stack>
                       </SwiperSlide>
