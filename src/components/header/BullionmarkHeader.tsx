@@ -24,8 +24,8 @@ const MobileMenu = lazy(() => import('./MobileMenu'))
 const frontHeaderList = ["/shop/"]
 
 const BullionmarkHeader = () => {
-  const [params] = useState({ page: 1 })
-  useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
+  // const [params] = useState({ page: 1 })
+  // useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const loading = useAppSelector((state) => state.homePage.loading)

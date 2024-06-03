@@ -19,7 +19,6 @@ import { useAppSelector } from '@/hooks'
 
 
 function BmkProductCard({ product }: { product: IFeaturedProducts }) {
-    console.log("🚀 ~ BmkProductCard ~ product:", product)
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
 
     const renderStockStatus = isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value
