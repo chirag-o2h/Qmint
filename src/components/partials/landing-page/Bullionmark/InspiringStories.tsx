@@ -7,9 +7,9 @@ import { navigate } from "gatsby";
 import { useAppSelector } from "@/hooks"
 import { BullionMarkItem } from '@/redux/reducers/homepageReducer'
 
-function InspiringStories({ data }: { data: BullionMarkItem[] | undefined}) {
+function InspiringStories({ data, className }: { data: BullionMarkItem[] | undefined, className?: string}) {
     return (
-        data && data?.[0] && (<Box id="InspiringStories" component="section">
+        data && data?.[0] && (<Box id="InspiringStories" component="section" className={className}>
             <Container>
                 <Box className="InspiringStoriesTitle">
                     <BullionmarkSectionHeading title="Inspiring Stories" />
