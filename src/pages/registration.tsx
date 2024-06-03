@@ -375,7 +375,7 @@ function Registration() {
   useEffect(() => {
     setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
     setSliderImageHeight(document.body.clientHeight - headerHeight - topImageMinHeight)
-  }, [trigger, headerHeight, sliderImageHeight])
+  }, [trigger, headerHeight, sliderImageHeight, isMobile])
 
   return (
     <MainLayout blackTheme>
@@ -383,8 +383,8 @@ function Registration() {
       <Loader open={loading} />
       <Stack id="RegistrationPage">
         <Stack className="LeftPart">
-          <Box className="StickyWrapper" sx={{ top: headerHeight }}>
-            <Stack className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})`, minHeight: topImageMinHeight }}>
+          <Box className="StickyWrapper" sx={{ top: !isMobile ? headerHeight : null }}>
+            <Stack className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})`, minHeight: !isMobile ? topImageMinHeight : null }}>
               <Box dangerouslySetInnerHTML={{
                 __html: configDetailsState?.Registrationpage_Top_Leftside_pic_Text?.value
               }}></Box>
@@ -396,7 +396,7 @@ function Registration() {
                     return (
                       <SwiperSlide>
                         <Box className="ImageWrapper">
-                          <img src={url} alt="Registration featured image" style={{ height: sliderImageHeight }} />
+                          <img src={url} alt="Registration featured image" style={{ height: !isMobile ? sliderImageHeight : null }} />
                         </Box>
                       </SwiperSlide>
                     )
