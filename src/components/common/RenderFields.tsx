@@ -21,6 +21,7 @@ import {
 import { clear } from 'console'
 import { DateRangePicker } from '@adobe/react-spectrum'
 import { CalendarDate } from '@internationalized/date'
+import { THEME_TYPE } from '@/axiosfolder'
 
 interface RenderFieldProps {
   type?: RenderFieldType
@@ -134,6 +135,21 @@ const RenderFields: React.FC<RenderFieldProps> = ({
   }, [value])
   if (name === "State")
     console.log("🚀 ~ useEffect ~ value:", value)
+
+  useEffect(() => {
+    // Find the react-tel-input div and add the class conditionally
+    const telInput = document.querySelector('.react-tel-input');
+    if (telInput && THEME_TYPE === "1") {
+      telInput.classList.add('BmkPhoneInput');
+    }
+  }, []);
+  useEffect(() => {
+    // Find the react-tel-input div and add the class conditionally
+    const telInput = document.querySelector('.react-tel-input');
+    if (telInput && THEME_TYPE === "0") {
+      telInput.classList.add('QmintPhoneInput');
+    }
+  }, []);
 
   let fieldType = null
   switch (type) {

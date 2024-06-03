@@ -6,35 +6,41 @@ div {
     $flagWidthSmall: 50px;
     font: inherit;
     height: inherit;
+
     .form-control {
       font: inherit;
       height: initial;
       width: 100%;
-      border-radius: 10px;
       border: none;
       outline-style: solid;
       outline-width: 1px;
       outline-color: rgba($dark, 0.2);
       padding-left: calc($flagWidth + 10px);
       @include padding-vertical(12);
+
       @include media($ssm) {
         padding-left: calc($flagWidthSmall + 10px);
       }
+
       &:focus {
         box-shadow: none;
         outline-width: 2px;
         outline-color: $yellowFuel;
+
         &:hover {
           outline-color: rgba($dark, 0.2);
         }
       }
+
       &.error {
         outline-color: $error;
+
         &:hover {
           outline-color: rgba($dark, 0.2);
         }
       }
     }
+
     .flag-dropdown {
       top: 0;
       bottom: 0;
@@ -43,39 +49,85 @@ div {
       border-right: 1px solid rgba($dark, 0.2);
       border-radius: 10px 0 0 10px;
       background-color: transparent;
+
       &.open {
         border-radius: 10px 0 0 10px;
       }
+
       .selected-flag {
         width: $flagWidth;
         display: flex;
         justify-content: center;
         border-radius: inherit;
         @include padding-horizontal(0, 10);
+
         @include media($ssm) {
           width: $flagWidthSmall;
         }
+
         &.open {
           border-radius: inherit;
         }
+
         .flag {
           @include media-min($ssm) {
             transform: scale(1.25);
           }
         }
+
         .arrow {
           @include media-min($ssm) {
             left: 24px;
           }
         }
       }
+
       .country-list {
         width: 270px;
         max-width: calc($sm - 40px);
+
         @include media($sm) {
           width: calc(100vw - 64px - 20px - 30px);
         }
       }
     }
+
+
+    &.BmkPhoneInput {
+      .form-control {
+        height: inherit;
+        border-radius: 0px;
+        padding-right: 40px;
+        padding-left: 62px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+
+        &:focus {
+          outline-color: $pumpkinOrange;
+
+          &:hover {
+            outline-color: rgba($dark, 0.2);
+          }
+        }
+      }
+
+      .flag-dropdown {
+        .selected-flag {
+          width: 50px;
+          padding-right: 14px;
+        }
+      }
+    }
+
+    &.QmintPhoneInput {
+      .form-control {
+        border-radius: 10px;
+
+        &:focus {
+          outline-color: $yellowFuel;
+        }
+      }
+    }
+
   }
 }
