@@ -59,8 +59,33 @@
   }
 
   .RightPart {
-    padding: 50px;
+    @include padding-vertical(50);
+    padding-left: 50px;
+    // padding-right: 50px;
     width: 50%;
+
+    // @include media-min(1800px - 1) {
+    padding-right: calc((100vw - 1580px)/2);
+    // }
+
+    @include media-between($xxl - 1, 1800px) {
+      padding-right: calc((100vw - 1580px + 48px)/2);
+    }
+
+    @include media-between($lg, $xxl + 1) {
+      padding-right: calc((100vw - 1248px + 48px)/2);
+    }
+
+    // @include media-between($md, $lg) {
+    //   padding-right: calc((100vw - 1200px + 48px)/2);
+    // }
+    @include media($lg) {
+      padding-right: 24px;
+    }
+
+    @include media($md) {
+      padding-right: 50px;
+    }
 
     @include media-min($xl) {
       width: 45%;
