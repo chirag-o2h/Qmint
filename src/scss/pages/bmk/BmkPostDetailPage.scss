@@ -1,6 +1,6 @@
 .BmkPostDetailPage {
-  .BlogContainer {
-    .BlogDetail {
+  .PostContainer {
+    .PostDetail {
       margin-bottom: 60px;
 
       .Header {
@@ -14,11 +14,11 @@
           flex-direction: column-reverse;
         }
 
-        .BlogTitle {
+        .PostTitle {
           letter-spacing: -2px;
         }
 
-        .BlogSubtitle {
+        .PostSubtitle {
           font-weight: 400;
         }
       }

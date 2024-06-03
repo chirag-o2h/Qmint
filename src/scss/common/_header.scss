@@ -731,6 +731,26 @@
   }
 
   &.BullionmarkHeader {
+    .MuiAppBar-root {
+      .NavigationHeader__Wrapper {
+        .LeftPart {
+          .HoverTooltip {
+            .MuiTooltip-tooltip {
+              .SubMenu {
+                .MuiList-root {
+                  .SubMenuLink {
+                    &:hover {
+                      color: $pumpkinOrange;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     header {
       @include media($md) {
         position: sticky;

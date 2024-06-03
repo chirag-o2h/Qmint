@@ -24,6 +24,8 @@ import useAlertPopUp from "@/hooks/useAlertPopUp"
 import SessionExpiredDialog from "@/components/header/SessionExpiredDialog"
 import useRequireLogin from "@/hooks/useRequireLogin"
 import RecordNotFound from "@/components/common/RecordNotFound"
+import classNames from "classnames"
+import { THEME_TYPE } from "@/axiosfolder"
 
 function Checkout() {
   const { loadingForCheckingLogin } = useRequireLogin()
@@ -63,7 +65,7 @@ function Checkout() {
       />
       {openToaster && <Toaster />}
       <PageTitle title="Checkout" />
-      <Container id="PageCheckout">
+      <Container id="PageCheckout" className={classNames({ "BmkCheckoutPage": THEME_TYPE == '1' })}>
         {(checkoutPageData?.shoppingCartItems?.length && checkoutPageData?.shoppingCartItems?.length > 0) ?
           (<>
             <Stack className="AllSteps">
@@ -76,11 +78,13 @@ function Checkout() {
           </>) : null}
         {(!checkLoadingStatus && isApiCalled && checkoutPageData?.shoppingCartItems?.length === 0) ? <RecordNotFound message="No Items are available" /> : null}
       </Container>
-      {openSessionExpireDialog && <SessionExpiredDialog
-        open={openSessionExpireDialog}
-        onClose={toggleSessionExpireDialog}
-      />}
-    </Layout>
+      {
+        openSessionExpireDialog && <SessionExpiredDialog
+          open={openSessionExpireDialog}
+          onClose={toggleSessionExpireDialog}
+        />
+      }
+    </Layout >
   )
 }
 

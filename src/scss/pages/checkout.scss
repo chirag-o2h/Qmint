@@ -416,6 +416,10 @@
           font-size: 20px;
         }
 
+        svg {
+          color: $yellowFuel;
+        }
+
         .Message {
           color: rgba($dark, 0.6);
 
@@ -451,6 +455,18 @@
   .RecordNotFound {
     @include media($xs) {
       @include padding-horizontal(5);
+    }
+  }
+
+  &.BmkCheckoutPage {
+    .OrderSummary {
+      .PricingDetails {
+        .PaymentMethod {
+          svg {
+            color: $pumpkinOrange;
+          }
+        }
+      }
     }
   }
 }

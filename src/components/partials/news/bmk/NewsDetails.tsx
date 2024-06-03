@@ -35,7 +35,7 @@ import { BmkPostCard } from "@/components/common/Card";
 import { navigate } from "gatsby";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
-import { bodyData } from "@/pages/blog";
+import { bodyData } from "@/pages/news";
 
 function NewsDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
@@ -66,13 +66,13 @@ function NewsDetails(params: any) {
       <Loader open={checkLoadingStatus} />
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/news', name: 'news' }]} />
-        <Container className="BlogContainer">
-          <Box className="BlogDetail">
+        <Container className="PostContainer">
+          <Box className="PostDetail">
             <Stack className="Header">
-              <Typography variant="subtitle1" className="BlogSubtitle">
+              <Typography variant="subtitle1" className="PostSubtitle">
                 {newsDetailsData?.shortDescription}
               </Typography>
-              <Typography variant="h2" component="h2" className="BlogTitle">
+              <Typography variant="h2" component="h2" className="PostTitle">
                 {newsDetailsData?.title}
               </Typography>
             </Stack>
@@ -118,17 +118,17 @@ function NewsDetails(params: any) {
               <Stack className="SocialMedia">
                 <Typography className="Title">Share this post</Typography>
                 <Stack className="SocialIconWrapper">
-                  <WhatsappShareButton url={window.location.href} title="Qmint blog">
+                  <WhatsappShareButton url={window.location.href} title="Bullionmark news">
                     <IconButton className="CircleButton SocialIcon" aria-label="Whatsapp Icon">
                       <WhatsappIcon />
                     </IconButton>
                   </WhatsappShareButton>
-                  <FacebookShareButton url={window.location.href} hashtag="qmint" title="Qmint blog">
+                  <FacebookShareButton url={window.location.href} hashtag="bmk" title="Bullionmark news">
                     <IconButton className="CircleButton SocialIcon" aria-label="Facebook Icon" >
                       <FacebookIcon />
                     </IconButton>
                   </FacebookShareButton>
-                  <TwitterShareButton url={window.location.href} title="Qmint blog" hashtags={["qmint", "blog"]}>
+                  <TwitterShareButton url={window.location.href} title="Bullionmark news" hashtags={["bmk", "news"]}>
                     <IconButton className="CircleButton SocialIcon" aria-label="Twitter Icon">
                       <TwitterIcon />
                     </IconButton>

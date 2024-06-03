@@ -8,6 +8,8 @@ import * as  variable from '../scss/settings/variables.module.scss'
 // Utils
 import { pxToRem } from '../utils/helper';
 
+import { THEME_TYPE } from "@/axiosfolder"
+
 const commonComponents: Components = {
   MuiCssBaseline: {
     styleOverrides: {
@@ -43,6 +45,9 @@ const commonComponents: Components = {
         display: "flex",
         flexDirection: "column",
       },
+      a: {
+        color: THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`
+      }
     },
   },
   MuiBackdrop: {
@@ -757,7 +762,7 @@ const bmkComponents: Components = {
         fontWeight: 600,
         textDecoration: "underline",
         "&:hover": {
-          color: "#EAA22B",
+          color: "#FF681A",
           backgroundColor: "transparent",
           textDecoration: "underline",
         },
@@ -820,7 +825,7 @@ const bmkComponents: Components = {
         // overflowWrap: anywhere;
         transition: "300ms all ease",
         "&:hover": {
-          color: "#EAA22B",
+          color: "#FF681A",
         },
       },
     },
@@ -972,7 +977,7 @@ const bmkComponents: Components = {
     styleOverrides: {
       colorPrimary: {
         "&.Mui-disabled": {
-          color: "#EAA22B",
+          color: "#FF681A",
           opacity: 0.2,
           "svg": {
             "path:first-of-type": {
@@ -1040,7 +1045,7 @@ const bmkComponents: Components = {
       option: {
         transition: '400ms all ease',
         "&:hover": {
-          color: `${variable.yellowFuel}`,
+          color: `${variable.pumpkinOrange}`,
           backgroundColor: 'transparent !important',
         },
         "@media (max-width: 600px)": {
@@ -1068,6 +1073,7 @@ const bmkComponents: Components = {
       },
     },
   },
+
 }
 
 const components = (theme?: string) => {
