@@ -22,7 +22,7 @@ import Layout from "@/components/common/Layout"
 import GoogleMaps from "@/components/common/GoogleMaps"
 import RenderFields from "@/components/common/RenderFields"
 import { AddressComponents } from "@/utils/parseAddressComponents"
-import { isValidPhoneNumber } from "@/components/common/Utils"
+import { checkImageUrl, isValidPhoneNumber } from "@/components/common/Utils"
 import { StateOrCountry, getStateAndCountryLists } from "@/redux/reducers/checkoutReducer";
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { ENDPOINTS } from "@/utils/constants"
@@ -335,6 +335,34 @@ function Registration() {
       })
     }
   }
+  const [validImageUrls, setValidImageUrls] = useState<any[]>([]);
+
+  useEffect(() => {
+      const fetchValidUrls = async () => {
+        // if want to any new pic then update here 
+          const imageUrls = [
+              configDetailsState?.Registrationpage_Bottom_Leftside_pic_one?.value,
+              configDetailsState?.Registrationpage_Bottom_Leftside_pic_two?.value,
+              configDetailsState?.Registrationpage_Bottom_Leftside_pic_three?.value,
+              configDetailsState?.Registrationpage_Bottom_Leftside_pic_four?.value,
+              configDetailsState?.Registrationpage_Bottom_Leftside_pic_five?.value,
+          ];
+
+          const validUrls:any[] = [];
+          for (const url of imageUrls) {
+              if (url) {
+                  const isValid = await checkImageUrl(url);
+                  console.log("🚀 ~ fetchValidUrls ~ isValid:", isValid)
+                  if (isValid) {
+                    validUrls.push(url);
+                  }
+              }
+          }
+          setValidImageUrls(validUrls);
+      };
+
+      fetchValidUrls();
+  }, [configDetailsState]);
   return (
     <Layout>
       {openToaster && <Toaster />}
@@ -353,12 +381,7 @@ function Registration() {
             <Box className="SliderWrapper">
               <Box className="SwiperContainer CircleSwiperPaginationWhite">
                 <Swiper {...config}>
-                  {[configDetailsState?.Registrationpage_Bottom_Leftside_pic_one?.value,
-                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_two?.value,
-                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_three?.value,
-                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_four?.value,
-                    configDetailsState?.Registrationpage_Bottom_Leftside_pic_five?.value,
-                  ].map((url) => {
+                  {validImageUrls.map((url) => {
                     return (
                       <SwiperSlide>
                         <Box className="ImageWrapper">

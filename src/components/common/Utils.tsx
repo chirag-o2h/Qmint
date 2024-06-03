@@ -334,3 +334,12 @@ export function generateGUID() {
 
   return uniqueId;
 }
+// Helper function to check if an image URL is valid
+export const checkImageUrl = (url:any) => {
+  return new Promise((resolve) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+  });
+};
