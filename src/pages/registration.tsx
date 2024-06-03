@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks"
 // Utils
 
 // Components
-import Layout from "@/components/common/Layout"
+import MainLayout from "@/components/common/MainLayout"
 import GoogleMaps from "@/components/common/GoogleMaps"
 import RenderFields from "@/components/common/RenderFields"
 import { AddressComponents } from "@/utils/parseAddressComponents"
@@ -364,7 +364,7 @@ function Registration() {
       fetchValidUrls();
   }, [configDetailsState]);
   return (
-    <Layout>
+    <MainLayout blackTheme>
       {openToaster && <Toaster />}
       <Loader open={loading} />
       <Stack id="RegistrationPage">
@@ -688,7 +688,7 @@ function Registration() {
           </form>
         </Box>
       </Stack>
-    </Layout>
+    </MainLayout>
   )
 }
 

@@ -9,7 +9,7 @@ import { TickIcon } from "@/assets/icons"
 import { ENDPOINTS } from "@/utils/constants"
 
 // Components
-import Layout from "@/components/common/Layout"
+import MainLayout from "@/components/common/MainLayout"
 import { useAppSelector } from "@/hooks"
 import { getLastPage } from "@/utils/common"
 
@@ -24,7 +24,7 @@ function Confirmation() {
     }
   }
   return (
-    <Layout>
+    <MainLayout blackTheme>
       <Container id="Confirmation">
         <Box className="Content">
           <TickIcon className="TickIcon" />
@@ -35,7 +35,7 @@ function Confirmation() {
           <Button variant="contained" size="large" className="ActionButton" onClick={() => navigate(ENDPOINTS.login)}>Sign Me In</Button>
         </Box>
       </Container>
-    </Layout>
+    </MainLayout>
   )
 }
 
