@@ -790,7 +790,7 @@ const bmkComponents: Components = {
         lineHeight: pxToRem(20),
         fontWeight: 600,
         border: "1px solid #FF681A",
-        padding: "16px 23px",
+        padding: "14px 23px",
       },
       containedInfo: {
         backgroundColor: `${variable.elephant}`,

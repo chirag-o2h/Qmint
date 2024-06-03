@@ -268,7 +268,7 @@ function OrderSummary() {
           <Typography variant="subtitle1">${roundOfThePrice(Number(insuranceAndTaxCalculation?.secureShippingFeeIncludingTax) + Number(subTotal) + Number(insuranceAndTaxCalculation?.vaultStorageFeeIncludingTax) + (finalDataForTheCheckout?.paymentType === 'CreditCard' ? Number(craditCardCharges?.creditCardFeeIncludingTax) : 0))}</Typography>
         </Stack>
         <Stack className="PaymentMethod">
-          <OutlinedCheckIcon />
+          <OutlinedCheckIcon color="primary" />
           <Typography className="Message" variant="titleLarge" component="p">Payment Method: <Typography variant="inherit" component="span">{paymentMethodType[finalDataForTheCheckout?.paymentType] ?? finalDataForTheCheckout?.paymentType}</Typography></Typography>
         </Stack>
         <Divider className="ActionDivider" />

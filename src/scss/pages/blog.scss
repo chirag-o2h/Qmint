@@ -84,6 +84,7 @@
       }
       .MuiFormControl-root {
         .MuiInputBase-root {
+          height: 100%;
           .MuiInputBase-input {
             width: 534px;
             @include media($sm) {

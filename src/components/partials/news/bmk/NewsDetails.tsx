@@ -69,7 +69,7 @@ function NewsDetails(params: any) {
         <Container className="PostContainer">
           <Box className="PostDetail">
             <Stack className="Header">
-              <Typography variant="subtitle1" className="BlogSubtitle">
+              <Typography variant="subtitle1" className="PostSubtitle">
                 {newsDetailsData?.shortDescription}
               </Typography>
               <Typography variant="h2" component="h2" className="PostTitle">

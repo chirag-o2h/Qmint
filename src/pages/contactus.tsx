@@ -42,14 +42,14 @@ function ContactUs() {
         <Container>
           <Stack className="ContactCardsWrapper">
             <Box className="AddressWrapper ContactCard">
-              <Box className="IconWrapper">
+              <Box className="IconWrapper" sx={{backgroundColor: "primary.main"}}>
                 <Icon className='OriginalIcon'><AddressIcon /></Icon>
               </Box>
               <Typography variant="h4" component="h2" className="Title">Address</Typography>
               <Typography variant="body1" className="AddressDesription">{configDetails?.Store_Address?.value}</Typography>
             </Box>
             <Box className="CallUsWrapper ContactCard">
-              <Box className="IconWrapper">
+              <Box className="IconWrapper" sx={{backgroundColor: "primary.main"}}>
                 <Icon className='OriginalIcon'><Calling /></Icon>
               </Box>
               <Typography variant="h4" component="h2" className="Title">Call us</Typography>
@@ -57,7 +57,7 @@ function ContactUs() {
               <Link href={`tel:${configDetails?.["StorePhoneNumber_AU"]?.value}`} variant="body1" className="CallUsNumber">Australia: {configDetails?.["StorePhoneNumber_AU"]?.value}</Link>
             </Box>
             {/* <Box className="EmailWrapper ContactCard">
-              <Box className="IconWrapper">
+              <Box className="IconWrapper" sx={{backgroundColor: "primary.main"}}>
                 <Icon className='OriginalIcon'><Email /></Icon>
               </Box>
               <Typography variant="h4" component="h2" className="Title">Email Id</Typography>

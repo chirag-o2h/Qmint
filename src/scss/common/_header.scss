@@ -950,6 +950,11 @@
                 }
               }
             }
+            .Right {
+              .HamburgerButton {
+                color: $white;
+              }
+            }
           }
         }
 
@@ -982,6 +987,14 @@
                 color: $white;
               }
             }
+          }
+        }
+      }
+
+      .BmkMobileSecondaryMenu {
+        .MuiAppBar-positionStatic {
+          .Wrapper {
+            color: $black;
           }
         }
       }
