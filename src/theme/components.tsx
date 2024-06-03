@@ -2,7 +2,7 @@ import React from "react";
 import { Components } from "@mui/material/styles"
 
 // Assets
-import { ArrowDown, CheckboxCheckedIcon, CheckboxUncheckedIcon, RadioCheckedIcon, RadioUncheckedIcon } from '../assets/icons/index';
+import { ArrowDown, CheckboxCheckedIcon, CheckboxUncheckedIcon, RadioUncheckedRoundIcon, RadioCheckedRoundIcon, RadioCheckedIcon, RadioUncheckedIcon, CheckboxUncheckedIcon1, CheckboxCheckedIcon1 } from '../assets/icons/index';
 import * as  variable from '../scss/settings/variables.module.scss'
 
 // Utils
@@ -46,7 +46,8 @@ const commonComponents: Components = {
         flexDirection: "column",
       },
       a: {
-        color: THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`
+        color: THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`,
+        textDecoration: "none",
       }
     },
   },
@@ -971,27 +972,14 @@ const bmkComponents: Components = {
   },
   MuiCheckbox: {
     defaultProps: {
-      icon: <CheckboxUncheckedIcon />,
-      checkedIcon: <CheckboxCheckedIcon />,
-    },
-    styleOverrides: {
-      colorPrimary: {
-        "&.Mui-disabled": {
-          color: "#FF681A",
-          opacity: 0.2,
-          "svg": {
-            "path:first-of-type": {
-              stroke: "#1D2129",
-            },
-          },
-        },
-      },
+      icon: <CheckboxUncheckedIcon1 />,
+      checkedIcon: <CheckboxCheckedIcon1 />,
     },
   },
   MuiRadio: {
     defaultProps: {
-      icon: <RadioUncheckedIcon />,
-      checkedIcon: <RadioCheckedIcon />,
+      icon: <RadioUncheckedRoundIcon />,
+      checkedIcon: <RadioCheckedRoundIcon />,
     },
   },
   MuiTabs: {
@@ -1073,7 +1061,13 @@ const bmkComponents: Components = {
       },
     },
   },
-
+  MuiSvgIcon: {
+    styleOverrides: {
+      fontSizeMedium: {
+        fontSize: "22px",
+      },
+    },
+  },
 }
 
 const components = (theme?: string) => {

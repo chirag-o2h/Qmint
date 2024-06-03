@@ -24,6 +24,7 @@ function FrontMain(props: any) {
     const { openMobileMenu, toggleMobileMenu, trigger } = (props)
     const mobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
+    const location = useLocation();
     const handleAuth = () => {
         if (!isLoggedIn) {
             navigate('/login')
@@ -32,14 +33,12 @@ function FrontMain(props: any) {
             navigate('/')
         }
     }
-    const [params] = useState({ page: 0 })
+    const [params] = useState({ page: window.location.pathname == '/'? 0 : 1})
+    console.log(location.pathname);
     useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
-    const location = useLocation();
     const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
     useEffect(() => {
-        console.log(location.pathname);
-
         if (THEME_TYPE === "1") {
             setIsBullionmarkHomePage(true)
         }

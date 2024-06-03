@@ -10,10 +10,13 @@ import { navigate } from "gatsby";
 
 // Hooks
 import { useAppSelector } from "@/hooks"
+import useAPIoneTime from '@/hooks/useAPIoneTime'
+import { getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
 
 function BullionmarkFrontFooter() {
     const { configDetails: configDetailsState, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
+    useAPIoneTime({ service: getBullionMarkPageAPI })
 
     return (
         <Box id="BullionmarkFooterSection" className='BullionmarkFrontFooter' component="footer">

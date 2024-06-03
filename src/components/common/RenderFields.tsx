@@ -372,6 +372,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                 preferredCountries={['au']}
                 // {...field}
                 inputClass={classNames("form-control", { "error": !!error })}
+                disabled={disabled}
               />
             )}
             {...register(name)}

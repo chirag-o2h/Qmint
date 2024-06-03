@@ -21,7 +21,6 @@ import Newsletter from './Newsletter'
 const BulliomarkMainHomePage = () => {
     const { configDetails: configDetailsState, openToaster, loading, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const keyWords = configDetailsState?.Store_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_Meta_Keywords?.value?.split(',') : []
-
     useAPIoneTime({ service: getBullionMarkPageAPI })
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
 
@@ -45,7 +44,7 @@ const BulliomarkMainHomePage = () => {
                         <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
                         <ExclusiveJourneysWithSlider />
                         <TravelInspiration />
-                        <InspiringStories data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} />
+                        <InspiringStories data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} className='ShopInspiringStories' />
                         <Newsletter />
                     </Box>
                 </MainLayout>

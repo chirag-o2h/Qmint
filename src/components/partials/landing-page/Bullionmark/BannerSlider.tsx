@@ -8,9 +8,8 @@ import useApiRequest from '@/hooks/useAPIRequest';
 import { ENDPOINTS } from '@/utils/constants';
 import { IbannerData } from '../../shop/Qmint/Banner';
 
-function BannerSlider() {
-    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '0'));
-    // console.log("🚀 ~ BannerSlider ~ data:", data)
+function BannerSlider({isItShopPage=false}:{isItShopPage?:boolean}) {
+    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', isItShopPage? '1' : '0'));
     const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
     const config = {

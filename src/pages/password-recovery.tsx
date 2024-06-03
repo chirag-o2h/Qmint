@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useMemo, useState } from 'react'
 import { Button, Container, Box, DialogActions, DialogContent, DialogTitle, InputAdornment, Stack, TextField, Typography, IconButton } from "@mui/material"
 
 // Assets
 import { ContainedCheckIcon, ContainedCrossIcon, EyeOffIcon, EyeOnIcon } from "../assets/icons/index"
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { LoginUserAPI, configDetails } from '@/redux/reducers/homepageReducer';
 import { THEME_TYPE } from "@/axiosfolder"
 import { ENDPOINTS, StoreData } from '@/utils/constants';
@@ -46,74 +46,63 @@ declare global {
     handleLinkClick: () => void;
   }
 }
+import * as yup from "yup"
+import { yupResolver } from '@hookform/resolvers/yup';
+import { passwordRecoverySave, passwordRecoveryTokenVarified } from '@/redux/reducers/authReducer';
+import { IrecoveryPasswordSave } from '@/apis/services/authServices';
 
-
-function ResetPassword() {
+function ResetPassword(params: any) {
+  const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search]);
+  const [isTokenVarified, setIsTokenVarified] = useState<boolean>(false)
   const { configDetails: configDetailsState, loadingForSignIn } = useAppSelector((state) => state.homePage)
-  const checkLoadingStatus = useAppSelector(state => state.homePage.loadingForSignIn);
-  const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
-  console.log("🚀 ~ ResetPassword ~ openToaster:", openToaster)
-  const { showToaster } = useShowToaster();
 
-  const [passwordVisible, setPasswordVisible] = useState(false)
-  const [loadingForNavigate, setLoadingForNavigate] = useState(false)
-  const [loginError, setLoginError] = useState<string | null>(null);
   const dispatch: Dispatch<any> = useAppDispatch()
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible)
-  }
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
+  // const { showToaster } = useShowToaster();
 
-  const { register, control, handleSubmit, formState: { errors, touchedFields }, getValues } = useForm();
-
-  const onSubmit = async (data: any) => {
-    const response: any = await dispatch<any>(LoginUserAPI({ url: ENDPOINTS.loginUser, body: data }))
-    if (isActionRejected(response.type)) {
-      setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
-      return
+  useLayoutEffect(() => {
+    const verifyToken = async () => {
+      const response: any = await dispatch(passwordRecoveryTokenVarified({ url: ENDPOINTS.passwordRecoveryTokenVarified.replace('{{token}}', searchParams.get("token")) }))
+      console.log("🚀 ~ verifyToken ~ response:", response)
+      if (isActionRejected(response.type)) {
+        setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
+        setLoading(() => false)
+        return
+      }
+      setIsTokenVarified(true)
+      setMessage(() => response?.payload?.data?.message)
+      setLoginError(null)
+      setLoading(() => false)
     }
-    const lastPage = getLastPage();
-    console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
-    if (lastPage) {
-      // Redirect the user to the last visited page
-      console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
-      navigate(lastPage);
-    } else {
-      // Redirect the user to a default page
-      navigate('/');
-    }
-  };
 
-  function navigateToRegister1() {
-    setLoadingForNavigate(true)
-    navigate('/registration');
-    setLoadingForNavigate(false)
-  }
-  function navigateToRegister() {
-    setLoadingForNavigate(true)
-    navigate(ENDPOINTS.createMyAccount + StoreData.returnUrl);
-    setLoadingForNavigate(false)
-  }
+    verifyToken()
+    return () => {
+      // showToaster({
+      //   message: ((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong",
+      //   severity: 'error'
+      // })
+    };
+  }, [])
+
+  const schema = yup.object().shape({
+    Password: yup.string()
+      .required('Password is required')
+      .min(8, 'Password must be at least 8 characters')
+      .matches(/[A-Z]/, 'Password must have at least one uppercase letter')
+      .matches(/[a-z]/, 'Password must have at least one lowercase letter')
+      .matches(/[0-9]/, 'Password must have at least one number'),
+    ConfirmPassword: yup.string()
+      .required('Confirm Password is required')
+      .oneOf([yup.ref('Password'), ''], 'Passwords must match'),
+  });
+  const { register, control, handleSubmit, formState: { errors }, getValues } = useForm({ resolver: yupResolver(schema) });
+
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
 
-  window.handleLinkClick = async () => {
-    setLoadingForNavigate(true)
-    const email = getValues('email');
-    const response = await ConfigServices.sendVerificationEmailAPI(ENDPOINTS.sendVerificationEmail.replace('useEmail', email));
-    setLoadingForNavigate(false)
-    setLoginError(null)
-    showToaster({
-      message: response.data.message,
-      severity: 'success'
-    })
-  };
-
-  const handleEnterKeyPress = (e: any) => {
-    if (e.key === 'Enter') {
-      handleSubmit(onSubmit)()
-    }
-  }
   const renderPasswordConditionItem = (condition: string, status: boolean) => {
     return (
       <Stack className="PasswordConditionItem">
@@ -122,38 +111,48 @@ function ResetPassword() {
       </Stack>
     )
   }
-  // if (isLoggedIn) {
-  //   console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
-  //   const lastPage = getLastPage();
-  //   console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
-  //   if (lastPage && !lastPage.includes('login')) {
-  //     // Redirect the user to the last visited page
-  //     console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
-  //     navigate(lastPage, { replace: true });
-  //   } else {
-  //     // Redirect the user to a default page
-  //     navigate('/', { replace: true })
-  //   }
-  //   return;
-  // }
+  const password = useWatch({ control, name: 'Password', defaultValue: '' });
+
+
+  const handleFormSubmit = async (data: any) => {
+    const body: IrecoveryPasswordSave = {
+      // todo
+      CustomerId: 1234,
+      Password: data?.Password
+    }
+    dispatch(passwordRecoverySave({ url: ENDPOINTS.passwordRecoverySave, data: body }))
+  }
   return (
     <>
       {openToaster && <Toaster />}
-      <Loader open={checkLoadingStatus || loadingForNavigate} />
+      <Loader open={loading} />
       <MainLayout blackTheme>
         <Stack id="BmkResetPassword">
           <Box className="LeftPart">
             <img className="LoginImage" src={configDetailsState?.Loginpage_Leftside_pic?.value} alt="left-image" />
           </Box>
           <Stack className="RightPart">
-            <form id="reset-password-form" onKeyDown={handleEnterKeyPress}>
+            <form id="reset-password-form" onSubmit={handleSubmit(handleFormSubmit)}>
               <Box className="Header">
-                <Typography variant="h3" component="p">reset password</Typography>
-                <Typography variant="body2" component="p" className="SuccessMessage">Your password has succesfully changed.<br />Please <Link target="_blank" className='BackToLogin' to="#">click here
-                </Link> to login.</Typography>
+                <Typography variant="h3" component="p">Reset password</Typography>
+                {loginError && <Typography variant="body2" component="p" className="ErrorMessage">{loginError}</Typography>}
+                {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage">{message}</Typography>}
               </Box>
-              <Stack className="FieldWrapper">
-                <TextField
+              {isTokenVarified && <> <Stack className="FieldWrapper">
+                <RenderFields
+                  type="password"
+                  register={register}
+                  error={errors.Password}
+                  name="Password"
+                  placeholder="Password"
+                  className="Password"
+                  control={control}
+                  variant="outlined"
+                  margin="none"
+                  fullWidth
+                  label={"New Password"}
+                />
+                {/* <TextField
                   label="New Password"
                   variant="standard"
                   placeholder="New password"
@@ -186,17 +185,30 @@ function ResetPassword() {
                   margin="none"
                   required
                   fullWidth
-                />
+                /> */}
                 <Box className="PasswordCondition">
                   <Typography className="Message">Your Password Must :</Typography>
                   <Stack className="ConditionWrapper">
-                    {renderPasswordConditionItem("Be at least 8 characters in length", false)}
-                    {renderPasswordConditionItem("An uppercase letter (A - Z)", false)}
-                    {renderPasswordConditionItem("A lowercase letter (a - z)", false)}
-                    {renderPasswordConditionItem("A number (0 - 9)", false)}
+                    {renderPasswordConditionItem("Be at least 8 characters in length", password.length >= 8)}
+                    {renderPasswordConditionItem("An uppercase letter (A - Z)", /[A-Z]/.test(password))}
+                    {renderPasswordConditionItem("A lowercase letter (a - z)", /[a-z]/.test(password))}
+                    {renderPasswordConditionItem("A number (0 - 9)", /[0-9]/.test(password))}
                   </Stack>
                 </Box>
-                <TextField
+                <RenderFields
+                  type="password"
+                  register={register}
+                  error={errors.ConfirmPassword}
+                  name="ConfirmPassword"
+                  placeholder="Confirm Password"
+                  className="Password"
+                  control={control}
+                  variant="outlined"
+                  margin="none"
+                  fullWidth
+                  label={"Confirm Password"}
+                />
+                {/* <TextField
                   label="Confirm Password"
                   variant="standard"
                   placeholder="Confirm password"
@@ -229,11 +241,11 @@ function ResetPassword() {
                   margin="none"
                   required
                   fullWidth
-                />
+                /> */}
               </Stack>
-              <Stack className="FormAction">
-                <Button name="recover" aria-label="recover" onClick={handleSubmit(onSubmit)} variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Recover</Button>
-              </Stack>
+                <Stack className="FormAction">
+                  <Button type="submit" name="recover" aria-label="recover" variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Recover</Button>
+                </Stack></>}
             </form>
           </Stack>
         </Stack>
