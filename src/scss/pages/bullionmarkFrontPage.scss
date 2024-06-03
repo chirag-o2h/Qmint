@@ -594,6 +594,13 @@
         }
 
     }
+
+    &.ShopInspiringStories {
+        padding-top: 60px;
+        @include media($md) {
+            padding-top: 40px;
+        }
+    }
 }
 
 #SectionNewsletter {
