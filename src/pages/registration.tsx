@@ -10,7 +10,7 @@ import { SwiperOptions } from "swiper/types"
 import { Link } from "gatsby"
 
 // Assets
-import { RadioUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon } from "@/assets/icons"
+import { RadioUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon, RadioCheckedRoundIcon } from "@/assets/icons"
 
 // Hooks
 import { useAppDispatch, useAppSelector } from "@/hooks"
@@ -71,6 +71,12 @@ const config: SwiperOptions = {
     delay: 8000,
   },
 };
+
+const userTypeOptions = [
+  { id: "1", name: "agent", value: "agent", label: "Agent", disabled: false },
+  { id: "2", name: "dailyPriceAlert", value: "dailyPriceAlert", label: "Daily Price Alert", disabled: false },
+  { id: "3", name: "newsletter", value: "newsletter", label: "Newsletter", disabled: false },
+]
 
 const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: string, country: any }) => {
   return yup.object().shape({
@@ -394,11 +400,11 @@ function Registration() {
     const fullUrl = lastPage ? `${origin}/${lastPage.replace(/\//g, "")}` : `${origin}/registration`;
 
     console.log("window", fullUrl);
-    
+
     dispatch(registrationLog({
-        url: ENDPOINTS.regisrationRecoveryLog.replace('{{previousPath}}', fullUrl)
+      url: ENDPOINTS.regisrationRecoveryLog.replace('{{previousPath}}', fullUrl)
     }));
-}, []);
+  }, []);
 
   return (
     <MainLayout blackTheme>
@@ -664,25 +670,16 @@ function Registration() {
                 />
               </Stack>
               <Box className="UserType">
-                <RadioGroup
-                  defaultValue="agent"
+                <RenderFields
+                  type="checkbox"
+                  register={register}
                   name="UserType"
-                  value={radioButtonInput}
-                  onChange={(e) => {
-                    setRadioButtonInput(e.target.value)
-                    if (e.target.value === "agent") {
-                      setIncludeAgentCode(true)
-                    }
-                    else {
-                      setIncludeAgentCode(false)
-                    }
-                  }}
+                  options={userTypeOptions}
+                  margin="none"
+                  icon={<RadioUncheckedRoundIcon />}
+                  checkedIcon={<RadioCheckedRoundIcon />}
                   row
-                >
-                  <FormControlLabel value="agent" control={<Radio />} label="Agent" />
-                  <FormControlLabel value="dailyPriceAlert" control={<Radio />} label="Daily Price Alert" />
-                  <FormControlLabel value="newsletter" control={<Radio />} label="Newsletter" />
-                </RadioGroup>
+                />
                 {radioButtonInput == "agent" && <RenderFields
                   register={register}
                   error={errors.AgentCode}

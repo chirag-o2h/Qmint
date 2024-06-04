@@ -261,20 +261,23 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                   control={
                     <Checkbox
                       onChange={(e) => {
-                        setValue(name, {
-                          ...getValues(name), // Preserve existing values
-                          [checkboxOption.value]: e.target.checked // Update specific value
-                        });
+                        // @TODO:: handle below commented code
+                        // setValue(name, {
+                        //   ...getValues(name), // Preserve existing values
+                        //   [checkboxOption.value]: e.target.checked // Update specific value
+                        // });
                         if (onChange) {
                           onChange(); // Trigger onChange if provided
                         }
                       }}
-                      checked={alreadySelectedFilters?.includes(checkboxOption.value) || !!getValues(name)?.[checkboxOption.value]}
+                      // checked={alreadySelectedFilters?.includes(checkboxOption.value) || !!getValues(name)?.[checkboxOption.value]}
+                      icon={icon}
+                      checkedIcon={checkedIcon}
                     />
                   }
                   label={checkboxOption.label}
                   disabled={checkboxOption.disabled}
-                  slotProps={{ typography: { variant: "body2" } }}
+                  slotProps={{ typography: { variant: THEME_TYPE === "1" ? "body1" : "body2" } }}
                 />
               ))
             ) : (
