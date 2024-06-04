@@ -33,7 +33,7 @@ function FrontMain(props: any) {
             navigate('/')
         }
     }
-    const [params] = useState({ page: window.location.pathname == '/'? 0 : 1})
+    const [params] = useState({ page: window.location.pathname.includes('shop')? 1 : 0})
     console.log(location.pathname);
     useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
