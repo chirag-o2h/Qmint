@@ -36,7 +36,11 @@ function GetInspired() {
       1170: {
         slidesPerView: 3,
         spaceBetween: 13,
-      }
+      },
+      1580: {
+        slidesPerView: 4,
+        spaceBetween: 13,
+      },
     },
   }
 

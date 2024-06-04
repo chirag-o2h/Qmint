@@ -239,6 +239,10 @@
                 padding: 20px 24px 24px;
                 color: $white;
 
+                @include media-min($xl) {
+                    height: 80vh;
+                }
+
                 .Head {
                     align-items: center;
                     gap: 10px;
