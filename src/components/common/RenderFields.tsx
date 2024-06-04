@@ -261,16 +261,15 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                   control={
                     <Checkbox
                       onChange={(e) => {
-                        // @TODO:: handle below commented code
-                        // setValue(name, {
-                        //   ...getValues(name), // Preserve existing values
-                        //   [checkboxOption.value]: e.target.checked // Update specific value
-                        // });
+                        setValue(name, {
+                          ...getValues(name), // Preserve existing values
+                          [checkboxOption.value]: e.target.checked // Update specific value
+                        });
                         if (onChange) {
                           onChange(); // Trigger onChange if provided
                         }
                       }}
-                      // checked={alreadySelectedFilters?.includes(checkboxOption.value) || !!getValues(name)?.[checkboxOption.value]}
+                      checked={alreadySelectedFilters?.includes(checkboxOption.value) || !!getValues(name)?.[checkboxOption.value]}
                       icon={icon}
                       checkedIcon={checkedIcon}
                     />
@@ -292,6 +291,48 @@ const RenderFields: React.FC<RenderFieldProps> = ({
       );
       break;
 
+      case 'checkbox2':
+        fieldType = (
+          <FormControl margin={margin} {...(error ? { error: true } : {})}>
+            {(label && options) && <FormLabel htmlFor={name}>{label}</FormLabel>}
+            <FormGroup row={row}>
+              {options ? (
+                options.map((checkboxOption) => (
+                  <FormControlLabel
+                    key={checkboxOption.id}
+                    control={
+                      <Checkbox
+                        onChange={(e) => {
+                          // setValue(name, {
+                          //   ...getValues(name), // Preserve existing values
+                          //   [checkboxOption.value]: e.target.checked // Update specific value
+                          // });
+                          if (onChange) {
+                            onChange(checkboxOption.value); // Trigger onChange if provided
+                          }
+                        }}
+                        // checked={alreadySelectedFilters?.includes(checkboxOption.value) || !!getValues(name)?.[checkboxOption.value]}
+                        icon={icon}
+                        checkedIcon={checkedIcon}
+                      />
+                    }
+                    label={checkboxOption.label}
+                    disabled={checkboxOption.disabled}
+                    slotProps={{ typography: { variant: THEME_TYPE === "1" ? "body1" : "body2" } }}
+                  />
+                ))
+              ) : (
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label={label}
+                  {...register(name)}
+                />
+              )}
+            </FormGroup>
+          </FormControl>
+        );
+        break;
+  
     case 'switch':
       fieldType = (
         <FormControl margin={margin} {...(error ? { error: true } : {})}>

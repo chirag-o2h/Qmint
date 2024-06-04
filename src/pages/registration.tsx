@@ -125,7 +125,8 @@ function Registration() {
   const { showToaster } = useShowToaster();
   // const [password, setPassword] = useState('');
   const [isOtpVerified, setIsOtpVerified] = useState(false)
-  const [radioButtonInput, setRadioButtonInput] = useState("agent");
+  const [radioButtonInput, setRadioButtonInput] = useState<any>([]);
+  console.log("🚀 ~ radioButtonInput:", radioButtonInput)
   const [timer, setTimer] = useState(20);
   const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -268,10 +269,10 @@ function Registration() {
       State: (stateList.find((state) => state.name === data.State)?.id || 0) as any,
       City: data.City,
       Pincode: data.Code,
-      IsAgentId: radioButtonInput === "agent",
-      AgentCode: radioButtonInput === "agent" ? data.AgentCode : null,
-      DailyPriceAlert: radioButtonInput === "dailyPriceAlert",
-      NewsLetter: radioButtonInput === "newsletter",
+      IsAgentId: radioButtonInput.includes("agent"),
+      AgentCode: radioButtonInput.includes("agent") ? data.AgentCode : null,
+      DailyPriceAlert: radioButtonInput.includes("dailyPriceAlert"),
+      NewsLetter: radioButtonInput.includes("newsletter"),
       IAcceptPrivacyPolicy: true,
       Termsofservice: true
     }
@@ -678,16 +679,26 @@ function Registration() {
               </Stack>
               <Box className="UserType">
                 <RenderFields
-                  type="checkbox"
+                  type="checkbox2"
                   register={register}
                   name="UserType"
                   options={userTypeOptions}
                   margin="none"
                   icon={<RadioUncheckedRoundIcon />}
                   checkedIcon={<RadioCheckedRoundIcon />}
+                  onChange={(e) => {
+                    console.log(e,"eee")
+                    const currentStack:any[] = structuredClone(radioButtonInput)
+                    if(currentStack.includes(e)){
+                      setRadioButtonInput(currentStack.filter((i)=> i !== e))
+                    }else{
+                      currentStack.push(e)
+                      setRadioButtonInput(currentStack)
+                    }
+                  }}
                   row
                 />
-                {radioButtonInput == "agent" && <RenderFields
+                {radioButtonInput.includes("agent")  && <RenderFields
                   register={register}
                   error={errors.AgentCode}
                   name="AgentCode"
