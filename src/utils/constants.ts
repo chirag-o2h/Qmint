@@ -142,7 +142,7 @@ export const ENDPOINTS = {
     subscriptionBullionMark: "ContactUs/WJoEyC3ZHvdaS7DS9Xv3H",
     bullionMarkShopSections: "home/Wcclw6GGBRHcOIlIp74AYgp0wHUOGh9Y",
     // registratino recovery log
-    regisrationRecoveryLog  : "account/Y369fKy45Ouua7vZrn1t/{{previousPath}}",
+    regisrationRecoveryLog  : "account/Y369fKy45Ouua7vZrn1t?MGWA={{previousPath}}",
     // password recovery email
     passwordRecoveryEmail : "account/xjLagRE6BnpekIlrg3dED/{{email}}",
     passwordRecoverySave : "account/Y12vw0O2AmFSztz1pMzUy23HX8OoG",

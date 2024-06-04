@@ -20,7 +20,7 @@ const Index = () => {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-  const [params] = useState({ page: 1 })
+  const [params] = useState({ page: window.location.pathname.includes('shop') ? 1 : 0 })
   useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
   const trigger = useScrollTrigger({
     disableHysteresis: true,

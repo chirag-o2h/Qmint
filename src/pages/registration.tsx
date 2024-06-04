@@ -388,8 +388,18 @@ function Registration() {
 
   useEffect(() => {
     const lastPage = getLastPage();
-    dispatch(registrationLog({ url: ENDPOINTS.regisrationRecoveryLog.replace('{{previousPath}}', (lastPage ? lastPage?.replace(/\//g, "") : "registration")) }))
-  }, [])
+    const origin = window.location.origin; // Get the protocol, hostname, and port
+
+    // Construct the full URL
+    const fullUrl = lastPage ? `${origin}/${lastPage.replace(/\//g, "")}` : `${origin}/registration`;
+
+    console.log("window", fullUrl);
+    
+    dispatch(registrationLog({
+        url: ENDPOINTS.regisrationRecoveryLog.replace('{{previousPath}}', fullUrl)
+    }));
+}, []);
+
   return (
     <MainLayout blackTheme>
       {openToaster && <Toaster />}

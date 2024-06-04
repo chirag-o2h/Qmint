@@ -28,7 +28,6 @@ import { NewsDetailsAPI, NewsList } from "@/redux/reducers/newsReducer";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/reducers/homepageReducer";
 
 // Components
-import Layout from "@/components/common/Layout";
 import Loader from "@/components/common/Loader";
 import { Breadcrumb } from "@/components/common/Utils";
 import { BmkPostCard } from "@/components/common/Card";
@@ -36,6 +35,7 @@ import { navigate } from "gatsby";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/news";
+import MainLayout from "@/components/common/MainLayout";
 
 function NewsDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
@@ -62,7 +62,7 @@ function NewsDetails(params: any) {
   });
 
   return (
-    <Layout>
+    <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/news', name: 'news' }]} />
@@ -168,7 +168,7 @@ function NewsDetails(params: any) {
           ) : null}
         </Container>
       </Box>
-    </Layout>
+    </MainLayout>
   );
 }
 export default React.memo(NewsDetails);
