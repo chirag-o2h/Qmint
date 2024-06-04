@@ -698,24 +698,12 @@
     }
 
     &.BmkFrontHeader {
-      .MuiAppBar-root {
-        .MainHeader__Wrapper {
-          gap: 65px;
-        }
-      }
-
       .HeaderContainerWrapper {
         .MainHeader {
           .MainHeader__Wrapper {
             .Center {
-              justify-content: flex-end;
-
               .NavigationHeader {
                 .NavigationHeader__Wrapper {
-                  @include media($lg) {
-                    justify-content: flex-end;
-                  }
-
                   .MenuLink {
                     &:hover {
                       color: $pumpkinOrange;
@@ -950,6 +938,7 @@
                 }
               }
             }
+
             .Right {
               .HamburgerButton {
                 color: $white;
