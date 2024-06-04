@@ -3,9 +3,9 @@ import { STORE_CODE } from "@/axiosfolder"
 export const ENDPOINTS = {
     // Registration
     registration: "account/GSEYlTkJeVSWkGhXentuvoUQf2c",
-    getRegistrationOTP : "account/mPaSzPrFGIeznbUEAo0H",
+    getRegistrationOTP: "account/mPaSzPrFGIeznbUEAo0H",
     verifyRegistrationOTP: "account/zVciOfK6fmgpnnpfs63okmgd3Gw",
-    
+
     getConfigStore: 'store/duMyjVf3k0KIi7Rq7CmHAA',
     getTicker: 'calculator/DMJqdS7VvR2VMk9R',
     getProduct: 'product/m9XieCcNOUOxk5ODsP6FXQ/0',
@@ -138,16 +138,20 @@ export const ENDPOINTS = {
     mainHomePage: "home/HOb6OH12P5xFHos4DC1L3Q",
     //    upgrade Plan
     upgradPlan: "Checkout/ZQtAuhUHduOX",
+
     // bullion mark subscription
     subscriptionBullionMark: "ContactUs/WJoEyC3ZHvdaS7DS9Xv3H",
     bullionMarkShopSections: "home/Wcclw6GGBRHcOIlIp74AYgp0wHUOGh9Y",
+    registrationTokenVerified: "account/MsnoGd7wRSRyIe03a7m?UQf2c={{token}}",
     // registratino recovery log
-    regisrationRecoveryLog  : "account/Y369fKy45Ouua7vZrn1t?MGWA={{previousPath}}",
+    regisrationRecoveryLog: "account/Y369fKy45Ouua7vZrn1t?MGWA={{previousPath}}",
     // password recovery email
-    passwordRecoveryEmail : "account/xjLagRE6BnpekIlrg3dED/{{email}}",
-    passwordRecoverySave : "account/Y12vw0O2AmFSztz1pMzUy23HX8OoG",
+    passwordRecoveryEmail: "account/xjLagRE6BnpekIlrg3dED/{{email}}",
+    passwordRecoverySave: "account/Y12vw0O2AmFSztz1pMzUy23HX8OoG",
     // verify token of the reset password
-    passwordRecoveryTokenVarified : "account/xjLagdr3wcfJ8c/{{token}}"
+    passwordRecoveryTokenVarified: "account/xjLagdr3wcfJ8c?UQf2c={{token}}",
+    // resend registration email
+    resendRegstrationEmail: "account/PAROuJVRYNTk7p/{{email}}"
 }
 export const StoreData = {
     storeCode: 12,

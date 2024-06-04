@@ -57,7 +57,13 @@ class AuthServices {
         return axiosInstance.post(url,data);
     }
     static async passwordRecoveryTokenVarified(url: string) {
-        return axiosInstance.post(url);
+        return await axiosInstance.post(url);
+    }
+    static async registrationTokenVarified(url: string) {
+        return await axiosInstance.post(url);
+    }
+    static async resendRegstrationEmail(url: string) {
+        return await axiosInstance.post(url);
     }
 }
 export default AuthServices
