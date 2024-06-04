@@ -29,7 +29,7 @@ const ClickTooltip = React.memo((props: any) => {
 })
 
 const HoverTooltip = React.memo((props: any) => {
-  const { children, id, className, renderComponent, placement, slotProps, arrow, disablePortal, lightTheme, infoTooltip } = props
+  const { children, id, className, renderComponent, placement, slotProps, arrow, disablePortal, lightTheme, infoTooltip, open } = props
 
   return (
     <Tooltip
@@ -40,6 +40,7 @@ const HoverTooltip = React.memo((props: any) => {
       slotProps={slotProps}
       arrow={arrow}
       enterDelay={400}
+      open={open}
     >
       {renderComponent}
     </Tooltip>
