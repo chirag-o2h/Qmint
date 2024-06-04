@@ -610,7 +610,7 @@ function Registration() {
                       }
                       return option.name;
                     }}
-                    renderInput={(params) => <TextField placeholder="Select State" {...params} error={errors.State as boolean | undefined} />}
+                    renderInput={(params) => <TextField placeholder="Enter State" {...params} error={errors.State as boolean | undefined} />}
                     onChange={(_, value) => {
                       if (!value) {
                         return;
