@@ -487,7 +487,7 @@
 
         @include media($md) {
             flex-direction: column;
-            gap: 77px;
+            gap: 50px;
         }
 
         .LeftContent,
@@ -536,9 +536,6 @@
 
     &.ShopInspiringStories {
         padding-top: 60px;
-        @include media($md) {
-            padding-top: 40px;
-        }
     }
 }
 

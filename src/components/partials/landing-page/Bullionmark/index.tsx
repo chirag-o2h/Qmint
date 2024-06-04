@@ -44,7 +44,7 @@ const BulliomarkMainHomePage = () => {
                         <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
                         <ExclusiveJourneysWithSlider />
                         <TravelInspiration />
-                        <InspiringStories data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} className='ShopInspiringStories' />
+                        <InspiringStories data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} />
                         <Newsletter />
                     </Box>
                 </MainLayout>
