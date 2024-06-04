@@ -673,6 +673,30 @@ function Registration() {
                   <FormControlLabel value="dailyPriceAlert" control={<Radio />} label="Daily Price Alert" />
                   <FormControlLabel value="newsletter" control={<Radio />} label="Newsletter" />
                 </RadioGroup>
+                <Stack>
+                  <RenderFields
+                    type="checkbox"
+                    register={register}
+                    name="agent"
+                    label={"Agent"}
+                    margin="none"
+                  />
+                  <RenderFields
+                    type="checkbox"
+                    register={register}
+                    name="dailyPriceAlert"
+                    label={"Daily Price Alert"}
+                    margin="none"
+                  />
+                  <RenderFields
+                    type="checkbox"
+                    register={register}
+                    name="newsletter"
+                    label={"Newsletter"}
+                    margin="none"
+                  />
+                </Stack>
+
                 {radioButtonInput == "agent" && <RenderFields
                   register={register}
                   error={errors.AgentCode}

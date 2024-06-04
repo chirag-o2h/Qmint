@@ -241,7 +241,9 @@
         }
 
         .UserType {
-          .MuiRadioGroup-root {
+
+          .MuiRadioGroup-root,
+          .InputRow {
             gap: $spacing;
 
             .MuiFormControlLabel-root {
