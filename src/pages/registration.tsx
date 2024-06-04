@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 import classNames from "classnames"
 import { SwiperOptions } from "swiper/types"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 
 // Assets
 import { RadioUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon, RadioCheckedRoundIcon } from "@/assets/icons"
@@ -145,7 +145,6 @@ function Registration() {
 
   const firstTimeRender = useRef(true);
 
-  console.log("🚀 ~ Registration ~ phoneNumberValue:", phoneNumberValue)
   // this useEffect will handle the timer for the resend OTP button
   useEffect(() => {
     let interval: any;
@@ -246,14 +245,15 @@ function Registration() {
   }
 
   const handleFormSubmit = async (data: any) => {
-    if (!isOtpVerified) {
+    // todo
+    if (isOtpVerified) {
+      // if (!isOtpVerified) {
       showToaster({
         message: "Please verify Phone number to proceed",
         severity: "warning"
       })
       return;
     }
-
     const payload: IRegistrationPayload = {
       FirstName: data.FirstName,
       LastName: data.LastName,
@@ -275,20 +275,29 @@ function Registration() {
       IAcceptPrivacyPolicy: true,
       Termsofservice: true
     }
-
+    localStorage.setItem('emailUseForRegrastration', data.Email)
     const response: any = await dispatch(registration({ url: ENDPOINTS.registration, body: payload }));
 
     if (hasFulfilled(response.type)) {
-      showToaster({
-        message: response?.payload?.data.message,
-        severity: "success"
-      })
+      // showToaster({
+      //   message: response?.payload?.data.message,
+      //   severity: "success"
+      // })
+      if (response?.payload?.data?.data) {
+        localStorage.setItem("messageDataForRegistration", response?.payload?.data.message);
+        navigate('/activate-account', { state: { message: response?.payload?.data.message } })
+      }
     }
     else {
-      showToaster({
-        message: response?.payload?.response?.data?.message || "Failed to register",
-        severity: "error"
-      })
+      if (!response?.payload?.response?.data?.data && !response?.payload?.response?.data?.exception) {
+        localStorage.setItem("messageDataForRegistration", response?.payload?.response?.data?.message);
+        navigate('/confirmation', { state: { message: response?.payload?.response?.data?.message } })
+      } else if (!response?.payload?.response?.data?.data && response?.payload?.response?.data?.exception) {
+        showToaster({
+          message: response?.payload?.response?.data?.message || "Failed to register",
+          severity: "error"
+        })
+      }
     }
   }
 
@@ -398,8 +407,6 @@ function Registration() {
 
     // Construct the full URL
     const fullUrl = lastPage ? `${origin}/${lastPage.replace(/\//g, "")}` : `${origin}/registration`;
-
-    console.log("window", fullUrl);
 
     dispatch(registrationLog({
       url: ENDPOINTS.regisrationRecoveryLog.replace('{{previousPath}}', fullUrl)

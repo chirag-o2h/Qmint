@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { useScrollTrigger, Stack, Container, Box, IconButton, AppBar } from "@mui/material"
+import { useScrollTrigger, Stack, Container, Box, IconButton, AppBar, Divider } from "@mui/material"
 import classNames from "classnames"
 
 // Assets
@@ -51,24 +51,25 @@ function MobileSecondaryMenu() {
       >
         <Container>
           <Stack className="Wrapper">
-            <ClickTooltip
-              open={openSearch}
-              className="PopoverSearchField"
-              placement="bottom"
-              onClose={toggleOpenSearch}
-              onClickAway={handleClickAway}
-              renderComponent={
-                configDetailsState?.enablesearch?.value &&
-                <IconButton aria-label='SearchButton' ref={searchButtonRef} className={classNames("MenuButton", { "Active": false })} onClick={toggleOpenSearch}><Search /></IconButton>
-              }
-              lightTheme
-              disablePortal={true}
-              arrow
-            >
-              <Container>
-                <SearchField />
-              </Container>
-            </ClickTooltip>
+            {configDetailsState?.enablesearch?.value &&
+              <ClickTooltip
+                open={openSearch}
+                className="PopoverSearchField"
+                placement="bottom"
+                onClose={toggleOpenSearch}
+                onClickAway={handleClickAway}
+                renderComponent={
+                  <IconButton aria-label='SearchButton' ref={searchButtonRef} className={classNames("MenuButton", { "Active": false })} onClick={toggleOpenSearch}><Search /></IconButton>
+                }
+                lightTheme
+                disablePortal={true}
+                arrow
+              >
+                <Container>
+                  <SearchField />
+                </Container>
+              </ClickTooltip>
+            }
             {configDetailsState?.enablephone?.value !== false && <IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>}
             {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ?
               <ChartMenu />
@@ -79,7 +80,7 @@ function MobileSecondaryMenu() {
             <ActionMenu />
           </Stack>
         </Container>
-        {THEME_TYPE !== "1" && (<ConstantApiLoader />)}
+        {THEME_TYPE === "1" ? <Divider /> : <ConstantApiLoader />}
       </AppBar>
     </Box >
   )

@@ -239,6 +239,10 @@
                 padding: 20px 24px 24px;
                 color: $white;
 
+                @include media-min($xl) {
+                    height: 80vh;
+                }
+
                 .Head {
                     align-items: center;
                     gap: 10px;
@@ -487,7 +491,7 @@
 
         @include media($md) {
             flex-direction: column;
-            gap: 77px;
+            gap: 50px;
         }
 
         .LeftContent,
@@ -536,9 +540,6 @@
 
     &.ShopInspiringStories {
         padding-top: 60px;
-        @include media($md) {
-            padding-top: 40px;
-        }
     }
 }
 

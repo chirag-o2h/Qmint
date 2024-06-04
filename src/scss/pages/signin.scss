@@ -126,6 +126,13 @@
           font-size: 13px;
           margin-top: 11px;
         }
+        .ErrorMessage{
+          font-size: 15px;
+          padding: 10px;
+          background: #ff00003d;
+          margin-top: 10px;
+          color: $error;
+        }
       }
       .FieldWrapper {
         flex-direction: column;

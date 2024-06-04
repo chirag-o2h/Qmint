@@ -32,7 +32,7 @@ function BullionmarkShop() {
                     title="Home"
                     lang="en"
                 />
-                <Suspense fallback={<></>}><BannerSlider isItShopPage={true}/></Suspense>
+                <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>
                 <Suspense fallback={<></>}> <BestCategorySlider /></Suspense>
                 <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
                 <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>
@@ -40,7 +40,7 @@ function BullionmarkShop() {
                 <Suspense fallback={<></>}> <BmkPopularProductSlider /></Suspense>
                 <Suspense fallback={<></>}><ExclusiveJourneys data={bmkShopPageSections?.shopHomepage_Section_6_Two_pics_and_content
                 } /></Suspense>
-                <Suspense fallback={<></>}><InspiringStories data={bmkShopPageSections?.shopHomepage_Section_7_Two_pics_in_a_rows} /></Suspense>
+                <Suspense fallback={<></>}><InspiringStories data={bmkShopPageSections?.shopHomepage_Section_7_Two_pics_in_a_rows} className='ShopInspiringStories' /></Suspense>
             </>
         </Layout>)
 }
