@@ -60,6 +60,11 @@ input {
   @include btn-contained-color($dark, $yellowFuel);
 }
 
+.bmk-primary-contained-btn {
+  @include btn;
+  @include btn-contained-color($pumpkinOrange, #d85816);
+}
+
 .bmk-primary-outline-btn {
   @include btn;
   @include btn-outline-color($pumpkinOrange);
