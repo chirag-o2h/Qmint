@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { useScrollTrigger, Stack, Container, Box, IconButton, AppBar } from "@mui/material"
+import { useScrollTrigger, Stack, Container, Box, IconButton, AppBar, Divider } from "@mui/material"
 import classNames from "classnames"
 
 // Assets
@@ -80,7 +80,7 @@ function MobileSecondaryMenu() {
             <ActionMenu />
           </Stack>
         </Container>
-        {THEME_TYPE !== "1" && (<ConstantApiLoader />)}
+        {THEME_TYPE === "1" ? <Divider /> : <ConstantApiLoader />}
       </AppBar>
     </Box >
   )
