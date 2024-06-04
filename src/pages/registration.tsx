@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { useMediaQuery, useScrollTrigger, Box, Typography, Button, Stack, MenuItem, Autocomplete, FormHelperText, TextField, IconButton, InputAdornment, FormControlLabel, Radio, RadioGroup } from "@mui/material"
+import { useMediaQuery, useScrollTrigger, Box, Typography, Button, Stack, MenuItem, Autocomplete, FormHelperText, TextField, IconButton, InputAdornment, FormControlLabel, Radio, RadioGroup, styled } from "@mui/material"
 import { useForm, useWatch } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -7,7 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
 import classNames from "classnames"
 import { SwiperOptions } from "swiper/types"
-import { Link, navigate } from "gatsby"
+import { Link as RouterLink } from "gatsby"
+import { navigate } from "gatsby"
 
 // Assets
 import { RadioUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon, RadioCheckedRoundIcon } from "@/assets/icons"
@@ -71,7 +72,9 @@ const config: SwiperOptions = {
     delay: 8000,
   },
 };
-
+const StyledLink = styled(RouterLink)({
+  textDecoration: 'underline',
+});
 const userTypeOptions = [
   { id: "1", name: "agent", value: "agent", label: "Agent", disabled: false },
   { id: "2", name: "dailyPriceAlert", value: "dailyPriceAlert", label: "Daily Price Alert", disabled: false },
@@ -687,18 +690,18 @@ function Registration() {
                   icon={<RadioUncheckedRoundIcon />}
                   checkedIcon={<RadioCheckedRoundIcon />}
                   onChange={(e) => {
-                    console.log(e,"eee")
-                    const currentStack:any[] = structuredClone(radioButtonInput)
-                    if(currentStack.includes(e)){
-                      setRadioButtonInput(currentStack.filter((i)=> i !== e))
-                    }else{
+                    console.log(e, "eee")
+                    const currentStack: any[] = structuredClone(radioButtonInput)
+                    if (currentStack.includes(e)) {
+                      setRadioButtonInput(currentStack.filter((i) => i !== e))
+                    } else {
                       currentStack.push(e)
                       setRadioButtonInput(currentStack)
                     }
                   }}
                   row
                 />
-                {radioButtonInput.includes("agent")  && <RenderFields
+                {radioButtonInput.includes("agent") && <RenderFields
                   register={register}
                   error={errors.AgentCode}
                   name="AgentCode"
@@ -716,7 +719,7 @@ function Registration() {
                   register={register}
                   name="PrivacyPolicy"
                   label={
-                    <Typography>I Have Read And Agree The <Link to="/topic/privacy-policy/">Privacy Policy</Link></Typography>
+                    <Typography>I Have Read And Agree The <StyledLink to="/topic/privacy-policy/">Privacy Policy</StyledLink></Typography>
                   }
                   margin="none"
                 />
@@ -725,7 +728,7 @@ function Registration() {
                   register={register}
                   name="TermsCondition"
                   label={
-                    <Typography>I Have Read And Agree The <Link to="/topic/terms-of-service">Terms & Condition</Link></Typography>
+                    <Typography>I Have Read And Agree The <StyledLink to="/topic/terms-of-service">Terms & Condition</StyledLink></Typography>
                   }
                   margin="none"
                 />
