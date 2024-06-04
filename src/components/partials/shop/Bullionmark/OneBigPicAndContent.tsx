@@ -7,20 +7,11 @@ function OneBigPicAndContent() {
   const bmkShopSections = useAppSelector(state => state.homePage.bmkShopPageSections)
 
   return (
-    bmkShopSections && <Box id="OneBigPicSlider" component="section"
-      sx={{ backgroundImage: `url(${goldbannerImage})` }}
-    >
+    bmkShopSections && <Box id="OneBigPicSlider" component="section">
       <Box className="ck-content">
         <Box dangerouslySetInnerHTML={{
           __html: bmkShopSections["shopHomepage_Section_4_One_big_pic_and_content"]
         }}>
-        {/* <Box className="BannerWrapper">
-          <Typography variant="body2" className="OfferTag">50% OFF ON</Typography>
-          <Typography variant="h3" className="BannerTitle">Bullionmark Kangaroo
-            Gold Cast Bar</Typography>
-          <Typography variant="body2" className="BannerDescription">See our Shipping out off dates</Typography>
-          <Button variant="contained">Shop Now</Button>
-        </Box> */}
         </Box>
       </Box>
     </Box >

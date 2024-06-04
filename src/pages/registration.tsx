@@ -10,7 +10,7 @@ import { SwiperOptions } from "swiper/types"
 import { Link, navigate } from "gatsby"
 
 // Assets
-import { RadioUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon } from "@/assets/icons"
+import { RadioUncheckedRoundIcon, ContainedCheckIcon, ContainedCrossIcon, SmallRightIcon, TickIcon, RadioCheckedRoundIcon } from "@/assets/icons"
 
 // Hooks
 import { useAppDispatch, useAppSelector } from "@/hooks"
@@ -72,6 +72,12 @@ const config: SwiperOptions = {
   },
 };
 
+const userTypeOptions = [
+  { id: "1", name: "agent", value: "agent", label: "Agent", disabled: false },
+  { id: "2", name: "dailyPriceAlert", value: "dailyPriceAlert", label: "Daily Price Alert", disabled: false },
+  { id: "3", name: "newsletter", value: "newsletter", label: "Newsletter", disabled: false },
+]
+
 const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: string, country: any }) => {
   return yup.object().shape({
     FirstName: yup.string().trim().required("First name is a required field"),
@@ -119,7 +125,8 @@ function Registration() {
   const { showToaster } = useShowToaster();
   // const [password, setPassword] = useState('');
   const [isOtpVerified, setIsOtpVerified] = useState(false)
-  const [radioButtonInput, setRadioButtonInput] = useState("agent");
+  const [radioButtonInput, setRadioButtonInput] = useState<any>([]);
+  console.log("🚀 ~ radioButtonInput:", radioButtonInput)
   const [timer, setTimer] = useState(20);
   const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -262,10 +269,10 @@ function Registration() {
       State: (stateList.find((state) => state.name === data.State)?.id || 0) as any,
       City: data.City,
       Pincode: data.Code,
-      IsAgentId: radioButtonInput === "agent",
-      AgentCode: radioButtonInput === "agent" ? data.AgentCode : null,
-      DailyPriceAlert: radioButtonInput === "dailyPriceAlert",
-      NewsLetter: radioButtonInput === "newsletter",
+      IsAgentId: radioButtonInput.includes("agent"),
+      AgentCode: radioButtonInput.includes("agent") ? data.AgentCode : null,
+      DailyPriceAlert: radioButtonInput.includes("dailyPriceAlert"),
+      NewsLetter: radioButtonInput.includes("newsletter"),
       IAcceptPrivacyPolicy: true,
       Termsofservice: true
     }
@@ -671,26 +678,27 @@ function Registration() {
                 />
               </Stack>
               <Box className="UserType">
-                <RadioGroup
-                  defaultValue="agent"
+                <RenderFields
+                  type="checkbox2"
+                  register={register}
                   name="UserType"
-                  value={radioButtonInput}
+                  options={userTypeOptions}
+                  margin="none"
+                  icon={<RadioUncheckedRoundIcon />}
+                  checkedIcon={<RadioCheckedRoundIcon />}
                   onChange={(e) => {
-                    setRadioButtonInput(e.target.value)
-                    if (e.target.value === "agent") {
-                      setIncludeAgentCode(true)
-                    }
-                    else {
-                      setIncludeAgentCode(false)
+                    console.log(e,"eee")
+                    const currentStack:any[] = structuredClone(radioButtonInput)
+                    if(currentStack.includes(e)){
+                      setRadioButtonInput(currentStack.filter((i)=> i !== e))
+                    }else{
+                      currentStack.push(e)
+                      setRadioButtonInput(currentStack)
                     }
                   }}
                   row
-                >
-                  <FormControlLabel value="agent" control={<Radio />} label="Agent" />
-                  <FormControlLabel value="dailyPriceAlert" control={<Radio />} label="Daily Price Alert" />
-                  <FormControlLabel value="newsletter" control={<Radio />} label="Newsletter" />
-                </RadioGroup>
-                {radioButtonInput == "agent" && <RenderFields
+                />
+                {radioButtonInput.includes("agent")  && <RenderFields
                   register={register}
                   error={errors.AgentCode}
                   name="AgentCode"
