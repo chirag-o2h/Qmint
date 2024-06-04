@@ -599,13 +599,13 @@
                     display: none;
                   }
 
-                  .PopoverMegaMenu {
-                    margin-top: 18px !important;
+                  // .PopoverMegaMenu {
+                  //   margin-top: 18px !important;
 
-                    @include media($lg) {
-                      margin-top: 6px !important;
-                    }
-                  }
+                  //   @include media($lg) {
+                  //     margin-top: 6px !important;
+                  //   }
+                  // }
                 }
               }
 
@@ -733,6 +733,18 @@
                   }
                 }
               }
+            }
+          }
+        }
+      }
+      .HeaderContainerWrapper {
+        position: relative;
+        .MainHeader {
+          @include padding-vertical(0);
+          .NavigationHeader {
+            position: static;
+            & > .MuiContainer-root {
+              @include padding-horizontal(0);
             }
           }
         }

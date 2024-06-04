@@ -12,6 +12,7 @@ export type RenderFieldType =
   | "phoneInput"
   | "dateRange"
   | "autocomplete"
+  | "checkbox2"
 
 export interface FieldOption {
   id: string
