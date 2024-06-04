@@ -55,6 +55,18 @@ export const passwordRecoveryTokenVarified = appCreateAsyncThunk(
         return await AuthServices.passwordRecoveryTokenVarified(url)
     }
 )
+export const registrationTokenVarified = appCreateAsyncThunk(
+    'registrationTokenVarified',
+    async ({ url}: { url: string }) => {
+        return await AuthServices.registrationTokenVarified(url)
+    }
+)
+export const resendRegstrationEmail = appCreateAsyncThunk(
+    'resendRegstrationEmail',
+    async ({ url}: { url: string }) => {
+        return await AuthServices.resendRegstrationEmail(url)
+    }
+)
 export const authSlice = createSlice({
     name: "auth",
     initialState,

@@ -62,17 +62,20 @@ function ResetPassword(params: any) {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
-  // const { showToaster } = useShowToaster();
+  const [customerId, setCustomerId] = useState<any>(null)
+  const { showToaster } = useShowToaster();
 
   useLayoutEffect(() => {
     const verifyToken = async () => {
-      const response: any = await dispatch(passwordRecoveryTokenVarified({ url: ENDPOINTS.passwordRecoveryTokenVarified.replace('{{token}}', searchParams.get("token")) }))
+      setLoading(() => true)
+      const response: any = await dispatch(passwordRecoveryTokenVarified({ url: ENDPOINTS.passwordRecoveryTokenVarified.replace('{{token}}', searchParams.get("token") as string) }))
       console.log("🚀 ~ verifyToken ~ response:", response)
       if (isActionRejected(response.type)) {
         setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
         setLoading(() => false)
         return
       }
+      setCustomerId(response?.payload?.data?.data?.customerId ?? null)
       setIsTokenVarified(true)
       setMessage(() => response?.payload?.data?.message)
       setLoginError(null)
@@ -115,12 +118,23 @@ function ResetPassword(params: any) {
 
 
   const handleFormSubmit = async (data: any) => {
+    setLoading(true)
     const body: IrecoveryPasswordSave = {
-      // todo
-      CustomerId: 1234,
+      CustomerId: customerId,
       Password: data?.Password
     }
-    dispatch(passwordRecoverySave({ url: ENDPOINTS.passwordRecoverySave, data: body }))
+    
+    const response : any= await dispatch(passwordRecoverySave({ url: ENDPOINTS.passwordRecoverySave, data: body }))
+    setIsTokenVarified(false)
+    if (isActionRejected(response.type)) {
+      setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
+      // showToaster({message: ((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong", severity: 'error'})
+      setLoading(() => false)
+      return
+    }
+    setMessage(() => response?.payload?.data?.message)
+    console.log("🚀 ~ handleFormSubmit ~ res:", response)
+    setLoading(false)
   }
   return (
     <>

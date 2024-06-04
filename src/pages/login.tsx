@@ -67,6 +67,7 @@ function SignInPage() {
   const onSubmit = async (data: any) => {
     const response: any = await dispatch<any>(LoginUserAPI({ url: ENDPOINTS.loginUser, body: data }))
     if (isActionRejected(response.type)) {
+      console.log("🚀 ~ onSubmit ~ response:", response)
       setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
       return
     }
@@ -81,7 +82,7 @@ function SignInPage() {
       navigate('/');
     }
   };
-
+  console.log("loginError", loginError)
   function navigateToRegister1() {
     setLoadingForNavigate(true)
     navigate('/registration');
@@ -147,6 +148,8 @@ function SignInPage() {
                 <Box className="Header">
                   <Typography variant="h3" component="p">{configDetailsState?.Loginpage_Rightside_Title?.value}</Typography>
                   <Typography variant="body2" className="Description" component="p">{configDetailsState?.Loginpage_Rightside_Subtitle?.value}</Typography>
+                  {loginError && <Typography variant="body2" component="p" className="ErrorMessage">{loginError}</Typography>}
+                  {/* {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage">{message}</Typography>} */}
                 </Box>
                 <Stack className="FieldWrapper">
                   <TextField
@@ -167,7 +170,6 @@ function SignInPage() {
                     required
                     fullWidth
                   />
-
                   <TextField
                     label="Password"
                     variant="standard"
