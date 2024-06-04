@@ -11,7 +11,7 @@ function RadioUncheckedRoundIcon(props: SvgIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <circle cx="11" cy="11" r="11" fill="white" />
+      <circle cx="11" cy="11" r="10.5" fill="white" stroke="#F0F0F0" />
     </SvgIcon>
   )
 }
