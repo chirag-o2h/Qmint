@@ -15,16 +15,58 @@ import classNames from 'classnames'
 import { AddToCartIcon } from '@/assets/icons'
 import noImage from '@/assets/images/noImage.png'
 import { IFeaturedProducts } from '../Qmint/FeaturedProducts'
-import { useAppSelector } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import useShowToaster from '@/hooks/useShowToaster'
+import { ENDPOINTS } from '@/utils/constants'
+import { getShoppingCartData } from '@/redux/reducers/shoppingCartReducer'
+import { bodyForGetShoppingCartData } from '@/utils/common'
+import useCallAPI from '@/hooks/useCallAPI'
 
 
 function BmkProductCard({ product }: { product: IFeaturedProducts }) {
+    console.log("🚀 ~ BmkProductCard ~ product:", product)
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
-
+    const dispatch = useAppDispatch()
     const renderStockStatus = isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value
+    const { cartItems } = useAppSelector((state) => state.shoppingCart)
+    const { showToaster } = useShowToaster();
+    const { loading: loadingForAddToCart, error: errorForAddToCart, apiCallFunction } = useCallAPI()
 
-    const handleAddToCart = () => {
-
+    const handleAddToCart = async () => {
+        if (cartItems?.length && (cartItems?.length >= configDetailsState?.Shoppingcart_MaxItems?.value)) {
+            showToaster({
+                message: `Can not add more than ${configDetailsState?.Shoppingcart_MaxItems?.value} items to cart.`,
+                severity: 'error'
+            })
+            return
+        }
+        const response = await apiCallFunction(ENDPOINTS.addToCartProduct, 'POST', {
+            "productId": product.productId,
+            "quantity": 1,
+            "IsInstantBuy": false
+        } as any)
+        if (response?.code === 200) {
+            dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
+            if (response.data === true) {
+                showToaster({
+                    message: response?.message,
+                    buttonText: 'cart',
+                    redirectButtonUrl: 'shopping-cart',
+                    severity: 'success'
+                })
+            } else {
+                showToaster({
+                    message: response.message,
+                    severity: 'warning'
+                })
+            }
+        }
+        else {
+            showToaster({
+                message: 'Adding to cart failed! Please Try again',
+                severity: 'error'
+            })
+        }
     }
 
     return (
@@ -49,7 +91,7 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
                             : "Best Price at"}</Typography>
                     </Box>
                     <Stack className="Bottom">
-                    <Typography variant="overline" className="DiscountedPrice">${(product?.priceWithDetails?.tierPriceList && product?.priceWithDetails?.tierPriceList?.length > 0) ?
+                        <Typography variant="overline" className="DiscountedPrice">${(product?.priceWithDetails?.tierPriceList && product?.priceWithDetails?.tierPriceList?.length > 0) ?
                             (product?.priceWithDetails?.productLowestPrice?.toFixed(2)) : product?.priceWithDetails?.price?.toFixed(2)}</Typography>
                         {(product?.priceWithDetails?.discount && product?.priceWithDetails?.discount !== 0)
                             ?

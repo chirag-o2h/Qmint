@@ -14,6 +14,8 @@ import { sortByMostPopular, sortByPriceHighToLow, sortByPriceLowToHigh } from "@
 import { getlastPartOfPath } from "@/utils/common"
 import useApiRequest from "@/hooks/useAPIRequest"
 import { ENDPOINTS } from "@/utils/constants"
+import { THEME_TYPE } from "@/axiosfolder"
+import BmkProductCard from "../shop/Bullionmark/BmkProductCard"
 
 function ProductList({ page, setPage }: { page: number, setPage: any }) {
   const categoryData = useAppSelector((state) => state.category);
@@ -70,7 +72,7 @@ function ProductList({ page, setPage }: { page: number, setPage: any }) {
           !categoryData.loading ? (
             categoryData.sortedItems?.map((product: any) => {
               return (
-                <ProductCard key={product.productId} product={product} stickyProduct={false} />
+               THEME_TYPE == '1' ? <BmkProductCard product={product} key={product.productId}/>: <ProductCard key={product.productId} product={product} stickyProduct={false} />
               );
             })
           ) : (
