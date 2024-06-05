@@ -841,9 +841,15 @@
                 }
 
                 .PriceChangeReturn {
+                  border-radius: 5px;
+
                   &.Nuetral {
                     background-color: $pumpkinOrange;
                   }
+                }
+
+                .PriceHistorySelect {
+                  border-radius: 5px;
                 }
               }
             }
