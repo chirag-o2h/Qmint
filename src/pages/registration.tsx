@@ -413,8 +413,8 @@ function Registration() {
   }, [configDetailsState]);
 
   useEffect(() => {
-    setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
-    setSliderImageHeight(document.body.clientHeight - headerHeight - topImageMinHeight)
+    // setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
+    setSliderImageHeight(document.body.clientHeight +130 - topImageMinHeight)
   }, [trigger, headerHeight, sliderImageHeight, isMobile])
 
   useEffect(() => {
