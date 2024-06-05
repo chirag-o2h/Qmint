@@ -129,9 +129,13 @@ function Registration() {
   // const [password, setPassword] = useState('');
   const [isOtpVerified, setIsOtpVerified] = useState(false)
   const [radioButtonInput, setRadioButtonInput] = useState<any>([]);
+  const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIncludeAgentCode(radioButtonInput.includes("agent"))
+  }, [radioButtonInput])
   console.log("🚀 ~ radioButtonInput:", radioButtonInput)
   const [timer, setTimer] = useState(20);
-  const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
   const [sliderImageHeight, setSliderImageHeight] = useState<number>(0);
@@ -249,9 +253,7 @@ function Registration() {
   }
 
   const handleFormSubmit = async (data: any) => {
-    // todo
-    if (isOtpVerified) {
-      // if (!isOtpVerified) {
+      if (!isOtpVerified) {
       showToaster({
         message: "Please verify Phone number to proceed",
         severity: "warning"
@@ -690,7 +692,6 @@ function Registration() {
                   icon={<RadioUncheckedRoundIcon />}
                   checkedIcon={<RadioCheckedRoundIcon />}
                   onChange={(e) => {
-                    console.log(e, "eee")
                     const currentStack: any[] = structuredClone(radioButtonInput)
                     if (currentStack.includes(e)) {
                       setRadioButtonInput(currentStack.filter((i) => i !== e))
