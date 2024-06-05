@@ -17,6 +17,7 @@ import { Link, navigate } from "gatsby"
 import { CategoriesListDetails, LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
+import { pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
 const Navigation = lazy(() => import('./Navigation'))
 
 function FrontMain(props: any) {
@@ -33,8 +34,7 @@ function FrontMain(props: any) {
             navigate('/')
         }
     }
-    const [params] = useState({ page: window.location.pathname.includes('shop')? 1 : 0})
-    console.log(location.pathname);
+    const [params] = useState({ page: window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page)) ? 0 : 1 })
     useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
     const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)

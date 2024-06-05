@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { resetCalculatorData, saveCalculatorsData } from '@/redux/reducers/calculatorsReducer';
 import { ENDPOINTS } from '@/utils/constants';
 import Loader from '@/components/common/Loader';
+import { roundOfThePrice } from '@/utils/common';
 
 function Calculator() {
     const checkLoadingStatus = useAppSelector(state => state.calculators.loading);
@@ -51,17 +52,17 @@ function Calculator() {
                             <Stack
                                 className='DataValueWrapper ValueNestedWrapper' style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
                                 <Typography variant="body1" className="">Shipping</Typography>
-                                <Typography variant="subtitle1" className="">${calculators.shipping}</Typography>
+                                <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping)}</Typography>
                             </Stack>
                             <Stack
                                 className='DataValueWrapper ValueNestedWrapper'>
                                 <Typography variant="body1" className="">Insurance</Typography>
-                                <Typography variant="subtitle1" className="">${calculators.insurance}</Typography>
+                                <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.insurance)}</Typography>
                             </Stack>
                             <Stack
                                 className='DataValueWrapper TotalValueNestedWrapper' style={{ borderTopLeftRadius: "0px", borderTopRightRadius: "0px" }}>
                                 <Typography variant="body1" className="">Total</Typography>
-                                <Typography variant="subtitle1" className="">${calculators.shipping + calculators.insurance}</Typography>
+                                <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping + calculators.insurance)}</Typography>
                             </Stack>
                         </Box>
                     </Box>
