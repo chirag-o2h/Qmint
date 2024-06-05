@@ -159,3 +159,16 @@ export const StoreData = {
 }
 
 export const changePasswordURL = "https://register.qmint.com/passwordrecovery?id=" + STORE_CODE
+export const forbiddenKeywords = [
+    "post", "p . o .", "p. o .", "p . o.", "p .o.", "p .o .", "p. o. Box",
+    "PO Box 2951", "P.O. Box", "P. O. Box No. 2653", "p.o box", "p o box",
+    "pobox", "po box", "p.o.box p", "o box.post office", "postoffiice",
+    "locked bag.private bag", "lockedbag", "secure bag", "parcel",
+    "parcel locker", "locker", "post"
+];
+export const containsForbiddenKeyword = (value: any, keywords: any) => {
+    if (!value) return false;
+    const lowerCaseValue = value.toLowerCase();
+    return keywords.some((keyword: any) => lowerCaseValue.includes(keyword.toLowerCase()));
+};
+export const messageForForbiddenKeyword = "PO Box not accepted. Please enter valid street address."

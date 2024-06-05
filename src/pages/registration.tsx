@@ -26,7 +26,7 @@ import { AddressComponents } from "@/utils/parseAddressComponents"
 import { checkImageUrl, isValidPhoneNumber } from "@/components/common/Utils"
 import { StateOrCountry, getStateAndCountryLists } from "@/redux/reducers/checkoutReducer";
 import useAPIoneTime from "@/hooks/useAPIoneTime"
-import { ENDPOINTS } from "@/utils/constants"
+import { containsForbiddenKeyword, ENDPOINTS, forbiddenKeywords, messageForForbiddenKeyword } from "@/utils/constants"
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import { getRegistrationOTP, registration, registrationLog, verifyRegistrationOTP } from "@/redux/reducers/authReducer"
@@ -101,8 +101,18 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
       .oneOf([yup.ref('Password'), ''], 'Passwords must match'),
     Email: yup.string().email().required(),
     OTP: yup.string(),
-    Address1: yup.string().trim().required("Address 1 is a required field"),
-    Address2: yup.string().trim(),
+    // Address1: yup.string().trim().required("Address 1 is a required field"),
+    // Address2: yup.string().trim(),
+    Address1: yup.string().trim()
+    .required("Address 1 is a required field")
+    .test("forbidden-keyword", `in Address 1 ${messageForForbiddenKeyword}`, function (value) {
+      return !containsForbiddenKeyword(value, forbiddenKeywords);
+    }),
+  Address2: yup.string().trim()
+    .test("forbidden-keyword", `in Address 2 ${messageForForbiddenKeyword}`, function (value) {
+      return !containsForbiddenKeyword(value, forbiddenKeywords);
+    }),
+
     City: yup.string().required().trim(),
     State: yup.string().required(),
     Country: yup.string().notOneOf(["none"], "Country is a required field"),
@@ -129,9 +139,13 @@ function Registration() {
   // const [password, setPassword] = useState('');
   const [isOtpVerified, setIsOtpVerified] = useState(false)
   const [radioButtonInput, setRadioButtonInput] = useState<any>([]);
+  const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIncludeAgentCode(radioButtonInput.includes("agent"))
+  }, [radioButtonInput])
   console.log("🚀 ~ radioButtonInput:", radioButtonInput)
   const [timer, setTimer] = useState(20);
-  const [includeAgentCode, setIncludeAgentCode] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
   const [sliderImageHeight, setSliderImageHeight] = useState<number>(0);
@@ -249,9 +263,7 @@ function Registration() {
   }
 
   const handleFormSubmit = async (data: any) => {
-    // todo
-    if (isOtpVerified) {
-      // if (!isOtpVerified) {
+      if (!isOtpVerified) {
       showToaster({
         message: "Please verify Phone number to proceed",
         severity: "warning"
@@ -401,8 +413,8 @@ function Registration() {
   }, [configDetailsState]);
 
   useEffect(() => {
-    setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
-    setSliderImageHeight(document.body.clientHeight - headerHeight - topImageMinHeight)
+    // setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
+    setSliderImageHeight(document.body.clientHeight +130 - topImageMinHeight)
   }, [trigger, headerHeight, sliderImageHeight, isMobile])
 
   useEffect(() => {
@@ -690,7 +702,6 @@ function Registration() {
                   icon={<RadioUncheckedRoundIcon />}
                   checkedIcon={<RadioCheckedRoundIcon />}
                   onChange={(e) => {
-                    console.log(e, "eee")
                     const currentStack: any[] = structuredClone(radioButtonInput)
                     if (currentStack.includes(e)) {
                       setRadioButtonInput(currentStack.filter((i) => i !== e))
