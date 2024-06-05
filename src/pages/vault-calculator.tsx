@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { resetCalculatorData, saveCalculatorsData } from '@/redux/reducers/calculatorsReducer';
 import { ENDPOINTS } from '@/utils/constants';
 import Loader from '@/components/common/Loader';
+import { roundOfThePrice } from '@/utils/common';
 
 function Calculator() {
     const dispatch = useAppDispatch();
@@ -52,7 +53,7 @@ function Calculator() {
                             <Stack
                                 className='DataValueWrapper TotalValueNestedWrapper'>
                                 <Typography variant="body1">Total Vault Storage</Typography>
-                                <Typography variant="subtitle1">${vaultStorage}</Typography>
+                                <Typography variant="subtitle1">${roundOfThePrice(vaultStorage)}</Typography>
                             </Stack>
                         </Box>
                     </Box>

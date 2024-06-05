@@ -13,6 +13,7 @@ import SessionExpiredDialog from "./SessionExpiredDialog";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
+import { pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
 const Index = () => {
@@ -20,8 +21,9 @@ const Index = () => {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-  const [params] = useState({ page: window.location.pathname.includes('shop') ? 1 : 0 })
+  const [params] = useState({ page: window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page)) ? 0 : 1 })
   useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: isMobile ? 68 : 50,
