@@ -252,7 +252,7 @@ export const BmkProductStockStatus = React.memo(
   ({ availability }: ProductStockStatus) => {
     return (
       <Box className={classNames("BmkProductStockStatus", [
-        availability !== "Sold" ? "Available" : "NotAvailable",
+        availability !== "Sold Out" ? "Available" : "NotAvailable",
       ])}>
         <Typography className="Message">
           {availability}
