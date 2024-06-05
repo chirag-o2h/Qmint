@@ -26,7 +26,7 @@ import { AddressComponents } from "@/utils/parseAddressComponents"
 import { checkImageUrl, isValidPhoneNumber } from "@/components/common/Utils"
 import { StateOrCountry, getStateAndCountryLists } from "@/redux/reducers/checkoutReducer";
 import useAPIoneTime from "@/hooks/useAPIoneTime"
-import { ENDPOINTS } from "@/utils/constants"
+import { containsForbiddenKeyword, ENDPOINTS, forbiddenKeywords, messageForForbiddenKeyword } from "@/utils/constants"
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import { getRegistrationOTP, registration, registrationLog, verifyRegistrationOTP } from "@/redux/reducers/authReducer"
@@ -101,8 +101,18 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
       .oneOf([yup.ref('Password'), ''], 'Passwords must match'),
     Email: yup.string().email().required(),
     OTP: yup.string(),
-    Address1: yup.string().trim().required("Address 1 is a required field"),
-    Address2: yup.string().trim(),
+    // Address1: yup.string().trim().required("Address 1 is a required field"),
+    // Address2: yup.string().trim(),
+    Address1: yup.string().trim()
+    .required("Address 1 is a required field")
+    .test("forbidden-keyword", `in Address 1 ${messageForForbiddenKeyword}`, function (value) {
+      return !containsForbiddenKeyword(value, forbiddenKeywords);
+    }),
+  Address2: yup.string().trim()
+    .test("forbidden-keyword", `in Address 2 ${messageForForbiddenKeyword}`, function (value) {
+      return !containsForbiddenKeyword(value, forbiddenKeywords);
+    }),
+
     City: yup.string().required().trim(),
     State: yup.string().required(),
     Country: yup.string().notOneOf(["none"], "Country is a required field"),

@@ -13,7 +13,7 @@ import StyledDialog from "@/components/common/StyledDialog"
 import RenderFields from "@/components/common/RenderFields"
 import GoogleMaps from "@/components/common/GoogleMaps"
 import { StateOrCountry, addAddress as addAddressForCheckout, addOrEditAddress as addOrEditAddressForCheckout } from "@/redux/reducers/checkoutReducer";
-import { ENDPOINTS } from "@/utils/constants";
+import { containsForbiddenKeyword, ENDPOINTS, forbiddenKeywords, messageForForbiddenKeyword } from "@/utils/constants";
 import { PhoneNumberCountryCode, hasFulfilled } from "@/utils/common"
 import useShowToaster from "@/hooks/useShowToaster"
 import { AddressComponents } from "@/utils/parseAddressComponents"
@@ -89,8 +89,17 @@ function AddAddress(props: AddAddress) {
                 else return false;
             }),
         Email: yup.string().email().required(),
-        Address1: yup.string().trim().required("Address 1 in required field"),
-        Address2: yup.string().trim(),
+        // Address1: yup.string().trim().required("Address 1 in required field"),
+        // Address2: yup.string().trim(),
+        Address1: yup.string().trim()
+        .required("Address 1 is a required field")
+        .test("forbidden-keyword", `in Address 1 ${messageForForbiddenKeyword}`, function (value) {
+          return !containsForbiddenKeyword(value, forbiddenKeywords);
+        }),
+        Address2: yup.string().trim()
+        .test("forbidden-keyword",`in Address 2 ${messageForForbiddenKeyword}`, function (value) {
+          return !containsForbiddenKeyword(value, forbiddenKeywords);
+        }),
         City: yup.string().required().trim(),
         State: yup.string().required(),
         Country: yup.string().notOneOf(["none"], "Country is required field"),
