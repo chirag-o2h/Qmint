@@ -1188,6 +1188,7 @@
 
 .BmkCommonProductCard {
   &.MuiCard-root {
+    position: relative;
     background-color: transparent;
     border-radius: 0;
     @include transition;
