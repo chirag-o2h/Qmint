@@ -135,7 +135,7 @@ function AddAccount(props: AddAccountProps) {
       case "Business":
         return yup.object().shape({
           ...updatedCommonAccountSchema,
-          BusinessName: yup.string().trim().required("Bussiness Name is required field"),
+          ...(isItUpdateTime ? {} : {  BusinessName: yup.string().trim().required("Bussiness Name is required field")}),
           Contact: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
             function (value) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
@@ -159,9 +159,11 @@ function AddAccount(props: AddAccountProps) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
               else return false;
             }),
-          SuperfundName: yup.string().trim().required("Superfund Name is required field"),
-          TrusteeType: yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
-          TrusteeName: yup.string().trim().required("Trustee Name is required field")
+          ...(isItUpdateTime ? {} : {
+            SuperfundName: yup.string().trim().required("Superfund Name is required field"),
+            TrusteeType: yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
+            TrusteeName: yup.string().trim().required("Trustee Name is required field")
+          })
         });
       case "Trust":
         return yup.object().shape({
@@ -381,7 +383,7 @@ function AddAccount(props: AddAccountProps) {
               margin='none'
             />
           </Stack>}
-          {accountTypeText === "Business" && <Stack className="Fields BusinessFields">
+          {accountTypeText === "Business" && !isItUpdateTime && <Stack className="Fields BusinessFields">
             <RenderFields
               register={register}
               error={errors.BusinessName}
@@ -392,7 +394,7 @@ function AddAccount(props: AddAccountProps) {
               margin='none'
             />
           </Stack>}
-          {accountTypeText === "Superfund" && <Stack className="Fields SuperfundFields">
+          {accountTypeText === "Superfund" && !isItUpdateTime && <Stack className="Fields SuperfundFields">
             <RenderFields
               register={register}
               error={errors.SuperfundName}
