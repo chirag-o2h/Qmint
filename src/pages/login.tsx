@@ -148,7 +148,9 @@ function SignInPage() {
                 <Box className="Header">
                   <Typography variant="h3" component="p">{configDetailsState?.Loginpage_Rightside_Title?.value}</Typography>
                   <Typography variant="body2" className="Description" component="p">{configDetailsState?.Loginpage_Rightside_Subtitle?.value}</Typography>
-                  {loginError && <Typography variant="body2" component="p" className="ErrorMessage">{loginError}</Typography>}
+                  {loginError && <Typography variant="body2" component="p" className="ErrorMessage" dangerouslySetInnerHTML={{
+                    __html : loginError
+                  }}></Typography>}
                   {/* {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage">{message}</Typography>} */}
                 </Box>
                 <Stack className="FieldWrapper">
