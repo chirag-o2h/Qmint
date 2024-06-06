@@ -5,6 +5,13 @@
         @include padding-vertical(60, 82);
     }
 
+    &.TopBannerAbsent {
+        padding-top: 230px;
+
+        @include media($md) {
+            padding-top: 130px;
+        }
+    }
 
     .BullionmarkSectionHeading {
         margin-bottom: 49px;

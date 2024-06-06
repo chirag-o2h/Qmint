@@ -7,11 +7,11 @@ import { Link } from "gatsby";
 import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 
 
-import { BullionmarkSectionHeading} from "@/components/common/Utils"
+import { BullionmarkSectionHeading } from "@/components/common/Utils"
 import { useAppSelector } from "@/hooks";
 
 
-function BestCategorySlider() {
+function BestCategorySlider(props: any) {
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const bmkShopSections = useAppSelector(state => state.homePage.bmkShopPageSections)
 
@@ -57,7 +57,7 @@ function BestCategorySlider() {
         },
     }
     return (
-        <Box id="BestCategorySlider" component="section">
+        <Box id="BestCategorySlider" component="section" className={props.PaddingClass}>
             <Container>
                 <BullionmarkSectionHeading
                     title="Shop Our Best Category" />
