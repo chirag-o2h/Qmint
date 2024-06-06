@@ -17,10 +17,12 @@ import OneBigPicAndContent from "./OneBigPicAndContent";
 import BmkPopularProductSlider from "./BmkPopularProductSlider";
 import ExclusiveJourneys from "../../landing-page/Bullionmark/ExclusiveJourneys";
 import InspiringStories from "../../landing-page/Bullionmark/InspiringStories";
+import { useMediaQuery } from "@mui/material";
 
 function BullionmarkShop() {
-    const { openToaster, loading, bmkShopPageSections } = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState,openToaster, loading, bmkShopPageSections } = useAppSelector((state) => state.homePage)
     useAPIoneTime({ service: getBullionMarkShopPageSections })
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'))
 
     return (
         <Layout>
@@ -32,7 +34,7 @@ function BullionmarkShop() {
                     title="Home"
                     lang="en"
                 />
-                <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>
+                {configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? null : <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>}
                 <Suspense fallback={<></>}> <BestCategorySlider /></Suspense>
                 <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
                 <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>

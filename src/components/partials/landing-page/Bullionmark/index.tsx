@@ -37,7 +37,7 @@ const BulliomarkMainHomePage = () => {
                         description={configDetailsState?.Store_Meta_Description?.value}
                     />
                     <Box className="FrontPage BullionmarkFrontPage">
-                        <BannerSlider />
+                        {configDetailsState?.Sliders_Homepage_Enable?.value === false ? null : <BannerSlider />}
                         <PlanningJourney />
                         <BestAdventures />
                         <GetInspired />
