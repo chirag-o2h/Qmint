@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks"
 import { setToasterState } from "@/redux/reducers/homepageReducer"
 import { navigate } from "gatsby"
 import { Typography } from "@mui/material"
+import * as  variable from '../../scss/settings/variables.module.scss'
+
 
 function Toaster() {
   const dispatch = useAppDispatch()
@@ -61,11 +63,14 @@ function Toaster() {
         >
           <span dangerouslySetInnerHTML={{
             __html: toasterMessage
-          }}></span>  {buttonText !== "" && <Button onClick={() => {
+          }}></span>  {buttonText !== "" && <span style={{
+            color: `${variable.pumpkinOrange}`,
+            cursor: 'pointer',
+          }} onClick={() => {
             navigate(`/${redirectButtonUrl}`)
-          }}>{buttonText}</Button>}
+          }}>{buttonText}</span>}
         </Alert>
-      </Snackbar>
+      </Snackbar >
     </>
   )
 }

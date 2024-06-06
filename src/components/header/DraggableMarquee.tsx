@@ -35,7 +35,7 @@ class Marquee extends Component<MarqueeProps, MarqueeState> {
     }
 
     initMarquee() {
-        const { freq = 15 } = this.props;
+        const { freq = 20 } = this.props;
         let spanWidth = this.dragSpan.current?.getBoundingClientRect().width || 0;
         // // Get the element by its ID
         const element = document.getElementById('mark-id');
