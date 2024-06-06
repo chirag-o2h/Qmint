@@ -52,10 +52,12 @@ interface Inputs {
   Country: string,
   State: string,
   Code: number,
+  AccountName?: string,
 }
 
 function AddAccount(props: AddAccountProps) {
   const { open, dialogTitle, alignment, onClose, hadleSecondaryAction, existingAccount } = props
+  const isItUpdateTime = dialogTitle == "Update account"
   // console.log("🚀 ~ alignment:", alignment)
   const accountTypeText = useMemo(() => {
     if (!alignment) return ""
@@ -117,11 +119,13 @@ function AddAccount(props: AddAccountProps) {
     }
   }, [existingAccount])
 
+  const updatedCommonAccountSchema = { ...commonAccountSchema, ...(isItUpdateTime ? { AccountName: yup.string().required("account name is required.").trim() } : {}) }
+
   function getSchemaFromAlignment(alignment: string) {
     switch (alignment) {
       case "Individual":
         return yup.object().shape({
-          ...commonAccountSchema,
+          ...updatedCommonAccountSchema,
           Contact: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
             function (value) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
@@ -130,7 +134,7 @@ function AddAccount(props: AddAccountProps) {
         });
       case "Business":
         return yup.object().shape({
-          ...commonAccountSchema,
+          ...updatedCommonAccountSchema,
           BusinessName: yup.string().trim().required("Bussiness Name is required field"),
           Contact: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
             function (value) {
@@ -140,7 +144,7 @@ function AddAccount(props: AddAccountProps) {
         });
       case "Joint":
         return yup.object().shape({
-          ...commonAccountSchema,
+          ...updatedCommonAccountSchema,
           Contact: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
             function (value) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
@@ -149,7 +153,7 @@ function AddAccount(props: AddAccountProps) {
         });
       case "Superfund":
         return yup.object().shape({
-          ...commonAccountSchema,
+          ...updatedCommonAccountSchema,
           Contact: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
             function (value) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
@@ -161,15 +165,17 @@ function AddAccount(props: AddAccountProps) {
         });
       case "Trust":
         return yup.object().shape({
-          ...commonAccountSchema,
+          ...updatedCommonAccountSchema,
           Contact: yup.string().trim().test('valid-phone-number', 'Please enter a valid phone number',
             function (value) {
               if (value) return isValidPhoneNumber(value, phoneNumberValue?.country?.countryCode);
               else return false;
             }),
-          TrusteeName: yup.string().trim().required("Trustee Name is required field"),
-          TrusteeType: yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
-          TrustName: yup.string().trim().required("Trust Name is required field")
+          ...(isItUpdateTime ? {} : {
+            TrusteeName: yup.string().trim().required("Trustee Name is required field"),
+            TrusteeType: yup.string().trim().notOneOf(["none"], "Trustee Type is required field"),
+            TrustName: yup.string().trim().required("Trust Name is required field")
+          })
         });
       default:
         return IndividualAccountFormSchema
@@ -216,6 +222,7 @@ function AddAccount(props: AddAccountProps) {
     }
 
     const commonAddressQueryForPreparation = {
+      AccountName: data.AccountName,
       customerId: existingAccount?.customerId || undefined,
       firstName: data.FirstName,
       lastName: data.LastName,
@@ -362,6 +369,18 @@ function AddAccount(props: AddAccountProps) {
       <form onSubmit={handleSubmit(onAddressFormSubmitHandler)}>
         <Typography className="AccountType">Account Type : <Typography variant="inherit" component="span">{accountTypeText}</Typography></Typography>
         <Stack className="FieldsWrapper">
+          {isItUpdateTime && <Stack className="Fields BusinessFields">
+            <RenderFields
+              register={register}
+              error={errors.AccountName}
+              name="AccountName"
+              placeholder="Enter account name*"
+              control={control}
+              variant='outlined'
+              defaultValue={existingAccount?.accountName}
+              margin='none'
+            />
+          </Stack>}
           {accountTypeText === "Business" && <Stack className="Fields BusinessFields">
             <RenderFields
               register={register}
@@ -413,7 +432,7 @@ function AddAccount(props: AddAccountProps) {
               />
             </Stack>
           </Stack>}
-          {accountTypeText === "Trust" && <Stack className="Fields TrustFields">
+          {accountTypeText === "Trust" && !isItUpdateTime && <Stack className="Fields TrustFields">
             <Stack className="Column">
               <RenderFields
                 register={register}
