@@ -51,7 +51,7 @@ function FrontMain(props: any) {
                         <Link className="Logo" to="/"><img src={configDetailsState?.["Homepage_HeaderLogo_URL"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
                     </Stack>
                     <Stack className="Center">
-                        <Navigation frontPage={true} showNavigation={true} />
+                        <Navigation frontPage={window.location.pathname === "/" ? true :false} showNavigation={true} />
                     </Stack>
                     <Stack className="Right">
                         {/* <Link to={ENDPOINTS.login}> */}

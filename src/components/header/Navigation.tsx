@@ -46,6 +46,7 @@ export interface Icategory {
 function Navigation({ frontPage = false, showNavigation = false }: { frontPage?: boolean, showNavigation?: boolean }) {
   const dispatch = useAppDispatch()
   const { configDetails: configDetailsState, categoriesList, needToShowProgressLoader, isLoggedIn } = useAppSelector((state) => state.homePage)
+  console.log("🚀 ~ Navigation ~ categoriesList:", categoriesList, "--", frontPage)
   const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const [currententlySelected, setCurrententlySelected] = useState('')
   useEffect(() => {
@@ -106,7 +107,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                         placement="bottom-start"
                         renderComponent={
                           <Link
-                            to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                            to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `/category/${formatCategoryUrl(category.searchEngineFriendlyPageName)?.replace(/\//g, '')}`}
                             aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                             className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                           >
@@ -117,9 +118,10 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                         lightTheme
                       >
                         <MegaMenu subCategorys={category.subCategories} category={category} />
-                      </HoverTooltip></Fragment>
+                      </HoverTooltip>
+                      </Fragment>
                       : <Fragment key={category.name}><Link
-                        to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                        to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `/category/${formatCategoryUrl(category.searchEngineFriendlyPageName)?.replace(/\//g, '')}`}
                         aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                         className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                       >
@@ -132,7 +134,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
           </Stack>
           }
 
-          {!frontPage && (
+          {!frontPage && !showNavigation && (
             <Stack className="RightPart">
               {needToShowProgressLoader &&
                 <ProductUpdateCountdown needToShowText={false} />
