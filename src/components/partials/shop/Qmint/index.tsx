@@ -79,7 +79,7 @@ function QmintShop() {
                 />
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
 
-                {configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? null : <Banner />}
+                {configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? null : <Banner />}
                 <Suspense fallback={<></>}> <ProductsSlider /></Suspense>
                 {configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false && <Suspense fallback={<></>}> <FeaturedProducts /></Suspense>}
                 {configDetailsState?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <Suspense fallback={<></>}> <LookingFor /></Suspense>}
