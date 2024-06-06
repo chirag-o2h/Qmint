@@ -1,12 +1,22 @@
 import * as yup from 'yup'
+import { containsForbiddenKeyword, forbiddenKeywords } from './constants';
 
 export const commonAccountSchema = {
     FirstName: yup.string().trim().required('First name is a required field'),
     LastName: yup.string().trim().required('Last name is a required field'),
     Contact: yup.string().trim().required(),
     Email: yup.string().email().required(),
-    Address1: yup.string().trim().required("Address 1 in required field"),
-    Address2: yup.string().trim(),
+    // Address1: yup.string().trim().required("Address 1 in required field"),
+    // Address2: yup.string().trim(),
+    Address1: yup.string().trim()
+    .required("Address 1 is a required field")
+    .test("forbidden-keyword", `in Address 1 PO Box not accepted. Please enter valid street address.`, function (value) {
+      return !containsForbiddenKeyword(value, forbiddenKeywords);
+    }),
+    Address2: yup.string().trim()
+    .test("forbidden-keyword",`in Address 2 PO Box not accepted. Please enter valid street address.`, function (value) {
+      return !containsForbiddenKeyword(value, forbiddenKeywords);
+    }),
     City: yup.string().required().trim(),
     State: yup.string().required(),
     Country: yup.string().required().notOneOf(["none"], "Country is required field"),

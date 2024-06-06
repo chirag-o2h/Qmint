@@ -31,7 +31,7 @@ const FrontHeader = (props: FrontHeader) => {
 
     return (
         <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": THEME_TYPE == '1' })}>
-            {((!isMobile && configDetailsState?.["Store_HomePage_Ticker_Enable"]?.value) || (THEME_TYPE == '1')) && <>
+            {((!isMobile && configDetailsState?.["Store_HomePage_Ticker_Enable"]?.value) ) && <>
                 <Suspense fallback={
                     <></>
                     // <Skeleton style={{ minHeight: '60px' }} />

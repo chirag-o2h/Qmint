@@ -35,14 +35,14 @@ function FrontPricing() {
             tickertype: configDetailsState?.Store_Ticker_Type?.value,
         }
         const isItForBullionMark = THEME_TYPE == '1'
-        return configDetailsState?.["Ticker_HomePage_EnableforGuests"]?.value || (isItForBullionMark) ? data?.data?.map((stock) => (
+        return configDetailsState?.["Ticker_HomePage_EnableforGuests"]?.value || isLoggedIn ? data?.data?.map((stock) => (
             <StockReturnWithName key={stock.name} name={stock.name} value={stock.current} charturl={stock.charturl} status={stock.position === 1} percentage={stock.percentage} move={stock.move} tickerStyle={tickerStyle} isItForBullionMark={isItForBullionMark} />
         )) : null;
     }, [data, configDetailsState]);
     const renderdTextAfterText = useMemo(() => {
         //todo if ues is logged in the use this headerticker insted of this guestheaderticker
         // <AfterStockReturnWithName text={configDetailsState?.Header_ShopHomePage_Ticker_Text?.value} />
-        return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.["Main_home_page_ticker_text"]?.value : configDetailsState?.["Header_ShopHomePage_Ticker_Text_Guest"]?.value} />
+        return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.["Main_HomePage_Ticker_Text"]?.value : configDetailsState?.["Header_HomePage_Ticker_Text_Guest"]?.value} />
     }, [configDetailsState])
     return (
         <Box
