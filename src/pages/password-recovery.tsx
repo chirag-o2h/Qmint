@@ -75,13 +75,13 @@ function ResetPassword(params: any) {
         setLoading(() => false)
         return
       }
-      if(response?.payload?.data?.data){
+      if (response?.payload?.data?.data) {
         setIsTokenVarified(true)
       }
 
-      if(!response?.payload?.data?.data){
+      if (!response?.payload?.data?.data) {
         setLoginError((response?.payload?.data?.message || "Something went wrong"))
-      }else{
+      } else {
         response?.payload?.data?.message && setMessage(() => response?.payload?.data?.message)
         setLoginError(null)
       }
@@ -130,8 +130,8 @@ function ResetPassword(params: any) {
       CustomerId: customerId,
       Password: data?.Password
     }
-    
-    const response : any= await dispatch(passwordRecoverySave({ url: ENDPOINTS.passwordRecoverySave, data: body }))
+
+    const response: any = await dispatch(passwordRecoverySave({ url: ENDPOINTS.passwordRecoverySave, data: body }))
     setIsTokenVarified(false)
     if (isActionRejected(response.type)) {
       setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
@@ -156,8 +156,12 @@ function ResetPassword(params: any) {
             <form id="reset-password-form" onSubmit={handleSubmit(handleFormSubmit)}>
               <Box className="Header">
                 <Typography variant="h3" component="p">Reset password</Typography>
-                {loginError && <Typography variant="body2" component="p" className="ErrorMessage">{loginError}</Typography>}
-                {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage">{message}</Typography>}
+                {loginError && <Typography variant="body2" component="p" className="ErrorMessage" dangerouslySetInnerHTML={{
+                  __html: loginError
+                }}></Typography>}
+                {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage" dangerouslySetInnerHTML={{
+                  __html: message
+                }}>{message}</Typography>}
               </Box>
               {isTokenVarified && <> <Stack className="FieldWrapper">
                 <RenderFields
