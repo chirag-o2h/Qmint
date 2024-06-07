@@ -34,7 +34,8 @@ function FrontMain(props: any) {
             navigate('/')
         }
     }
-    const [params] = useState({ page: window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page)) ? 0 : 1 })
+    const isItHomepage = window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page))
+    const [params] = useState({ page: isItHomepage ? 0 : 1 })
     useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
     const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
@@ -48,10 +49,10 @@ function FrontMain(props: any) {
             <Container className="MainHeader">
                 <Stack className="MainHeader__Wrapper">
                     <Stack className="Left">
-                        <Link className="Logo" to="/"><img src={configDetailsState?.["Homepage_HeaderLogo_URL"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
+                        <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomepage ? "Homepage_HeaderLogo_URL" : "BrandLogoURL_Header"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
                     </Stack>
                     <Stack className="Center">
-                        <Navigation frontPage={window.location.pathname === "/" ? true :false} showNavigation={true} />
+                        <Navigation frontPage={window.location.pathname === "/" ? true : false} showNavigation={true} />
                     </Stack>
                     <Stack className="Right">
                         {/* <Link to={ENDPOINTS.login}> */}

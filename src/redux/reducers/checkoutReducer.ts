@@ -386,7 +386,7 @@ export const checkoutPage = createSlice({
             state.loading = false;
         })
         builder.addCase(checkValidationOnConfirmOrder.rejected, (state, action) => {
-            const responseData = action.payload.response.data.data;
+            const responseData = action?.payload?.response?.data?.data;
             state.message = responseData.message
             state.isOTPEnabled = responseData.isOTPEnabled;
             state.loading = false
