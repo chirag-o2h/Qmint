@@ -49,7 +49,8 @@ function BullionmarkFrontFooter() {
                             </Stack>
                             <Stack className="Item">
                                 <PhoneCall1Icon />
-                                <GatsbyLink to={`tel:${configDetailsState?.StorePhoneNumber_AU?.value}`}>{configDetailsState?.StorePhoneNumber_AU?.value}</GatsbyLink>
+                                {/* <GatsbyLink to={`tel:${configDetailsState?.StorePhoneNumber_AU?.value}`}>{configDetailsState?.StorePhoneNumber_AU?.value}</GatsbyLink> */}
+                                <Link href={`tel:${configDetailsState?.StorePhoneNumber_AU?.value}`}>{configDetailsState?.StorePhoneNumber_AU?.value}</Link>
                             </Stack>
                         </Stack>
                     </Box>
