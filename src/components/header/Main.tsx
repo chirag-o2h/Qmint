@@ -37,7 +37,7 @@ function Main(props: any) {
         <Stack className="Right">
           {!mobile && <Box className="Marketingoffer" dangerouslySetInnerHTML={{ __html: configDetailsState?.["ShopHomepage_Header_Marketing_Image"]?.value }}></Box>}
           {configDetailsState?.Phone_MenuIcon_Enable?.value !== false && <LinkM href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value} variant="overline" className="PhoneNumber" aria-label="PhoneNumber"><Call />{configDetailsState?.["StorePhoneNumber_AU"]?.value}</LinkM>}
-          <SearchField />
+          {configDetailsState?.Search_MenuIcon_Enable?.value && <SearchField />}
           {/* <Link to={ENDPOINTS.login}> */}
           <Button name='signIn' aria-label='signIn' onClick={handleAuth} className="SignInButton" variant="outlined" color="primary" startIcon={!isLoggedIn ? <SignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
           {/* </Link> */}

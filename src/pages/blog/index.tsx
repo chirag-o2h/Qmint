@@ -130,13 +130,13 @@ function Blog() {
           <Container>
             <Box className="DiscoverPost__title">
               <Typography variant="h2" component="h2">
-                {configDetailsState?.["AllBlogs_Title"]?.value}
+                {configDetailsState?.["AllBlogs_Featured_Title"]?.value}
               </Typography>
               <Typography
                 variant="body1"
                 sx={{ mt: 1, color: variable.greyRegent }}
               >
-                {configDetailsState?.["AllBlogs_Subtitle"]?.value}
+                {configDetailsState?.["AllBlogs_Featured_Subtitle"]?.value}
               </Typography>
             </Box>
             <Box className="SearchWrapper">

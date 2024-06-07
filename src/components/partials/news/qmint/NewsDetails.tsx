@@ -158,14 +158,13 @@ function NewsDetails(params: any) {
             {newsList?.items?.length > 0 ? <Box className="DiscoverPost">
               <Box className="DiscoverPost__title">
                 <Typography variant="h2" component="h2">
-                  Related posts
+                  {configDetailsState?.NewsItem_RelatedPosts_Title?.value}
                 </Typography>
                 <Typography
                   variant="body1"
                   sx={{ mt: 1.875, color: variable.greyRegent }}
                 >
-                  Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry.
+                  {configDetailsState?.NewsItem_RelatedPosts_Subtitle?.value}
                 </Typography>
               </Box>
               <Box className="RecentPosts">

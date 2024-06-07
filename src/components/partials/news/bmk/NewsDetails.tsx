@@ -17,6 +17,7 @@ import {
 } from "@/assets/icons";
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import noImage from '../../../../assets/images/noImage.png'
+import * as variable from "../../../../scss/settings/variables.module.scss";
 
 // Hooks
 import { useAppDispatch, useAppSelector } from "@/hooks";
@@ -157,7 +158,13 @@ function NewsDetails(params: any) {
             <Box className="RecentPost">
               <Box className="RecentPost-Header">
                 <Typography variant="h2" component="h2">
-                  Related posts
+                  {configDetailsState?.NewsItem_RelatedPosts_Title?.value}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ mt: 1.875, color: variable.greyRegent }}
+                >
+                  {configDetailsState?.NewsItem_RelatedPosts_Subtitle?.value}
                 </Typography>
               </Box>
               <Box className="PostsWrapper">

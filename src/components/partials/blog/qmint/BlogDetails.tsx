@@ -167,14 +167,13 @@ function BlogDetails(params: any) {
               <Box className="DiscoverPost">
                 <Box className="DiscoverPost__title">
                   <Typography variant="h2" component="h2">
-                    Related posts
+                    {configDetailsState?.BlogItem_RelatedPost_Title?.value}
                   </Typography>
                   <Typography
                     variant="body1"
                     sx={{ mt: 1.875, color: variable.greyRegent }}
                   >
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry.
+                    {configDetailsState?.BlogItem_RelatedPost_Subtitle?.value}
                   </Typography>
                 </Box>
                 {/* <Box className="DiscoverPost__title">
