@@ -1,7 +1,7 @@
 import React from "react"
 
 // Assets
-import { VaultIcon, SellToUsIcon, CalculatorIcon, LoanIcon, WishlistIcon, RecentIcon, CompareIcon } from "../assets/icons/index"
+import { VaultIcon, SellToUsIcon, CalculatorIcon, LoanIcon, WishlistIcon, RecentIcon, CompareIcon, AppointmentsIcon } from "../assets/icons/index"
 
 
 export const userData = {
@@ -65,6 +65,12 @@ export const actionMenuItems = [
     icon: <CompareIcon />,
     href: "/compare-products",
     key: 'Compare_MenuIcon_Enable'
+  },
+  {
+    text: "Appointments",
+    icon: <AppointmentsIcon />,
+    href: "/",
+    key: 'Appointments_MenuIcon_Enable'
   },
 ]
 

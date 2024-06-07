@@ -51,7 +51,7 @@ function ActionMenu() {
         }).map((menu, index) => (
           <Fragment key={menu.key}>
             <LinkWithIcon key={menu.key + index + 'box'} href={menu.href} icon={menu.icon} text={menu.text} />
-            {index === 3 && (<Box key="DummyBox" className="DummyBox"></Box>)}
+            {/* {index === 3 && (<Box key="DummyBox" className="DummyBox"></Box>)} */}
           </Fragment>
         ))}
       </Box>

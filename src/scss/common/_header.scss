@@ -618,7 +618,7 @@
           .Right {
             .ActionButton {
               .MuiButton-startIcon {
-                @include media-min($xs) {
+                @include media-min($xs - 1) {
                   display: none;
                 }
               }
@@ -737,13 +737,21 @@
           }
         }
       }
+
       .HeaderContainerWrapper {
         position: relative;
+
         .MainHeader {
           @include padding-vertical(0);
+
+          @include media($md) {
+            @include padding-vertical(13);
+          }
+
           .NavigationHeader {
             position: static;
-            & > .MuiContainer-root {
+
+            &>.MuiContainer-root {
               @include padding-horizontal(0);
             }
           }

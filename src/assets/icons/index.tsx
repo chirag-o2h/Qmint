@@ -84,6 +84,7 @@ import BullionmarkSwiperDash from "./BullionmarkSwiperDash";
 import TickIcon from "./TickIcon";
 import CalenderIcon from "./CalenderIcon";
 import SmallRightIcon from "./SmallRightIcon";
+import AppointmentsIcon from "./AppointmentsIcon";
 
 // Social
 import FacebookIcon from "./social/FacebookIcon";
@@ -216,6 +217,7 @@ export {
   CalenderIcon,
   SmallRightIcon,
   BullionmarkSignInIcon,
+  AppointmentsIcon,
 
   // Social
   FacebookIcon,
