@@ -14,18 +14,21 @@
         width: 100%;
         height: 100%;
         transform-style: preserve-3d;
-        animation: flipAnimation 6s infinite;
+        animation: flipAnimationFlip 6.1s infinite;
 
-        @keyframes flipAnimation {
+        @keyframes flipAnimationFlip {
           0% {
             transform: rotateX(0deg);
           }
 
-          2% {
+          6% {
+            transform: rotateX(180deg);
+          }
+          49%{
             transform: rotateX(180deg);
           }
 
-          4% {
+          55% {
             transform: rotateX(360deg);
           }
 
