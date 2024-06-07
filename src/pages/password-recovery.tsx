@@ -161,7 +161,7 @@ function ResetPassword(params: any) {
                 }}></Typography>}
                 {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage" dangerouslySetInnerHTML={{
                   __html: message
-                }}>{message}</Typography>}
+                }}></Typography>}
               </Box>
               {isTokenVarified && <> <Stack className="FieldWrapper">
                 <RenderFields

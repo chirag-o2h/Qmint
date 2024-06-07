@@ -67,7 +67,7 @@ function ForgotPassword() {
       setLoading(() => false)
       return
     }
-    setMessage(()=>response?.payload?.data?.message)
+    setMessage(() => response?.payload?.data?.message)
     setLoginError(null)
     setLoading(() => false)
   };
@@ -94,8 +94,12 @@ function ForgotPassword() {
             <form id="forgot-password-form" onKeyDown={handleEnterKeyPress}>
               <Box className="Header">
                 <Typography variant="h3" component="p">Forgot Password</Typography>
-                {loginError && <Typography variant="body2" component="p" className="ErrorMessage">{loginError}</Typography>}
-                {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage">{message}</Typography>}
+                {loginError && <Typography variant="body2" component="p" className="ErrorMessage" dangerouslySetInnerHTML={{
+                  __html: loginError
+                }}></Typography>}
+                {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage" dangerouslySetInnerHTML={{
+                  __html: message
+                }}></Typography>}
               </Box>
               <Stack className="FieldWrapper">
                 <TextField
