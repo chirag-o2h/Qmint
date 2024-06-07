@@ -51,7 +51,7 @@ function ProductDetail({ params }: any) {
       <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />
       <Seo
         keywords={[`QMint categories`]}
-        title="Category"
+        title={productDetailsData.metaTitle}
         lang="en"
       />
       {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />
