@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet"
 import { useAppSelector } from "@/hooks"
 
 function Seo({ description, lang, meta, keywords, title }: any) {
+  console.log("🚀 ~ Seo ~ title:", title)
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { site } = useStaticQuery(graphql`
     query DefaultSEOQuery {
@@ -20,7 +21,7 @@ function Seo({ description, lang, meta, keywords, title }: any) {
 
   const metaDescription = description || site.siteMetadata.description
   // Filter out the noindex meta tag
-  const filteredMeta = meta.filter((tag:any) => !((tag.name === 'robots' || tag.name === 'Googlebot') || tag.content === 'noindex'));
+  const filteredMeta = meta.filter((tag: any) => !((tag.name === 'robots' || tag.name === 'Googlebot') || tag.content === 'noindex'));
 
   return (
     <Helmet
@@ -70,8 +71,8 @@ function Seo({ description, lang, meta, keywords, title }: any) {
             : []
         )
         .concat(filteredMeta)}
-      title={configDetailsState?.Store_Title?.value + ' | ' + title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={title}
+      // titleTemplate={`%s | ${site.siteMetadata.title}`}
     >
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
     </Helmet>
