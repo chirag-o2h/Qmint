@@ -270,6 +270,12 @@ export const deletePrivateHoldings = appCreateAsyncThunk(
         return await MyVaultServices.deletePrivateHoldings(id);
     }
 )
+export const getAppointmentAPI = appCreateAsyncThunk(
+    "getAppointmentAPI",
+    async () => {
+        return await MyVaultServices.getAppointmentAPI();
+    }
+)
 export const myVaultSlice = createSlice({
     name: "myVault",
     initialState,

@@ -78,9 +78,14 @@ function ResetPassword(params: any) {
       if(response?.payload?.data?.data){
         setIsTokenVarified(true)
       }
+
+      if(!response?.payload?.data?.data){
+        setLoginError((response?.payload?.data?.message || "Something went wrong"))
+      }else{
+        response?.payload?.data?.message && setMessage(() => response?.payload?.data?.message)
+        setLoginError(null)
+      }
       setCustomerId(response?.payload?.data?.data?.customerId ?? null)
-      response?.payload?.data?.message && setMessage(() => response?.payload?.data?.message)
-      setLoginError(null)
       setLoading(() => false)
     }
 
