@@ -69,7 +69,9 @@ export function hasFulfilled(dataType: string): boolean {
 
 // Function to store the last page in session storage
 export const storeLastPage = (pageUrl: string) => {
-  sessionStorage.setItem('lastPage', pageUrl);
+  if(!pageUrl.includes("login")){
+    sessionStorage.setItem('lastPage', pageUrl);
+  }
 };
 
 // Function to retrieve the last page from session storage

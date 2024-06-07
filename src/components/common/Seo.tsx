@@ -2,8 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { Helmet } from "react-helmet"
+import { useAppSelector } from "@/hooks"
 
 function Seo({ description, lang, meta, keywords, title }: any) {
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { site } = useStaticQuery(graphql`
     query DefaultSEOQuery {
       site {
@@ -68,7 +70,7 @@ function Seo({ description, lang, meta, keywords, title }: any) {
             : []
         )
         .concat(filteredMeta)}
-      title={title}
+      title={configDetailsState?.Store_Title?.value + ' | ' + title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
     >
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
