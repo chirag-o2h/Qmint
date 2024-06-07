@@ -29,7 +29,7 @@ function Step2() {
   const enabledPaymentMethods = useMemo(() => {
     const defaultPaymentType = getDefaultOption([
       { enabled: configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value, value: 'SecureShipping' },
-      { enabled: configDetailsState?.localpickupenable?.value, value: 'LocalShipping' },
+      { enabled: configDetailsState?.Checkout_DeliveryMethod_Localpickup_Enable?.value, value: 'LocalShipping' },
       { enabled: configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value, value: 'VaultStorage' }
     ], 'SecureShipping');
     return defaultPaymentType
@@ -215,7 +215,7 @@ function Step2() {
             onChange={handleDeliveryMethod}
             IconComponent={SelectDropdown}
           >
-            {configDetailsState?.localpickupenable?.value && <MenuItem value="LocalShipping">Local Pick Up</MenuItem>}
+            {configDetailsState?.Checkout_DeliveryMethod_Localpickup_Enable?.value && <MenuItem value="LocalShipping">Local Pickup</MenuItem>}
             {configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value && <MenuItem value="SecureShipping">Secure Shipping</MenuItem>}
             {configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value && <MenuItem value="VaultStorage">Vault Storage</MenuItem>}
           </Select>

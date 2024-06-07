@@ -34,8 +34,8 @@ function BullionmarkShop() {
                     title="Home"
                     lang="en"
                 />
-                {configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? null : <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>}
-                <Suspense fallback={<></>}> <BestCategorySlider PaddingClass={configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? "TopBannerAbsent" : ""} /></Suspense>
+                {configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? null : <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>}
+                <Suspense fallback={<></>}> <BestCategorySlider PaddingClass={configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? "TopBannerAbsent" : ""} /></Suspense>
                 <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
                 <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>
                 <Suspense fallback={<></>}> <OneBigPicAndContent /></Suspense>
