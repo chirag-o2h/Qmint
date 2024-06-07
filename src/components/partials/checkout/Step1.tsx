@@ -27,6 +27,7 @@ import AgentContent from "./AgentContent"
 
 function Step1() {
   const dispatch = useAppDispatch()
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { checkoutPageData } = useAppSelector((state) => state.checkoutPage)
   const [shippingAddress, setShippingAddress] = useState<any>(checkoutPageData?.shippingAddressDetails?.[0])
   const [billingAddress, setBillingAddress] = useState<any>(checkoutPageData?.billingAddressDetails?.[0]);
@@ -119,7 +120,7 @@ function Step1() {
     <StepWrapper title="Step 1" className="Step1">
       <Box className="FieldWrapper">
         <Typography className="Label" variant="subtitle1">Select Your Account</Typography>
-        <Stack className="Field AccountField" sx={{borderColor: "primary.main"}}>
+        <Stack className="Field AccountField" sx={{ borderColor: "primary.main" }}>
           <Box className="MembershipWrapper">
             <Typography className="Label" variant="body2">Current Membership:</Typography>
             <Stack className="Wrapper">
@@ -143,7 +144,7 @@ function Step1() {
       </Box>
       <Box className="FieldWrapper">
         <Typography className="Label" variant="subtitle1">Billing Address</Typography>
-        <Stack className="Field" sx={{borderColor: "primary.main"}}>
+        <Stack className="Field" sx={{ borderColor: "primary.main" }}>
           <Box className="Value">
             <Typography className="Name" variant="titleLarge">{billingAddress?.firstName} {billingAddress?.lastName}</Typography>
             <Typography className="Address" variant="body2">{billingAddress?.addressLine1}, {billingAddress?.addressLine2}, {billingAddress?.city}, {billingAddress?.postcode} {billingAddress?.countryName}</Typography>
@@ -189,17 +190,17 @@ function Step1() {
           </ClickTooltip>
         </Stack>
       </Box>
-      <FormControlLabel
+      {configDetailsState?.Checkout_SameAddress_Enable?.value && <FormControlLabel
         name="SameAddress"
         className="SameAddressCheckbox"
         control={<Checkbox checked={isBillingAndShipingAddressSame} onChange={() => {
           setisBillingAndShipingAddressSame((prev) => !prev)
         }} />}
         label="My Billing and shipping addresses are same"
-      />
+      />}
       <Box className="FieldWrapper">
         <Typography className="Label" variant="subtitle1">Shipping address</Typography>
-        <Stack className="Field" sx={{borderColor: "primary.main"}}>
+        <Stack className="Field" sx={{ borderColor: "primary.main" }}>
           <Box className="Value">
             <Typography className="Name" variant="titleLarge">{shippingAddress?.firstName} {shippingAddress?.lastName}</Typography>
             <Typography className="Address" variant="body2">{shippingAddress?.addressLine1}, {shippingAddress?.addressLine2}, {shippingAddress?.city}, {shippingAddress?.postcode} {shippingAddress?.countryName}</Typography>

@@ -17,6 +17,7 @@ import {
 } from "@/assets/icons";
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import noImage from '../../../../assets/images/noImage.png'
+import * as variable from "../../../../scss/settings/variables.module.scss";
 
 // Hooks
 import { useAppDispatch, useAppSelector } from "@/hooks";
@@ -36,9 +37,11 @@ import { navigate } from "gatsby";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
+import Seo from "@/components/common/Seo";
 
 function BlogDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const dispatch = useAppDispatch()
   useAppSelector((state) => state.homePage)
   const { blogDetailsData, blogList }: any = useAppSelector((state) => state.blogPage);
@@ -64,6 +67,12 @@ function BlogDetails(params: any) {
   return (
     <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />
+      <Seo
+        keywords={['Travel', 'Qmit', 'gold', 'metal']}
+        title={blogDetailsData?.metaTitle}
+        lang="en"
+        description={configDetailsState?.Store_Meta_Description?.value}
+      />
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
         <Container className="PostContainer">
@@ -149,12 +158,17 @@ function BlogDetails(params: any) {
             <Box className="RecentPost">
               <Box className="RecentPost-Header">
                 <Typography variant="h2" component="h2">
-                  Related posts
+                  {configDetailsState?.BlogItem_RelatedPost_Title?.value}
                 </Typography>
+                <Typography
+                    variant="body1"
+                    sx={{ mt: 1.875, color: variable.greyRegent }}
+                  >
+                    {configDetailsState?.BlogItem_RelatedPost_Subtitle?.value}
+                  </Typography>
               </Box>
               <Box className="PostsWrapper">
                 {blogList?.items?.slice(0, 2).map((item: any) => {
-                  console.log("🚀 ~ {blogList?.items?.slice ~ item:", item)
                   return (
                     <BmkPostCard details={item} navigate={() => {
                       navigate(`/blog/${item?.friendlyName}`, { replace: true })

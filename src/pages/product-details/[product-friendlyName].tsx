@@ -22,6 +22,7 @@ import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
 
 function ProductDetail({ params }: any) {
   const configDetails = useAppSelector(state => state.homePage.configDetails)
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { showToaster } = useShowToaster();
   const checkLoadingStatus = useAppSelector(state => state.category.loading)
   const checkLoadingStatusOfTheGetWishlist = useAppSelector(state => state.wishList.loading)
@@ -46,12 +47,14 @@ function ProductDetail({ params }: any) {
       })
     }
   }, [productDetailsData])
+  const keyWords = productDetailsData?.metaKeywords?.value?.split(',')?.length > 0 ? productDetailsData?.metaKeywords?.value?.split(',') : []
   return (
     <Layout>
       <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />
       <Seo
-        keywords={[`QMint categories`]}
-        title="Category"
+        title={configDetailsState?.Store_ShopPage_Title?.value + ' | ' + productDetailsData.metaTitle}
+        keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
+        description={productDetailsData?.metaDescription}
         lang="en"
       />
       {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />

@@ -92,7 +92,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
     <Box className="NavigationHeader">
       <Container>
         <Stack className="NavigationHeader__Wrapper">
-          {THEME_TYPE === "1" && !showNavigation ? <SearchField /> : <Stack
+          {THEME_TYPE === "1" && !showNavigation ? (configDetailsState?.Search_MenuIcon_Enable?.value && <SearchField />) : <Stack
             className="LeftPart"
             divider={<Divider orientation="vertical" flexItem />}
           >

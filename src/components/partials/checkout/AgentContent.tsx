@@ -9,13 +9,14 @@ import { Box, Checkbox, FormControlLabel, IconButton, Stack, Typography } from '
 import React, { useDeferredValue, useEffect, useState } from 'react'
 
 const AgentContent = () => {
+    const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
     const [isLocalAgent, setisLocalAgent] = useState(false);
     const localAgentDetails = useAppSelector(state => state.checkoutPage.localAgentDetails);
     const [inputAgentId, setInputAgentId] = useState<string | null>(null);
     const dispatch = useAppDispatch();
     const [agentNotFoundMessage, setNotFoundMessage] = useState<string | null>(null)
 
-    const debouncedInput = useDebounce(inputAgentId,700);
+    const debouncedInput = useDebounce(inputAgentId, 700);
 
     useEffect(() => {
         if (debouncedInput && debouncedInput?.trim().length >= 5) {
@@ -31,14 +32,14 @@ const AgentContent = () => {
 
     return (
         <Box className="FieldWrapper AgentCodeContent">
-            <FormControlLabel
+            {configDetailsState?.Checkout_AgentCode_Enable?.value && <FormControlLabel
                 name="SameAddress"
                 className="SameAddressCheckbox"
                 control={<Checkbox checked={isLocalAgent} onChange={() => {
                     setisLocalAgent(!isLocalAgent)
                 }} />}
                 label="Are you ordering via local agent?"
-            />
+            />}
             {isLocalAgent && <Stack sx={{ gap: "10px", alignItems: "center" }} className="AgentCodeWrapper">
                 <RenderFields
                     name="name"

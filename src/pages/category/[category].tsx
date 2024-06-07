@@ -38,8 +38,10 @@ function Category(props: any) {
     const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
     const [page, setPage] = useState(searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1);
     const dispatch = useAppDispatch();
+    const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
 
     const checkLoadingStatus = useAppSelector(state => state.category.loading);
+    const categoryPageMetadata = useAppSelector(state => state.category.categoryPageMetadata)
     const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
     const [isPriceChanged, setIsPriceChanged] = useState<boolean>(false);
     const clearFilters = useAppSelector(state => state.category.clearFilters)
@@ -116,13 +118,14 @@ function Category(props: any) {
         //   argumentForService) as any)
         // }
     }
-
+    const keyWords = categoryPageMetadata?.metaKeywords?.value?.split(',')?.length > 0 ? categoryPageMetadata?.metaKeywords?.value?.split(',') : []
     return (
         <Layout>
             <Loader open={checkLoadingStatus} />
             <Seo
-                keywords={[`QMint categories`]}
-                title="Category"
+                title={configDetailsState?.Store_ShopPage_Title?.value + ' | ' + (categoryPageMetadata.metaTitle ?? '')}
+                keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
+                description={categoryPageMetadata?.metaDescription}
                 lang="en"
             />
             <Container id="PageCategory">

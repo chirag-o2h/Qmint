@@ -4,6 +4,7 @@ export interface categoryData {
   loading: boolean,
   items: [] | null,
   count: 0,
+  categoryPageMetadata?: any
   categories: [],
   price: {
     minPrice: number,

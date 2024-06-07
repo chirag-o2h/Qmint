@@ -23,6 +23,7 @@ function BullionmarkShop() {
     const { configDetails: configDetailsState, openToaster, loading, bmkShopPageSections } = useAppSelector((state) => state.homePage)
     useAPIoneTime({ service: getBullionMarkShopPageSections })
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'))
+    const keyWords = configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(',') : []
 
     return (
         <Layout>
@@ -30,12 +31,12 @@ function BullionmarkShop() {
                 <Loader open={loading} />
                 {openToaster && <Toaster />}
                 <Seo
-                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-                    title="Home"
+                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
+                    title={configDetailsState?.Store_ShopPage_Title?.value}
                     lang="en"
-                />
-                {configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? null : <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>}
-                <Suspense fallback={<></>}> <BestCategorySlider PaddingClass={configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? "TopBannerAbsent" : ""} /></Suspense>
+                    description={configDetailsState?.Store_ShopPage_Meta_Description?.value} />
+                {configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? null : <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>}
+                <Suspense fallback={<></>}> <BestCategorySlider PaddingClass={configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? "TopBannerAbsent" : ""} /></Suspense>
                 <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
                 <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>
                 <Suspense fallback={<></>}> <OneBigPicAndContent /></Suspense>

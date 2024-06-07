@@ -31,7 +31,8 @@ const initialState: categoryData = {
     price: {},
     specification: {},
   }, // it is to store the filters for the page,
-  pageSortOrder: {}
+  pageSortOrder: {},
+  categoryPageMetadata : {}
 }
 
 export const getCategoryData = appCreateAsyncThunk(
@@ -126,7 +127,11 @@ export const categoryPageSlice = createSlice({
       const responseData = action.payload.data.data;
       console.log("🚀 ~ builder.addCase ~ responseData:", responseData)
       const additionalField = responseData.additionalField;
-
+      state.categoryPageMetadata = {
+        metaDescription : responseData?.metaDescription,
+        metaKeywords : responseData?.metaKeywords,
+        metaTitle : responseData?.metaTitle,
+      }
       if (additionalField && additionalField.filters) {
         const filtersData = additionalField.filters;
 

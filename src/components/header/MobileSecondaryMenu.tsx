@@ -51,7 +51,7 @@ function MobileSecondaryMenu() {
       >
         <Container>
           <Stack className="Wrapper">
-            {configDetailsState?.enablesearch?.value &&
+            {configDetailsState?.Search_MenuIcon_Enable?.value &&
               <ClickTooltip
                 open={openSearch}
                 className="PopoverSearchField"

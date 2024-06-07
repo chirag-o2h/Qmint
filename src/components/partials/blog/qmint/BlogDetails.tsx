@@ -33,12 +33,13 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import useSubscription from "@/hooks/useSubscription";
 import { navigate } from "gatsby";
 import { setLoadingFalse, setLoadingTrue } from "@/redux/reducers/homepageReducer";
-import { FacebookShareButton,TwitterShareButton, WhatsappShareButton } from "react-share";
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import Loader from "@/components/common/Loader";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
+import Seo from "@/components/common/Seo";
 
 function BlogDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
@@ -67,7 +68,13 @@ function BlogDetails(params: any) {
 
   return (
     <MainLayout blackTheme>
-      <Loader open = {checkLoadingStatus} />
+      <Seo
+        keywords={['Travel', 'Qmit', 'gold', 'metal']}
+        title={blogDetailsData?.metaTitle}
+        lang="en"
+        description={configDetailsState?.Store_Meta_Description?.value}
+      />
+      <Loader open={checkLoadingStatus} />
       <Box className="BlogDetailPage">
         <Box className="PostDescription">
           <Container maxWidth="lg">
@@ -160,14 +167,13 @@ function BlogDetails(params: any) {
               <Box className="DiscoverPost">
                 <Box className="DiscoverPost__title">
                   <Typography variant="h2" component="h2">
-                    Related posts
+                    {configDetailsState?.BlogItem_RelatedPost_Title?.value}
                   </Typography>
                   <Typography
                     variant="body1"
                     sx={{ mt: 1.875, color: variable.greyRegent }}
                   >
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry.
+                    {configDetailsState?.BlogItem_RelatedPost_Subtitle?.value}
                   </Typography>
                 </Box>
                 {/* <Box className="DiscoverPost__title">
@@ -210,7 +216,7 @@ function BlogDetails(params: any) {
                           <PostCard
                             details={item}
                             navigate={() =>
-                              navigate(`/blog/${item?.friendlyName}`,{replace:true})
+                              navigate(`/blog/${item?.friendlyName}`, { replace: true })
                             }
                           />
                         </Grid>

@@ -97,13 +97,13 @@ function News() {
           <Container>
             <Box className="DiscoverPost__title">
               <Typography variant="h2" component="h2">
-                {configDetailsState?.["AllNews_Title"]?.value}
+                {configDetailsState?.["AllNews_Featured_Title"]?.value}
               </Typography>
               <Typography
                 variant="body1"
                 sx={{ mt: 1, color: variable.greyRegent }}
               >
-                {configDetailsState?.["AllNews_Subtitle"]?.value}
+                {configDetailsState?.["AllNews_Featured_Subtitle"]?.value}
               </Typography>
             </Box>
             <Box className="SearchWrapper">

@@ -24,6 +24,7 @@ function QmintShop() {
     const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'))
     const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
+    const keyWords = configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(',') : []
 
     const [body] = useState({
         "search": "",
@@ -73,13 +74,13 @@ function QmintShop() {
                 <Loader open={loading} />
                 {openToaster && <Toaster />}
                 <Seo
-                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-                    title="Home"
+                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
+                    title={configDetailsState?.Store_ShopPage_Title?.value}
                     lang="en"
-                />
+                    description={configDetailsState?.Store_ShopPage_Meta_Description?.value} />
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
 
-                {configDetailsState?.Sliders_Homepage_Enable?.value === false || isMobile ? null : <Banner />}
+                {configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? null : <Banner />}
                 <Suspense fallback={<></>}> <ProductsSlider /></Suspense>
                 {configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false && <Suspense fallback={<></>}> <FeaturedProducts /></Suspense>}
                 {configDetailsState?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <Suspense fallback={<></>}> <LookingFor /></Suspense>}

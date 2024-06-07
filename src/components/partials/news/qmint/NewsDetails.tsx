@@ -41,6 +41,7 @@ import { setLoadingFalse, setLoadingTrue } from "@/redux/reducers/homepageReduce
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import Loader from "@/components/common/Loader";
+import Seo from "@/components/common/Seo";
 
 function NewsDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
@@ -61,6 +62,12 @@ function NewsDetails(params: any) {
   return (
     <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />
+      <Seo
+        keywords={['Travel', 'Qmit', 'gold', 'metal']}
+        title={newsDetailsData?.metaTitle}
+        lang="en"
+        description={configDetailsState?.Store_Meta_Description?.value}
+      />
       <Box className="BlogDetailPage">
         <Box className="PostDescription">
           <Container maxWidth="lg">
@@ -151,14 +158,13 @@ function NewsDetails(params: any) {
             {newsList?.items?.length > 0 ? <Box className="DiscoverPost">
               <Box className="DiscoverPost__title">
                 <Typography variant="h2" component="h2">
-                  Related posts
+                  {configDetailsState?.NewsItem_RelatedPosts_Title?.value}
                 </Typography>
                 <Typography
                   variant="body1"
                   sx={{ mt: 1.875, color: variable.greyRegent }}
                 >
-                  Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry.
+                  {configDetailsState?.NewsItem_RelatedPosts_Subtitle?.value}
                 </Typography>
               </Box>
               <Box className="RecentPosts">
