@@ -36,9 +36,11 @@ import { navigate } from "gatsby";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
+import Seo from "@/components/common/Seo";
 
 function BlogDetails(params: any) {
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const dispatch = useAppDispatch()
   useAppSelector((state) => state.homePage)
   const { blogDetailsData, blogList }: any = useAppSelector((state) => state.blogPage);
@@ -64,6 +66,12 @@ function BlogDetails(params: any) {
   return (
     <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />
+      <Seo
+        keywords={['Travel', 'Qmit', 'gold', 'metal']}
+        title={blogDetailsData?.metaTitle}
+        lang="en"
+        description={configDetailsState?.Store_Meta_Description?.value}
+      />
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
         <Container className="PostContainer">

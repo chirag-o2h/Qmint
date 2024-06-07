@@ -36,8 +36,10 @@ import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/news";
 import MainLayout from "@/components/common/MainLayout";
+import Seo from "@/components/common/Seo";
 
 function NewsDetails(params: any) {
+  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
   const dispatch = useAppDispatch()
   useAppSelector((state) => state.homePage)
@@ -63,6 +65,12 @@ function NewsDetails(params: any) {
 
   return (
     <MainLayout blackTheme>
+      <Seo
+        keywords={['Travel', 'Qmit', 'gold', 'metal']}
+        title={newsDetailsData?.metaTitle}
+        lang="en"
+        description={configDetailsState?.Store_Meta_Description?.value}
+      />
       <Loader open={checkLoadingStatus} />
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/news', name: 'news' }]} />
