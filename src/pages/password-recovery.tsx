@@ -75,9 +75,11 @@ function ResetPassword(params: any) {
         setLoading(() => false)
         return
       }
+      if(response?.payload?.data?.data){
+        setIsTokenVarified(true)
+      }
       setCustomerId(response?.payload?.data?.data?.customerId ?? null)
-      setIsTokenVarified(true)
-      setMessage(() => response?.payload?.data?.message)
+      response?.payload?.data?.message && setMessage(() => response?.payload?.data?.message)
       setLoginError(null)
       setLoading(() => false)
     }

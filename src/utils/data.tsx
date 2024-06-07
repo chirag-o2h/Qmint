@@ -70,7 +70,7 @@ export const actionMenuItems = [
     text: "Appointments",
     icon: <AppointmentsIcon />,
     href: "/",
-    key: 'Appointments_MenuIcon_Enable'
+    key: 'AppointmentBooking_Enable'
   },
 ]
 

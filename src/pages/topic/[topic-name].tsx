@@ -8,6 +8,7 @@ import { ENDPOINTS } from "@/utils/constants"
 import { getTopicDetails } from "@/redux/reducers/topicReducer"
 import { useAppSelector } from "@/hooks"
 import Loader from "@/components/common/Loader"
+import MainLayout from "@/components/common/MainLayout"
 function Topics(paramsData: any) {
   const { topicDetails, loading } = useAppSelector(state => state.topic)
   useAPIoneTime({
@@ -21,7 +22,7 @@ function Topics(paramsData: any) {
     <>
       <Loader open={loading} />
       {
-        !loading && <Layout>
+        !loading && <MainLayout blackTheme>
           <Seo
             keywords={[`QMint Topics`]}
             title="Topics"
@@ -35,7 +36,7 @@ function Topics(paramsData: any) {
             }} >
             </Box>
           </Container>
-        </Layout>
+        </MainLayout>
       }
     </>
   )
