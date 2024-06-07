@@ -2,7 +2,7 @@ import { CrossIconWithOutlineCircle, VerifiedIcon } from '@/assets/icons'
 import RenderFields from '@/components/common/RenderFields'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import useDebounce from '@/hooks/useDebounce'
-import { getLocalAgentDetails } from '@/redux/reducers/checkoutReducer'
+import { getLocalAgentDetails, setLocalAgentDetailsNull } from '@/redux/reducers/checkoutReducer'
 import { hasFulfilled } from '@/utils/common'
 import { ENDPOINTS } from '@/utils/constants'
 import { Box, Checkbox, FormControlLabel, IconButton, Stack, Typography } from '@mui/material'
@@ -28,6 +28,9 @@ const AgentContent = () => {
             }
             fetchAgentDetails();
         }
+        if(!debouncedInput || !(debouncedInput?.trim()?.length >= 5)){
+            dispatch(setLocalAgentDetailsNull())
+        }
     }, [debouncedInput])
 
     return (
@@ -40,7 +43,7 @@ const AgentContent = () => {
                 }} />}
                 label="Are you ordering via local agent?"
             />}
-            {isLocalAgent && <Stack sx={{ gap: "10px", alignItems: "center" }} className="AgentCodeWrapper">
+            {(isLocalAgent) && <Stack sx={{ gap: "10px", alignItems: "center" }} className="AgentCodeWrapper">
                 <RenderFields
                     name="name"
                     placeholder="Enter your agent code"
