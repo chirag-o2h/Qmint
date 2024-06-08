@@ -528,21 +528,6 @@
       }
     }
 
-    .MuiAppBar-positionFixed {
-      .HeaderContainerWrapper {
-        .MainHeader__Wrapper {
-          .Left {
-            .Logo {
-              img {
-                // filter: brightness(0);
-                  filter: invert(80%) sepia(11%) saturate(300%) hue-rotate(181deg) brightness(90%);
-              }
-            }
-          }
-        }
-      }
-    }
-
     .HeaderContainerWrapper {
       position: relative;
 
@@ -710,6 +695,21 @@
                       color: $pumpkinOrange;
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .MuiAppBar-positionFixed {
+        .HeaderContainerWrapper {
+          .MainHeader__Wrapper {
+            .Left {
+              .Logo {
+                img {
+                  // filter: invert(80%) sepia(11%) saturate(300%) hue-rotate(181deg) brightness(90%);
+                  filter: invert(100%) hue-rotate(180deg);
                 }
               }
             }
