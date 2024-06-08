@@ -41,6 +41,7 @@ export interface AddressQuery {
     stateName: string;
     postcode: number;
     countryId: number;
+    IsOrder?: boolean
 }
 
 export interface AccountQuery {

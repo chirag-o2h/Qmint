@@ -333,6 +333,9 @@ export const checkoutPage = createSlice({
 
                 state.checkoutPageData!.billingAddressDetails = updatedBillingDetails as AddressDetail[];
             }
+        },
+        setLocalAgentDetailsNull: (state) => {
+            state.localAgentDetails = null;
         }
     },
 
@@ -383,7 +386,7 @@ export const checkoutPage = createSlice({
             state.loading = false;
         })
         builder.addCase(checkValidationOnConfirmOrder.rejected, (state, action) => {
-            const responseData = action.payload.response.data.data;
+            const responseData = action?.payload?.response?.data?.data;
             state.message = responseData.message
             state.isOTPEnabled = responseData.isOTPEnabled;
             state.loading = false
@@ -470,6 +473,6 @@ export const checkoutPage = createSlice({
     },
 })
 
-export const { setLoadingTrue, setLoadingFalse, updateSubTotalCheckoutPage, resetSubTotalCheckoutPage, updateFinalDataForTheCheckout, disableOTP, updateAddress, setCheckoutItemWarning, addAddress, removeOTPvalidationMessage } = checkoutPage.actions
+export const { setLoadingTrue, setLoadingFalse, updateSubTotalCheckoutPage, resetSubTotalCheckoutPage, updateFinalDataForTheCheckout, disableOTP, updateAddress, setCheckoutItemWarning, addAddress, removeOTPvalidationMessage, setLocalAgentDetailsNull } = checkoutPage.actions
 
 export default checkoutPage.reducer

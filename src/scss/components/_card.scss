@@ -1207,10 +1207,10 @@
         align-items: center;
         flex-grow: 1;
         padding: 130px 16px 20px;
-        height: 280px;
+        height: 380px;
 
         @include media-min($sm) {
-          height: 300px;
+          height: 400px;
         }
 
         img {

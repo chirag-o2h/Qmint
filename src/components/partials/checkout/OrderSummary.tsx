@@ -33,7 +33,7 @@ export interface PlaceOrderBody {
   ShippingMethod: number;
   IsDifferentShippingMethod: boolean;
   IsUsedRewardPoints: boolean;
-  AgentId: string;
+  AgentId: string | null;
   Location: string;
   Device: string;
   Browser: string;
@@ -85,6 +85,7 @@ function OrderSummary() {
   const [totalValueNeedToPayFromCraditCart, setTotalValueNeedToPayFromCraditCart] = useState<any>({ OrderTotal: 0 })
   const [openOTPConfirmation, toggleOTPConfirmation] = useToggle(false)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
+  const localAgentDetails = useAppSelector(state => state.checkoutPage.localAgentDetails);
 
   const needtocalltheTaxDetailscalculation = useMemo(() => {
     return (body?.products?.length ? body?.products?.length > 0 : false)
@@ -131,8 +132,7 @@ function OrderSummary() {
   }, [orderTotal])
 
   const searchParams = new URLSearchParams(window.location.search);
-  const placeOrderFun = useCallback(
-    async () => {
+  const placeOrderFun = useCallback(async () => {
       // call place order API
       const prepareBodyData: PlaceOrderBody = {
         "OrderCustomerID": finalDataForTheCheckout?.userAccount?.customerId,
@@ -151,7 +151,7 @@ function OrderSummary() {
         "ShippingMethod": shipmentTypeToEnum[finalDataForTheCheckout?.parentDeliveryMethod || 'SecureShipping'],
         "IsDifferentShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod,
         "IsUsedRewardPoints": false,
-        "AgentId": "",
+        "AgentId": localAgentDetails?.agentId ?? null,
         "Location": 'lat' + locationInfo?.latitude + ',' + 'long' + locationInfo?.longitude,
         "Device": deviceInfo?.platform!,
         "Browser": deviceInfo?.userAgent,
@@ -162,7 +162,7 @@ function OrderSummary() {
         const id = data?.payload?.data?.data
         navigate(`/order-confirmation/?orderNo=${id}`)
       }
-    }, [finalDataForTheCheckout, deviceInfo, locationInfo])
+    }, [finalDataForTheCheckout, deviceInfo, locationInfo,localAgentDetails])
 
   useEffect(() => {
     if (isOTPEnabled || message) {

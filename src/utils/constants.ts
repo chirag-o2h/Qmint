@@ -151,7 +151,9 @@ export const ENDPOINTS = {
     // verify token of the reset password
     passwordRecoveryTokenVarified: "account/xjLagdr3wcfJ8c?UQf2c={{token}}",
     // resend registration email
-    resendRegstrationEmail: "account/PAROuJVRYNTk7p/{{email}}"
+    resendRegstrationEmail: "account/PAROuJVRYNTk7p/{{email}}",
+    // appointment API
+    appointment: "myvault/EcltNnuVgvGSOVkLX6hy5n"
 }
 export const StoreData = {
     storeCode: 12,

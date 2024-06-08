@@ -92,14 +92,14 @@ function AddAddress(props: AddAddress) {
         // Address1: yup.string().trim().required("Address 1 in required field"),
         // Address2: yup.string().trim(),
         Address1: yup.string().trim()
-        .required("Address 1 is a required field")
-        .test("forbidden-keyword", `in Address 1 ${messageForForbiddenKeyword}`, function (value) {
-          return !containsForbiddenKeyword(value, forbiddenKeywords);
-        }),
+            .required("Address 1 is a required field")
+            .test("forbidden-keyword", `in Address 1 ${messageForForbiddenKeyword}`, function (value) {
+                return !containsForbiddenKeyword(value, forbiddenKeywords);
+            }),
         Address2: yup.string().trim()
-        .test("forbidden-keyword",`in Address 2 ${messageForForbiddenKeyword}`, function (value) {
-          return !containsForbiddenKeyword(value, forbiddenKeywords);
-        }),
+            .test("forbidden-keyword", `in Address 2 ${messageForForbiddenKeyword}`, function (value) {
+                return !containsForbiddenKeyword(value, forbiddenKeywords);
+            }),
         City: yup.string().required().trim(),
         State: yup.string().required(),
         Country: yup.string().notOneOf(["none"], "Country is required field"),
@@ -174,7 +174,7 @@ function AddAddress(props: AddAddress) {
             const response = await dispatch(addOrEditAddressForMyVault(
                 {
                     url: ENDPOINTS.addOrEditAddressesInMyVault,
-                    body: { ...addressQuery }
+                    body: { ...addressQuery, "IsOrder": false}
                 }
             ))
 
@@ -191,7 +191,7 @@ function AddAddress(props: AddAddress) {
             const response = await dispatch(addOrEditAddressForCheckout({
                 url: ENDPOINTS.addOrEditAddress,
                 body: {
-                    ...addressQuery
+                    ...addressQuery,"IsOrder" : true
                 }
             }))
             let addressId;

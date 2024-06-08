@@ -534,7 +534,8 @@
           .Left {
             .Logo {
               img {
-                filter: brightness(0);
+                // filter: brightness(0);
+                  filter: invert(80%) sepia(11%) saturate(300%) hue-rotate(181deg) brightness(90%);
               }
             }
           }
