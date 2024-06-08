@@ -681,6 +681,23 @@
           }
         }
       }
+
+      &.BmkFrontHeader {
+        .MuiAppBar-positionStatic {
+          .HeaderContainerWrapper {
+            .MainHeader__Wrapper {
+              .Left {
+                .Logo {
+                  img {
+                    filter: invert(100%) hue-rotate(180deg);
+                  }
+                }
+              }
+
+            }
+          }
+        }
+      }
     }
 
     &.BmkFrontHeader {
@@ -934,6 +951,19 @@
           }
         }
       }
+
+      .HeaderContainerWrapper {
+        .MainHeader__Wrapper {
+          .Left {
+            .Logo {
+              img {
+                filter: invert(100%) hue-rotate(180deg);
+              }
+            }
+          }
+        }
+      }
+
     }
 
     &.BmkBlackHeader {
@@ -998,6 +1028,19 @@
               }
             }
           }
+
+          .HeaderContainerWrapper {
+            .MainHeader__Wrapper {
+              .Left {
+                .Logo {
+                  img {
+                    filter: invert(0%);
+                  }
+                }
+              }
+            }
+          }
+
         }
       }
 
