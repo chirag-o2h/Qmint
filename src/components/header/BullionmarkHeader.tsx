@@ -64,7 +64,7 @@ const BullionmarkHeader = () => {
         <AppBar position={trigger ? "fixed" : "static"}>
           {loading && <PageLoader />}
           <Suspense fallback={<></>}>
-            <FrontMain toggleMobileMenu={toggleMobileMenu} />
+            <FrontMain toggleMobileMenu={toggleMobileMenu} isFrontHeader={isFrontHeader}/>
           </Suspense>
           <Divider />
           <Suspense fallback={<></>}><Navigation /></Suspense>

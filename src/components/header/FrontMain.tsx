@@ -1,5 +1,5 @@
 import React, { useMemo, lazy, useState, useEffect } from "react"
-import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box } from "@mui/material"
+import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box, useScrollTrigger } from "@mui/material"
 import classNames from "classnames"
 import { useLocation } from '@reach/router';
 
@@ -17,13 +17,18 @@ import { Link, navigate } from "gatsby"
 import { CategoriesListDetails, LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
-import { pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
+import { isItNewsOrBlogPage, pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
 const Navigation = lazy(() => import('./Navigation'))
 
 function FrontMain(props: any) {
     const dispatch = useAppDispatch()
-    const { openMobileMenu, toggleMobileMenu, trigger } = (props)
     const mobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: mobile ? 68 : 50,
+    })
+    const { openMobileMenu, toggleMobileMenu, isFrontHeader } = (props)
+    console.log("🚀 ~ FrontMain ~ isFrontHeader:", isFrontHeader)
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
     const location = useLocation();
     const handleAuth = () => {
@@ -44,12 +49,13 @@ function FrontMain(props: any) {
             setIsBullionmarkHomePage(true)
         }
     }, [])
+    console.log("🚀 ~ FrontMain ~ trigger:", trigger)
     return (
         <Box className="HeaderContainerWrapper">
             <Container className="MainHeader">
                 <Stack className="MainHeader__Wrapper">
                     <Stack className="Left">
-                        <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomepage ? "Homepage_HeaderLogo_URL" : "BrandLogoURL_Header"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
+                        <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomepage ? (isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)) ? "Brand_Dark_LogoURL" : trigger ? "Brand_Dark_LogoURL" : "Homepage_HeaderLogo_URL") : (trigger && isFrontHeader ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header")]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
                     </Stack>
                     <Stack className="Center">
                         <Navigation frontPage={window.location.pathname === "/" ? true : false} showNavigation={true} />

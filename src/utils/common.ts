@@ -1419,3 +1419,4 @@ export const formatCategoryUrl = (pageName:any) => {
   return formattedPageName;
 };
 export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login','registration','password-recovery','blog','news']
+export const isItNewsOrBlogPage = ['login','registration','password-recovery','blog','news']

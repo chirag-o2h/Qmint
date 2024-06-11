@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box } from "@mui/material"
+import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box, useScrollTrigger } from "@mui/material"
 
 // Components
 import SearchField from "./SearchField"
@@ -29,11 +29,15 @@ function Main(props: any) {
       return
     }
   }
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: mobile ? 68 : 50,
+  })
   return (
     <Container className="MainHeader">
       <Stack className="MainHeader__Wrapper">
         <Stack className="Left">
-          <Link className="Logo" to="/"><img src={mobile ? configDetailsState?.BrandLogoURL_Header?.value : configDetailsState?.BrandLogoURL_Header?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint logo" loading="eager" /></Link>
+          <Link className="Logo" to="/"><img src={configDetailsState?.[trigger ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint logo" loading="eager" /></Link>
         </Stack>
         <Stack className="Right">
           {!mobile && <Box className="Marketingoffer" dangerouslySetInnerHTML={{ __html: configDetailsState?.["ShopHomepage_Header_Marketing_Image"]?.value }}></Box>}

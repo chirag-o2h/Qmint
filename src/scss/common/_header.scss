@@ -647,13 +647,6 @@
 
         .HeaderContainerWrapper {
           .MainHeader__Wrapper {
-            .Left {
-              .Logo {
-                img {
-                  filter: brightness(0);
-                }
-              }
-            }
 
             .Center {
               .NavigationHeader {
@@ -683,20 +676,6 @@
       }
 
       &.BmkFrontHeader {
-        .MuiAppBar-positionStatic {
-          .HeaderContainerWrapper {
-            .MainHeader__Wrapper {
-              .Left {
-                .Logo {
-                  img {
-                    filter: invert(100%) hue-rotate(180deg);
-                  }
-                }
-              }
-
-            }
-          }
-        }
 
         .HeaderContainerWrapper {
           .MainHeader {
@@ -738,7 +717,7 @@
               .Logo {
                 img {
                   // filter: invert(80%) sepia(11%) saturate(300%) hue-rotate(181deg) brightness(90%);
-                  filter: invert(100%) hue-rotate(180deg);
+                  // filter: invert(100%) hue-rotate(180deg);
                 }
               }
             }
@@ -984,18 +963,6 @@
         }
       }
 
-      .HeaderContainerWrapper {
-        .MainHeader__Wrapper {
-          .Left {
-            .Logo {
-              img {
-                filter: invert(100%) hue-rotate(180deg);
-              }
-            }
-          }
-        }
-      }
-
     }
 
     .MuiAppBar-positionStatic {
@@ -1071,18 +1038,6 @@
 
               .RightPart {
                 color: $white;
-              }
-            }
-          }
-
-          .HeaderContainerWrapper {
-            .MainHeader__Wrapper {
-              .Left {
-                .Logo {
-                  img {
-                    filter: invert(0%);
-                  }
-                }
               }
             }
           }
