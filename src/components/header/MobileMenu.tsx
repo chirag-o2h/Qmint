@@ -13,6 +13,7 @@ import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import { formatCategoryUrl } from "@/utils/common";
+import { THEME_TYPE } from "@/axiosfolder";
 function FrontMobileMenu(props: any) {
   const { open, toggleMobileMenu, trigger, isFrontPage } = props
   const location = useLocation();
@@ -38,14 +39,14 @@ function FrontMobileMenu(props: any) {
       setIsHomePage(true)
     }
   }, [])
-  const handleNavigate=(pathTo:any)=>{
+  const handleNavigate = (pathTo: any) => {
     navigate(pathTo)
     toggleMobileMenu()
   }
   return (
     <Drawer
       id="MobileMenu"
-      className={classNames({ "ScrollActive": trigger, "isHomePage": isHomePage, 'FrontPageMenu': isFrontPage })}
+      className={classNames({ "ScrollActive": trigger, "isHomePage": isHomePage, 'FrontPageMenu': isFrontPage, "BmkMobileMenu": THEME_TYPE === "1" && !trigger, })}
       open={open}
       variant="temporary"
       onClose={toggleMobileMenu}
@@ -66,7 +67,7 @@ function FrontMobileMenu(props: any) {
                     onClick={() => {
                       handleClickMainMenu(category.categoryId);
                       if (!hasSubcategory) {
-                        handleNavigate(!isFrontPage ?`/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}` :`${formatCategoryUrl(category.searchEngineFriendlyPageName)}`)
+                        handleNavigate(!isFrontPage ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `${formatCategoryUrl(category.searchEngineFriendlyPageName)}`)
                       }
                     }}
                   >
@@ -87,7 +88,7 @@ function FrontMobileMenu(props: any) {
                           return (
                             <Fragment key={menu.categoryId}>
                               <ListItemButton key={`SubMenu_${menu.categoryId}-${menu.name}`} selected={false} onClick={() => handleClickSubMenu(menu.categoryId)} sx={{ pl: 4 }}>
-                                <ListItemText primary={menu.name} primaryTypographyProps={{ variant: "body2" }} onClick={() => handleNavigate(!isFrontPage ? `/category${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}` :`${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}`)} />
+                                <ListItemText primary={menu.name} primaryTypographyProps={{ variant: "body2" }} onClick={() => handleNavigate(!isFrontPage ? `/category${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}` : `${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}`)} />
                                 {openSubMenu[menu.categoryId] ? <ArrowUp /> : <ArrowDown />}
                               </ListItemButton>
                               <Collapse key={`Collapse_${menu.categoryId}-${menu.name}`} in={openSubMenu[menu.categoryId]} sx={{ pl: 4 }}>
@@ -95,7 +96,7 @@ function FrontMobileMenu(props: any) {
                                   {menu.subCategories.map((subCategory: any) => {
                                     return (
                                       <ListItemButton key={`SubMenu_${subCategory.categoryId}-${subCategory.name}`} selected={false} sx={{ pl: 4 }} onClick={() => {
-                                        handleNavigate(!isFrontPage ? `/category${formatCategoryUrl(subCategory.searchEngineFriendlyPageName)}` :`${formatCategoryUrl(subCategory.searchEngineFriendlyPageName)}`)
+                                        handleNavigate(!isFrontPage ? `/category${formatCategoryUrl(subCategory.searchEngineFriendlyPageName)}` : `${formatCategoryUrl(subCategory.searchEngineFriendlyPageName)}`)
                                       }}>
                                         <ListItemText primary={subCategory.name} primaryTypographyProps={{ variant: "body2" }} />
                                       </ListItemButton>

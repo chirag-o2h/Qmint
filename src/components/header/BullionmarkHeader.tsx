@@ -38,6 +38,7 @@ const BullionmarkHeader = () => {
     setOpenMobileMenu(!openMobileMenu)
   }, [openMobileMenu])
   const [isFrontHeader, setIsFrontHeader] = useState(false)
+  const [isShopBannerAbsent, setIsShopBannerAbsent] = useState(false)
 
   useEffect(() => {
     if (frontHeaderList.includes(window.location.pathname)) {
@@ -45,9 +46,15 @@ const BullionmarkHeader = () => {
     }
   }, [window.location.pathname])
 
+  useEffect(() => {
+    const BannerElementAbsent = document.querySelector('.TopBannerAbsent');
+    if (BannerElementAbsent) {
+      setIsShopBannerAbsent(true);
+    }
+  }, []);
   return (
     <>
-      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader", isFrontHeader ? "FrontHeader" : "BmkBlackHeader")}>
+      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader", isFrontHeader ? "FrontHeader" : "BmkBlackHeader", { "ShopBannerAbsent": (!trigger && isShopBannerAbsent) },)}>
         {!isMobile && <>
           <Suspense fallback={<></>}>
             <Pricing />

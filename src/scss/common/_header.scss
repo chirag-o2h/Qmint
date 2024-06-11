@@ -737,6 +737,12 @@
   }
 
   &.BullionmarkHeader {
+    &.ShopBannerAbsent {
+      .MuiAppBar-positionStatic {
+        background-color: #000000;
+      }
+    }
+
     .MuiAppBar-root {
       .NavigationHeader__Wrapper {
         .LeftPart {
@@ -1139,7 +1145,6 @@
   width: 100%;
 
   &.MuiDrawer-root {
-    // top: calc(67px + 1px);
     top: calc(67px + 50px + 1px);
 
     &.FrontPageMenu {
@@ -1229,6 +1234,15 @@
             }
           }
         }
+      }
+    }
+  }
+
+  &.BmkMobileMenu {
+    &.MuiDrawer-root {
+      .MuiDrawer-paper {
+        background-color: #000000;
+        color: $white;
       }
     }
   }
