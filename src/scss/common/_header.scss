@@ -1245,6 +1245,18 @@
       }
     }
   }
+  &.BmkMobileMenuWithoutAnygap{
+    &.MuiDrawer-root{
+      top: 110px;
+      &.FrontPageMenu {
+        top: 68px;
+  
+        @include media($ssm) {
+          top: 60px;
+        }
+      }
+    }
+  }
 
   &.BmkMobileMenu {
     &.MuiDrawer-root {

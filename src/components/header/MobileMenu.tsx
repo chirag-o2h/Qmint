@@ -12,7 +12,7 @@ import { navigate } from "gatsby";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
-import { formatCategoryUrl } from "@/utils/common";
+import { formatCategoryUrl, isItNewsOrBlogPage } from "@/utils/common";
 import { THEME_TYPE } from "@/axiosfolder";
 function FrontMobileMenu(props: any) {
   const { open, toggleMobileMenu, trigger, isFrontPage } = props
@@ -46,7 +46,7 @@ function FrontMobileMenu(props: any) {
   return (
     <Drawer
       id="MobileMenu"
-      className={classNames({ "ScrollActive": trigger, "isHomePage": isHomePage, 'FrontPageMenu': isFrontPage, "BmkMobileMenu": THEME_TYPE === "1" && !trigger, })}
+      className={classNames({ "ScrollActive": trigger, "isHomePage": isHomePage, 'FrontPageMenu': isFrontPage, "BmkMobileMenu": THEME_TYPE === "1" && !trigger && !isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)), "BmkMobileMenuWithoutAnygap": THEME_TYPE === "1"  })}
       open={open}
       variant="temporary"
       onClose={toggleMobileMenu}
