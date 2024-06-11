@@ -697,6 +697,18 @@
             }
           }
         }
+
+        .HeaderContainerWrapper {
+          .MainHeader {
+            .MainHeader__Wrapper {
+              .Right {
+                .SignInButton {
+                  color: #000000;
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -733,10 +745,30 @@
           }
         }
       }
+
+      .MuiAppBar-positionStatic {
+        .HeaderContainerWrapper {
+          .MainHeader {
+            .MainHeader__Wrapper {
+              .Right {
+                .SignInButton {
+                  color: #000000;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
   &.BullionmarkHeader {
+    &.ShopBannerAbsent {
+      .MuiAppBar-positionStatic {
+        background-color: #000000;
+      }
+    }
+
     .MuiAppBar-root {
       .NavigationHeader__Wrapper {
         .LeftPart {
@@ -966,6 +998,20 @@
 
     }
 
+    .MuiAppBar-positionStatic {
+      .HeaderContainerWrapper {
+        .MainHeader {
+          .MainHeader__Wrapper {
+            .Right {
+              .SignInButton {
+                color: #000000;
+              }
+            }
+          }
+        }
+      }
+    }
+
     &.BmkBlackHeader {
       background-color: #000000;
 
@@ -1041,6 +1087,19 @@
             }
           }
 
+        }
+
+      }
+
+      .HeaderContainerWrapper {
+        .MainHeader {
+          .MainHeader__Wrapper {
+            .Right {
+              .SignInButton {
+                color: #000000;
+              }
+            }
+          }
         }
       }
 
@@ -1139,7 +1198,6 @@
   width: 100%;
 
   &.MuiDrawer-root {
-    // top: calc(67px + 1px);
     top: calc(67px + 50px + 1px);
 
     &.FrontPageMenu {
@@ -1229,6 +1287,15 @@
             }
           }
         }
+      }
+    }
+  }
+
+  &.BmkMobileMenu {
+    &.MuiDrawer-root {
+      .MuiDrawer-paper {
+        background-color: #000000;
+        color: $white;
       }
     }
   }
