@@ -1183,7 +1183,7 @@
         .MuiListItemButton-root {
           font-weight: 600;
           text-transform: uppercase;
-
+          gap: 20px;
           &.Mui-selected {
             font-weight: 700;
             color: $yellowFuel;

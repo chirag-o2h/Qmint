@@ -36,5 +36,11 @@
         min-width: 204px;
       }
     }
+    &.error{
+      color: red;
+      a{
+        color: inherit;
+      }
+    }
   }
 }

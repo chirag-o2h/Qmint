@@ -3,8 +3,7 @@ import { Container, Box, Typography, Button } from "@mui/material"
 import { Link, navigate } from "gatsby"
 
 // Assets
-import { TickIcon } from "@/assets/icons"
-
+import { TickIcon, ContainedCrossIcon } from "@/assets/icons"
 // Utils
 import { ENDPOINTS } from "@/utils/constants"
 
@@ -15,6 +14,7 @@ import { getLastPage } from "@/utils/common"
 import { registrationTokenVarified } from "@/redux/reducers/authReducer"
 import { isActionRejected } from "@/components/common/Utils"
 import { AxiosError } from "axios"
+import classNames from "classnames"
 
 function EmailConfirmation() {
   const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search]);
@@ -51,16 +51,16 @@ function EmailConfirmation() {
     const lastPage = getLastPage();
     if (lastPage && !lastPage.includes('activate-account')) {
       navigate(lastPage, { replace: true });
-    }else{
+    } else {
       navigate('/', { replace: true });
     }
   }
   return (
     <MainLayout blackTheme>
       <Container id="EmailConfirmation">
-        <Box className="Content">
-          <TickIcon className="TickIcon" />
-          <Typography variant="h4" className="Title" component="p">{loginError ? 'Error'  :'Confirmation' }</Typography>
+        <Box className={classNames("Content", { "error": loginError })}>
+          {loginError ? <ContainedCrossIcon className="TickIcon" /> : <TickIcon className="TickIcon" />}
+          <Typography variant="h4" className="Title" component="p">{loginError ? 'Error' : 'Confirmation'}</Typography>
           <Typography className="Description" dangerouslySetInnerHTML={{
             __html: loginError ?? message
           }}>

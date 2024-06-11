@@ -63,7 +63,8 @@ function FrontMobileMenu(props: any) {
                     key={`ListItemButton-${category.categoryId}`}
                     className={classNames([openMenu[category.categoryId] ? "ExpandedMenu" : "CollapsedMenu"])}
                     selected={category.categoryId === 0}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation()
                       handleClickMainMenu(category.categoryId);
                       if (!hasSubcategory) {
                         handleNavigate(!isFrontPage ?`/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}` :`${formatCategoryUrl(category.searchEngineFriendlyPageName)}`)
@@ -71,7 +72,8 @@ function FrontMobileMenu(props: any) {
                     }}
                   >
                     <ListItemText primary={category.name} primaryTypographyProps={{ variant: "body2" }}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation()
                         handleNavigate(!isFrontPage ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `${formatCategoryUrl(category.searchEngineFriendlyPageName)}`)
                       }}
                     />
