@@ -697,6 +697,18 @@
             }
           }
         }
+
+        .HeaderContainerWrapper {
+          .MainHeader {
+            .MainHeader__Wrapper {
+              .Right {
+                .SignInButton {
+                  color: #000000;
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -727,6 +739,20 @@
                 img {
                   // filter: invert(80%) sepia(11%) saturate(300%) hue-rotate(181deg) brightness(90%);
                   filter: invert(100%) hue-rotate(180deg);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .MuiAppBar-positionStatic {
+        .HeaderContainerWrapper {
+          .MainHeader {
+            .MainHeader__Wrapper {
+              .Right {
+                .SignInButton {
+                  color: #000000;
                 }
               }
             }
@@ -972,6 +998,20 @@
 
     }
 
+    .MuiAppBar-positionStatic {
+      .HeaderContainerWrapper {
+        .MainHeader {
+          .MainHeader__Wrapper {
+            .Right {
+              .SignInButton {
+                color: #000000;
+              }
+            }
+          }
+        }
+      }
+    }
+
     &.BmkBlackHeader {
       background-color: #000000;
 
@@ -1047,6 +1087,19 @@
             }
           }
 
+        }
+
+      }
+
+      .HeaderContainerWrapper {
+        .MainHeader {
+          .MainHeader__Wrapper {
+            .Right {
+              .SignInButton {
+                color: #000000;
+              }
+            }
+          }
         }
       }
 
