@@ -17,6 +17,8 @@ import Loader from "@/components/common/Loader"
 import { getlastPartOfPath } from "@/utils/common"
 import useDebounce from "@/hooks/useDebounce"
 import { navigate } from "gatsby"
+import classNames from "classnames"
+import { THEME_TYPE } from "@/axiosfolder"
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -128,7 +130,7 @@ function Category(props: any) {
                 description={categoryPageMetadata?.metaDescription}
                 lang="en"
             />
-            <Container id="PageCategory">
+            <Container id="PageCategory" className={classNames({ "BmkCategoryPage": THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
                         <SortBy />
@@ -140,7 +142,7 @@ function Category(props: any) {
                     <ProductList page={page} setPage={setPage} />
                 </Stack>
             </Container>
-        </Layout>
+        </Layout >
     )
 }
 

@@ -1,43 +1,54 @@
 #PageCategory {
   @include padding-vertical(60);
+
   @include media($md) {
     @include padding-vertical(30);
   }
+
   .CategoryHeader {
     justify-content: center;
     gap: 16px;
     padding-bottom: 30px;
+
     @include media-min($md) {
       justify-content: flex-end;
     }
+
     .OultinedButton {
       border-radius: 5px;
       border-color: $mercury;
       background-color: rgba($mercury, 0.2);
       padding: 9px 16px;
+
       @include media-min($md) {
         @include padding-horizontal(40);
       }
+
       &:hover {
         border-color: rgba($dark, 1);
       }
     }
   }
+
   .MainContent {
     align-items: flex-start;
     gap: 30px;
+
     @include media-min($lg) {
       gap: 30px;
     }
+
     @include media-min($xl) {
       gap: 60px;
     }
+
     // @include media-min($xxl) {
     //   gap: 68px;
     // }
     @include media($md) {
       flex-direction: column;
     }
+
     .CategoryFilters {
       $containerSpacing: 14;
       $dividerColor: rgba($dark, 0.1);
@@ -48,77 +59,96 @@
       min-width: 270px;
       max-width: 350px;
       overflow: hidden;
+
       @include media($md) {
         flex: initial;
         width: 100%;
       }
+
       .MuiDivider-root {
         border-color: $dividerColor;
       }
+
       .Divider {
         border-top: 1px solid $dividerColor;
       }
+
       .MuiAccordion-root {
         .MuiAccordionSummary-root {
           @include padding-horizontal($containerSpacing);
+
           .MuiAccordionSummary-content {
             @include margin-vertical(16);
           }
         }
+
         .MuiAccordionDetails-root {
           @include padding-horizontal($containerSpacing);
+
           .MuiList-root {
             .MuiListItem-root {
               .MuiListItemButton-root {
                 padding: 6px 0;
                 @include transition;
+
                 &:hover {
                   color: $yellowFuel;
                   background-color: transparent;
                 }
               }
             }
+
             .MuiDivider-root {
               border-color: rgba($dark, 0.05);
             }
           }
         }
       }
+
       .CategoriesWrapper {
         overflow: hidden;
+
         .MuiAccordion-root {
           .MuiAccordionDetails-root {
             padding-bottom: 16px;
+
             .ScrollbarWrapper {
               border-radius: $borderRadius;
               border: 1px solid $dividerColor;
               padding: 10px 8px 10px 0;
+
               .MuiList-root {
                 // min-height: 200px;
                 max-height: 35vh;
                 overflow: auto;
                 @include padding-horizontal(12);
+
                 .MuiListItem-root {
                   &:first-of-type {
                     .MuiListItemButton-root {
                       margin-top: -10px;
                     }
                   }
+
                   &:last-of-type {
                     .MuiListItemButton-root {
                       padding-bottom: 0;
                     }
                   }
+
                   .MuiListItemButton-root {
                     padding: 6px 0;
                     @include transition;
+
                     &:hover {
                       color: $yellowFuel;
                       background-color: transparent;
                     }
+
                     &.Mui-selected {
                       color: $yellowFuel;
                       background-color: transparent;
+
                       .MuiListItemText-root {
                         .MuiTypography-root {
                           font-weight: 500;
@@ -127,6 +157,7 @@
                     }
                   }
                 }
+
                 .MuiDivider-root {
                   border-color: rgba($dark, 0.05);
                 }
@@ -135,6 +166,7 @@
           }
         }
       }
+
       .SortByWrapper {
         .MuiAccordion-root {
           .MuiAccordionDetails-root {
@@ -154,25 +186,32 @@
           }
         }
       }
+
       .FilterByWrapper {
         .PriceRangeWrapper {
           padding: 16px #{$containerSpacing + px};
+
           .PriceRange {
             margin-bottom: 13px;
           }
+
           .Slider {
             @include margin-vertical(5);
           }
+
           .AveragePrice {
             color: rgba($dark, 0.8)
           }
         }
+
         .MuiAccordion-root {
           .MuiAccordionDetails-root {
             margin-top: -8px;
+
             .InputRow {
               .MuiFormControl-root {
                 width: 100%;
+
                 .MuiFormGroup-root {
                   &.MuiFormGroup-row {
                     .MuiFormControlLabel-root {
@@ -180,11 +219,14 @@
                       margin-right: 0;
                     }
                   }
+
                   .MuiFormControlLabel-root {
                     margin-left: -9px;
+
                     .MuiCheckbox-root {
                       padding: 8px;
                     }
+
                     .MuiFormControlLabel-label {
                       &.Mui-disabled {
                         color: inherit;
@@ -198,35 +240,43 @@
         }
       }
     }
+
     .ProductList {
       width: 100%;
+
       .ProductListWrapper {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         flex: 0.75;
         gap: 30px;
+
         // @include media-min($xxl) {
         //   gap: 40px;
         // }
         @include media($lg) {
           grid-template-columns: repeat(2, 1fr);
         }
+
         @include media($md) {
           grid-template-columns: repeat(2, 1fr);
           flex: initial;
           width: 100%;
         }
+
         @include media($sm) {
           grid-template-columns: repeat(1, 1fr);
         }
+
         @include media-between($md, $mmd) {
           gap: 20px;
         }
+
         .ProductCard {
           &.Sticky {
             grid-column-start: -1;
             grid-column-end: 1;
           }
+
           @include media-between($md, $mmd) {
             .MuiCardActions-root {
               .PrimaryAction {
@@ -236,9 +286,22 @@
           }
         }
       }
+
       .Pagination {
         justify-content: center;
         margin-top: 60px;
+      }
+    }
+  }
+
+  &.BmkCategoryPage {
+    .MainContent {
+      .ProductList {
+        .ProductListWrapper {
+          @include media($sm) {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
       }
     }
   }
