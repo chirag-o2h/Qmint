@@ -557,48 +557,60 @@
     overflow: hidden;
 
     .NewsletterBG {
-        img {
-            width: 100%;
-            object-fit: cover;
+        .image {
+            width: 100% !important;
 
-            @include media($ssm) {
-                scale: 1.5;
-                padding-top: 70px;
-            }
+            img {
+                width: 100%;
+                object-fit: cover;
 
-            @include media($xs) {
-                scale: 2;
+                // @include media($ssm) {
+                //     scale: 1.5;
+                //     padding-top: 70px;
+                // }
+
+                // @include media($xs) {
+                //     scale: 2;
+                // }
             }
         }
+
     }
 
     .BackgroundHolder {
-        margin-top: -400px;
+        margin-top: -130px;
         padding-bottom: 105px;
         background-color: $peachSoft;
 
-        @include media($xl) {
-            margin-top: -300px;
-        }
+        // @include media($xl) {
+        //     margin-top: -300px;
+        // }
 
         @include media($lg) {
             padding-bottom: 60px;
         }
 
         @include media($md) {
-            margin-top: -210px;
+            margin-top: -70px;
         }
 
-        @include media($ssm) {
-            margin-top: -80px;
+        @include media($sm) {
+            margin-top: -20px;
         }
 
-        @include media($xs) {
-            margin-top: -30px;
-        }
+        // @include media($xs) {
+        //     margin-top: -30px;
+        // }
 
         .BullionmarkSectionHeading {
             .Title {
+                color: $white;
+
+                @include media($sm) {
+                    color: #000000;
+                    padding-top: 10px;
+                }
+
                 @include media($md) {
                     font-size: 32px;
                     line-height: 43px;
