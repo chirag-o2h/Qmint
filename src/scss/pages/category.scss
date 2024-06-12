@@ -301,6 +301,44 @@
           @include media($sm) {
             grid-template-columns: repeat(2, 1fr);
           }
+
+          @include media($xs) {
+            gap: 10px;
+          }
+
+
+          .BmkCommonProductCard {
+            .ImageWrapper {
+              .ImageLink {
+                @include media($xs) {
+                  height: 240px;
+                  padding: 80px 16px 0;
+                }
+              }
+            }
+
+            .MuiCardContent-root {
+              @include media($xs) {
+                padding: 10px;
+              }
+
+            }
+
+            .MuiCardActions-root {
+              .PrimaryAction {
+                @include media($xs) {
+                  padding: 8px;
+                }
+              }
+
+              .MuiIconButton-root {
+                @include media($xs) {
+                  top: 30px;
+                }
+              }
+
+            }
+          }
         }
       }
     }

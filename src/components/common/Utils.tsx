@@ -163,7 +163,8 @@ export const BullionmarkSectionHeading = React.memo(({ title, description }: Bul
   return (
     <Box className="BullionmarkSectionHeading">
       {title && <Typography variant="h2" component="h2" className="Title">{title}</Typography>}
-      {description && <Typography className="Description">{description}</Typography>}
+      {description && <Typography className="Description" dangerouslySetInnerHTML={{
+                  __html: description}} >{}</Typography>}
     </Box>
   );
 });
