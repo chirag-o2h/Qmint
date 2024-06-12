@@ -80,8 +80,9 @@ function MobileSecondaryMenu() {
             <ActionMenu />
           </Stack>
         </Container>
-        {THEME_TYPE === "1" ? <Divider /> : <ConstantApiLoader />}
+        {THEME_TYPE === "0" && <ConstantApiLoader />}
       </AppBar>
+      {THEME_TYPE === "1" && <Divider />}
     </Box >
   )
 }

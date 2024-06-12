@@ -5,73 +5,92 @@
   justify-content: center;
   align-items: center;
   padding: 40px;
+
   @include media($xxl) {
     @include padding-horizontal(20);
   }
+
   .MuiContainer-root {
     max-width: 450px;
     padding: 40px;
     border-radius: 40px;
     overflow-y: initial;
     box-shadow: $shadow4;
+
     @include media-min($xxl) {
       max-width: 610px;
     }
+
     @include media($xs) {
       padding: 40px 5vw;
     }
+
     .MuiDialogTitle-root {
       text-align: center;
+
       img {
         @include media($xxl) {
           max-width: 80%;
         }
       }
     }
+
     .MuiDialogContent-root {
       padding-top: 40px;
+
       .FieldWrapper {
         flex-direction: column;
         gap: 20px;
+
         @include media-min($xxl) {
           gap: 30px;
         }
+
         .MuiTextField-root {
           .MuiInput-root {
             .MuiInput-input {
               padding: 8px 16px;
+
               @include media-min($xxl) {
                 padding: 13px 16px;
               }
             }
+
             .MuiInputAdornment-positionEnd {
               margin-right: 8px;
             }
           }
         }
       }
+
       .ForgotPassword {
         margin-top: 12px;
       }
     }
+
     .MuiDialogActions-root {
       flex-direction: column;
       gap: 20px;
       margin-top: 30px;
+
       @include media-min($xxl) {
         margin-top: 40px;
       }
+
       .ActionButton {
         @include media-min($xxl) {
           padding: 16px 18px;
         }
       }
+
       .SignUpAction {
         gap: 8px;
         margin-top: 10px;
+
         .Message {
           color: rgba($dark, 0.6);
         }
+
         .MuiButton-root {
           flex-shrink: 0;
         }
@@ -79,10 +98,11 @@
     }
   }
 
-  .LoginError{
+  .LoginError {
     text-align: center;
     margin-top: 40px;
     color: $sinopia;
+
     a {
       text-decoration: underline;
       @include transition;
@@ -94,39 +114,48 @@
   @include media($ssm) {
     flex-direction: column;
   }
+
   .LeftPart {
     flex: 0.5;
+
     .LoginImage {
       height: 100%;
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
+
       @include media($sm) {
         aspect-ratio: 16 / 9;
       }
     }
   }
+
   .RightPart {
     flex: 0.5;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     form {
       padding: 50px;
       width: 100%;
       max-width: 500px;
+
       @include media($ssm) {
         padding: 40px 24px;
         max-width: 100%;
       }
+
       .Header {
         margin-bottom: 22px;
         text-align: center;
+
         .Description {
           font-size: 13px;
           margin-top: 11px;
         }
-        .ErrorMessage{
+
+        .ErrorMessage {
           font-size: 15px;
           padding: 10px;
           background: #ff00003d;
@@ -134,16 +163,20 @@
           color: $error;
         }
       }
+
       .FieldWrapper {
         flex-direction: column;
         gap: 24px;
+
         .MuiFormControl-root {
           .MuiInputBase-root {
             border-radius: 0;
             margin-top: 0 !important;
+
             .MuiInputBase-input {
               padding: 13px 16px;
             }
+
             .MuiInputAdornment-root {
               align-self: stretch;
               margin-left: 0;
@@ -151,6 +184,7 @@
               padding: 6px;
               height: initial;
               max-height: initial;
+
               .MuiIconButton-root {
                 opacity: 0.5;
               }
@@ -158,10 +192,17 @@
           }
         }
       }
+
       .FormAction {
         flex-direction: column;
         gap: 9px;
         margin-top: 34px;
+
+        .MuiButton-outlined {
+          @include media($xs) {
+            @include padding-vertical(11, 11)
+          }
+        }
       }
     }
   }
