@@ -106,7 +106,7 @@ export const StockReturnWithName = React.memo(
           >
             <Box className="Flipper">
               <Typography variant="body2" component="span" className="Value Front">{roundOfThePrice(percentage)}%</Typography>
-              <Typography variant="body2" component="span" className="Value Back">${name === "AUD/USD" ? move : roundOfThePrice(move)}</Typography>
+              <Typography variant="body2" component="span" className="Value Back">{name == "GOLD/SILVER RATIO" ? "" : "$"}{name === "AUD/USD" ? move : roundOfThePrice(move)}</Typography>
             </Box>
           </Box>
           {status ? <ChevronUp /> : <ChevronDown />}
