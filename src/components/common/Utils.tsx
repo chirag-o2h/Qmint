@@ -106,7 +106,7 @@ export const StockReturnWithName = React.memo(
           >
             <Box className="Flipper">
               <Typography variant="body2" component="span" className="Value Front">{roundOfThePrice(percentage)}%</Typography>
-              <Typography variant="body2" component="span" className="Value Back">${name === "AUD/USD" ? move : roundOfThePrice(move)}</Typography>
+              <Typography variant="body2" component="span" className="Value Back">{name == "GOLD/SILVER RATIO" ? "" : "$"}{name === "AUD/USD" ? move : roundOfThePrice(move)}</Typography>
             </Box>
           </Box>
           {status ? <ChevronUp /> : <ChevronDown />}
@@ -163,7 +163,8 @@ export const BullionmarkSectionHeading = React.memo(({ title, description }: Bul
   return (
     <Box className="BullionmarkSectionHeading">
       {title && <Typography variant="h2" component="h2" className="Title">{title}</Typography>}
-      {description && <Typography className="Description">{description}</Typography>}
+      {description && <Typography className="Description" dangerouslySetInnerHTML={{
+                  __html: description}} >{}</Typography>}
     </Box>
   );
 });
