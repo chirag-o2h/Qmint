@@ -969,6 +969,32 @@
       .HeaderContainerWrapper {
         .MainHeader {
           .MainHeader__Wrapper {
+            .Center {
+              .NavigationHeader {
+                .NavigationHeader__Wrapper {
+                  .LeftPart {
+                    .PopoverMegaMenu {
+                      .MuiTooltip-tooltip {
+                        background: black;
+
+                        .SubMenu {
+                          .MuiList-root {
+                            .SubMenuLink {
+                              color: #ffffff9c;
+
+                              &:first-of-type {
+                                color: $white;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
             .Right {
               .SignInButton {
                 color: #000000;
@@ -993,12 +1019,35 @@
         .HeaderContainerWrapper {
           .MainHeader__Wrapper {
             .Center {
-
               .MenuLink {
                 color: $white;
 
                 &:hover {
                   color: $pumpkinOrange;
+                }
+              }
+
+              .NavigationHeader {
+                .NavigationHeader__Wrapper {
+                  .LeftPart {
+                    .PopoverMegaMenu {
+                      .MuiTooltip-tooltip {
+                        background: black;
+
+                        .SubMenu {
+                          .MuiList-root {
+                            .SubMenuLink {
+                              color: #ffffff9c;
+
+                              &:first-of-type {
+                                color: $white;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -1197,6 +1246,7 @@
           font-weight: 600;
           text-transform: uppercase;
           gap: 20px;
+
           &.Mui-selected {
             font-weight: 700;
             color: $yellowFuel;
@@ -1245,12 +1295,14 @@
       }
     }
   }
-  &.BmkMobileMenuWithoutAnygap{
-    &.MuiDrawer-root{
+
+  &.BmkMobileMenuWithoutAnygap {
+    &.MuiDrawer-root {
       top: 110px;
+
       &.FrontPageMenu {
         top: 68px;
-  
+
         @include media($ssm) {
           top: 60px;
         }
