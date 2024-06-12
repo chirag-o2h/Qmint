@@ -311,8 +311,9 @@
             .ImageWrapper {
               .ImageLink {
                 @include media($xs) {
-                  height: 240px;
-                  padding: 80px 16px 0;
+                  height: 230px;
+                  padding: 30px 16px 0;
+                  scale: 1.25;
                 }
               }
             }
@@ -320,6 +321,15 @@
             .MuiCardContent-root {
               @include media($xs) {
                 padding: 10px;
+              }
+
+              .PriceContentWrapper {
+                .Bottom {
+                  @include media($xs) {
+                    flex-direction: column;
+                    gap: 5px;
+                  }
+                }
               }
 
             }
