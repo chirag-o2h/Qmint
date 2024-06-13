@@ -46,6 +46,7 @@ export interface Icategory {
 function Navigation({ frontPage = false, showNavigation = false }: { frontPage?: boolean, showNavigation?: boolean }) {
   const dispatch = useAppDispatch()
   const { configDetails: configDetailsState, categoriesList, needToShowProgressLoader, isLoggedIn } = useAppSelector((state) => state.homePage)
+  console.log("🚀 ~ Navigation ~ configDetailsState:", configDetailsState)
   const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const [currententlySelected, setCurrententlySelected] = useState('')
   useEffect(() => {
@@ -138,7 +139,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
               {needToShowProgressLoader &&
                 <ProductUpdateCountdown needToShowText={false} />
               }
-              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>)}
+              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>)}
               {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ?
                 <Suspense fallback={<></>}> <ChartMenu /></Suspense>
                 : null}
