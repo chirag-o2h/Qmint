@@ -621,9 +621,9 @@ const bmkComponents: Components = {
       },
     },
   },
-  MuiInputBase:{
+  MuiInputBase: {
     styleOverrides: {
-      root:{
+      root: {
         "&.MuiInputBase-adornedEnd": {
           paddingRight: 0,
         },
@@ -635,7 +635,7 @@ const bmkComponents: Components = {
       positionEnd: {
         height: "initial",
         maxHeight: "initial",
-        alignSelf:"stretch",
+        alignSelf: "stretch",
         marginLeft: 0,
         "& .MuiIconButton-root": {
           height: "100%",
@@ -884,11 +884,11 @@ const bmkComponents: Components = {
             color: "#FF681A",
           },
           "@media (max-width: 600px)": {
-            minWidth: 120,
+            minWidth: 100,
           },
         },
         "@media (max-width: 600px)": {
-          minWidth: 100,
+          minWidth: 90,
         },
       },
     },

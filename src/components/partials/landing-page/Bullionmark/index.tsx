@@ -17,6 +17,7 @@ import ExclusiveJourneysWithSlider from './ExclusiveJourneysWithSlider'
 import TravelInspiration from './TravelInspiration'
 import InspiringStories from './InspiringStories'
 import Newsletter from './Newsletter'
+import BestCategorySlider from "../../shop/Bullionmark/BestCategorySlider"
 
 const BulliomarkMainHomePage = () => {
     const { configDetails: configDetailsState, openToaster, loading, bullionMarkPage } = useAppSelector((state) => state.homePage)
@@ -39,7 +40,8 @@ const BulliomarkMainHomePage = () => {
                     <Box className="FrontPage BullionmarkFrontPage">
                         {configDetailsState?.Sliders_Homepage_Enable?.value === false ? null : <BannerSlider />}
                         <PlanningJourney />
-                        <BestAdventures />
+                        {/* <BestAdventures /> */}
+                        <BestCategorySlider />
                         <GetInspired />
                         <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
                         <ExclusiveJourneysWithSlider />

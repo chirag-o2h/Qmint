@@ -312,8 +312,8 @@
               .ImageLink {
                 @include media($xs) {
                   height: 230px;
-                  padding: 30px 16px 0;
-                  scale: 1.25;
+                  padding: 30px 10px 0;
+                  scale: 1.15;
                 }
               }
             }
