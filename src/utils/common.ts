@@ -1418,5 +1418,5 @@ export const formatCategoryUrl = (pageName:any) => {
   const formattedPageName = pageName.startsWith('/') ? pageName : `/${pageName}`;
   return formattedPageName;
 };
-export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login','registration','password-recovery','blog','news','forgot-password',"topic"]
-export const isItNewsOrBlogPage = ['login','registration','password-recovery','blog','news','forgot-password',"topic"]
+export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login','registration','password-recovery','blog','news','forgot-password',"topic","confirmation","activate-account","contactus","email-confirmation"]
+export const isItNewsOrBlogPage = ['login','registration','password-recovery','blog','news','forgot-password',"topic","confirmation","activate-account","contactus","email-confirmation"]
