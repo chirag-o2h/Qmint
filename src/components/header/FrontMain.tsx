@@ -28,7 +28,6 @@ function FrontMain(props: any) {
         threshold: mobile ? 68 : 50,
     })
     const { openMobileMenu, toggleMobileMenu, isFrontHeader } = (props)
-    console.log("🚀 ~ FrontMain ~ isFrontHeader:", isFrontHeader)
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
     const location = useLocation();
     const handleAuth = () => {
@@ -49,7 +48,6 @@ function FrontMain(props: any) {
             setIsBullionmarkHomePage(true)
         }
     }, [])
-    console.log("🚀 ~ FrontMain ~ trigger:", trigger)
     return (
         <Box className="HeaderContainerWrapper">
             <Container className="MainHeader">

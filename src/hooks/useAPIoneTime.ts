@@ -6,7 +6,7 @@ import { setLoadingFalse, setLoadingTrue } from '@/redux/reducers/homepageReduce
 const useAPIoneTime = ({ service, endPoint, body, params, conditionalCall = true }: { service: any, endPoint?: string, body?: any, params?: any, callAgain?: any, conditionalCall?: boolean }) => {
     const dispatch = useAppDispatch()
     useLayoutEffect(() => {
-        console.log("bugs")
+        // console.log("bugs")
         let timeoutId: any;
         dispatch(setLoadingTrue())
         const apiCall = async () => {

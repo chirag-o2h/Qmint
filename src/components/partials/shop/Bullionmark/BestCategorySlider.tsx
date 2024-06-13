@@ -12,7 +12,6 @@ import { useAppSelector } from "@/hooks";
 
 
 function BestCategorySlider(props: any) {
-    console.log("🚀 ~ BestCategorySlider ~ props:", props)
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
 
     const config = {
