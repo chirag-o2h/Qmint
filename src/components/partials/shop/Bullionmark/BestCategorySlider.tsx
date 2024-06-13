@@ -12,8 +12,8 @@ import { useAppSelector } from "@/hooks";
 
 
 function BestCategorySlider(props: any) {
+    console.log("🚀 ~ BestCategorySlider ~ props:", props)
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-    const bmkShopSections = useAppSelector(state => state.homePage.bmkShopPageSections)
 
     const config = {
         slidesPerView: 1.3,
@@ -64,7 +64,7 @@ function BestCategorySlider(props: any) {
                 <Box className="BmkProductsSliderWrapper">
                     <Box className="SwiperContainer CircleSwiperPagination">
                         <Swiper  {...config}>
-                            {bmkShopSections && bmkShopSections?.quickCategoryLinks?.map((category: any) => {
+                            {props?.pageData && props?.pageData?.quickCategoryLinks?.map((category: any) => {
                                 return (<SwiperSlide>
                                     <Link to={category.linkUrl} className="BmkProductCardLink">
                                         <Card className="BmkProductCard">

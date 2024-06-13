@@ -24,7 +24,6 @@ const BulliomarkMainHomePage = () => {
     const keyWords = configDetailsState?.Store_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_Meta_Keywords?.value?.split(',') : []
     useAPIoneTime({ service: getBullionMarkPageAPI })
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
-
     return (
         <>
             <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>
@@ -41,7 +40,7 @@ const BulliomarkMainHomePage = () => {
                         {configDetailsState?.Sliders_Homepage_Enable?.value === false ? null : <BannerSlider />}
                         <PlanningJourney />
                         {/* <BestAdventures /> */}
-                        <BestCategorySlider />
+                        <BestCategorySlider pageData={bullionMarkPage}/>
                         <GetInspired />
                         <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
                         <ExclusiveJourneysWithSlider />
