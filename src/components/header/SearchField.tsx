@@ -32,7 +32,7 @@ function SearchField() {
   const fetchOptions = async () => {
     try {
       const response = await apiCallFunction(ENDPOINTS.autoSearch + debouncedInputValue, "POST");
-      setOptions(response.data);
+      setOptions(() => response.data);
     } catch (error) {
       console.error("Error fetching options:", error);
     }
@@ -42,7 +42,7 @@ function SearchField() {
     if (debouncedInputValue) {
       fetchOptions();
     } else {
-      setOptions([]); // Clear options when input value is empty
+      setOptions(() => []); // Clear options when input value is empty
     }
   }, [debouncedInputValue]);
 
@@ -100,7 +100,10 @@ function SearchField() {
             type="search"
             placeholder="Search Product"
             defaultValue={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => {
+                setInputValue(e.target.value)
+                setOptions([])
+            }}
             inputProps={{
               ...params.inputProps,
             }}

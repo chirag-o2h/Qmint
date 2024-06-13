@@ -138,7 +138,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
               {needToShowProgressLoader &&
                 <ProductUpdateCountdown needToShowText={false} />
               }
-              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["australia.phonenumber"]?.value}><Call /></IconButton>)}
+              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>)}
               {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ?
                 <Suspense fallback={<></>}> <ChartMenu /></Suspense>
                 : null}
