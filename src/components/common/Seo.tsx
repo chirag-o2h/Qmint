@@ -5,7 +5,6 @@ import { Helmet } from "react-helmet"
 import { useAppSelector } from "@/hooks"
 
 function Seo({ description, lang, meta, keywords, title }: any) {
-  console.log("🚀 ~ Seo ~ title:", title)
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { site } = useStaticQuery(graphql`
     query DefaultSEOQuery {

@@ -24,7 +24,6 @@ import useCallAPI from '@/hooks/useCallAPI'
 
 
 function BmkProductCard({ product }: { product: IFeaturedProducts }) {
-    console.log("🚀 ~ BmkProductCard ~ product:", product)
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
     const dispatch = useAppDispatch()
     const renderStockStatus = isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value

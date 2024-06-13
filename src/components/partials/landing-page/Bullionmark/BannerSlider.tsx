@@ -8,8 +8,8 @@ import useApiRequest from '@/hooks/useAPIRequest';
 import { ENDPOINTS } from '@/utils/constants';
 import { IbannerData } from '../../shop/Qmint/Banner';
 
-function BannerSlider({isItShopPage=false}:{isItShopPage?:boolean}) {
-    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', isItShopPage? '1' : '0'));
+function BannerSlider({ isItShopPage = false }: { isItShopPage?: boolean }) {
+    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', isItShopPage ? '1' : '0'));
     const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
     const config = {
@@ -39,9 +39,9 @@ function BannerSlider({isItShopPage=false}:{isItShopPage?:boolean}) {
                                 data?.data?.map((item: IbannerData, index: number) => {
                                     return (
                                         <SwiperSlide key={`BannerSlider-${index}`}>
-                                            <Box className="HeroBannerSliderWrapper" style={{ backgroundImage: `url(${isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall})` }} dangerouslySetInnerHTML={{
-                  __html: item?.htmlCode
-                }}>
+                                            <Box className="HeroBannerSliderWrapper"
+                                            //  dangerouslySetInnerHTML={{ __html: item?.htmlCode }}
+                                             >
                                                 {/* <Box className="HeroBannerTopWrapper" dangerouslySetInnerHTML={{
                   __html: item?.htmlCode
                 }}>
@@ -50,6 +50,8 @@ function BannerSlider({isItShopPage=false}:{isItShopPage?:boolean}) {
                                                         with a positive impact</Typography>
                                                 </Box>
                                                 <Button variant="contained">Discover More</Button> */}
+                                                <Box dangerouslySetInnerHTML={{ __html: item?.htmlCode }}></Box>
+                                                <img src={isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall} alt={isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall} />
                                             </Box>
                                         </SwiperSlide>
                                     )
