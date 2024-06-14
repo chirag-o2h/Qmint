@@ -497,8 +497,8 @@
     }
 
     .InspiringStoriesContent {
-        justify-content: center;
-        align-items: center;
+        justify-content: space-between;
+        align-items: baseline;
         gap: 36px;
 
         @include media($md) {
