@@ -40,7 +40,7 @@ const BulliomarkMainHomePage = () => {
                         {configDetailsState?.Sliders_Homepage_Enable?.value === false ? null : <BannerSlider />}
                         <PlanningJourney />
                         {/* <BestAdventures /> */}
-                        <BestCategorySlider pageData={bullionMarkPage}/>
+                        <BestCategorySlider pageData={bullionMarkPage} title={configDetailsState?.["Homepage_Section_2_Featured_Categories_Title"]?.value}/>
                         <GetInspired />
                         <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
                         <ExclusiveJourneysWithSlider />

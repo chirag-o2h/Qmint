@@ -59,7 +59,7 @@ function BestCategorySlider(props: any) {
         <Box id="BestCategorySlider" component="section" className={props.PaddingClass}>
             <Container>
                 <BullionmarkSectionHeading
-                    title="Shop Our Best Category" />
+                    title={props?.title} />
                 <Box className="BmkProductsSliderWrapper">
                     <Box className="SwiperContainer CircleSwiperPagination">
                         <Swiper  {...config}>
