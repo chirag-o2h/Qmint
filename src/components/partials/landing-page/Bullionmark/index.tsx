@@ -40,13 +40,13 @@ const BulliomarkMainHomePage = () => {
                         {configDetailsState?.Sliders_Homepage_Enable?.value === false ? null : <BannerSlider />}
                         <PlanningJourney />
                         {/* <BestAdventures /> */}
-                        <BestCategorySlider pageData={bullionMarkPage} title={configDetailsState?.["Homepage_Section_2_Featured_Categories_Title"]?.value}/>
-                        <GetInspired />
+                        <BestCategorySlider pageData={bullionMarkPage} title={configDetailsState?.["Homepage_Section_2_Featured_Categories_Title"]?.value} />
+                        <GetInspired title={configDetailsState?.["Homepage_Section_3_Three_posts_in_a_row_Title"]?.value} description={configDetailsState?.["Homepage_Section_3__Three_posts_in_a_row_Subtitle"]?.value} />
                         <ExclusiveJourneys data={bullionMarkPage?.homepage_Section_4_Two_pics_and_content?.[0]?.overview} />
                         <ExclusiveJourneysWithSlider />
-                        <TravelInspiration />
-                        <InspiringStories data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} />
-                        <Newsletter />
+                        <TravelInspiration title={configDetailsState?.["Homepage_Section_6_Three_posts_in_wavy_layout_Title"]?.value} />
+                        <InspiringStories title={configDetailsState?.["Homepage_Section_7_Two_posts_in_a_row_Title"]?.value} data={bullionMarkPage?.homepage_Section_7_Two_posts_in_a_row} />
+                        <Newsletter title={configDetailsState?.["Homepage_Section_9_Subscribe_Title"]?.value} />
                     </Box>
                 </MainLayout>
             </Suspense>

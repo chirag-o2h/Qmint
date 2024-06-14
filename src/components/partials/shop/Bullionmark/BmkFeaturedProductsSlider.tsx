@@ -8,7 +8,7 @@ import BmkProductCard from "./BmkProductCard"
 import classNames from "classnames"
 import useGetFeaturesProductaData from "@/hooks/useGetFeaturedProductaData"
 
-function BmkFeaturedProductsSlider() {
+function BmkFeaturedProductsSlider(props: any) {
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const { data, priceForEachId } = useGetFeaturesProductaData()
 
@@ -55,7 +55,7 @@ function BmkFeaturedProductsSlider() {
     return (
         <Box id="BmkFeaturedProductsSlider" component="section">
             <Container>
-                <BullionmarkSectionHeading title="Featured Products" />
+                <BullionmarkSectionHeading title={props?.title} description={props?.description} />
                 <Box className="BmkProductsWrapper">
                     <Box className={classNames("SwiperContainer", [isMobile ? "CircleSwiperPagination" : "LinedSwiperPagination"])}>
                         <Swiper {...config}>
@@ -63,7 +63,7 @@ function BmkFeaturedProductsSlider() {
                                 data?.data?.items?.length > 0 ? data?.data?.items?.map((product) => {
                                     product.priceWithDetails = priceForEachId ? priceForEachId[product?.productId] : null;
                                     return (<SwiperSlide key={product.productId}>
-                                        <BmkProductCard product={product}/>
+                                        <BmkProductCard product={product} />
                                     </SwiperSlide>)
                                 })
                                     :

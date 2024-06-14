@@ -49,7 +49,7 @@ const config = {
     },
 }
 
-function BmkPopularProductSlider() {
+function BmkPopularProductSlider(props: any) {
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const { data, priceForEachId, productType, setProductType } = useGetPopulurProductsData()
 
@@ -62,7 +62,7 @@ function BmkPopularProductSlider() {
     return (
         <Box id="BmkPopularProductSlider" component="section">
             <Container>
-                <BullionmarkSectionHeading title="Popular Product" />
+                <BullionmarkSectionHeading title={props?.title} description={props?.description} />
                 <Stack className="ToggleWrapper">
                     <ToggleButtonGroup
                         color="primary"

@@ -36,14 +36,14 @@ function BullionmarkShop() {
                     lang="en"
                     description={configDetailsState?.Store_ShopPage_Meta_Description?.value} />
                 {configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? null : <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>}
-                <Suspense fallback={<></>}> <BestCategorySlider pageData={bmkShopPageSections} PaddingClass={configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? "TopBannerAbsent" : ""} title={configDetailsState?.["ShopHomepage_Section_1_Featured_Categories_Title"]?.value}/></Suspense>
-                <Suspense fallback={<></>}> <BmkFeaturedProductsSlider /></Suspense>
+                <Suspense fallback={<></>}> <BestCategorySlider pageData={bmkShopPageSections} PaddingClass={configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? "TopBannerAbsent" : ""} title={configDetailsState?.["ShopHomepage_Section_1_Featured_Categories_Title"]?.value} /></Suspense>
+                <Suspense fallback={<></>}> <BmkFeaturedProductsSlider title={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Title"]?.value} description={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Subtitle"]?.value} /></Suspense>
                 <Suspense fallback={<></>}> <ThreePicsRow /></Suspense>
                 <Suspense fallback={<></>}> <OneBigPicAndContent /></Suspense>
-                <Suspense fallback={<></>}> <BmkPopularProductSlider /></Suspense>
+                <Suspense fallback={<></>}> <BmkPopularProductSlider title={configDetailsState?.["ShopHomepage_Section_5_Popular_Products_Title"]?.value} description={configDetailsState?.["ShopHomepage_Section_5_Popular_Products_Subtitle"]?.value} /></Suspense>
                 <Suspense fallback={<></>}><ExclusiveJourneys data={bmkShopPageSections?.shopHomepage_Section_6_Two_pics_and_content
                 } /></Suspense>
-                <Suspense fallback={<></>}><InspiringStories data={bmkShopPageSections?.shopHomepage_Section_7_Two_pics_in_a_rows} className='ShopInspiringStories' /></Suspense>
+                <Suspense fallback={<></>}><InspiringStories title={configDetailsState?.["ShopHomepage_Section_7_Two_pics_in_a_rows_Title"]?.value} data={bmkShopPageSections?.shopHomepage_Section_7_Two_pics_in_a_rows} className='ShopInspiringStories' /></Suspense>
             </>
         </Layout>)
 }

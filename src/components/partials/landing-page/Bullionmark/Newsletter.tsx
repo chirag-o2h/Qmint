@@ -17,7 +17,7 @@ import Toaster from "@/components/common/Toaster";
 
 
 
-function Newsletter() {
+function Newsletter(props: any) {
   const schema = yup.object().shape({
     FirstName: yup.string().required('First name is required'),
     LastName: yup.string().required('Last name is required'),
@@ -87,7 +87,7 @@ function Newsletter() {
   const newsletter = bullionMarkPage?.homepage_Section_8_Footer_background_pic
 
   return (
-    newsletter?.[0]?.overview ?  <Box id="SectionNewsletter" component="section">
+    newsletter?.[0]?.overview ? <Box id="SectionNewsletter" component="section">
       {openToaster && <Toaster />}
       {/* <img className="NewsletterBG" src={NewsletterBG} alt="" /> */}
       <Box className="NewsletterBG" dangerouslySetInnerHTML={{
@@ -96,7 +96,7 @@ function Newsletter() {
       <Box className="BackgroundHolder">
         <Container maxWidth="sm">
           <BullionmarkSectionHeading
-            title="Receive inspiration in your inbox"
+            title={props.title}
           />
           <form onSubmit={handleSubmit(onSubmit)}>
             <RenderFields

@@ -13,7 +13,8 @@ import { useAppSelector } from "@/hooks"
 // Components
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
 
-function GetInspired() {
+function GetInspired(props: any) {
+  console.log(props, "getinspired")
   const { bullionMarkPage } = useAppSelector((state) => state.homePage)
 
   const config: SwiperOptions = {
@@ -51,8 +52,8 @@ function GetInspired() {
       <Box id="SectionGetInspired" component="section">
         <Stack className="LayoutWrapper">
           <BullionmarkSectionHeading
-            title="Get Inspired"
-            description="Browse our example trips and get in contact to start planning your very own adventure."
+            title={props.title}
+            description={props.description}
           />
           <Box className="InspiredCardWrapper">
             {(

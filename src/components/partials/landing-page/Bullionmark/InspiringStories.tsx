@@ -7,12 +7,12 @@ import { navigate } from "gatsby";
 import { useAppSelector } from "@/hooks"
 import { BullionMarkItem } from '@/redux/reducers/homepageReducer'
 
-function InspiringStories({ data, className }: { data: BullionMarkItem[] | undefined, className?: string}) {
+function InspiringStories({ data, className, title }: { data: BullionMarkItem[] | undefined, className?: string, title: string }) {
     return (
         data && data?.[0] && (<Box id="InspiringStories" component="section" className={className}>
             <Container>
                 <Box className="InspiringStoriesTitle">
-                    <BullionmarkSectionHeading title="Inspiring Stories" />
+                    <BullionmarkSectionHeading title={title} />
                 </Box>
                 <Stack className="InspiringStoriesContent">
                     <Box className="LeftContent" onClick={() => { navigate(`${data?.[0]?.friendlyName}`) }}>

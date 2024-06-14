@@ -9,7 +9,7 @@ import { navigate } from "gatsby";
 // Hooks
 import { useAppSelector } from "@/hooks"
 
-function TravelInspiration() {
+function TravelInspiration(props: any) {
     const { bullionMarkPage } = useAppSelector((state) => state.homePage)
     const config = {
         slidesPerView: 3,
@@ -50,7 +50,7 @@ function TravelInspiration() {
         (travelInspiration && travelInspiration.length > 0) ? <Box id="TravelInspiration" component="section">
             <Container>
                 <Box className="TravelInspirationTitle">
-                    <BullionmarkSectionHeading title="Find Travel Inspiration By Style" />
+                    <BullionmarkSectionHeading title={props.title} />
                 </Box>
                 <Box className="TravelInspirationSliderWrapper">
                     {(
