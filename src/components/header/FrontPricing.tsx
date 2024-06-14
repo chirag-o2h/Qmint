@@ -27,7 +27,6 @@ interface IApiResponse<T> {
 }
 function FrontPricing() {
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
-    console.log("🚀 ~ FrontPricing ~ configDetailsState:", configDetailsState)
     const { data }: IApiResponse<ItickerData> = useApiRequest(ENDPOINTS.getTicker, 'get', null, 60);
     const renderedStockItems = useMemo(() => {
         const tickerStyle = {

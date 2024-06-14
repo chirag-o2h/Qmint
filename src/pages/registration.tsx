@@ -144,7 +144,6 @@ function Registration() {
   useEffect(() => {
     setIncludeAgentCode(radioButtonInput.includes("agent"))
   }, [radioButtonInput])
-  console.log("🚀 ~ radioButtonInput:", radioButtonInput)
   const [timer, setTimer] = useState(20);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
@@ -400,7 +399,6 @@ function Registration() {
       for (const url of imageUrls) {
         if (url) {
           const isValid = await checkImageUrl(url);
-          console.log("🚀 ~ fetchValidUrls ~ isValid:", isValid)
           if (isValid) {
             validUrls.push(url);
           }
