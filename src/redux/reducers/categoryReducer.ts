@@ -32,7 +32,7 @@ const initialState: categoryData = {
     specification: {},
   }, // it is to store the filters for the page,
   pageSortOrder: {},
-  categoryPageMetadata : {}
+  categoryPageMetadata: {}
 }
 
 export const getCategoryData = appCreateAsyncThunk(
@@ -115,7 +115,16 @@ export const categoryPageSlice = createSlice({
         ...state.pageSortOrder,
         [key]: value
       }
-    }
+    },
+    // setCategeoryDataEmpty: (state) => {
+    //   state.items = null;
+    //   state.sortedItems = [];
+    //   state.count = 0;
+    //   state.categories = [];
+    //   state.manufactureres = [];
+    //   state.price = null;
+    //   state.specifications = {};
+    // }
   },
 
   extraReducers: (builder) => {
@@ -125,12 +134,11 @@ export const categoryPageSlice = createSlice({
     })
     builder.addCase(getCategoryData.fulfilled, (state, action) => {
       const responseData = action.payload.data.data;
-      console.log("🚀 ~ builder.addCase ~ responseData:", responseData)
       const additionalField = responseData.additionalField;
       state.categoryPageMetadata = {
-        metaDescription : responseData?.metaDescription,
-        metaKeywords : responseData?.metaKeywords,
-        metaTitle : responseData?.metaTitle,
+        metaDescription: responseData?.metaDescription,
+        metaKeywords: responseData?.metaKeywords,
+        metaTitle: responseData?.metaTitle,
       }
       if (additionalField && additionalField.filters) {
         const filtersData = additionalField.filters;

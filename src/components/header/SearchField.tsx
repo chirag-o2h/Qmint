@@ -32,7 +32,7 @@ function SearchField() {
   const fetchOptions = async () => {
     try {
       const response = await apiCallFunction(ENDPOINTS.autoSearch + debouncedInputValue, "POST");
-      setOptions(() => response.data);
+      setOptions(() => response?.data);
     } catch (error) {
       console.error("Error fetching options:", error);
     }
@@ -62,7 +62,7 @@ function SearchField() {
   const handleSearch = () => {
     if (inputValue !== "") {
       const key = Date.now()
-      navigate(`/category/search/?keyword=${inputValue}`, { state: key });
+      navigate(`/category/search/?keyword=${inputValue}`, { state: key,replace:true });
     }
     else {
       showToaster({ message: "Please enter some search keyword.", severity: "info" })

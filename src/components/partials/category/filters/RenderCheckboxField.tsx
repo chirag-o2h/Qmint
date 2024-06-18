@@ -20,7 +20,6 @@ interface props {
 }
 
 const RenderCheckboxField = ({ filter, options, mobileSelectedFilters, setMobileSelectedFilters }: props) => {
-    console.log("🚀 ~ RenderCheckboxField ~ mobileSelectedFilters:", mobileSelectedFilters)
     const [isPending, startTransition] = useTransition();
     const dispatch = useAppDispatch()
     const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)

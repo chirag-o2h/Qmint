@@ -6,7 +6,6 @@ import { Box, Slider, Typography, useMediaQuery } from '@mui/material'
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilters, mobilePriceFilters, setMobilePriceFilters }: { minPrice: number, maxPrice: number, setIsPriceChanged: any, pagesSelectedFilters: any, mobilePriceFilters?: number[], setMobilePriceFilters?: any }) => {
-    console.log("🚀 ~ PriceSlider ~ mobilePriceFilters:", mobilePriceFilters)
     const dispatch = useAppDispatch();
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const [value, setValue] = useState<number[]>(isMobile ? mobilePriceFilters || [minPrice, maxPrice] : [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || minPrice, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || maxPrice])
@@ -57,8 +56,25 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
         setValue(newValue as number[])
     }
 
-    const renderPriceRange = useMemo(() => {
-        return (
+    // const renderPriceRange = useMemo(() => {
+    //     return (
+    //         <Slider
+    //             getAriaLabel={() => 'Price range'}
+    //             value={value}
+    //             onChange={handleChange}
+    //             valueLabelDisplay="auto"
+    //             getAriaValueText={valuetext}
+    //             className="Slider"
+    //             min={minPrice}
+    //             max={maxPrice}
+    //         />
+    //     )
+    // }, [value, minPrice, maxPrice, handleChange, valuetext])
+    return (
+        <Box className="PriceRangeWrapper Divider">
+            <Typography className="PriceRange">Price Range</Typography>
+            <Typography variant="subtitle1">{`$${(isMobile ? mobilePriceFilters || [minPrice, maxPrice] : [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || minPrice, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || maxPrice])[0]} - $${(isMobile ? mobilePriceFilters || [minPrice, maxPrice] : [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[0] || minPrice, pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]?.[1] || maxPrice])[1]}`}</Typography>
+            {/* {renderPriceRange} */}
             <Slider
                 getAriaLabel={() => 'Price range'}
                 value={value}
@@ -69,13 +85,6 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
                 min={minPrice}
                 max={maxPrice}
             />
-        )
-    }, [value, minPrice, maxPrice, handleChange, valuetext])
-    return (
-        <Box className="PriceRangeWrapper Divider">
-            <Typography className="PriceRange">Price Range</Typography>
-            <Typography variant="subtitle1">{`$${value[0]} - $${value[1]}`}</Typography>
-            {renderPriceRange}
             {/* <Typography className="AveragePrice" variant="body2">Average price: $41</Typography> */}
         </Box>
     )

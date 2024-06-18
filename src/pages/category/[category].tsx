@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { useMediaQuery, Theme, Container, Stack } from "@mui/material"
 
 // Components
@@ -76,26 +76,47 @@ function Category(props: any) {
             dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
             dispatch(setClearFilters(false));
             fetchData();
+        } else {
+            if (Object.keys(debounceFilter).length === 0 && !isPriceChanged) {
+                return;
+            }
+            setPage(1);
+            // searchParams.set('page', "1");
+            navigate(`?${searchParams.toString()}`, { replace: true });
+            fetchData();
         }
-    }, [clearFilters])
-
-    useEffect(() => {
-        if (clearFilters) {
-            return;
-        }
-        console.log("debounceFilter", debounceFilter, debouncePrice)
-        if (Object.keys(debounceFilter).length === 0 && !isPriceChanged) {
-            return;
-        }
-        searchParams.set('page', "1");
-        navigate(`?${searchParams.toString()}`, { replace: true });
-        fetchData();
-    }, [debounceFilter, debouncePrice])
+    }, [clearFilters, debounceFilter, debouncePrice])
+    const keywordData = useMemo(() => {
+        return searchParams.get("keyword")
+    }, [searchParams.get("keyword")])
+    // useEffect(() => {
+    //     if (clearFilters) {
+    //         return;
+    //     }
+    //     console.log("debounceFilter", debounceFilter, debouncePrice)
+    //     if (Object.keys(debounceFilter).length === 0 && !isPriceChanged) {
+    //         return;
+    //     }
+    //     searchParams.set('page', "1");
+    //     navigate(`?${searchParams.toString()}`, { replace: true });
+    //     fetchData();
+    // }, [debounceFilter, debouncePrice])
 
     useEffect(() => {
         fetchData();
     }, [page])
-
+    useEffect(() => {
+        setPage(1);
+        dispatch(setPageSelectedSpecifications({
+            key: getlastPartOfPath(location.pathname), value: undefined
+        }))
+        dispatch(setPageSelectedPrice({
+            key: getlastPartOfPath(location.pathname), value: undefined
+        }))
+        dispatch(setClearFilters(false));
+        dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
+        fetchData();
+    }, [keywordData])
     const fetchData = async () => {
         const selectedPrice = pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null;
         const selectedFilters = pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {};

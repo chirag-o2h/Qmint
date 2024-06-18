@@ -576,7 +576,6 @@ export const createHomepageSlice = createSlice({
     builder.addCase(getSiteMapData.fulfilled, (state, action) => {
       // Group the data by groupTitle
       const responseData = action.payload.data.data;
-      console.log("🚀 ~ builder.addCase ~ responseData:", responseData)
       const groupedData = responseData?.items?.reduce((acc: { [x: string]: any[]; }, currentItem: { groupTitle: any; }) => {
         const { groupTitle } = currentItem;
         if (!acc[groupTitle]) {
