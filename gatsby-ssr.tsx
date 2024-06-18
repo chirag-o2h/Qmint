@@ -14,18 +14,23 @@ import theme from '@/theme';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Partytown } from '@builder.io/partytown/react';
 export const wrapRootElement = ({ element }: any) => (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {element}
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {element}
+      </ThemeProvider>
+    </PersistGate>
+  </Provider>
 );
-export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }: any) => {
+export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostBodyComponents }: any) => {
   setHeadComponents([
     <Partytown key="partytown" debug={true} forward={['dataLayer.push']} />,
+    <script
+      async
+      key="gtag-js"
+      src="https://www.googletagmanager.com/gtag/js?id=UA-122367243-2"
+    />,
     // <script key="analytics" src="https://example.com/analytics.js" type="text/partytown" />
   ]);
 
@@ -40,6 +45,19 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents }: any) =
                 `,
       }}
     />
+  ]);
+  setPostBodyComponents([
+    <script
+      key="gtag-inline"
+      dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-122367243-2');
+        `,
+      }}
+    />,
   ]);
 };
 // Wraps every page in a component
