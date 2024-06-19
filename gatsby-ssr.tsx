@@ -26,12 +26,22 @@ export const wrapRootElement = ({ element }: any) => (
 export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostBodyComponents }: any) => {
   setHeadComponents([
     <Partytown key="partytown" debug={true} forward={['dataLayer.push']} />,
-    <script
-      async
-      key="gtag-js"
-      src="https://www.googletagmanager.com/gtag/js?id=UA-122367243-2"
-    />,
-    // <script key="analytics" src="https://example.com/analytics.js" type="text/partytown" />
+    // <script
+    //   async
+    //   key="gtag-js"
+    //   src="https://www.googletagmanager.com/gtag/js?id=UA-122367243-2"
+    // />,
+    // <script
+    //   key="gtag-inline"
+    //   dangerouslySetInnerHTML={{
+    //     __html: `
+    //     window.dataLayer = window.dataLayer || [];
+    //     function gtag(){dataLayer.push(arguments);}
+    //     gtag('js', new Date());
+    //     gtag('config', 'UA-122367243-2');
+    //   `,
+    //   }}
+    // />,
   ]);
 
   // For GTM, we will need to add this noscript tag to the body of the HTML
@@ -46,19 +56,9 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostB
       }}
     />
   ]);
-  setPostBodyComponents([
-    <script
-      key="gtag-inline"
-      dangerouslySetInnerHTML={{
-        __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-122367243-2');
-        `,
-      }}
-    />,
-  ]);
+  // setPostBodyComponents([
+
+  // ]);
 };
 // Wraps every page in a component
 // export const wrapPageElement = ({ element, props }:any) => {
