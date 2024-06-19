@@ -15,13 +15,13 @@ function BestCategorySlider(props: any) {
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
 
     const config = {
-        slidesPerView: 1.3,
+        slidesPerView: 1,
         spaceBetween: 16,
         navigation: false,
         pagination: {
             clickable: true,
         },
-        centeredSlides: isMobile,
+        // centeredSlides: isMobile,
         loop: true,
         speed: 500,
         modules: [Navigation, Autoplay, Pagination, A11y],
@@ -34,7 +34,7 @@ function BestCategorySlider(props: any) {
         },
         breakpoints: {
             475: {
-                slidesPerView: 1.5,
+                slidesPerView: 1,
                 spaceBetween: 17,
             },
             600: {

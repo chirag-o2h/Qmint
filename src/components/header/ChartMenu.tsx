@@ -13,6 +13,7 @@ import ChartMenuChart from "./ChartMenuChart"
 import { useAppSelector } from "@/hooks"
 import { metalColors } from "@/utils/common"
 import { navigate } from "gatsby"
+import { THEME_TYPE } from "@/axiosfolder"
 
 const requiredChartKeys = new Set(["gold", "silver", "platinum", "palladium"])
 
@@ -75,12 +76,12 @@ function ChartMenu() {
           }
           return null;
         })}
-        <Button color="secondary" variant="contained" fullWidth onClick={()=>{
+        <Button color={THEME_TYPE === "1" ? "primary" : "secondary"} variant="contained" fullWidth onClick={() => {
           navigate("/chart")
         }}>See More</Button>
       </Stack>
 
-    </ClickTooltip>
+    </ClickTooltip >
   )
 }
 
