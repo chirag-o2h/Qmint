@@ -85,7 +85,7 @@ function Category(props: any) {
             navigate(`?${searchParams.toString()}`, { replace: true });
             fetchData();
         }
-    }, [clearFilters, debounceFilter, debouncePrice])
+    }, [clearFilters, debounceFilter, debouncePrice,isPriceChanged])
     const keywordData = useMemo(() => {
         return searchParams.get("keyword")
     }, [searchParams.get("keyword")])
@@ -106,28 +106,33 @@ function Category(props: any) {
         fetchData();
     }, [page])
     useEffect(() => {
-        setPage(1);
-        dispatch(setPageSelectedSpecifications({
-            key: getlastPartOfPath(location.pathname), value: undefined
-        }))
-        dispatch(setPageSelectedPrice({
-            key: getlastPartOfPath(location.pathname), value: undefined
-        }))
-        dispatch(setClearFilters(false));
-        dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
-        fetchData();
+        if (keywordData) {
+            setPage(1);
+            dispatch(setPageSelectedSpecifications({
+                key: getlastPartOfPath(location.pathname), value: undefined
+            }))
+            dispatch(setPageSelectedPrice({
+                key: getlastPartOfPath(location.pathname), value: undefined
+            }))
+            dispatch(setClearFilters(false));
+            dispatch(setPageSortOrder({ key: getlastPartOfPath(location.pathname), value: null }));
+            fetchData(true);
+        }
     }, [keywordData])
-    const fetchData = async () => {
+    const fetchData = async (isItDueToKeywordChange = false) => {
         const selectedPrice = pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null;
         const selectedFilters = pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {};
 
         const commonArgument = {
-            pageNo: page - 1, filters: { minPrice: selectedPrice?.[0], maxPrice: selectedPrice?.[1], specification: selectedFilters }
+            pageNo: page - 1,
+            filters: { minPrice: selectedPrice?.[0], maxPrice: selectedPrice?.[1], specification: selectedFilters }
         };
 
         const argumentForService = {
             url: searchParams.has("keyword") ? ENDPOINTS.search : ENDPOINTS.getCategoryData + `/${getlastPartOfPath(location.pathname)}`,
-            body: searchParams.has("keyword") ? { ...requestBodyDefault, search: searchParams.get("keyword")!, ...commonArgument } : { ...requestBodyDefault, ...commonArgument }
+            body: searchParams.has("keyword")
+                ? { ...requestBodyDefault, search: searchParams.get("keyword")!, ...(isItDueToKeywordChange ? {} : { ...commonArgument }) }
+                : { ...requestBodyDefault, ...commonArgument }
         }
         if (timeOut) {
             clearTimeout(timeOut)
@@ -136,6 +141,7 @@ function Category(props: any) {
             dispatch(getCategoryData(
                 argumentForService) as any)
         }, 1000);
+
         // if (selectedFilters && Object.keys(selectedFilters)?.length || (selectedPrice)) {
         // await dispatch(getCategoryData(
         //   argumentForService) as any)

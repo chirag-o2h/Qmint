@@ -22,20 +22,22 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
         dispatch(setPageSelectedPrice({
             key: getlastPartOfPath(location.pathname), value: [minPrice, maxPrice]
         }))
+        setValue([minPrice,maxPrice])
     }, [minPrice, maxPrice])
 
     useEffect(() => {
         if (clearFilters) {
             setValue([minPrice, maxPrice])
+            console.log("🚀 ~ useEffect ~ minPrice, maxPrice:1", minPrice, maxPrice)
         }
-    }, [clearFilters])
+    }, [clearFilters, minPrice, maxPrice])
 
     useEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
         }
-        if (value[0] !== minPrice || value[1] !== maxPrice) {
+        if (debouncedValue[0] !== minPrice || debouncedValue[1] !== maxPrice) {
             setIsPriceChanged(true);
         }
         if (isMobile) {
