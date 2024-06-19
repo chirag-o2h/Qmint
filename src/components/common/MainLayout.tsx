@@ -4,6 +4,9 @@ import React, { Suspense, lazy, useEffect, useState } from 'react'
 import BullionmarkFrontFooter from '../footer/BullionmarkFrontFooter';
 import { useLocation } from '@reach/router';
 import { STORE_CODE, THEME_TYPE } from '@/axiosfolder';
+import useAPIoneTime from '@/hooks/useAPIoneTime';
+import { configDetails } from '@/redux/reducers/homepageReducer';
+import { ENDPOINTS } from '@/utils/constants';
 
 // import FrontHeader from '../header/FrontHeader';
 // import LazyFrontHeader from 
@@ -28,6 +31,7 @@ const MainLayout = (props: MainLayout) => {
     }
     const location = useLocation();
     const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
+    useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
     useEffect(() => {
         console.log(location.pathname);
 
