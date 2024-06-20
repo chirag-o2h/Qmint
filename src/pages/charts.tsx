@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Container } from "@mui/material"
+import { Box, Container, Divider } from "@mui/material"
 import { PageTitle } from "@/components/common/Utils"
 import Seo from "@/components/common/Seo"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
@@ -8,6 +8,8 @@ import { getTopicDetails } from "@/redux/reducers/topicReducer"
 import { useAppSelector } from "@/hooks"
 import Layout from "@/components/common/Layout"
 import Loader from "@/components/common/Loader";
+import MetalChartsTitle from "@/components/partials/charts/MetalChartsTitle"
+import MetalCard from "@/components/partials/charts/MetalCard"
 
 function Topics(paramsData: any) {
   const checkLoadingStatus = useAppSelector(state => state.topic.loading);
@@ -22,9 +24,21 @@ function Topics(paramsData: any) {
           title="Loans"
           lang="en"
         />
-        <PageTitle title={"Chart"} />
+        <PageTitle title={"Charts"} />
         <Container id="PageTopics">
-
+          <Box className="MetalContentWrapper">
+            <MetalChartsTitle title="Gold Charts " />
+            <Box>
+              <MetalCard />
+              <MetalCard />
+              <MetalCard />
+              <MetalCard />
+              <MetalCard />
+              <MetalCard />
+              <MetalCard />
+            </Box>
+            <Divider />
+          </Box>
         </Container>
       </Layout>}
     </>
