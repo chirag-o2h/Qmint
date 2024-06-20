@@ -490,6 +490,7 @@ function privateHoldingAdd({ location }: { location: any }) {
                                             margin='none'
                                             className='Weight'
                                             setValue={setValue}
+                                            alloweTheDotIntertion = {true}
                                         />
                                         <RenderFields
                                             type="select"

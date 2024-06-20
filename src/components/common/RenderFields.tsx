@@ -77,7 +77,8 @@ interface RenderFieldProps {
   labelPlacement?: FormControlLabelProps['labelPlacement'],
   setValue?: any,
   required?: boolean,
-  alreadySelectedFilters?: string[]
+  alreadySelectedFilters?: string[],
+  alloweTheDotIntertion?: boolean
 }
 
 const RenderFields: React.FC<RenderFieldProps> = ({
@@ -125,6 +126,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
   labelPlacement,
   required,
   alreadySelectedFilters,
+  alloweTheDotIntertion =false,
   ...otherProps
 }) => {
   const [passwordVisibility, togglePasswordVisibility] = useToggle(false)
@@ -562,7 +564,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                   }
                 }}
                 onKeyDown={(e) => {
-                  ;['e', 'E', '+', '-', '.'].includes(e.key) &&
+                  ['e', 'E', '+', '-',!alloweTheDotIntertion && '.'].includes(e.key) &&
                     e.preventDefault()
                 }}
                 value={value}
