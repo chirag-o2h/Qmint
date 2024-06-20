@@ -73,7 +73,7 @@ const ProductPhotos = ({ register, errors, control, setValue, getValues, clearEr
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {productPhotos.map((file: any) => (
+                            {productPhotos?.length > 0 ? productPhotos.map((file: any) => (
                                 <TableRow
                                     key={file.id}
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -85,7 +85,16 @@ const ProductPhotos = ({ register, errors, control, setValue, getValues, clearEr
                                         <IconButton className="DeleteButton" onClick={() => handleDeleteFile(file.id)}><Delete1Icon /></IconButton>
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            )) :
+                                <TableRow
+                                    key={"No data"}
+                                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="document">
+                                        No Data
+                                    </TableCell>
+                                </TableRow>
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>

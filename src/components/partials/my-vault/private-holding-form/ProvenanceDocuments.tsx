@@ -36,7 +36,7 @@ const ProvenanceDocuments = ({ register, errors, control, setValue, getValues, c
                     id: new Date().getTime().toString(),
                     fileName: selectedFile.name,
                     type: getValues("DocumentType"),
-                    filePath : "",
+                    filePath: "",
                     fileByte: fileData,
                     documentType: getValues("DocumentType")
                 }]);
@@ -98,7 +98,7 @@ const ProvenanceDocuments = ({ register, errors, control, setValue, getValues, c
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {provenanceDocuments.map((file: any) => (
+                            {provenanceDocuments?.length > 0 ? provenanceDocuments.map((file: any) => (
                                 <TableRow
                                     key={file.id}
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -111,7 +111,16 @@ const ProvenanceDocuments = ({ register, errors, control, setValue, getValues, c
                                         <IconButton className="DeleteButton" onClick={() => handleDeleteFile(file.id)}><Delete1Icon /></IconButton>
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            )) :
+                                <TableRow
+                                    key={"No data"}
+                                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="document">
+                                        No Data
+                                    </TableCell>
+                                </TableRow>
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
