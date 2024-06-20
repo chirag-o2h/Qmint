@@ -62,7 +62,18 @@ export function localStorageGetItem(key: any) {
 export function localStorageSetItem(key: any, value: any) {
   isBrowser && localStorage?.setItem(key, typeof value !== 'string' ? JSON.stringify(value) : value)
 }
-
+export function sessionStorageGetItem(key:any) {
+  if (isBrowser && sessionStorage) {
+    const value:any = sessionStorage.getItem(key);
+    return value
+  }
+  return undefined;
+}
+export function sessionStorageSetItem(key:any, value:any) {
+  if (isBrowser && sessionStorage) {
+    sessionStorage.setItem(key, typeof value !== 'string' ? JSON.stringify(value) : value);
+  }
+}
 export function hasFulfilled(dataType: string): boolean {
   return dataType.includes('/fulfilled');
 }

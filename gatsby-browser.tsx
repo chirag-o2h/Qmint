@@ -12,11 +12,13 @@ import { Provider } from 'react-redux';
 import { store, persistor } from '@/redux/store';
 import theme from '@/theme';
 import { PersistGate } from 'redux-persist/integration/react';
+// import LogoutUserOnTabClose from '@/components/common/LogoutUserOnTabClose';
 export const wrapRootElement = ({ element }: any) => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        {/* <LogoutUserOnTabClose /> */}
         {element}
       </ThemeProvider>
     </PersistGate>

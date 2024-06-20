@@ -21,7 +21,7 @@ const persistConfig = {
   key: 'root',
   storage,
   whitelist: [
-    'configDetails', 'isLoggedIn', 'userDetails']
+    'configDetails']
   // Reducers you want to persist
 }
 
