@@ -1431,3 +1431,6 @@ export const formatCategoryUrl = (pageName:any) => {
 };
 export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login','registration','password-recovery','blog','news','forgot-password',"topic","confirmation","activate-account","contactus","email-confirmation"]
 export const isItNewsOrBlogPage = ['login','registration','password-recovery','blog','news','forgot-password',"topic","confirmation","activate-account","contactus","email-confirmation"]
+export const joinWithPipe = (parts:any[]) => {
+  return parts.filter(part => part != null && part !== '').join(' | ');
+};
