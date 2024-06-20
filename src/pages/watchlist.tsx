@@ -48,7 +48,6 @@ function Wishlist() {
       {openToaster && <Toaster />}
       <Seo
         keywords={["QMint Watchlist"]}
-        title="Watchlist"
         lang="en"
       />
       <PageTitle title="Watchlist" maxWidth="lg" />

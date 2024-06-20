@@ -23,7 +23,6 @@ function EmailConfirmation() {
   const [isTokenVarified, setIsTokenVarified] = useState<boolean>(false)
   const [message, setMessage] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
-  console.log("🚀 ~ EmailConfirmation ~ loginError:", loginError)
 
   const dispatch = useAppDispatch()
   useLayoutEffect(() => {

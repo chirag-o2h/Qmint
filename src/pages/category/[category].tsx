@@ -152,7 +152,8 @@ function Category(props: any) {
         <Layout>
             <Loader open={checkLoadingStatus} />
             <Seo
-                title={configDetailsState?.Store_ShopPage_Title?.value + ' | ' + (categoryPageMetadata.metaTitle ?? '')}
+                title={(categoryPageMetadata.metaTitle ?? '')}
+                isItShopPage={true}
                 keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
                 description={categoryPageMetadata?.metaDescription}
                 lang="en"

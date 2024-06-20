@@ -32,7 +32,6 @@ const BulliomarkMainHomePage = () => {
                     {openToaster && <Toaster />}
                     <Seo
                         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
-                        title={configDetailsState?.Store_Title?.value}
                         lang="en"
                         description={configDetailsState?.Store_Meta_Description?.value}
                     />

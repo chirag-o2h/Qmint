@@ -75,8 +75,8 @@ function QmintShop() {
                 {openToaster && <Toaster />}
                 <Seo
                     keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
-                    title={configDetailsState?.Store_ShopPage_Title?.value}
                     lang="en"
+                    isItShopPage={true}
                     description={configDetailsState?.Store_ShopPage_Meta_Description?.value} />
                 {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
 
