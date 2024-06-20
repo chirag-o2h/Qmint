@@ -66,7 +66,7 @@ function TravelInspiration(props: any) {
                                                 </Box>
                                                 <Box className="TravelInspirationSlideBottomContent">
                                                     <BullionmarkSectionHeading description={item.overview} />
-                                                    <Button variant="outlined" onClick={() => { navigate(`${item.friendlyName}`) }}>Discover More</Button>
+                                                    <Button variant="contained" onClick={() => { navigate(`${item.friendlyName}`) }}>Read More</Button>
                                                 </Box>
                                             </Box>
                                         </SwiperSlide>

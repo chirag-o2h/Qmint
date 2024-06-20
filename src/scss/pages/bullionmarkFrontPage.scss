@@ -20,9 +20,10 @@
                 //     height: auto;
                 //     min-height: 300px;
                 // }
-                img{
+                img {
                     width: 100%;
                 }
+
                 &:after {
                     position: absolute;
                     background: linear-gradient(287.69deg, rgba(0, 0, 0, 0) 5.28%, rgba(0, 0, 0, 0.58) 95.14%);
@@ -239,57 +240,76 @@
             max-width: 100%;
             overflow: hidden;
 
-            .InspiredCard {
-                flex-direction: column;
-                justify-content: space-between;
-                min-height: 500px;
-                height: 60vh;
-                max-height: 700px;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: center;
-                padding: 20px 24px 24px;
-                color: $white;
-
-                @include media-min($xl) {
-                    height: 80vh;
+            .swiper-wrapper {
+                .swiper-slide {
+                    display: flex;
                 }
+            }
 
-                .Head {
-                    align-items: center;
-                    gap: 10px;
+            .InspiredCardContentWrapper {
+                flex-direction: column;
 
-                    .ProfileImage {
-                        width: 50px;
-                        height: 50px;
-                        overflow: hidden;
-                        border-radius: 50%;
-                        flex-shrink: 0;
+                .InspiredCard {
+                    flex-direction: column;
+                    justify-content: space-between;
+                    min-height: 500px;
+                    height: 60vh;
+                    max-height: 700px;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
+                    padding: 20px 24px 24px;
+                    color: $white;
 
-                        @include media($ssm) {
-                            width: 40px;
-                            height: 40px;
-                        }
-
-                        @include media($xs) {
-                            width: 34px;
-                            height: 34px;
-                        }
+                    @include media-min($xl) {
+                        height: 80vh;
                     }
 
-                    .Title {
-                        font-size: 18px;
-                        line-height: 26px;
-                        font-weight: 700;
+                    .Head {
+                        align-items: center;
+                        gap: 10px;
+
+                        .ProfileImage {
+                            width: 50px;
+                            height: 50px;
+                            overflow: hidden;
+                            border-radius: 50%;
+                            flex-shrink: 0;
+
+                            @include media($ssm) {
+                                width: 40px;
+                                height: 40px;
+                            }
+
+                            @include media($xs) {
+                                width: 34px;
+                                height: 34px;
+                            }
+                        }
+
+                        .Title {
+                            font-size: 18px;
+                            line-height: 26px;
+                            font-weight: 700;
+                        }
                     }
                 }
 
                 .Content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    justify-content: space-between;
+                    height: 100%;
+
+
                     .Title {
                         font-size: 35px;
                         line-height: 39px;
                         font-weight: 700;
                         letter-spacing: -2px;
+                        margin-top: 10px;
+                        @include max-line(3);
 
                         // @include media($ssm) {
                         //     font-size: 24px;
@@ -301,7 +321,7 @@
                         font-weight: 600;
                         line-height: 20px;
                         min-height: 80px;
-                        margin-top: 7px;
+                        margin-top: 10px;
                         @include max-line(4);
 
                         @include media($ssm) {
@@ -311,9 +331,12 @@
                 }
 
                 .MuiButton-root {
-                    margin-top: 32px;
+                    // margin-top: 20px;
+                    width: fit-content;
                 }
             }
+
+
         }
     }
 }
@@ -421,15 +444,15 @@
                 }
 
                 .TravelInspirationSlideTitle {
-                    position: absolute;
-                    top: 47px;
-                    left: 0;
-                    right: 0;
-                    margin: 0 auto;
+                    // position: absolute;
+                    // top: 47px;
+                    // left: 0;
+                    // right: 0;
+                    margin: 10px auto 0;
                     font-size: 25px;
                     line-height: 30px;
                     font-weight: 700;
-                    color: $white;
+                    // color: $white;
                     text-align: center;
                     display: inline-block;
                 }
@@ -441,10 +464,10 @@
 
                 .BullionmarkSectionHeading {
                     .Description {
-                        margin: 33px 0 17px;
+                        margin: 20px 0 17px;
 
                         @include media($md) {
-                            margin: 20px 0 10px;
+                            margin-bottom: 10px;
                         }
                     }
                 }

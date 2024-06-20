@@ -62,15 +62,19 @@ function GetInspired(props: any) {
                   {[...getInspired, ...getInspired].map((item, index) => {
                     return (
                       <SwiperSlide key={`InspiredCard-${index}`}>
-                        <Stack className="InspiredCard" sx={{ backgroundImage: `url("${item.imageUrl}")` }}>
-                          <Stack className="Head">
-                            {/* <img src={item.imageUrl} className="ProfileImage" />
-                          <Typography className="Title">{item.country}</Typography> */}
+                        <Stack className="InspiredCardContentWrapper">
+                          <Stack className="InspiredCard" sx={{ backgroundImage: `url("${item.imageUrl}")` }}>
+                            {/* <Stack className="Head">
+                            <img src={item.imageUrl} className="ProfileImage" />
+                          <Typography className="Title">{item.country}</Typography>
+                          </Stack> */}
                           </Stack>
                           <Box className="Content">
-                            <Typography className="Title">{item.title}</Typography>
-                            <Typography className="Description">{item.overview}</Typography>
-                            <Button variant="outlined" className="WhiteButton" onClick={() => { navigate(`${item.friendlyName}`) }}>Discover</Button>
+                            <Box>
+                              <Typography className="Title">{item.title}</Typography>
+                              <Typography className="Description">{item.overview}</Typography>
+                            </Box>
+                            <Button variant="contained" onClick={() => { navigate(`${item.friendlyName}`) }}>Read More</Button>
                           </Box>
                         </Stack>
                       </SwiperSlide>
