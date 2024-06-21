@@ -23,8 +23,10 @@
     }
 
     .MetalCard {
-      background: rgba(0, 0, 0, .25);
+      background: #FFFFFF;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, .08);
       border-radius: 3px;
+      min-height: 166px;
 
       .MetalCardHeader {
         justify-content: space-between;
@@ -42,7 +44,7 @@
         .SliderWrapper,
         .MetalCardFooter {
           padding: 10px;
-          margin-bottom: 8px;
+          // margin-bottom: 8px;
         }
 
         .ChartWrapper {
@@ -95,13 +97,15 @@
           color: $white;
           border-radius: 0 0 3px 3px;
 
+          svg {
+            margin-right: 8px;
+          }
+
           &.UpTrend {
             background-color: $success;
           }
 
           &.DownTrend {
-            background-color: $error;
-            background-color: $redCoral;
             background-color: $sinopia;
 
             svg {
@@ -116,6 +120,7 @@
           &.NaN {
             background-color: transparent;
             justify-content: space-between;
+            color: #000000;
           }
 
         }
