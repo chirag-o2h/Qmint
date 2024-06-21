@@ -59,6 +59,13 @@ function NewsDetails(params: any) {
     }
     apiCall()
   }, [params?.params?.["news-details-friendly-name"]])
+  
+  useEffect(() => {
+    if(!newsDetailsData){
+      navigate(`/404`)
+    }
+  }, [newsDetailsData])
+
   return (
     <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />

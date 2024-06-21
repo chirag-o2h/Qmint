@@ -64,6 +64,12 @@ function BlogDetails(params: any) {
     // conditionalCall: Object.keys(debounce ?? {}).length > 0
   });
 
+  useEffect(() => {
+    if(!blogDetailsData){
+      navigate(`/404`)
+    }
+  }, [blogDetailsData])
+
   return (
     <MainLayout blackTheme>
       <Loader open={checkLoadingStatus} />
