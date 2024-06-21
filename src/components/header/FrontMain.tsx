@@ -55,13 +55,15 @@ function FrontMain(props: any) {
             <Container className="MainHeader">
                 <Stack className="MainHeader__Wrapper">
                     <Stack className="Left">
-                        <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomepage ? (isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)) ? "Brand_Dark_LogoURL" : trigger ? "Brand_Dark_LogoURL" : "Homepage_HeaderLogo_URL") : (trigger && isFrontHeader ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header")]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
+                        <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomepage ?
+                            (isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)) ? "Brand_Dark_LogoURL" : trigger ? "Brand_Dark_LogoURL" : "Homepage_HeaderLogo_URL")
+                            : (trigger && isFrontHeader ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header")]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
                     </Stack>
                     <Stack className="Center">
                         {/* // todo when need to conver again from home page to shope page related things */}
                         <Navigation
                             // frontPage={false}
-                             frontPage={isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page))? true : false} 
+                            frontPage={isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)) ? true : false}
                             showNavigation={true} />
                     </Stack>
                     <Stack className="Right">
