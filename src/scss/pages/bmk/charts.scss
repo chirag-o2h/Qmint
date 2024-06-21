@@ -9,9 +9,6 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 
-    // @include media-min($xxl) {
-    //   grid-template-columns: (5, 1fr);
-    // }
     @include media($xl) {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -128,4 +125,19 @@
 
 
   }
+
+  .MetalCardsWrapper>.MetalCard:nth-child(7) {
+    grid-column: span 2;
+  }
+
+  .MetalCardsWrapper>.MetalCard:nth-child(5),
+  .MetalCardsWrapper>.MetalCard:nth-child(8) {
+    grid-column-start: 3;
+  }
+
+  .MetalCardsWrapper>.MetalCard:nth-child(6),
+  .MetalCardsWrapper>.MetalCard:nth-child(9) {
+    grid-column-start: 4;
+  }
+
 }

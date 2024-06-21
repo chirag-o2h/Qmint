@@ -35,9 +35,9 @@ function Topics(paramsData: any) {
               <MetalCard color="#red" />
               <MetalCard color="green" />
               <MetalCard color="purple" />
-              <MetalCard color="yello" />
+              <MetalCard color="yellow" />
               <MetalCard color="#FF00FF" />
-              <MetalCard color="#87a878" />
+              <MetalCard color="#FF128F" />
             </Box>
             <Divider />
           </Box>
