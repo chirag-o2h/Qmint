@@ -52,7 +52,7 @@ function ProductDetail({ params }: any) {
     <Layout>
       <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />
       <Seo
-        title={productDetailsData.metaTitle}
+        title={productDetailsData?.metaTitle}
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
         description={productDetailsData?.metaDescription}
         lang="en"
