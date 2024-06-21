@@ -625,7 +625,7 @@ const bmkComponents: Components = {
     styleOverrides: {
       root: {
         "&.MuiInputBase-adornedEnd": {
-          paddingRight: 0,
+          // paddingRight: 0,    // as of now commented this,need to ask Hardik makwana 
         },
       },
     },
