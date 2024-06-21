@@ -71,15 +71,16 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
     }
     const deleteHoldings = async (item: any) => {
         const res = await dispatch(deletePrivateHoldings({ id: item?.id }))
-        if (res.payload.data.data == false) {
+        if (res?.payload?.data?.data == false) {
             showToaster({
-                message: res.payload.data.message,
+                message: res?.payload?.data?.message,
                 severity: 'error'
             })
             return
         }
         fetchPrivateHoldingsList()
     }
+
     return (
         <>
             {openToaster && <Toaster />}
@@ -98,7 +99,7 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
                         <Stack className='ButtonsWrapper'>
                             <Button variant="contained" size="small" color={getColorForPosition(item.position)}>${roundOfThePrice(item.price)}</Button>
                             <Button variant="contained" size="small" color={getColorForPosition(item.position)} startIcon={item.position === 2 ? <ChevronDown /> : <ChevronUp />}>${item.move} ({item.percentage}%)</Button>
-                            <Button variant='contained' size="small" onClick={() => { openSellToUsPopUP(item) }}>Sell to Us</Button>
+                            {item?.quantity > 0 && <Button variant='contained' size="small" onClick={() => { openSellToUsPopUP(item) }}>Sell to Us</Button>}
                         </Stack>
                         {/* <Box sx={{
                             textAlign: 'right',
@@ -144,7 +145,7 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
                 </CardContent>
                 {openSellEntry && <SellEntry unitPrice={priceData?.sellEntry} maxQty={currentValueOfPopUp?.maxQty} open={openSellEntry} onClose={toggleSellEntry} valueOfSellEntry={currentValueOfPopUp?.sellEntry} setValue={setValueForTheSellToUsPopUp} />}
                 {openConvertToListing && <ConvertToListing unitPrice={priceData?.convertToListing} maxQty={currentValueOfPopUp?.maxQty} open={openConvertToListing} onClose={toggleConvertToListing} valueOfConvertToListing={currentValueOfPopUp?.convertToListing} setValue={setValueForTheSellToUsPopUp} />}
-                {openSellToUs && <SellToUs unitPrice={priceData?.sellTous} maxQty={currentValueOfPopUp?.maxQty} open={openSellToUs} onClose={toggleSellToUs} valueOfTheSellToUs={currentValueOfPopUp?.sellToUs} setValue={setValueForTheSellToUsPopUp} />}
+                {openSellToUs && <SellToUs unitPrice={priceData?.sellTous} maxQty={currentValueOfPopUp?.maxQty} open={openSellToUs} onClose={toggleSellToUs} valueOfTheSellToUs={currentValueOfPopUp?.sellToUs} setValue={setValueForTheSellToUsPopUp} fetchPrivateHoldingsList={fetchPrivateHoldingsList}/>}
             </Card >
         </>
     )

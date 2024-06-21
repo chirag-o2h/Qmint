@@ -13,6 +13,8 @@ import noImage from '../../../assets/images/noImage.png'
 import { useAppDispatch } from "@/hooks";
 import { sendForEnquiry } from "@/redux/reducers/myVaultReducer";
 import { IEnquiryData } from "@/types/myVault";
+import useShowToaster from "@/hooks/useShowToaster";
+import { isActionRejected } from "@/components/common/Utils";
 
 interface SellToUs {
     open: boolean
@@ -21,6 +23,7 @@ interface SellToUs {
     setValue: (key: any, value: any) => void
     maxQty: number
     unitPrice: number
+    fetchPrivateHoldingsList: () => void
 }
 
 interface Inputs {
@@ -32,8 +35,9 @@ const schema = yup.object().shape({
 });
 
 function SellToUs(props: SellToUs) {
-    const { open, onClose, valueOfTheSellToUs, setValue, maxQty, unitPrice } = props
+    const { open, onClose, valueOfTheSellToUs, setValue, maxQty, unitPrice, fetchPrivateHoldingsList } = props
     const dispatch = useAppDispatch()
+    const { showToaster } = useShowToaster();
     const {
         register,
         handleSubmit,
@@ -43,14 +47,26 @@ function SellToUs(props: SellToUs) {
         resolver: yupResolver(schema)
     })
 
-    const onSubmit = (data: any) => {
+    const onSubmit = async (data: any) => {
         const body: IEnquiryData = {
             HoldingId: valueOfTheSellToUs?.holdingId,
             Quantity: valueOfTheSellToUs?.quantity,
             // ProductPrice: valueOfTheSellToUs?.price,
             ProductPrice: unitPrice
         }
-        dispatch(sendForEnquiry(body))
+        const response = await dispatch(sendForEnquiry(body))
+        let error = false
+        if (isActionRejected(response?.type)) {
+            error = true
+        }
+        !error ? showToaster({
+            message: response?.payload?.data?.message,
+            severity: 'success'
+        }) : showToaster({
+            message: 'something went wrong',
+            severity: 'error'
+        })
+        fetchPrivateHoldingsList()
         onClose()
     }
     const onQuantityChange = (qty: any) => {
