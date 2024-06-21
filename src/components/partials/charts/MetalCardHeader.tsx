@@ -3,9 +3,9 @@ import React from 'react'
 
 function MetalCardHeader() {
   return (
-    <Stack className='MetalCardHeader'>
-      <Typography variant="subtitle1">GOLD</Typography>
-      <Typography variant="body1">LIVE SPOT PRICE</Typography>
+    <Stack className='MetalCardHeader' sx={{ textTransform: "uppercase" }}>
+      <Typography variant="subtitle1">GOLbnvbD</Typography>
+      <Typography variant="body1">LIVE sport PRICE</Typography>
     </Stack>)
 }
 

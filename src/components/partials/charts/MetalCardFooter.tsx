@@ -1,10 +1,14 @@
+import { FilledUpButton } from '@/assets/icons'
 import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
 function MetalCardFooter() {
   return (
-    <Stack className='MetalCardFooter'>
-      <Typography variant="subtitle1">UP TREND</Typography>
+    /* pass UpTrend, DownTrend, Neutral,NaN  class */
+    <Stack className='MetalCardFooter UpTrend'>
+      <Typography variant="subtitle1" sx={{ textTransform: "uppercase" }}>UP TREND</Typography>
+      <Typography variant="body1"><FilledUpButton />15.12</Typography>
+      <Typography variant="body1">0.44%</Typography>
     </Stack>
   )
 }

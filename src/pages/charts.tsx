@@ -21,21 +21,21 @@ function Topics(paramsData: any) {
       {!loading && <Layout>
         <Seo
           keywords={[`BMk Topics`]}
-          title="Loans"
+          title="Charts"
           lang="en"
         />
         <PageTitle title={"Charts"} />
         <Container id="PageTopics">
           <Box className="MetalContentWrapper">
             <MetalChartsTitle title="Gold Charts " />
-            <Box>
-              <MetalCard />
-              <MetalCard />
-              <MetalCard />
-              <MetalCard />
-              <MetalCard />
-              <MetalCard />
-              <MetalCard />
+            <Box className="MetalCardsWrapper">
+              <MetalCard color="#FF00FF" />
+              <MetalCard color="#FF128F" />
+              <MetalCard color="#87a878" />
+              <MetalCard color="#orange" />
+              <MetalCard color="green" />
+              <MetalCard color="purple" />
+              <MetalCard color="yello" />
             </Box>
             <Divider />
           </Box>
