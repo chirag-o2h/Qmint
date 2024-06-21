@@ -41,7 +41,7 @@ const BullionmarkHeader = () => {
   const [isShopBannerAbsent, setIsShopBannerAbsent] = useState(false)
 
   useEffect(() => {
-    if (frontHeaderList.includes(window.location.pathname)) {
+    if ((window.location.pathname == "/")) {
       setIsFrontHeader(true)
     }
   }, [window.location.pathname])
