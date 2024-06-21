@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import useApiRequest from '@/hooks/useAPIRequest';
 import { ENDPOINTS } from '@/utils/constants';
+import { openNewTab } from "@/utils/common"
 import { IbannerData } from '../../shop/Qmint/Banner';
 
 function BannerSlider({ isItShopPage = false }: { isItShopPage?: boolean }) {
@@ -39,7 +40,13 @@ function BannerSlider({ isItShopPage = false }: { isItShopPage?: boolean }) {
                                 data?.data?.map((item: IbannerData, index: number) => {
                                     return (
                                         <SwiperSlide key={`BannerSlider-${index}`}>
-                                            <Box className="HeroBannerSliderWrapper"
+                                            <Box 
+                                                className="HeroBannerSliderWrapper"
+                                                onClick={() => {
+                                                    if (item.isImgUrl) {
+                                                        openNewTab(item.url)
+                                                    }
+                                                }}
                                             //  dangerouslySetInnerHTML={{ __html: item?.htmlCode }}
                                              >
                                                 {/* <Box className="HeroBannerTopWrapper" dangerouslySetInnerHTML={{
