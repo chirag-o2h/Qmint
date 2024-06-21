@@ -99,7 +99,7 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
                         <Stack className='ButtonsWrapper'>
                             <Button variant="contained" size="small" color={getColorForPosition(item.position)}>${roundOfThePrice(item.price)}</Button>
                             <Button variant="contained" size="small" color={getColorForPosition(item.position)} startIcon={item.position === 2 ? <ChevronDown /> : <ChevronUp />}>${item.move} ({item.percentage}%)</Button>
-                            <Button variant='contained' size="small" onClick={() => { openSellToUsPopUP(item) }}>Sell to Us</Button>
+                            {item?.quantity > 0 && <Button variant='contained' size="small" onClick={() => { openSellToUsPopUP(item) }}>Sell to Us</Button>}
                         </Stack>
                         {/* <Box sx={{
                             textAlign: 'right',
