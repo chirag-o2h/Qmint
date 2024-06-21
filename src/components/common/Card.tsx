@@ -378,7 +378,14 @@ export const UserStatsCard = (props: any) => {
       // }}
       >
         <Box className="TopWrapper">
-          <Box className="Return Profit">
+          <Box
+            className={`Return ${parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) < 0 
+              ? "Loss" 
+              : parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) > 0 
+              ? "Profit" 
+              : "Neutral"}`
+            }
+          >
             {/* pass Profit and Loss class */}
             <Typography variant="h4">${roundOfThePrice(currentPrice)}</Typography>
             <Typography variant="body1">
