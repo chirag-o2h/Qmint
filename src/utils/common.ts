@@ -1434,3 +1434,18 @@ export const isItNewsOrBlogPage = ['login', 'registration', 'password-recovery',
 export const joinWithPipe = (parts: any[]) => {
   return parts.filter(part => part != null && part !== '').join(' | ');
 };
+export function calculatePrice(product:any, qty:any) {
+  // Destructure the product object to get the necessary properties
+  const { price, tierPriceList } = product;
+
+  // If there is no tierPriceList or it's empty, return the base price
+  if (!tierPriceList || tierPriceList.length === 0) {
+    return price;
+  }
+
+  // Find the tier price that matches the given quantity
+  const tier = tierPriceList.find((tier:any) => qty >= tier.fromQty && qty <= tier.toQty);
+
+  // If a matching tier price is found, return the tier price, otherwise return the base price
+  return tier ? tier.price : price;
+}
