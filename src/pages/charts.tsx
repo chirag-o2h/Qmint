@@ -32,7 +32,7 @@ function Topics(paramsData: any) {
               <MetalCard color="#FF00FF" />
               <MetalCard color="#FF128F" />
               <MetalCard color="#87a878" />
-              <MetalCard color="#red" />
+              <MetalCard color="#FF00FF" />
               <MetalCard color="green" />
               <MetalCard color="purple" />
               <MetalCard color="yellow" />
