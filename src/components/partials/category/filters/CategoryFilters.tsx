@@ -19,7 +19,7 @@ function CategoryFilters({ isPriceChanged, setIsPriceChanged }: { isPriceChanged
           data.map((item: any, index: number) => (
             <Fragment key={item.categoryId}>
               <ListItem>
-                <ListItemButton onClick={() => navigate(`/${item.searchEngineFriendlyPageName}`)} selected={false}>
+                <ListItemButton onClick={() => navigate(`/category/${item.searchEngineFriendlyPageName}`)} selected={false}>
                   <ListItemText primary={item.name} primaryTypographyProps={{ variant: "body2" }} />
                 </ListItemButton>
               </ListItem>
