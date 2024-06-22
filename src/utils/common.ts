@@ -1429,7 +1429,7 @@ export const formatCategoryUrl = (pageName: any) => {
   const formattedPageName = pageName.startsWith('/') ? pageName : `/${pageName}`;
   return formattedPageName;
 };
-export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404"]
+export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404","newpage"]
 export const isItNewsOrBlogPage = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404"]
 export const joinWithPipe = (parts: any[]) => {
   return parts.filter(part => part != null && part !== '').join(' | ');
