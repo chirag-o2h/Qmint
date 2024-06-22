@@ -79,6 +79,7 @@ interface RenderFieldProps {
   required?: boolean,
   alreadySelectedFilters?: string[],
   alloweTheDotIntertion?: boolean
+  inputProps?:any
 }
 
 const RenderFields: React.FC<RenderFieldProps> = ({
@@ -127,6 +128,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
   required,
   alreadySelectedFilters,
   alloweTheDotIntertion =false,
+  inputProps,
   ...otherProps
 }) => {
   const [passwordVisibility, togglePasswordVisibility] = useToggle(false)
@@ -544,6 +546,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
               <TextField
                 id={name}
                 type="number"
+                inputProps={{ step: "any" }}
                 fullWidth={fullWidth}
                 error={!!error}
                 placeholder={placeholder}
@@ -570,7 +573,6 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                 value={value}
                 {...register(name)}
                 {...otherProps}
-
               />
             )}
           />

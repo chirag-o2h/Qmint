@@ -248,7 +248,7 @@ function Step1() {
       </Box>
       <AgentContent />
 
-      {openUpdateAddress && <UpdateAddress open={openUpdateAddress} dialogTitle="Update Address" onClose={toggleUpdateAddress} existingAddress={isBillingAddress ? billingAddress : shippingAddress} />}
+      {openUpdateAddress && <UpdateAddress open={openUpdateAddress} dialogTitle="Update Address" onClose={toggleUpdateAddress} existingAddress={isBillingAddress ? {...billingAddress,phoneNumber:billingAddress.phone1} : {...shippingAddress,phoneNumber:shippingAddress.phone1}} />}
       <AddAddress open={openAddAddress} dialogTitle="Add Address" onClose={toggleAddAddress} addressTypeId={isBillingAddress ? AddressType.Billing : AddressType.Shipping} handleAddressUpdate={handleAddressUpdate} />
       <AlertDialog open={openAlertDialog} onClose={toggleAlertDialog} />
       {openSelectAddress && <SelectAddress isbillingAddress={isBillingAddress} open={openSelectAddress} onClose={toggleSelectAddress} listOfAddress={isBillingAddress ? checkoutPageData?.billingAddressDetails : checkoutPageData?.shippingAddressDetails} handleAddressUpdate={handleAddressUpdate} defaultSelectedAddress={isBillingAddress ? billingAddress : shippingAddress} />}
