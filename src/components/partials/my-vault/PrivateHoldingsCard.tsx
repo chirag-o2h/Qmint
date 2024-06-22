@@ -13,6 +13,7 @@ import Toaster from '@/components/common/Toaster';
 import useShowToaster from '@/hooks/useShowToaster';
 import MyVaultServices from '@/apis/services/MyVaultServices';
 import { ENDPOINTS } from '@/utils/constants';
+import noImage from '../../../assets/images/noImage.png'
 
 const getColorForPosition = (position: number) => {
     return PriceFacturationEnum[position.toString() as keyof typeof PriceFacturationEnum];
@@ -70,22 +71,23 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
     }
     const deleteHoldings = async (item: any) => {
         const res = await dispatch(deletePrivateHoldings({ id: item?.id }))
-        if (res.payload.data.data == false) {
+        if (res?.payload?.data?.data == false) {
             showToaster({
-                message: res.payload.data.message,
+                message: res?.payload?.data?.message,
                 severity: 'error'
             })
             return
         }
         fetchPrivateHoldingsList()
     }
+
     return (
         <>
             {openToaster && <Toaster />}
             <Card className="PrivateHoldingCard">
                 <CardMedia
                     component="img"
-                    image={item.filepath}
+                    image={item.filepath ?? noImage}
                     alt="Product image"
                 />
                 <CardContent>
@@ -95,9 +97,9 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
                         <Typography variant="body1" className=""><strong>Purchase Price :</strong> ${roundOfThePrice(item.purchasePrice * item.quantity)} (${roundOfThePrice(item.purchasePrice)})</Typography>
                         <Typography variant="body1" className=""><strong>Sell to us value :</strong></Typography>
                         <Stack className='ButtonsWrapper'>
-                            <Button variant="contained" size="small" onClick={toggleSellToUs} color={getColorForPosition(item.position)}>${roundOfThePrice(item.price)}</Button>
-                            <Button variant="contained" size="small" onClick={toggleSellToUs} color={getColorForPosition(item.position)} startIcon={item.position === 2 ? <ChevronDown /> : <ChevronUp />}>${item.move} ({item.percentage}%)</Button>
-                            <Button variant='contained' size="small" onClick={() => { openSellToUsPopUP(item) }}>selltoas</Button>
+                            <Button variant="contained" size="small" color={getColorForPosition(item.position)}>${roundOfThePrice(item.price)}</Button>
+                            <Button variant="contained" size="small" color={getColorForPosition(item.position)} startIcon={item.position === 2 ? <ChevronDown /> : <ChevronUp />}>${item.move} ({item.percentage}%)</Button>
+                            {item?.quantity > 0 && <Button variant='contained' size="small" onClick={() => { openSellToUsPopUP(item) }}>Sell to Us</Button>}
                         </Stack>
                         {/* <Box sx={{
                             textAlign: 'right',
@@ -118,21 +120,21 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
                         arrow
                     >
                         <List>
-                            <ListItem>
+                            {/* <ListItem>
                                 <ListItemButton onClick={() => { openConvertToListingPopUp(item) }}>
                                     <ListItemText primary="Convert To Listing" />
                                 </ListItemButton>
-                            </ListItem>
+                            </ListItem> */}
                             <ListItem>
                                 <ListItemButton>
                                     <ListItemText primary="Edit" onClick={() => navigate(`/my-vault/private-holding-add/?holdingId=${item.holdingId}`)} />
                                 </ListItemButton>
                             </ListItem>
-                            <ListItem>
+                            {item?.quantity > 0 ? <ListItem>
                                 <ListItemButton onClick={() => { openSellEntryPopUP(item) }}>
-                                    <ListItemText primary="sellentry" />
+                                    <ListItemText primary="Adjust Holdings" />
                                 </ListItemButton>
-                            </ListItem>
+                            </ListItem> : null}
                             <ListItem>
                                 <ListItemButton onClick={() => { deleteHoldings(item) }}>
                                     <ListItemText primary="Delete" />
@@ -141,9 +143,9 @@ function PrivateHoldingCards({ fetchPrivateHoldingsList, item }: any) {
                         </List>
                     </ClickTooltip>
                 </CardContent>
-                {openSellEntry && <SellEntry  unitPrice={priceData?.sellEntry} maxQty={currentValueOfPopUp?.maxQty} open={openSellEntry} onClose={toggleSellEntry} valueOfSellEntry={currentValueOfPopUp?.sellEntry} setValue={setValueForTheSellToUsPopUp} />}
-                {openConvertToListing && <ConvertToListing unitPrice={priceData?.convertToListing}  maxQty={currentValueOfPopUp?.maxQty} open={openConvertToListing} onClose={toggleConvertToListing} valueOfConvertToListing={currentValueOfPopUp?.convertToListing} setValue={setValueForTheSellToUsPopUp} />}
-                {openSellToUs && <SellToUs unitPrice={priceData?.sellTous} maxQty={currentValueOfPopUp?.maxQty} open={openSellToUs} onClose={toggleSellToUs} valueOfTheSellToUs={currentValueOfPopUp?.sellToUs} setValue={setValueForTheSellToUsPopUp} />}
+                {openSellEntry && <SellEntry unitPrice={priceData?.sellEntry} maxQty={currentValueOfPopUp?.maxQty} open={openSellEntry} onClose={toggleSellEntry} valueOfSellEntry={currentValueOfPopUp?.sellEntry} setValue={setValueForTheSellToUsPopUp} />}
+                {openConvertToListing && <ConvertToListing unitPrice={priceData?.convertToListing} maxQty={currentValueOfPopUp?.maxQty} open={openConvertToListing} onClose={toggleConvertToListing} valueOfConvertToListing={currentValueOfPopUp?.convertToListing} setValue={setValueForTheSellToUsPopUp} />}
+                {openSellToUs && <SellToUs unitPrice={priceData?.sellTous} maxQty={currentValueOfPopUp?.maxQty} open={openSellToUs} onClose={toggleSellToUs} valueOfTheSellToUs={currentValueOfPopUp?.sellToUs} setValue={setValueForTheSellToUsPopUp} fetchPrivateHoldingsList={fetchPrivateHoldingsList}/>}
             </Card >
         </>
     )

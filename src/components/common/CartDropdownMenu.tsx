@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { CartItemsWithLivePriceDetails } from '../partials/shopping-cart/CartDetails';
 import useShowToaster from '@/hooks/useShowToaster';
 import { resetSubTotal, setCartItemWarning, updateShoppingCartData, updateSubTotal } from '@/redux/reducers/shoppingCartReducer';
-import { hasFulfilled } from '@/utils/common';
+import { calculatePrice, hasFulfilled } from '@/utils/common';
 
 function CartDropdownMenu({ cartItemsWithLivePrice, howManyProductToShow }: any) {
     const dispatch = useAppDispatch()
@@ -24,7 +24,7 @@ function CartDropdownMenu({ cartItemsWithLivePrice, howManyProductToShow }: any)
         })
         let subTotal = 0;
         const itemsWithQuantity = cartItemsWithLivePrice.map((item: CartItemsWithLivePriceDetails) => {
-            subTotal += (item?.LivePriceDetails?.price * quantities[item.id]);
+            subTotal += (calculatePrice(item?.LivePriceDetails,quantities[item.id]) * quantities[item.id]);
             return {
                 id: item.id,
                 quantity: quantities[item.id]

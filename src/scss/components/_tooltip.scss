@@ -7,23 +7,28 @@
         gap: 16px;
         max-height: 60vh;
         overflow: auto;
+
         .StokeItem {
           .Header {
             justify-content: space-between;
             align-items: center;
           }
+
           .ChartWrapper {
             .Price {
               position: relative;
+              color: #777777; // as of now add this color 
+
               &.High {
                 bottom: -4px;
-                color: $success;
-                border-bottom: 1px solid $success;
+                // color: $success;
+                // border-bottom: 1px solid $success;
               }
+
               &.Low {
                 top: -4px;
-                color: $redCoral;
-                border-top: 1px solid $redCoral;
+                // color: $redCoral;
+                // border-top: 1px solid $redCoral;
               }
             }
           }

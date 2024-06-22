@@ -62,14 +62,25 @@ export function localStorageGetItem(key: any) {
 export function localStorageSetItem(key: any, value: any) {
   isBrowser && localStorage?.setItem(key, typeof value !== 'string' ? JSON.stringify(value) : value)
 }
-
+export function sessionStorageGetItem(key: any) {
+  if (isBrowser && sessionStorage) {
+    const value: any = sessionStorage.getItem(key);
+    return value
+  }
+  return undefined;
+}
+export function sessionStorageSetItem(key: any, value: any) {
+  if (isBrowser && sessionStorage) {
+    sessionStorage.setItem(key, typeof value !== 'string' ? JSON.stringify(value) : value);
+  }
+}
 export function hasFulfilled(dataType: string): boolean {
   return dataType.includes('/fulfilled');
 }
 
 // Function to store the last page in session storage
 export const storeLastPage = (pageUrl: string) => {
-  if(!pageUrl.includes("login")){
+  if (!pageUrl.includes("login")) {
     sessionStorage.setItem('lastPage', pageUrl);
   }
 };
@@ -1404,7 +1415,7 @@ export const getLengthOfThePaths = (path: any) => {
 
   return parts
 }
-export const openNewTab = (url:any) => {
+export const openNewTab = (url: any) => {
   if (url.startsWith('http://') || url.startsWith('https://')) {
     // Open a new tab for external URLs
     window.open(url, '_blank');
@@ -1413,10 +1424,28 @@ export const openNewTab = (url:any) => {
     navigate(url);
   }
 };
-export const formatCategoryUrl = (pageName:any) => {
+export const formatCategoryUrl = (pageName: any) => {
   // Check if pageName starts with '/' and adjust URL accordingly
   const formattedPageName = pageName.startsWith('/') ? pageName : `/${pageName}`;
   return formattedPageName;
 };
-export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login','registration','password-recovery','blog','news','forgot-password',"topic","confirmation","activate-account","contactus","email-confirmation"]
-export const isItNewsOrBlogPage = ['login','registration','password-recovery','blog','news','forgot-password',"topic","confirmation","activate-account","contactus","email-confirmation"]
+export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404","newpage"]
+export const isItNewsOrBlogPage = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404"]
+export const joinWithPipe = (parts: any[]) => {
+  return parts.filter(part => part != null && part !== '').join(' | ');
+};
+export function calculatePrice(product:any, qty:any) {
+  // Destructure the product object to get the necessary properties
+  const { price, tierPriceList } = product;
+
+  // If there is no tierPriceList or it's empty, return the base price
+  if (!tierPriceList || tierPriceList.length === 0) {
+    return price;
+  }
+
+  // Find the tier price that matches the given quantity
+  const tier = tierPriceList.find((tier:any) => qty >= tier.fromQty && qty <= tier.toQty);
+
+  // If a matching tier price is found, return the tier price, otherwise return the base price
+  return tier ? tier.price : price;
+}

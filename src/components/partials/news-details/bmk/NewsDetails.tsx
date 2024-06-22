@@ -64,6 +64,12 @@ function NewsDetails(params: any) {
     // conditionalCall: Object.keys(debounce ?? {}).length > 0
   });
 
+  useEffect(() => {
+    if(!newsDetailsData){
+      navigate(`/404`)
+    }
+  }, [newsDetailsData])
+
   return (
     <MainLayout blackTheme>
       <Seo

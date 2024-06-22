@@ -32,8 +32,8 @@ function BullionmarkShop() {
                 {openToaster && <Toaster />}
                 <Seo
                     keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
-                    title={configDetailsState?.Store_ShopPage_Title?.value}
                     lang="en"
+                    isItShopPage={true}
                     description={configDetailsState?.Store_ShopPage_Meta_Description?.value} />
                 {configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? null : <Suspense fallback={<></>}><BannerSlider isItShopPage={true} /></Suspense>}
                 <Suspense fallback={<></>}> <BestCategorySlider pageData={bmkShopPageSections} PaddingClass={configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile ? "TopBannerAbsent" : ""} title={configDetailsState?.["ShopHomepage_Section_1_Featured_Categories_Title"]?.value} /></Suspense>

@@ -242,7 +242,7 @@ function Vault() {
             <Box className="UserStatsWrapper">
               <UserStatsCard title="My Vault" icon={<MyVaultIcon />} bgColor="#3491fa14" currentPrice={myVaultHomePageChartData?.totalValueFacturation?.current} movevalue={myVaultHomePageChartData?.totalValueFacturation?.move} movePercentage={myVaultHomePageChartData?.totalValueFacturation?.percentage} />
               <UserStatsCard title="My Gold" icon={<MyGoldIcon />} bgColor="rgb(234 162 43 / 5%)" currentPrice={myVaultHomePageChartData?.goldValueFacturation?.current} movevalue={myVaultHomePageChartData?.goldValueFacturation?.move} movePercentage={myVaultHomePageChartData?.goldValueFacturation?.percentage} />
-              <UserStatsCard title="My Silver" icon={<MySilverIcon />} bgColor="rgb(255 31 31 / 5%)" currentPrice={myVaultHomePageChartData?.silverValueFacturation?.percentage} movevalue={myVaultHomePageChartData?.silverValueFacturation?.move} movePercentage={myVaultHomePageChartData?.silverValueFacturation?.percentage} />
+              <UserStatsCard title="My Silver" icon={<MySilverIcon />} bgColor="rgb(255 31 31 / 5%)" currentPrice={myVaultHomePageChartData?.silverValueFacturation?.current} movevalue={myVaultHomePageChartData?.silverValueFacturation?.move} movePercentage={myVaultHomePageChartData?.silverValueFacturation?.percentage} />
               <LineChartCard title="My Vault" currentPrice={myVaultHomePageChartData?.totalValueFacturation?.current} low={myVaultHomePageChartData?.totalValueFacturation?.low} high={myVaultHomePageChartData?.totalValueFacturation?.high} valueForChart={myVaultHomePageChartData?.totalValueFacturation?.linechartdata} />
               <LineChartCard title="My Gold" currentPrice={myVaultHomePageChartData?.goldValueFacturation?.current} low={myVaultHomePageChartData?.goldValueFacturation?.low} high={myVaultHomePageChartData?.goldValueFacturation?.high} valueForChart={myVaultHomePageChartData?.goldValueFacturation?.linechartdata} />
               <LineChartCard title="My Silver" currentPrice={myVaultHomePageChartData?.silverValueFacturation?.current} low={myVaultHomePageChartData?.silverValueFacturation?.low} high={myVaultHomePageChartData?.silverValueFacturation?.high} valueForChart={myVaultHomePageChartData?.silverValueFacturation?.linechartdata} />
@@ -253,9 +253,9 @@ function Vault() {
           <Container>
             <Box className="UserInfoWrapper">
               <Box className="Left">
-                <StatsCard onClick={() => { navigate('/my-vault/private-holding/') }} title="Allocated Holdings" statsNumber="todo" icon={<AllotedHldingIcon />} bgColor="rgb(255 31 31 / 6%)" />
+                <StatsCard onClick={() => { navigate('/topic/allocated-holdings/') }} title="Allocated Holdings" statsNumber="Coming Soon" icon={<AllotedHldingIcon />} bgColor="rgb(255 31 31 / 6%)" />
                 <StatsCard onClick={() => { navigate('/my-vault/private-holding/') }} title="Private Holding" icon={<PrivateHoldingIcon />} statsNumber={myVaultHomePageData?.["Private Holdings"]} bgColor="rgb(234 162 43 / 6%)" />
-                <StatsCard onClick={() => { navigate('/my-vault/smart-metals/') }} title="Smart Metals" statsNumber="todo" icon={<SmartMetalsIcon />} bgColor="rgb(0 128 1 / 6%)" />
+                <StatsCard onClick={() => { navigate('/topic/smart-metals/') }} title="Smart Metals" statsNumber="Coming Soon" icon={<SmartMetalsIcon />} bgColor="rgb(0 128 1 / 6%)" />
                 <StatsCard onClick={() => { navigate('/rewardpoints/history') }} title="Rewards Points" statsNumber={myVaultHomePageData?.["Reward Point"]} icon={<RewardPointsIcon />} bgColor="rgb(255 31 31 / 6%)" />
               </Box>
               <Box className="Right">

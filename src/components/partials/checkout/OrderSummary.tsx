@@ -12,7 +12,7 @@ import { productImages } from "@/utils/data"
 import { CartCardAbstract } from "@/components/common/Card"
 import { OutlinedCheckIcon } from "@/assets/icons"
 import OTPConfirmation from "./OTPConfirmation"
-import { checkThePopUpDetails, hasFulfilled, paymentMethodType, roundOfThePrice, shipmentNameEnum, shipmentTypeToEnum } from "@/utils/common"
+import { calculatePrice, checkThePopUpDetails, hasFulfilled, paymentMethodType, roundOfThePrice, shipmentNameEnum, shipmentTypeToEnum } from "@/utils/common"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { checkValidationOnConfirmOrder, disableOTP, getCraditCardCharges, getInsuranceAndTaxDetailsCalculation, placeOrder, setCheckoutItemWarning } from "@/redux/reducers/checkoutReducer"
 import { ENDPOINTS } from "@/utils/constants"
@@ -99,7 +99,7 @@ function OrderSummary() {
         return ({
           productId: item.productId,
           qty: finalDataForTheCheckout?.quantitiesWithProductId?.[item?.productId],
-          price: item?.LivePriceDetails?.price,
+          price: calculatePrice(item?.LivePriceDetails, finalDataForTheCheckout?.quantitiesWithProductId?.[item?.productId]),
           shippingMethod: shipmentTypeToEnum[finalDataForTheCheckout?.deliveryMethodsWithProductId?.[item?.productId]]
         })
       })

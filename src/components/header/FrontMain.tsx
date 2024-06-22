@@ -38,7 +38,9 @@ function FrontMain(props: any) {
             navigate('/')
         }
     }
-    const isItHomepage = window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page))
+    // const isItHomepage = window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page))
+    // todo when need to conver again from home page to shope page related things
+    const isItHomepage = pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page) && window.location.pathname.split('/').filter((item) => item).some((name) => name === page))
     const [params] = useState({ page: isItHomepage ? 0 : 1 })
     useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
@@ -53,10 +55,16 @@ function FrontMain(props: any) {
             <Container className="MainHeader">
                 <Stack className="MainHeader__Wrapper">
                     <Stack className="Left">
-                        <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomepage ? (isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)) ? "Brand_Dark_LogoURL" : trigger ? "Brand_Dark_LogoURL" : "Homepage_HeaderLogo_URL") : (trigger && isFrontHeader ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header")]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
+                        <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomepage ?
+                            (isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page) && window.location.pathname.split('/').filter((item) => item).some((name) => name === page)) ? "Brand_Dark_LogoURL" : trigger ? "Brand_Dark_LogoURL" : "Homepage_HeaderLogo_URL")
+                            : (trigger && isFrontHeader ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header")]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
                     </Stack>
                     <Stack className="Center">
-                        <Navigation frontPage={window.location.pathname === "/" ? true : false} showNavigation={true} />
+                        {/* // todo when need to conver again from home page to shope page related things */}
+                        <Navigation
+                            // frontPage={false}
+                            frontPage={isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)) ? true : false}
+                            showNavigation={true} />
                     </Stack>
                     <Stack className="Right">
                         {/* <Link to={ENDPOINTS.login}> */}

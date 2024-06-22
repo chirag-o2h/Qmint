@@ -655,6 +655,12 @@
             }
           }
         }
+
+        &.Neutral {
+          .MuiTypography-body1 {
+            color: $yellowFuel;
+          }
+        }
       }
 
       .MuiButtonBase-root {

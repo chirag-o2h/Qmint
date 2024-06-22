@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector, useToggle } from '@/hooks'
 import { navigate } from 'gatsby'
 import { resetSubTotal, setCartItemWarning, updateShoppingCartData, updateSubTotal } from '@/redux/reducers/shoppingCartReducer'
 import { ENDPOINTS } from '@/utils/constants'
-import { checkThePopUpDetails, hasFulfilled, roundOfThePrice } from '@/utils/common'
+import { calculatePrice, checkThePopUpDetails, hasFulfilled, roundOfThePrice } from '@/utils/common'
 import useShowToaster from '@/hooks/useShowToaster'
 import { CartItemsWithLivePriceDetails } from './CartDetails'
 import { IPopUpDetails } from '@/apis/services/ConfigServices'
@@ -41,7 +41,7 @@ const CartOrderSummary = ({ cartItemsWithLivePrice, quantities }: Props) => {
         let subTotal = 0;
         let isAnyQuantityZero = false;
         const itemsWithQuantity = cartItemsWithLivePrice.map((item: CartItemsWithLivePriceDetails) => {
-            subTotal += (item?.LivePriceDetails?.price * quantities[item.id]);
+            subTotal += (calculatePrice(item?.LivePriceDetails,quantities[item.id]) * quantities[item.id]);
             if (quantities[item.id] === 0) {
                 isAnyQuantityZero = true;
             }

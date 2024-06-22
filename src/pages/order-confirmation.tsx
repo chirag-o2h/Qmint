@@ -23,6 +23,7 @@ function OrderConfirmation(props: any) {
     // const orderId = props.location?.search?.split('=')[1];
     const orderConfirmationDetailsData = useAppSelector(state => state.orderConfirmationDetails.orderConfirmationDetailsData);
     const shippingMethods = useAppSelector(state => state.orderConfirmationDetails.shippingMethods);
+    const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
     useAPIoneTime({
         service: getOrderConfirmationDetails,
         endPoint: ENDPOINTS.orderConfimationDetails + new URLSearchParams(location.search).get("orderNo")
@@ -43,6 +44,10 @@ function OrderConfirmation(props: any) {
         await downloadInvoiceHandler(orderConfirmationDetailsData?.orderNumber)
         setLoadingForNavigate(false)
     };
+
+    if(!isLoggedIn){
+        navigate('/login')
+    }
     return (
         <Layout>
             <Loader open={checkLoadingStatus || loadingForNavigate} />

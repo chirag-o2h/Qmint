@@ -23,7 +23,8 @@ export interface OrderDateInputs {
 }
 
 const schema = yup.object().shape({
-    OrderStatus: yup.string().trim().notOneOf(["none"], "Order Status is required field"),
+    // Removed mandatory order status field in searching
+    // OrderStatus: yup.string().trim().notOneOf(["none"], "Order Status is required field"),
     DateRange: yup.object().shape({
         start: yup.object().required("Start Date is required field"),
         end: yup.object().required("End Date is required field")
@@ -114,9 +115,9 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
                     <Box className="SelectStatusWrapper">
                         <RenderFields
                             type="select"
-                            clearErrors={clearErrors}
+                            // clearErrors={clearErrors}
                             register={register}
-                            error={errors.OrderStatus}
+                            // error={errors.OrderStatus}
                             name="OrderStatus"
                             control={control}
                             placeholder="Select Order Status"

@@ -12,7 +12,7 @@ import { ArrowDown } from '@/assets/icons';
 
 // This key was created specifically for the demo in mui.com.
 // You need to create a new one for your application.
-const GOOGLE_MAPS_API_KEY = 'AIzaSyCEM4lp3kIZg6B4PM1doznnMrDNVHRJcNg';
+export const GOOGLE_MAPS_API_KEY = 'AIzaSyCEM4lp3kIZg6B4PM1doznnMrDNVHRJcNg';
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
@@ -79,40 +79,43 @@ export default function GoogleMaps({ setParsedAddress }: { setParsedAddress: any
   );
 
   React.useEffect(() => {
-    if (value) {
-      const parsedAddress = parseAddressComponents(value);
+    const fetchParsedAddress = async () => {
+      if (value) {
+        const parsedAddress = await parseAddressComponents(value);
 
-      const apiCalling = async () => {
-        const getPostalCode = async () => {
-          const response = await apiCallFunction(`https://maps.googleapis.com/maps/api/geocode/json?place_id=${parsedAddress?.place_id}&key=${GOOGLE_MAPS_API_KEY}`, 'GET', null, null, true);
-          return parsePostalCode(response);
-        }
+        const apiCalling = async () => {
+          const getPostalCode = async () => {
+            const response = await apiCallFunction(`https://maps.googleapis.com/maps/api/geocode/json?place_id=${parsedAddress?.place_id}&key=${GOOGLE_MAPS_API_KEY}`, 'GET', null, null, true);
+            return parsePostalCode(response);
+          };
 
-        let postalCode;
-        if (parsedAddress?.place_id) {
-          postalCode = await getPostalCode();
-          setParsedAddress({
-            country: parsedAddress?.country,
-            state: parsedAddress?.state,
-            address: parsedAddress?.address.replace(/,/g, ''),
-            city: parsedAddress?.city,
-            address2: parsedAddress?.address2.replace(/,/g, ''),
-            postalCode: postalCode
-          })
-        }
-        else {
-          setParsedAddress({
-            country: parsedAddress?.country,
-            state: parsedAddress?.state,
-            address: parsedAddress?.address.replace(/,/g, ''),
-            city: parsedAddress?.city,
-            address2: parsedAddress?.address2.replace(/,/g, '')
-          })
-        }
+          let postalCode;
+          if (parsedAddress?.place_id) {
+            postalCode = await getPostalCode();
+            setParsedAddress({
+              country: parsedAddress?.country,
+              state: parsedAddress?.stateFullName || parsedAddress?.state, // Use full name if available
+              address: parsedAddress?.address.replace(/,/g, ''),
+              city: parsedAddress?.city,
+              address2: parsedAddress?.address2.replace(/,/g, ''),
+              postalCode: postalCode,
+            });
+          } else {
+            setParsedAddress({
+              country: parsedAddress?.country,
+              state: parsedAddress?.stateFullName || parsedAddress?.state, // Use full name if available
+              address: parsedAddress?.address.replace(/,/g, ''),
+              city: parsedAddress?.city,
+              address2: parsedAddress?.address2.replace(/,/g, ''),
+            });
+          }
+        };
+
+        apiCalling();
       }
+    };
 
-      apiCalling();
-    }
+    fetchParsedAddress();
   }, [value])
 
   React.useEffect(() => {

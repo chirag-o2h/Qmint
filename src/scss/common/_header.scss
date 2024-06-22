@@ -674,21 +674,6 @@
           }
         }
       }
-
-      &.BmkFrontHeader {
-
-        .HeaderContainerWrapper {
-          .MainHeader {
-            .MainHeader__Wrapper {
-              .Right {
-                .SignInButton {
-                  color: $white!important
-                }
-              }
-            }
-          }
-        }
-      }
     }
 
     &.BmkFrontHeader {
@@ -707,31 +692,9 @@
                   }
                 }
               }
-
-              .Right {
-                .SignInButton {
-                  color: $white;
-                }
-              }
             }
           }
         }
-      }
-
-
-      .MuiAppBar-positionStatic {
-        .HeaderContainerWrapper {
-          .MainHeader {
-            .MainHeader__Wrapper {
-              .Right {
-                .SignInButton {
-                  color: #000000;
-                }
-              }
-            }
-          }
-        }
-
       }
     }
   }
@@ -989,12 +952,6 @@
                 }
               }
             }
-
-            .Right {
-              .SignInButton {
-                color: #000000;
-              }
-            }
           }
         }
       }
@@ -1088,18 +1045,6 @@
 
         }
 
-      }
-
-      .HeaderContainerWrapper {
-        .MainHeader {
-          .MainHeader__Wrapper {
-            .Right {
-              .SignInButton {
-                color: #000000;
-              }
-            }
-          }
-        }
       }
 
       .BmkMobileSecondaryMenu {

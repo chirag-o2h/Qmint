@@ -112,9 +112,9 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button name='learnMore' aria-label='Learn More' variant="outlined" className="PrimaryAction" onClick={() => {
+                <Button name='learnMore' aria-label='Learn More' variant="contained" className="PrimaryAction" onClick={() => {
                     navigate(`/product-details/${product?.friendlypagename}`) //friendlypagename
-                }} fullWidth>Learn More</Button>
+                }} fullWidth>Shop Now</Button>
                 {product?.availability !== "Sold Out" && <IconButton title="Add to cart" aria-label="AddToCartButton" className="Outlined AddToCart" onClick={handleAddToCart}><AddToCartIcon /></IconButton>}
             </CardActions >
         </Card >

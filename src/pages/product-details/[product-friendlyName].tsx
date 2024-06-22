@@ -52,10 +52,11 @@ function ProductDetail({ params }: any) {
     <Layout>
       <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />
       <Seo
-        title={configDetailsState?.Store_ShopPage_Title?.value + ' | ' + productDetailsData.metaTitle}
+        title={productDetailsData?.metaTitle}
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
         description={productDetailsData?.metaDescription}
         lang="en"
+        isItShopPage={true}
       />
       {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />
         <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": THEME_TYPE == '1' })}>

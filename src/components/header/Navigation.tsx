@@ -106,7 +106,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                         placement="bottom-start"
                         renderComponent={
                           <Link
-                            to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                            to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
                             aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                             className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                           >
@@ -120,7 +120,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                       </HoverTooltip>
                       </Fragment>
                       : <Fragment key={category.name}><Link
-                        to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                        to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
                         aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                         className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                       >
