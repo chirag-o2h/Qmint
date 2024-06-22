@@ -118,7 +118,7 @@ function UpdateAddress(props: UpdateAddress) {
       addressLine1: data.Address1,
       addressLine2: data.Address2,
       city: data.City,
-      stateId: stateId || 0,
+      stateId: stateId || stateList?.find((state: any) => state.name == data.State)?.id || 0,
       stateName: data.State,
       postcode: data.Code,
       countryId: data.Country,
@@ -227,7 +227,7 @@ function UpdateAddress(props: UpdateAddress) {
     setcountryValue(existingAddress?.country || existingAddress?.countryId)
     setstateValue(existingAddress?.stateName)
     setPhoneNumberValue({
-      value: existingAddress?.phoneNumber,
+      value: existingAddress?.phone1,
       country: {
         countryCode: "AU"
       }
