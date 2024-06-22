@@ -66,7 +66,7 @@ function AddAccount(props: AddAccountProps) {
   // console.log("🚀 ~ existingAccount:", existingAccount)
   const configDropdowns = useAppSelector(state => state.myVault.configDropdowns)
   const dispatch = useAppDispatch();
-  const [stateList, setStateList] = useState([])
+  const [stateList, setStateList] = useState<{ id: number, name: string }[]>([])
   const [stateId, setStateId] = useState<number | null>(null);
   const { showToaster } = useShowToaster();
   const loading = useAppSelector(state => state.checkoutPage.loading);
@@ -348,14 +348,16 @@ function AddAccount(props: AddAccountProps) {
 
   useEffect(() => {
     const data: any = configDropdowns?.stateList.filter((state: any) => {
-      return state.enumValue == countryValue || countryValue == "none"
+      return state.enumValue == countryValue 
     })
     setStateList(data)
-  }, [configDropdowns?.stateList, countryValue])
+  }, [countryValue])
 
   const OnChange = (value: any) => {
     setcountryValue(value)
     setValue('Country', value)
+    setstateValue('')
+    setValue('State', '')
     setIsAddressGoogleVerified(false)
   }
   // console.log("🚀 ~ AddAccount ~ additionalFields:" , alignment)
@@ -586,6 +588,9 @@ function AddAccount(props: AddAccountProps) {
                   inputValue={stateValue ?? ""}
                   // defaultValue={getValues('State')}
                   onInputChange={(event, newInputValue) => {
+                    if (event?.type !== "click" && stateList?.length > 0) {
+                      return
+                    }
                     setValue('State', newInputValue); // Update the form value with the manually typed input
                     setstateValue(newInputValue)
                     if (newInputValue !== "") {

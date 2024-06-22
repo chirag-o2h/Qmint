@@ -250,11 +250,13 @@ function UpdateAddress(props: UpdateAddress) {
       return state.enumValue == countryValue || countryValue == "none"
     })
     setStateList(data)
-  }, [stateListall, countryValue])
+  }, [countryValue])
 
   const OnChange = (value: any) => {
     setcountryValue(value)
     setValue('Country', value)
+    setstateValue("")
+    setValue("State", "")
     setIsAddressGoogleVerified(false)
   }
 
@@ -408,6 +410,9 @@ function UpdateAddress(props: UpdateAddress) {
                 }}
                 inputValue={stateValue ?? ""}
                 onInputChange={(event, newInputValue) => {
+                  if (event?.type !== "click" && stateList?.length > 0) {
+                    return
+                  }
                   setValue('State', newInputValue); // Update the form value with the manually typed input
                   setstateValue(newInputValue)
                   if (newInputValue !== "") {
