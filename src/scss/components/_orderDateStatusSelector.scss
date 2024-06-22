@@ -28,6 +28,19 @@
             .DateCalenderWrapper,
             .SelectStatusWrapper {
                 flex: 1;
+
+                .SelectOrderStatus {
+                    height: 100%;
+
+                    .MuiFormControl-root {
+                        height: 100%;
+
+                        .MuiInputBase-formControl {
+                            height: 100%;
+                        }
+                    }
+                }
+
                 .MuiFormHelperText-root {
                     position: absolute;
                 }
