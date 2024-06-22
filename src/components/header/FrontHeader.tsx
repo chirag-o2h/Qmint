@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useCallback, useState } from "react"
+import React, { Suspense, lazy, useCallback, useEffect, useState } from "react"
 import { useMediaQuery, useScrollTrigger, AppBar, Box, Divider, Skeleton } from "@mui/material"
 import classNames from "classnames"
 
@@ -28,7 +28,12 @@ const FrontHeader = (props: FrontHeader) => {
     const toggleMobileMenu = useCallback(() => {
         setOpenMobileMenu(!openMobileMenu)
     }, [openMobileMenu])
-
+    const [isFrontHeader, setIsFrontHeader] = useState(false)
+    useEffect(() => {
+        if ((window.location.pathname == "/" || window.location.pathname.includes("newpage") )) {
+          setIsFrontHeader(true)
+        }
+      }, [window.location.pathname])
     return (
         <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": THEME_TYPE == '1' })}>
             {((!isMobile && configDetailsState?.["Store_HomePage_Ticker_Enable"]?.value) ) && <>
@@ -44,7 +49,7 @@ const FrontHeader = (props: FrontHeader) => {
                 {loading && <PageLoader />}
                 <Suspense fallback={<></>}>
                     {/* <Skeleton style={{ minHeight: '80px' }} /> */}
-                    <FrontMain toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} trigger={trigger} />
+                    <FrontMain toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} trigger={trigger} isFrontHeader={isFrontHeader}/>
                 </Suspense>
             </AppBar>
             <Suspense fallback={<></>}>

@@ -33,7 +33,7 @@ const useDownloadInvoiceHandler = () => {
 
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
-            link.download = 'invoice-qmint.pdf';
+            link.download = `invoice_${orderNumber}.pdf`;
 
             document.body.appendChild(link);
             link.click();

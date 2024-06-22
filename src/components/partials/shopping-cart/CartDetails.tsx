@@ -10,7 +10,7 @@ import { IproductPrice } from '../shop/Qmint/FeaturedProducts'
 import { clearShoppingCart, deleteShoppingCartData, getShoppingCartData, resetCartItemWarning, resetSubTotal, setCartItemWarning, setLoadingFalse, setLoadingTrue, updateShoppingCartData, updateSubTotal } from '@/redux/reducers/shoppingCartReducer'
 import { navigate } from 'gatsby'
 import useDebounce from '@/hooks/useDebounce'
-import { bodyForGetShoppingCartData, hasFulfilled } from '@/utils/common'
+import { bodyForGetShoppingCartData, calculatePrice, hasFulfilled } from '@/utils/common'
 import useShowToaster from '@/hooks/useShowToaster'
 
 interface Props {
@@ -102,7 +102,7 @@ const CartDetails = ({ cartItemsWithLivePrice, setCartItemsWithLivePrice, quanti
         let subTotal = 0;
         let isAnyQuantityZero = false;
         const itemsWithQuantity = cartItemsWithLivePrice.map((item: CartItemsWithLivePriceDetails) => {
-            subTotal += (item?.LivePriceDetails?.price * quantities[item.id]);
+            subTotal += (calculatePrice(item?.LivePriceDetails, quantities[item.id]) * quantities[item.id]);
             if (quantities[item.id] === 0) {
                 isAnyQuantityZero = true;
             }

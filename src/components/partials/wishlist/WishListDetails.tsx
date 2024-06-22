@@ -9,7 +9,7 @@ import { MinusIcon, PlusIcon } from '@/assets/icons'
 import { updateShoppingCartData } from '@/redux/reducers/shoppingCartReducer'
 import { addToWishListToShoppingCart, deleteWishListData, removeItemFromWishlist } from '@/redux/reducers/wishListReducer'
 import { navigate } from 'gatsby'
-import { hasFulfilled } from '@/utils/common'
+import { calculatePrice, hasFulfilled } from '@/utils/common'
 import useShowToaster from '@/hooks/useShowToaster'
 import { set } from 'react-hook-form'
 
@@ -186,7 +186,7 @@ const WishListDetails = ({ toggleEmailFriend }: { toggleEmailFriend: () => any }
                                     </Stack>
                                 </TableCell>
                                 {/* round to 2 */}
-                                <TableCell>{(quantities[item.id] * item?.LivePriceDetails?.price).toFixed(2)}</TableCell>
+                                <TableCell>{(quantities[item.id] * calculatePrice(item?.LivePriceDetails,quantities[item.id])).toFixed(2)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

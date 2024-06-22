@@ -21,7 +21,9 @@ const Index = () => {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-  const [params] = useState({ page: window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page)) ? 0 : 1 })
+  // todo when need to conver again from home page to shope page related things
+  const [params] = useState({ page: pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page)) ? 0 : 1 })
+  // const [params] = useState({ page: window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page)) ? 0 : 1 })
   useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
   const trigger = useScrollTrigger({

@@ -17,7 +17,7 @@ import useApiRequest from "@/hooks/useAPIRequest"
 import { CartItemsWithLivePriceDetails } from "../shopping-cart/CartDetails"
 import useDebounce from "@/hooks/useDebounce"
 import { deleteShoppingCartData, getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
-import { bodyForGetShoppingCartData, getDefaultOption, hasFulfilled } from "@/utils/common"
+import { bodyForGetShoppingCartData, calculatePrice, getDefaultOption, hasFulfilled } from "@/utils/common"
 import useShowToaster from "@/hooks/useShowToaster"
 
 function Step2() {
@@ -87,7 +87,7 @@ function Step2() {
     }
     if (cartItemsWithLivePrice?.length > 0) {
       cartItemsWithLivePrice?.map((item: shopingCartItem) => {
-        subTotal += (idwithpriceObj?.[item.productId]?.price * changeInQuantities[item.productId])
+        subTotal += (calculatePrice(idwithpriceObj?.[item.productId],changeInQuantities[item.productId]) * changeInQuantities[item.productId])
       })
       dispatch(resetSubTotalCheckoutPage())
       dispatch(updateSubTotalCheckoutPage(subTotal))

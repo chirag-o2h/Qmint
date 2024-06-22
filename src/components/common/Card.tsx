@@ -46,7 +46,7 @@ import noImage from '../../assets/images/noImage.png'
 import { ProductStockStatus, ProductUpdateCountdown } from "./Utils"
 import { IFeaturedProducts } from "../partials/shop/Qmint/FeaturedProducts"
 import { Link as NavigationLink, navigate } from "gatsby"
-import { bodyForGetShoppingCartData, calculationOfThePremiumAndDiscount, deliveryMethodMessage, formatDate, roundOfThePrice } from "@/utils/common"
+import { bodyForGetShoppingCartData, calculatePrice, calculationOfThePremiumAndDiscount, deliveryMethodMessage, formatDate, roundOfThePrice } from "@/utils/common"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { productImages } from "@/utils/data"
 import { CartItem } from "@/types/shoppingCart";
@@ -378,7 +378,14 @@ export const UserStatsCard = (props: any) => {
       // }}
       >
         <Box className="TopWrapper">
-          <Box className="Return Profit">
+          <Box
+            className={`Return ${parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) < 0 
+              ? "Loss" 
+              : parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) > 0 
+              ? "Profit" 
+              : "Neutral"}`
+            }
+          >
             {/* pass Profit and Loss class */}
             <Typography variant="h4">${roundOfThePrice(currentPrice)}</Typography>
             <Typography variant="body1">
@@ -530,7 +537,6 @@ export const CartCard = ({ cartItem, hideDeliveryMethod, hideRightSide, quantity
     // setDeliveryMethod(event.target.value as string);
     changeDeliveryMethodOfProduct(cartItem.productId, event.target.value)
   }
-
   return (
     cartItem && Object.keys(cartItem)?.length > 0 &&
     <Card className="CartCard">
@@ -549,7 +555,7 @@ export const CartCard = ({ cartItem, hideDeliveryMethod, hideRightSide, quantity
             <Typography className="LivePrice" variant="body2">Live Price</Typography>
             <Typography variant="body2">Qty.</Typography>
             <Typography variant="body2"></Typography>
-            <Typography variant="subtitle1">${roundOfThePrice(cartItem?.LivePriceDetails?.price)}</Typography>
+            <Typography variant="subtitle1">${roundOfThePrice(calculatePrice(cartItem?.LivePriceDetails,quantity))}</Typography>
             <Stack className="Quantity">
               <IconButton className="Minus" onClick={() => decreaseQuantity(cartItem.id)} disabled={quantity === 1}><MinusIcon /></IconButton>
               <TextField value={quantity} type="number" onChange={(event) => {
@@ -613,7 +619,7 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
             <Typography className="Name" variant="titleLarge" component="p">{product?.productName}</Typography>
             <Typography>Qty: {quantity}</Typography>
           </Box>
-          <Typography variant="subtitle1">${roundOfThePrice((product?.LivePriceDetails?.price) * (quantity))}</Typography>
+          <Typography variant="subtitle1">${roundOfThePrice(calculatePrice(product?.LivePriceDetails,quantity) * (quantity))}</Typography>
         </Stack>
       </CardContent>
       <Divider />
