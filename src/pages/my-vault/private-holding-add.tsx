@@ -43,10 +43,10 @@ const schema = yup.object().shape({
     Type: yup.string().notOneOf(["none"], "Type is required field"),
     Series: yup.string().notOneOf(["none"], "Series is required field"),
     Purity: yup.string().notOneOf(["none"], "Purity is required field"),
-    Weight: yup.string().trim().required("Weight is required field"),
+    Weight: yup.number().required("Weight is required field").typeError("Weight must be a number"),
     WeightType: yup.string().notOneOf(["none"], "Weight Type is required field"),
     Date: yup.string().required("Purchase Date is required field"),
-    PurchasePrice: yup.string().trim().required("Purchase Price is required field"),
+    PurchasePrice: yup.number().required("Purchase Price is required field"),
     PurchaseFrom: yup.string().trim().required("Purchase From is required field"),
     Qty: yup.string().required("Quantity is required field"),
     // ProvenanceDocuments: yup.string().trim(),
@@ -164,7 +164,7 @@ function privateHoldingAdd({ location }: { location: any }) {
         setValue("PurchaseFrom", currentPrivateHolding.purchasedFrom);
         setValue("Weight", currentPrivateHolding.weight);
         setValue("Qty", currentPrivateHolding.qty.toString());
-        setValue("PurchasePrice", currentPrivateHolding.price.toString())
+        setValue("PurchasePrice", +currentPrivateHolding.price as any) 
         setProvenanceDocuments(currentPrivateHolding.attachments.filter(doc => doc.type !== "ProductPhotos").map((doc: any) => {
             return {
                 id: doc.id,
@@ -491,6 +491,7 @@ function privateHoldingAdd({ location }: { location: any }) {
                                             className='Weight'
                                             setValue={setValue}
                                             alloweTheDotIntertion = {true}
+                                            inputProps={{ step: "0.01" }}
                                         />
                                         <RenderFields
                                             type="select"
@@ -520,6 +521,7 @@ function privateHoldingAdd({ location }: { location: any }) {
                                         <BasicDatePicker name="Date" label="Purchase Date" setValue={setValue} existingDate={currentPrivateHolding && currentPrivateHolding !== "rejected" ? currentPrivateHolding?.purchaseDate : null} error={errors.Date} clearErrors={clearErrors} />
                                         <RenderFields
                                             register={register}
+                                            control={control}
                                             error={errors.PurchasePrice}
                                             name="PurchasePrice"
                                             label="Purchase price (per unit):"
@@ -527,7 +529,10 @@ function privateHoldingAdd({ location }: { location: any }) {
                                             placeholder="Enter Purchase price"
                                             variant='outlined'
                                             margin='none'
+                                            type="number"
                                             required
+                                            setValue={setValue}
+                                            alloweTheDotIntertion={true}
                                         />
                                         <RenderFields
                                             register={register}
