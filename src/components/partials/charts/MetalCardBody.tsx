@@ -20,15 +20,25 @@ function MetalCardBody() {
         <Typography className="Price Low" variant="body2">{3486.04}</Typography>
       </Box>
 
-      <Stack className="SliderWrapper">
-        <Slider
-          className="Slider"
-          value={Number(5)}
-          min={Number(1)}
-          max={Number(9)}
-          disabled
-        />
-      </Stack>
+
+      <Box className="PriceSliderWrapper">
+        <Stack className='PriceWrapper'>
+          <Typography variant="body1">15.12</Typography>
+          <Typography variant="body1">765.6</Typography>
+        </Stack>
+        <Stack className="SliderWrapper">
+          <Typography variant="caption">LOW</Typography>
+          <Slider
+            className="Slider"
+            value={Number(5)}
+            min={Number(1)}
+            max={Number(9)}
+            disabled
+          />
+          <Typography variant="caption">HIGH</Typography>
+        </Stack>
+      </Box>
+
     </Box>
   )
 }
