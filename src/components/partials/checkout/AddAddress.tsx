@@ -101,7 +101,7 @@ function AddAddress(props: AddAddress) {
                 return !containsForbiddenKeyword(value, forbiddenKeywords);
             }),
         City: yup.string().required().trim(),
-        State: yup.string().required(),
+        State: yup.string().required().trim(),
         Country: yup.string().notOneOf(["none"], "Country is required field"),
         Code: yup.string().required('Zip / Postal code is required').trim(),
     })
@@ -174,7 +174,7 @@ function AddAddress(props: AddAddress) {
             const response = await dispatch(addOrEditAddressForMyVault(
                 {
                     url: ENDPOINTS.addOrEditAddressesInMyVault,
-                    body: { ...addressQuery, "IsOrder": false}
+                    body: { ...addressQuery, "IsOrder": false }
                 }
             ))
 
@@ -191,7 +191,7 @@ function AddAddress(props: AddAddress) {
             const response = await dispatch(addOrEditAddressForCheckout({
                 url: ENDPOINTS.addOrEditAddress,
                 body: {
-                    ...addressQuery,"IsOrder" : true
+                    ...addressQuery, "IsOrder": true
                 }
             }))
             let addressId;
@@ -261,17 +261,21 @@ function AddAddress(props: AddAddress) {
         }
     }, [googleAddressComponents])
 
+
     useEffect(() => {
-        const data: any = stateListall?.filter((state: any) => {
-            return state.enumValue == countryValue || countryValue == "none"
-        }).map((state: any) => {
-            return {
-                id: state.id,
-                name: state.name
-            }
-        });
+        const data: any = stateListall?.filter((state) => {
+            return state.enumValue == countryValue
+        })
         setStateList(data)
-    }, [stateListall, countryValue])
+    }, [countryValue])
+
+    const OnChange = (value: any) => {
+        setcountryValue(value)
+        setValue('Country', value)
+        setstateValue("");
+        setValue("State","")
+        setIsAddressGoogleVerified(false)
+    }
 
     return (
         <StyledDialog
@@ -383,9 +387,8 @@ function AddAddress(props: AddAddress) {
                             margin='none'
                             value={countryValue}
                             setValue={setValue}
-                            onChange={() => {
-                                setIsAddressGoogleVerified(false)
-                            }}
+                            onChange={OnChange}
+
                         // onChange={OnChange}
                         >
                             <MenuItem value="none">Select country *</MenuItem>
@@ -439,6 +442,9 @@ function AddAddress(props: AddAddress) {
                                 }}
                                 inputValue={stateValue ?? ""}
                                 onInputChange={(event, newInputValue) => {
+                                    if (event.type !== "click" && stateList.length > 0) {
+                                        return
+                                    }
                                     setValue('State', newInputValue); // Update the form value with the manually typed input
                                     setstateValue(newInputValue)
                                     if (newInputValue !== "") {
