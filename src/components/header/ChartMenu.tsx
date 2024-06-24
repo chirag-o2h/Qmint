@@ -22,7 +22,7 @@ function ChartMenu() {
   Object.keys(chartData).map((key: string) => {
     chartData = {
       ...chartData,
-      [key]: chartData[key]["threedayrange"][0]
+      [key]: chartData?.[key]?.["threedayrange"]?.[0]
     }
   })
   const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
@@ -83,7 +83,7 @@ function ChartMenu() {
           return null;
         })}
         <Button color={THEME_TYPE === "1" ? "primary" : "secondary"} variant="contained" fullWidth onClick={() => {
-          navigate("/chart")
+          navigate("/charts")
         }}>See More</Button>
       </Stack>
 
