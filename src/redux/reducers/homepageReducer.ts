@@ -111,18 +111,7 @@ interface CreateGuidelineState {
   scrollPosition: number,
   severity: 'error' | 'success' | 'info' | 'warning',
   needToShowProgressLoader: false,
-  liveDashboardChartData: {
-    [key: string]: {
-      low: number,
-      high: number,
-      current: number,
-      position: number,
-      move: number,
-      percentage: number,
-      linechartdata: number[],
-      linechartdata2: number[]
-    }
-  },
+  liveDashboardChartData: any,
   popUpdata: IPopupDetails | null,
   siteMapData: { items: IsiteMapData[], totalCount: number } | null;
   mainHomePageData: IMainHomePage | null
@@ -546,12 +535,13 @@ export const createHomepageSlice = createSlice({
     builder.addCase(getLiveDashboardChartData.fulfilled, (state, action) => {
       const responseData = action.payload.data.data;
 
-      Object.keys(responseData).map((key: string) => {
-        state.liveDashboardChartData = {
-          ...state.liveDashboardChartData,
-          [key]: responseData[key]["threedayrange"][0]
-        }
-      });
+      // Object.keys(responseData).map((key: string) => {
+      //   state.liveDashboardChartData = {
+      //     ...state.liveDashboardChartData,
+      //     [key]: responseData[key]["threedayrange"][0]
+      //   }
+      // });
+      state.liveDashboardChartData = responseData
       state.loading = false
     })
     builder.addCase(getLiveDashboardChartData.rejected, (state, action) => {

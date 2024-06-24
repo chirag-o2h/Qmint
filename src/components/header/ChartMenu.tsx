@@ -18,7 +18,13 @@ import { THEME_TYPE } from "@/axiosfolder"
 const requiredChartKeys = new Set(["gold", "silver", "platinum", "palladium"])
 
 function ChartMenu() {
-  const chartData = useAppSelector(state => state.homePage.liveDashboardChartData);
+  let chartData = useAppSelector(state => state.homePage.liveDashboardChartData);
+  Object.keys(chartData).map((key: string) => {
+    chartData = {
+      ...chartData,
+      [key]: chartData[key]["threedayrange"][0]
+    }
+  })
   const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const [open, setOpen] = useState<boolean>(false)
   const tooltipRef = useRef(null)
