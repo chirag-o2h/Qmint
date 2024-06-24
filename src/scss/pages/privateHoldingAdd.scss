@@ -41,24 +41,29 @@
                 }
             }
 
-            .DatePickerWrapper {
-                flex: 1;
+            // .DatePickerWrapper {
+            //     flex: 1;
 
-                .MuiStack-root {
-                    flex-direction: column;
-                    width: 100%;
-                    gap: 4px;
+            //     .MuiStack-root {
+            //         flex-direction: column;
+            //         width: 100%;
+            //         gap: 4px;
 
-                    .MuiTypography-root {
-                        font-size: 1rem;
-                        font-weight: 500;
-                        color: $dark;
-                        line-height: 1.625rem;
-                    }
+            //         .MuiTypography-root {
+            //             font-size: 1rem;
+            //             font-weight: 500;
+            //             color: $dark;
+            //             line-height: 1.625rem;
+            //         }
 
-                    .DatePicker {
-                        width: 100%;
-                    }
+            //         .DatePicker {
+            //             width: 100%;
+            //         }
+            //     }
+            // }
+            .DatePicker {
+                .MuiInputBase-adornedEnd {
+                    padding-right: 14px;
                 }
             }
 
