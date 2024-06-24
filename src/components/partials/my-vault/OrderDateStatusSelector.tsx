@@ -1,6 +1,6 @@
 import RenderFields from '@/components/common/RenderFields'
 import React, { useEffect, useState } from 'react'
-import { Box, Button, MenuItem, Stack } from '@mui/material'
+import { Box, Button, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material'
 import { set, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -15,6 +15,9 @@ import { Provider, lightTheme } from "@adobe/react-spectrum";
 import { DateRangePicker } from '@adobe/react-spectrum'
 import { FieldError, FieldErrors, UseFormRegister } from "react-hook-form";
 import { THEME_TYPE } from '@/axiosfolder'
+import { SelectDropdown } from '@/assets/icons'
+import { getCheckoutPageData } from '@/redux/reducers/checkoutReducer'
+import useAPIoneTime from '@/hooks/useAPIoneTime'
 export interface OrderDateInputs {
     OrderStatus: string,
     DateRange: {
@@ -41,6 +44,8 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
     const configDropdowns = useAppSelector(state => state.myVault.configDropdowns)
     const { showToaster } = useShowToaster()
     // const [dateRangeError, setDateRangeError] = useState<string | null>(null)
+    const { checkoutPageData } = useAppSelector((state) => state.checkoutPage)
+    const [selectAccount, setSelectAccount] = useState<any>(checkoutPageData?.customers?.[0]!)
 
     const {
         register,
@@ -70,7 +75,8 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
                 ...requestBodyOrderHistory, filters: {
                     fromDate: dateRangeValue?.start.toString(),
                     toDate: dateRangeValue?.end.toString(),
-                    orderStatusId: data.OrderStatus
+                    orderStatusId: data.OrderStatus,
+                    orderCustomerId: selectAccount?.customerId
                 }
             }
         }))
@@ -87,31 +93,33 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
         clearErrors("DateRange")
         clearErrors("OrderStatus")
     }
-
+    const [state, setState] = useState({ service: getCheckoutPageData, endPoint: ENDPOINTS.checkoutDetails, params: { isInstantBuy: false } })
+    useAPIoneTime(state)
+    useEffect(() => {
+        if (checkoutPageData?.customers?.[0]) {
+            setSelectAccount(checkoutPageData?.customers?.[0]!)
+        }
+    }, [checkoutPageData])
+    const handleSelectAccount = (value: SelectChangeEvent) => {
+        console.log("🚀 ~ handleSelectAccount ~ event:", value)
+        setSelectAccount(value as unknown as string);
+    }
     return (
         <form onSubmit={handleSubmit(onSubmit)} id="OrderDateStatusSelector" className='OrderDateStatusSelector'>
             <Stack className='OrderDateStatusSelectorWrapper'>
                 <Stack className='OrderDateStatusWrapper'>
                     {THEME_TYPE === "1" &&
                         <Box className="SelectAccountWrapper">
-                            <RenderFields
-                                type="select"
-                                register={register}
-                                name="Account"
-                                control={control}
-                                placeholder="Select Account"
-                                variant='outlined'
-                                value="none"
-                                setValue={setValue}
-                                getValues={getValues}
-                                margin='none'
-                                // required
-                                className='SelectAccount'
+                            {checkoutPageData?.customers && checkoutPageData?.customers?.length > 0 && selectAccount && <Select
+                                color="secondary"
+                                className="AccountSelect"
+                                value={selectAccount}
+                                onChange={handleSelectAccount}
+                                IconComponent={SelectDropdown}
+                                fullWidth
                             >
-                                <MenuItem value="none">Select Account</MenuItem>
-                                <MenuItem value="firstAccount">1st Account</MenuItem>
-                                <MenuItem value="secondAccount">2nd Account</MenuItem>
-                            </RenderFields>
+                                {checkoutPageData?.customers?.map((customer) => <MenuItem value={customer as any}>{customer.firstName + ' ' + customer.lastName + ' ' + "(" + customer?.accounttype + ")"}</MenuItem>)}
+                            </Select>}
                         </Box>
                     }
                     <Box className="DateCalenderWrapper">

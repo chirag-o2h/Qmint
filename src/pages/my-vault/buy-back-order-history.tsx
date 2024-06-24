@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Box, Container, Divider } from "@mui/material"
 import { PageTitle } from "@/components/common/Utils"
 import OrderDateStatusSelector from "@/components/partials/my-vault/OrderDateStatusSelector"
@@ -6,7 +6,6 @@ import OrderDetailsCard from "@/components/partials/my-vault/OrderDetailsCard"
 import Seo from "@/components/common/Seo"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { ENDPOINTS } from "@/utils/constants"
-import { getTopicDetails } from "@/redux/reducers/topicReducer"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import Layout from "@/components/common/Layout"
 import Loader from "@/components/common/Loader"
@@ -32,6 +31,7 @@ function BuyBackOrderHistory() {
     const loading = useAppSelector(state => state.myVault.loading)
     const dispatch = useAppDispatch()
     const openToaster = useAppSelector(state => state.homePage.openToaster)
+    const { checkoutPageData } = useAppSelector((state) => state.checkoutPage)
 
     useEffect(() => {
         dispatch(
@@ -47,7 +47,7 @@ function BuyBackOrderHistory() {
     })
     if (loadingForCheckingLogin) {
         return
-      }
+    }
     return (
         <>
             <Loader open={loading} />
