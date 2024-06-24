@@ -112,11 +112,11 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
                         <Box className="SelectAccountWrapper">
                             {checkoutPageData?.customers && checkoutPageData?.customers?.length > 0 && selectAccount && <Select
                                 color="secondary"
-                                className="AccountSelect"
+                                className='AccountSelect'
                                 value={selectAccount}
                                 onChange={handleSelectAccount}
-                                IconComponent={SelectDropdown}
                                 fullWidth
+                                variant='outlined'
                             >
                                 {checkoutPageData?.customers?.map((customer) => <MenuItem value={customer as any}>{customer.firstName + ' ' + customer.lastName + ' ' + "(" + customer?.accounttype + ")"}</MenuItem>)}
                             </Select>}
