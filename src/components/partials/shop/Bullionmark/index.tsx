@@ -18,12 +18,14 @@ import BmkPopularProductSlider from "./BmkPopularProductSlider";
 import ExclusiveJourneys from "../../landing-page/Bullionmark/ExclusiveJourneys";
 import InspiringStories from "../../landing-page/Bullionmark/InspiringStories";
 import { useMediaQuery } from "@mui/material";
+import useUserDetailsFromToken from "@/hooks/useUserDetailsFromToken";
 
 function BullionmarkShop() {
     const { configDetails: configDetailsState, openToaster, loading, bmkShopPageSections } = useAppSelector((state) => state.homePage)
     useAPIoneTime({ service: getBullionMarkShopPageSections })
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'))
     const keyWords = configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(',') : []
+    useUserDetailsFromToken()
 
     return (
         <Layout>
