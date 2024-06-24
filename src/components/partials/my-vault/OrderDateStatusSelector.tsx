@@ -14,6 +14,7 @@ import useShowToaster from '@/hooks/useShowToaster'
 import { Provider, lightTheme } from "@adobe/react-spectrum";
 import { DateRangePicker } from '@adobe/react-spectrum'
 import { FieldError, FieldErrors, UseFormRegister } from "react-hook-form";
+import { THEME_TYPE } from '@/axiosfolder'
 export interface OrderDateInputs {
     OrderStatus: string,
     DateRange: {
@@ -91,6 +92,28 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
         <form onSubmit={handleSubmit(onSubmit)} id="OrderDateStatusSelector" className='OrderDateStatusSelector'>
             <Stack className='OrderDateStatusSelectorWrapper'>
                 <Stack className='OrderDateStatusWrapper'>
+                    {THEME_TYPE === "1" &&
+                        <Box className="SelectAccountWrapper">
+                            <RenderFields
+                                type="select"
+                                register={register}
+                                name="Account"
+                                control={control}
+                                placeholder="Select Account"
+                                variant='outlined'
+                                value="none"
+                                setValue={setValue}
+                                getValues={getValues}
+                                margin='none'
+                                // required
+                                className='SelectAccount'
+                            >
+                                <MenuItem value="none">Select Account</MenuItem>
+                                <MenuItem value="firstAccount">1st Account</MenuItem>
+                                <MenuItem value="secondAccount">2nd Account</MenuItem>
+                            </RenderFields>
+                        </Box>
+                    }
                     <Box className="DateCalenderWrapper">
                         {/* <DateRangePicker dateRangeValue={dateRangeValue} setDateRangeValue={setDateRangeValue} register={register} errors={errors} /> */}
                         <Box className="DateRangePickerWrapper">
