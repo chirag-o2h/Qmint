@@ -18,12 +18,14 @@ import TravelInspiration from './TravelInspiration'
 import InspiringStories from './InspiringStories'
 import Newsletter from './Newsletter'
 import BestCategorySlider from "../../shop/Bullionmark/BestCategorySlider"
+import useUserDetailsFromToken from '@/hooks/useUserDetailsFromToken'
 
 const BulliomarkMainHomePage = () => {
     const { configDetails: configDetailsState, openToaster, loading, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const keyWords = configDetailsState?.Store_Meta_Keywords?.value?.split(',')?.length > 0 ? configDetailsState?.Store_Meta_Keywords?.value?.split(',') : []
     useAPIoneTime({ service: getBullionMarkPageAPI })
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
+    useUserDetailsFromToken()
     return (
         <>
             <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>

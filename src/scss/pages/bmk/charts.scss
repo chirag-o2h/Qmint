@@ -48,10 +48,9 @@
         }
 
         .ChartWrapper,
-        .SliderWrapper,
+        .PriceSliderWrapper,
         .MetalCardFooter {
           padding: 10px;
-          // margin-bottom: 8px;
         }
 
         .ChartWrapper {
@@ -73,28 +72,39 @@
           }
         }
 
-        .SliderWrapper {
-          .Slider {
-            color: $blueCyan;
-            height: 6px;
-            padding: 0;
-            margin-bottom: 12px;
+        .PriceSliderWrapper {
+          color: #000000;
 
-            .MuiSlider-rail {
-              height: inherit;
-              opacity: 0.2;
-            }
+          .PriceWrapper {
+            justify-content: space-between;
+          }
 
-            .MuiSlider-thumb {
-              background-color: transparent;
-              top: 10px;
-              width: 0;
-              height: 0;
-              border-radius: initial;
-              border: none;
-              border-left: 7px solid transparent;
-              border-right: 7px solid transparent;
-              border-bottom: 7px solid $blueCyan;
+          .SliderWrapper {
+            align-items: baseline;
+            gap: 5px;
+
+            .Slider {
+              color: $blueCyan;
+              height: 6px;
+              padding: 0;
+              margin-bottom: 12px;
+
+              .MuiSlider-rail {
+                height: inherit;
+                opacity: 0.2;
+              }
+
+              .MuiSlider-thumb {
+                background-color: transparent;
+                top: 10px;
+                width: 0;
+                height: 0;
+                border-radius: initial;
+                border: none;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-bottom: 7px solid $blueCyan;
+              }
             }
           }
         }

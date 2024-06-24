@@ -667,7 +667,7 @@ function AboutProduct({ productId }: any) {
         // allowScrollButtonsMobile
         >
           {productDetailsData?.isProductDescriptionShow ? <Tab label="Product Description" value={0} /> : null}
-          {productDetailsData?.isAdditionalInformationShow ? <Tab label="Additional Information" value={1} /> : null}
+          {productDetailsData?.isAdditionalInformationShow ? <Tab label="Specifications" value={1} /> : null}
           {productDetailsData?.isRatingReviewShow ? <Tab label="Rating & Reviews" value={2} /> : null}
         </Tabs>
         {productDetailsData?.isProductDescriptionShow ? <TabPanel value={tabValue} index={0}>
@@ -679,8 +679,8 @@ function AboutProduct({ productId }: any) {
             </Box>
           </Box>
         </TabPanel> : null}
-        {productDetailsData?.isAdditionalInformationShow ? <TabPanel className="AdditionalInformation" value={tabValue} index={1}>
-          <Typography variant="h4" className="TabTitle">Additional Information</Typography>
+        {productDetailsData?.isAdditionalInformationShow ? <TabPanel className="Specifications" value={tabValue} index={1}>
+          <Typography variant="h4" className="TabTitle">Specifications</Typography>
           <Box className="ScrollbarWrapper">
             <Box className="Content ScrollbarBlue">
               <Box className="Wrapper">

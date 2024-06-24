@@ -20,15 +20,23 @@ function MetalCardBody(props: any) {
   if (low && high) {
     return (
       <Box className="MetalCardBody">
-        <Stack className="SliderWrapper">
-          <Slider
-            className="Slider"
-            value={currentPrice}
-            min={low}
-            max={high}
-            disabled
-          />
-        </Stack>
+        <Box className="PriceSliderWrapper">
+          <Stack className="PriceWrapper">
+            <Typography variant="body1">{low}</Typography>
+            <Typography variant="body1">{high}</Typography>
+          </Stack>
+          <Stack className="SliderWrapper">
+            <Typography variant="caption">LOW</Typography>
+            <Slider
+              className="Slider"
+              value={currentPrice}
+              min={low}
+              max={high}
+              disabled
+            />
+            <Typography variant="caption">HIGH</Typography>
+          </Stack>
+        </Box>
       </Box>
     );
   }
