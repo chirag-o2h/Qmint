@@ -111,7 +111,6 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
                     {THEME_TYPE === "1" &&
                         <Box className="SelectAccountWrapper">
                             {checkoutPageData?.customers && checkoutPageData?.customers?.length > 0 && selectAccount && <Select
-                                color="secondary"
                                 className='AccountSelect'
                                 value={selectAccount}
                                 onChange={handleSelectAccount}
