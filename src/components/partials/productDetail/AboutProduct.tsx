@@ -679,7 +679,7 @@ function AboutProduct({ productId }: any) {
             </Box>
           </Box>
         </TabPanel> : null}
-        {productDetailsData?.isAdditionalInformationShow ? <TabPanel className="Specifications" value={tabValue} index={1}>
+        {productDetailsData?.isAdditionalInformationShow ? <TabPanel className="AdditionalInformation" value={tabValue} index={1}>
           <Typography variant="h4" className="TabTitle">Specifications</Typography>
           <Box className="ScrollbarWrapper">
             <Box className="Content ScrollbarBlue">
