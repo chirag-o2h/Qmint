@@ -195,10 +195,12 @@ export const Breadcrumb = React.memo(({ arr }: any) => {
     <Box className={classNames("Breadcrumb", { "BmkBreadcrumb": THEME_TYPE === "1" })}>
       <Container>
         <Breadcrumbs aria-label="breadcrumb" separator={<ChevronRight />}>
-          <Link color="inherit" variant="body2" onClick={() => { navigate('/shop', { replace: true }) }}>
+          <Link color="inherit" variant="body2" href="/shop" 
+          // onClick={() => { navigate('/shop', { replace: true }) }}
+          >
             Home
           </Link>
-          {arr.map((item: any, index: any) => <Link key={index} color={true ? variable.dark : "inherit"} variant="body2" className={classNames({ "Active": arr.length === (index + 1) })} onClick={() => { navigate(item.navigate) }}>
+          {arr.map((item: any, index: any) => <Link key={index} color={true ? variable.dark : "inherit"} variant="body2" className={classNames({ "Active": arr.length === (index + 1) })} href={item.navigate}>
             {item.name}
           </Link>)
           }

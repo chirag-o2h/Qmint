@@ -77,9 +77,8 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
             </Stack>
             <CardContent>
                 {(renderStockStatus) && <BmkProductStockStatus availability={product?.availability} />}
-                <Link className="ProductName" onClick={() => {
-                    navigate(`/product-details/${product?.friendlypagename}`) //friendlypagename
-                }}>
+                <Link className="ProductName" href={`/product-details/${product?.friendlypagename}`} //friendlypagename
+                >
                     <Typography component="h3">{product?.productName}</Typography>
                 </Link>
                 <Stack className="PriceContentWrapper">

@@ -141,9 +141,8 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
         />}
       </Stack>
       <CardContent>
-        <Link className="ProductName" onClick={() => {
-          navigate(`/product-details/${product?.friendlypagename}`) //friendlypagename
-        }}>
+        <Link className="ProductName" href={`/product-details/${product?.friendlypagename}`} //friendlypagename
+          >
           <Typography component="h3">{product.productName}</Typography>
         </Link>
         {(isLoggedIn || configDetailsState?.ProductPricing_Guests_Enable?.value) && <Stack className="ContentWrapper">
