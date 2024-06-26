@@ -892,70 +892,70 @@
     }
 
     // .MuiAppBar-positionFixed {
-      .NavigationHeader {
-        .NavigationHeader__Wrapper {
-          .SearchField {
-            .MuiTextField-root {
-              .MuiInputBase-root {
-                .MuiInputBase-input {
-                  color: #000000;
-                }
-              }
-            }
-
-            .Wrapper {
-              .SearchButton {
+    .NavigationHeader {
+      .NavigationHeader__Wrapper {
+        .SearchField {
+          .MuiTextField-root {
+            .MuiInputBase-root {
+              .MuiInputBase-input {
                 color: #000000;
               }
             }
           }
 
-          .RightPart {
-            color: #000000;
-
-            .MenuButton,
-            a {
-              color: inherit;
+          .Wrapper {
+            .SearchButton {
+              color: #000000;
             }
           }
         }
-      }
 
-    // }
+        .RightPart {
+          color: #000000;
 
-    .MuiAppBar-positionStatic {
-      .HeaderContainerWrapper {
-        .MainHeader {
-          .MainHeader__Wrapper {
-            .Center {
-              .NavigationHeader {
-                .NavigationHeader__Wrapper {
-                  .LeftPart {
-                    .PopoverMegaMenu {
-                      .MuiTooltip-tooltip {
-                        background: black;
-
-                        .SubMenu {
-                          .MuiList-root {
-                            .SubMenuLink {
-                              color: #ffffff9c;
-
-                              &:first-of-type {
-                                color: $white;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          .MenuButton,
+          a {
+            color: inherit;
           }
         }
       }
     }
+
+    // }
+
+    // .MuiAppBar-positionStatic {
+    //   .HeaderContainerWrapper {
+    //     .MainHeader {
+    //       .MainHeader__Wrapper {
+    //         .Center {
+    //           .NavigationHeader {
+    //             .NavigationHeader__Wrapper {
+    //               .LeftPart {
+    //                 .PopoverMegaMenu {
+    //                   .MuiTooltip-tooltip {
+    //                     background: black;
+
+    //                     .SubMenu {
+    //                       .MuiList-root {
+    //                         .SubMenuLink {
+    //                           color: #ffffff9c;
+
+    //                           &:first-of-type {
+    //                             color: $white;
+    //                           }
+    //                         }
+    //                       }
+    //                     }
+    //                   }
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     &.BmkBlackHeader {
       background-color: #000000;
@@ -1013,35 +1013,35 @@
         }
 
         // &.MuiAppBar-positionFixed {
-          .NavigationHeader {
-            .NavigationHeader__Wrapper {
-              .SearchField {
-                .Wrapper {
-                  .SearchButton {
-                    color: $white;
-                  }
+        .NavigationHeader {
+          .NavigationHeader__Wrapper {
+            .SearchField {
+              .Wrapper {
+                .SearchButton {
+                  color: $white;
                 }
+              }
 
-                .MuiTextField-root {
-                  .MuiInputBase-root {
-                    .MuiInputBase-input {
-                      color: $white;
+              .MuiTextField-root {
+                .MuiInputBase-root {
+                  .MuiInputBase-input {
+                    color: $white;
 
-                      &::-webkit-input-placeholder,
-                      &::placeholder {
-                        color: currentColor;
-                        opacity: 1;
-                      }
+                    &::-webkit-input-placeholder,
+                    &::placeholder {
+                      color: currentColor;
+                      opacity: 1;
                     }
                   }
                 }
               }
+            }
 
-              .RightPart {
-                color: $white;
-              }
+            .RightPart {
+              color: $white;
             }
           }
+        }
 
         // }
 
@@ -1055,7 +1055,8 @@
         }
       }
     }
-    &.FrontHeader{
+
+    &.FrontHeader {
       .NavigationHeader {
         .NavigationHeader__Wrapper {
           .SearchField {
