@@ -176,7 +176,7 @@ function Vault() {
                                       <img
                                         className="BannerImage"
                                         rel="prefetch"
-                                        loading="eager"
+                                        loading="lazy"
                                         src={
                                           isLargeScreen
                                             ? item.cdnUrlLarge
@@ -280,7 +280,7 @@ function Vault() {
                                       <img
                                         className="BannerImage"
                                         rel="prefetch"
-                                        loading="eager"
+                                        loading="lazy"
                                         src={
                                           isLargeScreen
                                             ? item.cdnUrlLarge

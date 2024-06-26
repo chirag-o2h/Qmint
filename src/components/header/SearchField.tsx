@@ -99,7 +99,7 @@ function SearchField() {
             variant="filled"
             type="search"
             placeholder="Search Product"
-            defaultValue={inputValue}
+            value={inputValue}
             onChange={(e) => {
                 setInputValue(e.target.value)
                 setOptions([])

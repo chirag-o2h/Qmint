@@ -41,7 +41,7 @@ function Pricing() {
 
   const renderdTextAfterText = useMemo(() => {
     // <AfterStockReturnWithName text={configDetailsState?.Header_ShopHomePage_Ticker_Text?.value} />
-    return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.Header_ShopHomePage_Ticker_Text?.value  : configDetailsState?.Header_ShopHomePage_Ticker_Text_Guest?.value} />
+    return <AfterStockReturnWithName text={isLoggedIn ? configDetailsState?.Header_ShopHomePage_Ticker_Text?.value : configDetailsState?.Header_ShopHomePage_Ticker_Text_Guest?.value} />
   }, [configDetailsState, isLoggedIn])
   return (
     <Box
@@ -55,7 +55,7 @@ function Pricing() {
         <Stack
           className="PricingHeader__Wrapper"
         >
-          <img src={configDetailsState?.Australia_flag_url?.value} alt="Australia flag" width={36} height={24} loading="eager" />
+          <img src={configDetailsState?.Australia_flag_url?.value} alt="Australia flag" width={36} height={24} loading="lazy" />
           <DraggableMarquee>
             <Stack id={"mark-id"} className="PricingHeader__Wrapper--Content">
               {renderedStockItems}

@@ -75,7 +75,7 @@ function Banner() {
                       {<>
                         {/* <StaticImage
                           rel="prefetch"
-                          loading="eager"
+                          loading="lazy"
                           src={'../../../assets/images/loading.gif'}
                           // src={isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall}
                           alt="background"
@@ -84,7 +84,7 @@ function Banner() {
                         <img
                           className="BannerImage"
                           rel="prefetch"
-                          loading="eager"
+                          loading="lazy"
                           src={isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall}
                           alt="background"
                           style={{ visibility: !tempImgHide ? 'visible' : 'hidden' }}
