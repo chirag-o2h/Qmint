@@ -871,7 +871,7 @@
 
         .RightPart {
           gap: 20px;
-          color: $white;
+          color: #000000;
 
           @include media($lg) {
             gap: 10px;
@@ -891,7 +891,7 @@
       }
     }
 
-    .MuiAppBar-positionFixed {
+    // .MuiAppBar-positionFixed {
       .NavigationHeader {
         .NavigationHeader__Wrapper {
           .SearchField {
@@ -921,7 +921,7 @@
         }
       }
 
-    }
+    // }
 
     .MuiAppBar-positionStatic {
       .HeaderContainerWrapper {
@@ -1012,7 +1012,7 @@
           }
         }
 
-        &.MuiAppBar-positionFixed {
+        // &.MuiAppBar-positionFixed {
           .NavigationHeader {
             .NavigationHeader__Wrapper {
               .SearchField {
@@ -1043,7 +1043,7 @@
             }
           }
 
-        }
+        // }
 
       }
 
@@ -1051,6 +1051,36 @@
         .MuiAppBar-positionStatic {
           .Wrapper {
             color: $black;
+          }
+        }
+      }
+    }
+    &.FrontHeader{
+      .NavigationHeader {
+        .NavigationHeader__Wrapper {
+          .SearchField {
+            .MuiTextField-root {
+              .MuiInputBase-root {
+                .MuiInputBase-input {
+                  color: $white;
+                }
+              }
+            }
+
+            .Wrapper {
+              .SearchButton {
+                color: $white;
+              }
+            }
+          }
+
+          .RightPart {
+            color: $white;
+
+            .MenuButton,
+            a {
+              color: inherit;
+            }
           }
         }
       }
