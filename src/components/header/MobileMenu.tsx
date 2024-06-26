@@ -37,9 +37,8 @@ function FrontMobileMenu(props: any) {
       [menuId]: !prevOpenMenus[menuId],
     }));
   };
-
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (location.pathname === "/newpage/") {
       setIsHomePage(true);
     }
   }, []);
@@ -57,8 +56,8 @@ function FrontMobileMenu(props: any) {
         isHomePage: isHomePage,
         FrontPageMenu: isFrontPage,
         BmkMobileMenu:
-          THEME_TYPE === "1" &&
-          !trigger &&
+          THEME_TYPE === "1" && isHomePage &&
+          trigger &&
           !isItNewsOrBlogPage.some((page) =>
             window.location.pathname.includes(page)
           ),
