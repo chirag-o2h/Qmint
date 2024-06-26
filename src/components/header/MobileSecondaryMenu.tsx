@@ -43,7 +43,7 @@ function MobileSecondaryMenu() {
     setHeaderHeight(header ?? 0)
   }, [])
   return (
-    <Box id="MobileSecondaryMenu" className={classNames({ "BmkMobileSecondaryMenu": THEME_TYPE === "1" }, { "BmkWhiteToolbar": trigger && THEME_TYPE === "1" })}>
+    <Box id="MobileSecondaryMenu" className={classNames({ "BmkMobileSecondaryMenu": THEME_TYPE === "1" }, { "BmkWhiteToolbar": THEME_TYPE === "1" })}>
       <AppBar
         position="static"
         component="div"
