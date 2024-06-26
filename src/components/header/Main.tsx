@@ -13,6 +13,7 @@ import { ENDPOINTS } from "../../utils/constants"
 import { Link, navigate } from "gatsby"
 import { LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 import { THEME_TYPE } from "@/axiosfolder"
+import useImageInView from "@/hooks/useImageInView"
 
 function Main(props: any) {
   const dispatch = useAppDispatch()
@@ -29,7 +30,7 @@ function Main(props: any) {
       return
     }
   }
-  const trigger = useScrollTrigger({
+  const trigger = THEME_TYPE == "1" ? useImageInView(): useScrollTrigger({
     disableHysteresis: true,
     threshold: mobile ? 68 : 50,
   })

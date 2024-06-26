@@ -3,7 +3,7 @@ import { useAppSelector } from '.';
 
 const useImageInView = (imageId="BmkBanner") => {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-    const [imageInView, setImageInView] = useState(true);
+    const [imageInView, setImageInView] = useState(false);
     const imageElement = document.getElementById(imageId)
     useEffect(() => {
         const handleScroll = () => {
@@ -20,9 +20,9 @@ const useImageInView = (imageId="BmkBanner") => {
         return () => {
             document.removeEventListener('scroll', handleScroll);
         };
-    }, [imageId,imageElement,configDetailsState?.Sliders_ShopHomepage_Enable]);
+    }, [imageId,imageElement,configDetailsState?.Sliders_ShopHomepage_Enable,configDetailsState?.Sliders_ShopHomepage_Enable]);
 
-    return !imageInView;
+    return imageInView;
 };
 
 export default useImageInView;

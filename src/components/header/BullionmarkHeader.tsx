@@ -15,6 +15,8 @@ import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { PageLoader } from './Loader'
 import FrontMain from "./FrontMain";
 import { Call } from "@/assets/icons";
+import useImageInView from "@/hooks/useImageInView";
+import { THEME_TYPE } from "@/axiosfolder";
 const Pricing = lazy(() => import('./Pricing'))
 const Main = lazy(() => import('./Main'))
 const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
@@ -30,7 +32,12 @@ const BullionmarkHeader = () => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const loading = useAppSelector((state) => state.homePage.loading)
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
-  const trigger = useScrollTrigger({
+  // const trigger = useScrollTrigger({
+  //   disableHysteresis: true,
+  //   threshold: isMobile ? 68 : 50,
+  // })
+  // const trigger = useImageInView()
+  const trigger = THEME_TYPE == "1" ? useImageInView() : useScrollTrigger({
     disableHysteresis: true,
     threshold: isMobile ? 68 : 50,
   })
@@ -41,7 +48,7 @@ const BullionmarkHeader = () => {
   const [isShopBannerAbsent, setIsShopBannerAbsent] = useState(false)
 
   useEffect(() => {
-    if ((window.location.pathname == "/" || window.location.pathname.includes("newpage") )) {
+    if ((window.location.pathname == "/" || window.location.pathname.includes("newpage"))) {
       setIsFrontHeader(true)
     }
   }, [window.location.pathname])
@@ -52,25 +59,34 @@ const BullionmarkHeader = () => {
       setIsShopBannerAbsent(true);
     }
   }, []);
+  const showTransprant = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: isMobile ? 68 : 50,
+  })
   return (
     <>
-      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader", isFrontHeader ? "FrontHeader" : "BmkBlackHeader", { "ShopBannerAbsent": (!trigger && isShopBannerAbsent) },)}>
+      <Box id="HeaderWrapper" className={classNames("BullionmarkHeader",
+        // isFrontHeader ? "FrontHeader" : "",
+        isFrontHeader && ((configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile) ? "" : (showTransprant ?    "FrontHeader" : trigger && "BmkBlackHeader")),
+        { "": (!trigger && isShopBannerAbsent) })}>
+
         {!isMobile && <>
           <Suspense fallback={<></>}>
             <Pricing />
           </Suspense>
           <Divider />
         </>}
-        <AppBar position={trigger ? "fixed" : "static"}>
+
+        <AppBar position={(showTransprant && !trigger) ? "fixed" : "static"}>
           {loading && <PageLoader />}
           <Suspense fallback={<></>}>
-            <FrontMain toggleMobileMenu={toggleMobileMenu} isFrontHeader={isFrontHeader}/>
+            <FrontMain toggleMobileMenu={toggleMobileMenu} isFrontHeader={isFrontHeader} />
           </Suspense>
           <Divider />
           <Suspense fallback={<></>}><Navigation /></Suspense>
         </AppBar>
         <Suspense fallback={<></>}>
-          {isMobile && openMobileMenu && <MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} />}
+          {isMobile && openMobileMenu && <MobileMenu open={isMobile && openMobileMenu} trigger={showTransprant} toggleMobileMenu={toggleMobileMenu} />}
         </Suspense >
         {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>}
       </Box >
