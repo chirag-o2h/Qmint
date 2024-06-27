@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container } from "@mui/material";
 import Layout from "../../components/common/Layout";
 import { PageTitle } from "@/components/common/Utils";
@@ -20,6 +20,13 @@ function Topics(paramsData: any) {
     ),
     params: paramsData?.params?.["topic-name"],
   });
+
+  const [topicDetailBody, setTopicDetailBody] = useState(topicDetails?.body)
+  useEffect(() => {
+    if(topicDetails?.body.includes("<h1>&nbsp;</h1>")){
+      setTopicDetailBody(topicDetails?.body.replace("<h1>&nbsp;</h1>", ""))
+    }
+  }, [topicDetails])
 
   return (
     <>
@@ -45,7 +52,7 @@ function Topics(paramsData: any) {
             <Box
               className="Content"
               dangerouslySetInnerHTML={{
-                __html: topicDetails?.body,
+                __html: topicDetailBody,
               }}
             ></Box>
           </Container>
