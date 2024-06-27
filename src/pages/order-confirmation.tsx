@@ -39,7 +39,6 @@ function OrderConfirmation(props: any) {
     }
     const downloadInvoiceHandler = useDownloadInvoiceHandler()
     window.handleLinkClick = async () => {
-        console.log('called')
         setLoadingForNavigate(true)
         await downloadInvoiceHandler(orderConfirmationDetailsData?.orderNumber)
         setLoadingForNavigate(false)

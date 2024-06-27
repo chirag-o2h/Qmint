@@ -28,7 +28,7 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
     useEffect(() => {
         if (clearFilters) {
             setValue([minPrice, maxPrice])
-            console.log("🚀 ~ useEffect ~ minPrice, maxPrice:1", minPrice, maxPrice)
+            // console.log("🚀 ~ useEffect ~ minPrice, maxPrice:1", minPrice, maxPrice)
         }
     }, [clearFilters, minPrice, maxPrice])
 

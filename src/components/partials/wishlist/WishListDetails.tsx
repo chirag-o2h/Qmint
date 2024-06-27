@@ -25,7 +25,7 @@ const WishListDetails = ({ toggleEmailFriend }: { toggleEmailFriend: () => any }
     const [wishListItemsWithLivePrice, setWishListItemsWithLivePrice] = useState<CartItemsWithLivePriceDetails[]>([]);
     const [quantities, setQuantities] = useState<{ [key: number]: number }>({})
     const [selectedItems, setSelectedItems] = useState<{ [key: number]: boolean }>([])
-    console.log("🚀 ~ WishListDetails ~ selectedItems:", selectedItems)
+    // console.log("🚀 ~ WishListDetails ~ selectedItems:", selectedItems)
     const [isWishListUpdated, setIsWishListUpdated] = useState(false)
 
     useEffect(() => {

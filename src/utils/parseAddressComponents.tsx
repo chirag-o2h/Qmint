@@ -45,7 +45,7 @@ import { GOOGLE_MAPS_API_KEY } from '@/components/common/GoogleMaps';
 import axios from 'axios';
 
 export async function parseAddressComponents(data: any): Promise<AddressComponents> {
-    console.log("🚀 ~ parseAddressComponents ~ data:", data)
+    // console.log("🚀 ~ parseAddressComponents ~ data:", data)
     const x = data.terms?.slice(0, -3);
     const parsedAddress = {
         country: data.terms?.at(-1)?.value,

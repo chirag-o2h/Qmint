@@ -585,7 +585,7 @@ export const createHomepageSlice = createSlice({
     })
     builder.addCase(getMainHomePageData.fulfilled, (state, action) => {
       const res = action.payload.data.data
-      console.log("🚀 ~ builder.addCase ~ res:", res)
+      // console.log("🚀 ~ builder.addCase ~ res:", res)
       state.mainHomePageData = res
       state.loading = false
     })

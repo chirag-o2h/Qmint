@@ -27,7 +27,7 @@ function ProductDetail({ params }: any) {
   const checkLoadingStatus = useAppSelector(state => state.category.loading)
   const checkLoadingStatusOfTheGetWishlist = useAppSelector(state => state.wishList.loading)
   const { productDetailsData } = useAppSelector((state) => state.category)
-  console.log("🚀 ~ ProductDetail ~ productDetailsData:", productDetailsData)
+  // console.log("🚀 ~ ProductDetail ~ productDetailsData:", productDetailsData)
   const dispatch = useAppDispatch()
   const endPoint = useMemo(() => {
     return ENDPOINTS.productDetails.replace('{{product-id}}', params?.["product-friendlyName"])

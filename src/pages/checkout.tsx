@@ -34,7 +34,7 @@ function Checkout() {
   const { checkoutPageData, isApiCalled } = useAppSelector((state) => state.checkoutPage)
   const cartItems = useAppSelector(state => state.shoppingCart.cartItems);
   const { configDetails: configDetailsState, openToaster, } = useAppSelector((state) => state.homePage)
-  console.log("🚀 ~ Checkout ~ configDetailsState:", configDetailsState)
+  // console.log("🚀 ~ Checkout ~ configDetailsState:", configDetailsState)
   const [state, setState] = useState({ service: getCheckoutPageData, endPoint: ENDPOINTS.checkoutDetails })
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
   useEffect(() => {

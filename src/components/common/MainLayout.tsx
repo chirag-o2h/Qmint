@@ -33,7 +33,6 @@ const MainLayout = (props: MainLayout) => {
     const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
     useEffect(() => {
-        console.log(location.pathname);
 
         if (THEME_TYPE == "1") {
             setIsBullionmarkHomePage(true)

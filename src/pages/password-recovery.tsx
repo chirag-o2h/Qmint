@@ -69,7 +69,7 @@ function ResetPassword(params: any) {
     const verifyToken = async () => {
       setLoading(() => true)
       const response: any = await dispatch(passwordRecoveryTokenVarified({ url: ENDPOINTS.passwordRecoveryTokenVarified.replace('{{token}}', searchParams.get("token") as string) }))
-      console.log("🚀 ~ verifyToken ~ response:", response)
+      // console.log("🚀 ~ verifyToken ~ response:", response)
       if (isActionRejected(response.type)) {
         setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
         setLoading(() => false)
@@ -140,7 +140,7 @@ function ResetPassword(params: any) {
       return
     }
     setMessage(() => response?.payload?.data?.message)
-    console.log("🚀 ~ handleFormSubmit ~ res:", response)
+    // console.log("🚀 ~ handleFormSubmit ~ res:", response)
     setLoading(false)
   }
   return (

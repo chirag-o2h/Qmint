@@ -20,7 +20,7 @@ function Confirmation(props: any) {
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
   const [data, setData] = useState(null);
-  console.log("🚀 ~ Confirmation ~ props:", props, "--", data)
+  // console.log("🚀 ~ Confirmation ~ props:", props, "--", data)
   useEffect(() => {
     const storedValue: any = localStorage.getItem("messageDataForRegistration");
     setData(storedValue);

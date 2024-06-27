@@ -138,7 +138,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
       setValue(name, value)
   }, [value])
   if (name === "State")
-    console.log("🚀 ~ useEffect ~ value:", value)
+    // console.log("🚀 ~ useEffect ~ value:", value)
 
   useEffect(() => {
     // Find the react-tel-input div and add the class conditionally

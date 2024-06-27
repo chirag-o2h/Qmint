@@ -14,7 +14,6 @@ import { useAppSelector } from "@/hooks"
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
 
 function GetInspired(props: any) {
-  console.log(props, "getinspired")
   const { bullionMarkPage } = useAppSelector((state) => state.homePage)
 
   const config: SwiperOptions = {

@@ -101,14 +101,13 @@ function SessionExpiredDialog(props: SessionExpiredDialog) {
         navigate(res.payload.data.data.negativeAnswerUrl)
       }
     } else {
-      console.log("🚀 ~ savePopUpDataFunctinon ~ res.payload.data.data.negativeAnswer:", res.payload.data.data.negativeAnswer)
+      // console.log("🚀 ~ savePopUpDataFunctinon ~ res.payload.data.data.negativeAnswer:", res.payload.data.data.negativeAnswer)
       if (!!res?.payload?.data?.data?.positiveAnswer) {
         dispatch(setPopUpDetails(res.payload.data.data.positiveAnswer))
         setNeedTOShowClose(true)
         onClose(true)
       } else {
         if (continueProcess) {
-          console.log("continue")
           continueProcess(true)
         }
         // navigate(res.payload.data.data.negativeAnswerUrl)
@@ -116,7 +115,7 @@ function SessionExpiredDialog(props: SessionExpiredDialog) {
     }
   }
   window.handleRefresh = async () => {
-    console.log("here", "handleRefresh")
+    // console.log("here", "handleRefresh")
     location.reload()
   };
   window.handleLogin = async () => {

@@ -446,7 +446,7 @@ export const ToolTipOptionsForTheChartCards = () => {
 }
 export const LineChartCard = (props: any) => {
   const { place, description, bgColor, currentPrice, low, high, valueForChart, title } = props;
-  console.log("🚀 ~ LineChartCard ~ low:", low)
+  // console.log("🚀 ~ LineChartCard ~ low:", low)
   const [liveHoldingsOptions, setLiveHoldingsOptions] = useState<boolean>(false)
   const tooltipRef: any = useRef(null)
 
@@ -629,7 +629,7 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
 
 export const BmkPostCard = (props: IBmkPostCard) => {
   const { details, navigate, isNews = false } = props
-  console.log("🚀 ~ BmkPostCard ~ details:", details)
+  // console.log("🚀 ~ BmkPostCard ~ details:", details)
   return (
     <GatsbyLink to={navigate ?? "#"} className="BmkPostCard">
       <Box className="Content" color="text.primary">

@@ -46,7 +46,7 @@ function BlogDetails(params: any) {
   const dispatch = useAppDispatch()
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { blogDetailsData, blogList }: any = useAppSelector((state) => state.blogPage);
-  console.log("🚀 ~ BlogDetails ~ blogDetailsData:", blogDetailsData)
+  // console.log("🚀 ~ BlogDetails ~ blogDetailsData:", blogDetailsData)
   const { email, handleEmailChange, subscribe, loadingForEmailSub } = useSubscription();
   useEffect(() => {
     const apiCall = async () => {

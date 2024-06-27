@@ -7,7 +7,6 @@ const LogoutUserOnTabClose = ({ children }: any) => {
   const dispatch = useAppDispatch();
   const logoutUser = () => {
     // Your logout logic here
-    console.log("User logged out");
     dispatch(LogOutUserAPI() as any);
     // Example: localStorage.removeItem('authToken');
     // Example: fetch('/api/logout', { method: 'POST' });

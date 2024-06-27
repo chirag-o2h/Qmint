@@ -101,7 +101,7 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
         }
     }, [checkoutPageData])
     const handleSelectAccount = (value: SelectChangeEvent) => {
-        console.log("🚀 ~ handleSelectAccount ~ event:", value)
+        // console.log("🚀 ~ handleSelectAccount ~ event:", value)
         setSelectAccount(value as unknown as string);
     }
     return (

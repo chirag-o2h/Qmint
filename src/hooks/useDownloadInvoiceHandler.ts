@@ -12,7 +12,7 @@ const useDownloadInvoiceHandler = () => {
 
     const downloadInvoiceHandler = async (orderNumber:any) => {
         const response = await dispatch(downloadOrderInvoice({ url: ENDPOINTS.downloadOrderInvoice + orderNumber }) as any)
-        console.log("🚀 ~ downloadInvoiceHandler ~ response:", response)
+        // console.log("🚀 ~ downloadInvoiceHandler ~ response:", response)
 
         if (!hasFulfilled(response.type)) {
             showToaster({

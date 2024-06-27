@@ -33,7 +33,7 @@ const CartOrderSummary = ({ cartItemsWithLivePrice, quantities }: Props) => {
                 'KhgMNHTfVh9C': 'ProceedtoCheckout'
             }
             const res: boolean = await checkThePopUpDetails(paramsObj, toggleSessionExpireDialog, dispatch, getPopUpDetailsAPI)
-            console.log("🚀 ~ handleProccedToCheckout ~ res:", res)
+            // console.log("🚀 ~ handleProccedToCheckout ~ res:", res)
             if (res) {
                 return
             }

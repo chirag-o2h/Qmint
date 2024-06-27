@@ -328,7 +328,7 @@ function Registration() {
       CountryName: phoneNumberValue.country.name
     }
     const response: any = await dispatch(getRegistrationOTP({ url: ENDPOINTS.getRegistrationOTP, body: bodyData }));
-    console.log("🚀 ~ getOtpHandler ~ response:", response)
+    // console.log("🚀 ~ getOtpHandler ~ response:", response)
 
     if (hasFulfilled(response.type)) {
       const resData = response?.payload?.data.data;
@@ -356,7 +356,7 @@ function Registration() {
 
   const verifyOtpHandler = async () => {
     const response: any = await dispatch(verifyRegistrationOTP({ url: ENDPOINTS.verifyRegistrationOTP, body: { ContactNo: getValues("PhoneNumber"), OTP: getValues("OTP") } }));
-    console.log("🚀 ~ verifyOtpHandler ~ response:", response)
+    // console.log("🚀 ~ verifyOtpHandler ~ response:", response)
 
     if (hasFulfilled(response.type)) {
       const resData: boolean = response?.payload?.data?.data?.isOTPVerified;

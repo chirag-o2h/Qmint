@@ -67,22 +67,22 @@ function SignInPage() {
   const onSubmit = async (data: any) => {
     const response: any = await dispatch<any>(LoginUserAPI({ url: ENDPOINTS.loginUser, body: data }))
     if (isActionRejected(response.type)) {
-      console.log("🚀 ~ onSubmit ~ response:", response)
+      // console.log("🚀 ~ onSubmit ~ response:", response)
       setLoginError(((response.payload as AxiosError).response?.data as { message?: string }).message || "Something went wrong")
       return
     }
     const lastPage = getLastPage();
-    console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
+    // console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
     if (lastPage) {
       // Redirect the user to the last visited page
-      console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
+      // console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
       navigate(lastPage);
     } else {
       // Redirect the user to a default page
       navigate('/');
     }
   };
-  console.log("loginError", loginError)
+  // console.log("loginError", loginError)
   function navigateToRegister1() {
     setLoadingForNavigate(true)
     navigate('/registration');
@@ -120,12 +120,12 @@ function SignInPage() {
   }, [])
 
   if (isLoggedIn) {
-    console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
+    // console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
     const lastPage = getLastPage();
-    console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
+    // console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
     if (lastPage && !lastPage.includes('login')) {
       // Redirect the user to the last visited page
-      console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
+      // console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn", lastPage)
       navigate(lastPage, { replace: true });
     } else {
       // Redirect the user to a default page

@@ -65,7 +65,7 @@ function Vault() {
   const { showToaster } = useShowToaster()
   const { loadingForCheckingLogin } = useRequireLogin()
   const { myVaultHomePageData, myVaultHomePageChartData } = useAppSelector((state) => state.myVault)
-  console.log("🚀 ~ Vault ~ myVaultHomePageData:", myVaultHomePageData)
+  // console.log("🚀 ~ Vault ~ myVaultHomePageData:", myVaultHomePageData)
   const isLargeScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up("lg")
   );
@@ -107,13 +107,12 @@ function Vault() {
         showToaster({ message: res.data.message, severity: "error" })
       }
     } catch (error) {
-      console.log("🚀 ~ reOrderFunction ~ res:", error)
+      // console.log("🚀 ~ reOrderFunction ~ res:", error)
     }
   }, [])
   if (loadingForCheckingLogin) {
     return
   }
-  console.log(myVaultHomePageData,"myVaultHomePageData?.sliders")
   return (
     <Layout>
       {openToaster && <Toaster />}
