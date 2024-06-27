@@ -7,15 +7,17 @@ import {
   Container,
   Divider,
   Collapse,
+  Button,
+  Typography,
 } from "@mui/material";
 import classNames from "classnames";
 import { useLocation } from "@reach/router";
 
 // Assets
-import { ArrowDown, ArrowUp } from "../../assets/icons/index";
+import { ArrowDown, ArrowUp,BullionmarkSignInIcon,SignOutIcon } from "../../assets/icons/index";
 
 // Utils
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { navigate } from "gatsby";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
@@ -23,6 +25,8 @@ import { ENDPOINTS } from "@/utils/constants";
 import { formatCategoryUrl, isItNewsOrBlogPage } from "@/utils/common";
 import { THEME_TYPE } from "@/axiosfolder";
 import MobileRecursiveMenu from "./MobileRecursiveMenu";
+import { LogOutUserAPI } from "@/redux/reducers/homepageReducer"
+
 
 function FrontMobileMenu(props: any) {
   const { open, toggleMobileMenu, trigger, isFrontPage } = props;
@@ -31,6 +35,20 @@ function FrontMobileMenu(props: any) {
   const [isHomePage, setIsHomePage] = useState<boolean>(false);
   const { categoriesList } = useAppSelector((state) => state.homePage);
   const [params] = useState({ page: location.pathname === "/" ? 0 : 1 });
+
+  const dispatch = useAppDispatch()
+
+  const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
+    const handleAuth = () => {
+        if (!isLoggedIn) {
+            navigate('/login')
+        } else {
+            dispatch(LogOutUserAPI() as any)
+            navigate('/')
+        }
+    }
+
+
 
   const handleClickMainMenu = (menuId: any) => {
     setOpenMenu((prevOpenMenus: any) => ({
@@ -55,6 +73,7 @@ function FrontMobileMenu(props: any) {
         ScrollActive: trigger,
         isHomePage: isHomePage,
         FrontPageMenu: isFrontPage,
+        BmkCommonMobileClass:THEME_TYPE === "1",
         BmkMobileMenu:
           THEME_TYPE === "1" && isHomePage &&
           trigger &&
@@ -71,6 +90,9 @@ function FrontMobileMenu(props: any) {
     >
       <Container className="HeaderContainer">
         <List component="nav">
+        {THEME_TYPE === "1" && 
+                     <Button name='signIn' aria-label='signIn' className={classNames("SignInButton ActionButton")} variant="contained" startIcon={!isLoggedIn ? <BullionmarkSignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
+                    }
           {categoriesList?.items?.length > 0
             ? categoriesList?.items?.map((category: any) => {
                 let hasSubcategory = category?.subCategories?.length > 0;
