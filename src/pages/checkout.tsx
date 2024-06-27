@@ -57,7 +57,7 @@ function Checkout() {
   }
   return (
     <Layout>
-      <Loader open={checkLoadingStatus} />
+      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
         keywords={[`QMint categories`]}
         title="Category"

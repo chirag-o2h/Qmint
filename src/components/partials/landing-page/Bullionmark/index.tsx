@@ -31,7 +31,7 @@ const BulliomarkMainHomePage = () => {
         <>
             <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>
                 <MainLayout>
-                    <Loader open={loading} />
+                    {loading && <Loader open={loading} />}
                     {openToaster && <Toaster />}
                     <Seo
                         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}

@@ -44,7 +44,7 @@ function Wishlist() {
 
   return (
     <Layout>
-      <Loader open={checkloadingstatus} />
+      {checkloadingstatus && <Loader open={checkloadingstatus} />}
       {openToaster && <Toaster />}
       <Seo
         keywords={["QMint Watchlist"]}

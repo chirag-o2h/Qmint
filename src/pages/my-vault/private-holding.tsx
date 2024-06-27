@@ -70,7 +70,7 @@ function privateHolding(paramsData: any) {
     }
     return (
         <>
-            <Loader open={loading} />
+            {loading &&  <Loader open={loading} />}
             <Layout>
                 <Seo
                     keywords={[`QMint Topics`]}

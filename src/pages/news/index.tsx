@@ -69,7 +69,7 @@ function News() {
 
   return (
     <MainLayout blackTheme>
-      <Loader open={checkLoadingStatus} />
+      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Box className="BlogPage">
         <Box className="HeroSection">
           <Container>

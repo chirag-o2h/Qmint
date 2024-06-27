@@ -146,7 +146,7 @@ function ResetPassword(params: any) {
   return (
     <>
       {openToaster && <Toaster />}
-      <Loader open={loading} />
+      {loading && <Loader open={loading} />}
       <MainLayout blackTheme>
         <Stack id="BmkResetPassword">
           <Box className="LeftPart">

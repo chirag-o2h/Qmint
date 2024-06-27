@@ -50,7 +50,7 @@ function orderDetails({ location }: { location: any }) {
     return (
         <Layout>
             <>
-                <Loader open={checkLoadingStatus} />
+                {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
                 <Seo
                     keywords={[`gatsby`, `order-details`, `react`]}
                     title="Order details"

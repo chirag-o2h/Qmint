@@ -32,7 +32,7 @@ function Sitemap() {
   }
   return (
     <Layout>
-      <Loader open={false} />
+      {/* <Loader open={false} /> */}
       <Seo
         keywords={[`QMint Sitemap`]}
         title="Sitemap"

@@ -319,7 +319,7 @@ function privateHoldingAdd({ location }: { location: any }) {
 
     return (
         <>
-            <Loader open={loading || preparingDataLoading} />
+            {loading || preparingDataLoading && <Loader open={loading || preparingDataLoading} />}
             {openToaster && <Toaster />}
             <Layout>
                 <Seo

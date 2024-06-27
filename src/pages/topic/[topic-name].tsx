@@ -30,7 +30,7 @@ function Topics(paramsData: any) {
 
   return (
     <>
-      <Loader open={loading} />
+      {loading &&  <Loader open={loading} />}
       {!loading && (
         <MainLayout blackTheme>
           <Seo

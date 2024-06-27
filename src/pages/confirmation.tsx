@@ -39,7 +39,7 @@ function Confirmation(props: any) {
   return (
     <MainLayout blackTheme>
       {openToaster && <Toaster />}
-      <Loader open={loading} />
+      {loading && <Loader open={loading} />}
       <Container id="Confirmation">
         <Box className="Content">
           <TickIcon className="TickIcon" />

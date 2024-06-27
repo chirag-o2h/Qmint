@@ -46,7 +46,7 @@ function QmintMainHomePage(
         <Suspense fallback={<Box id="HeaderWrapper">.</Box>}>
             <div className="flex flex-col min-h-screen">
                 <MainLayout>
-                    <Loader open={loading} />
+                    {loading && <Loader open={loading} />}
                     {openToaster && <Toaster />}
                     <Seo
                         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}

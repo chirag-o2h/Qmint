@@ -12,7 +12,7 @@ const Calculators = () => {
     const checkLoadingStatus = useAppSelector(state => state.calculators.loading);
     return (
         <Layout>
-            <Loader open = {checkLoadingStatus} />
+            {checkLoadingStatus && <Loader open = {checkLoadingStatus} />}
             <Seo
                 keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
                 title="Home"

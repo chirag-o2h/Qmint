@@ -136,7 +136,7 @@ function SignInPage() {
   return (
     <>
       {openToaster && <Toaster />}
-      <Loader open={checkLoadingStatus || loadingForNavigate} />
+      {checkLoadingStatus || loadingForNavigate && <Loader open={checkLoadingStatus || loadingForNavigate} />}
       {THEME_TYPE == '1' ? (
         <MainLayout blackTheme>
           <Stack id="BmkSignInPage">

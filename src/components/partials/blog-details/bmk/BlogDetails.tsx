@@ -72,7 +72,7 @@ function BlogDetails(params: any) {
 
   return (
     <MainLayout blackTheme>
-      <Loader open={checkLoadingStatus} />
+      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
         keywords={['Travel', 'Qmit', 'gold', 'metal']}
         title={blogDetailsData?.metaTitle}

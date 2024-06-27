@@ -430,7 +430,7 @@ function Registration() {
   return (
     <MainLayout blackTheme>
       {openToaster && <Toaster />}
-      <Loader open={loading} />
+      {loading &&  <Loader open={loading} />}
       <Stack id="RegistrationPage">
         <Stack className="LeftPart">
           <Box className="StickyWrapper" sx={{ top: !isMobile ? headerHeight : null }}>

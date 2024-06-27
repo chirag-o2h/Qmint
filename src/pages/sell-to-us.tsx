@@ -15,7 +15,7 @@ function Topics(paramsData: any) {
   useAPIoneTime({ service: getTopicDetails, endPoint: ENDPOINTS.topicDetail?.replace('{{topic-name}}', paramsData?.params?.['topic-name']) })
   return (
     <>
-    <Loader open = {checkLoadingStatus} />
+    {checkLoadingStatus && <Loader open = {checkLoadingStatus} />}
    { !loading && <Layout>
       <Seo
         keywords={[`QMint Topics`]}

@@ -49,7 +49,7 @@ function OrderConfirmation(props: any) {
     }
     return (
         <Layout>
-            <Loader open={checkLoadingStatus || loadingForNavigate} />
+            {checkLoadingStatus || loadingForNavigate && <Loader open={checkLoadingStatus || loadingForNavigate} />}
             <Seo
                 keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
                 title="Home"

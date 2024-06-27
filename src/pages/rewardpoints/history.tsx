@@ -17,7 +17,7 @@ function Topics(paramsData: any) {
     useAPIoneTime({ service: getTopicDetails, endPoint: ENDPOINTS.topicDetail?.replace('{{topic-name}}', paramsData?.params?.['topic-name']) })
     return (
         <>
-            <Loader open={loading} />
+            {loading &&  <Loader open={loading} />}
             {
                 !loading && <Layout>
                     <Seo

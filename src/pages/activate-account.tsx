@@ -58,7 +58,7 @@ function ActivateAccount() {
   return (
     <MainLayout blackTheme>
       {openToaster && <Toaster />}
-      <Loader open={loading} />
+      {loading && <Loader open={loading} />}
       <Container id="ActivateAccount">
         <Box className="Content">
           <Typography variant="h4" className="Title" component="p">Activate Account</Typography>

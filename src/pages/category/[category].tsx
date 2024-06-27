@@ -150,7 +150,7 @@ function Category(props: any) {
     const keyWords = categoryPageMetadata?.metaKeywords?.value?.split(',')?.length > 0 ? categoryPageMetadata?.metaKeywords?.value?.split(',') : []
     return (
         <Layout>
-            <Loader open={checkLoadingStatus} />
+            {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
             <Seo
                 title={(categoryPageMetadata.metaTitle ?? '')}
                 isItShopPage={true}

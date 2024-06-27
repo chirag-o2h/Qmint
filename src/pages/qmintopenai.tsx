@@ -85,7 +85,7 @@ function Qmintopenai() {
 
         return (
             <>
-            <Loader open = {checkLoadingStatus} />
+            {checkLoadingStatus && <Loader open = {checkLoadingStatus} />}
             <form onSubmit={handleSubmit(handleFormSubmission)}>
                 <Box className="SelectionWrapper">
                     <Stack className='WeightWrapper'>

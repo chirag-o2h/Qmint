@@ -80,7 +80,7 @@ function BlogDetails(params: any) {
         lang="en"
         description={configDetailsState?.Store_Meta_Description?.value}
       />
-      <Loader open={checkLoadingStatus} />
+      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Box className="BlogDetailPage">
         <Box className="PostDescription">
           <Container maxWidth="lg">

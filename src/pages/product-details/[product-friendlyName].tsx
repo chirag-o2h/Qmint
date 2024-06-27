@@ -50,7 +50,7 @@ function ProductDetail({ params }: any) {
   const keyWords = productDetailsData?.metaKeywords?.value?.split(',')?.length > 0 ? productDetailsData?.metaKeywords?.value?.split(',') : []
   return (
     <Layout>
-      <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />
+      {checkLoadingStatus || checkLoadingStatusOfTheGetWishlist && <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />}
       <Seo
         title={productDetailsData?.metaTitle}
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}

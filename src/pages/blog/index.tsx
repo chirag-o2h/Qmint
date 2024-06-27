@@ -85,7 +85,7 @@ function Blog() {
 
   return (
     <MainLayout blackTheme>
-      <Loader open={checkLoadingStatus} />
+      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
         keywords={['blog', 'latest posts', 'articles']}
         title="Blog"

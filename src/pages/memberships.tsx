@@ -58,7 +58,7 @@ function Memberships() {
         <Layout>
             <>
                 {openToaster && <Toaster />}
-                <Loader open={loading} />
+                {loading && <Loader open={loading} />}
                 <Seo
                     keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
                     title="Home"

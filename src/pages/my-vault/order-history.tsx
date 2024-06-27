@@ -42,7 +42,7 @@ function OrderHistory() {
   }
   return (
     <>
-      <Loader open={loading} />
+      {loading &&  <Loader open={loading} />}
       {openToaster && <Toaster/>}
       <Layout>
         <Seo

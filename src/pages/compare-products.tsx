@@ -38,7 +38,7 @@ function CompareProducts() {
     }
     return (
         <Layout>
-            <Loader open={checkLoadingStatus} />
+            {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
             {openToaster && <Toaster />}
             <Seo
                 keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}

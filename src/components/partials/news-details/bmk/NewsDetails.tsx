@@ -78,7 +78,7 @@ function NewsDetails(params: any) {
         lang="en"
         description={configDetailsState?.Store_Meta_Description?.value}
       />
-      <Loader open={checkLoadingStatus} />
+      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/news', name: 'news' }]} />
         <Container className="PostContainer">
