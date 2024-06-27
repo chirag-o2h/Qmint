@@ -217,7 +217,7 @@
             }
 
             .MuiTypography-root {
-              @include media($xs) {
+              @include media($xs + 1) {
                 display: none;
               }
             }
@@ -692,6 +692,13 @@
                   }
                 }
               }
+              .Right{
+                .SignInButton{
+                  @include media($xs + 1){
+                    display: none;
+                  }
+                }
+              }
             }
           }
         }
@@ -772,6 +779,13 @@
           .MenuLink {
             &:hover {
               color: $pumpkinOrange;
+            }
+          }
+        }
+        .Right{
+          .SignInButton{
+            @include media($xs + 1){
+              display: none;
             }
           }
         }
@@ -891,7 +905,6 @@
       }
     }
 
-    // .MuiAppBar-positionFixed {
     .NavigationHeader {
       .NavigationHeader__Wrapper {
         .SearchField {
@@ -920,8 +933,6 @@
         }
       }
     }
-
-    // }
 
     // .MuiAppBar-positionStatic {
     //   .HeaderContainerWrapper {
@@ -1286,6 +1297,19 @@
       .MuiDrawer-paper {
         background-color: #000000;
         color: $white;
+      }
+    }
+  }
+  &.BmkCommonMobileClass{
+    .HeaderContainer{
+      .SignInButton{
+        display: none;
+        @include media($xs + 1){
+          display: flex;
+          width: 100%;
+          justify-content: left;
+          padding: 10px 21px;
+        }
       }
     }
   }
