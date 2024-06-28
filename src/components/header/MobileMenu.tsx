@@ -91,7 +91,7 @@ function FrontMobileMenu(props: any) {
       <Container className="HeaderContainer">
         <List component="nav">
         {THEME_TYPE === "1" && 
-                     <Button name='signIn' aria-label='signIn' className={classNames("SignInButton ActionButton")} onClick={handleAuth} variant="contained" startIcon={!isLoggedIn ? <BullionmarkSignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
+                     <Button name='signIn' aria-label='signIn' className={classNames("SignInButton ActionButton")} onClick={handleAuth} variant="contained" startIcon={!isLoggedIn ? <BullionmarkSignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Login/Register' : 'Logout'}</Typography></Button>
                     }
           {categoriesList?.items?.length > 0
             ? categoriesList?.items?.map((category: any) => {

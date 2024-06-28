@@ -77,7 +77,7 @@ function FrontMain(props: any) {
                             navigate('/contactus')
                         }} variant="outlined" className="ActionButton">Contact Us</Button> */}
                         {/* </Link> */}
-                        <IconButton color="secondary" area-label="HamburgerMenuButton" className="HamburgerButton MenuButton" onClick={toggleMobileMenu}>{!openMobileMenu ? <HamburgerIcon className="HamburgerIcon" /> : <CrossIcon className="CrossIcon" />}</IconButton>
+                        <IconButton color="secondary"  title="HamburgerButton"  area-label="HamburgerMenuButton" className="HamburgerButton MenuButton" onClick={toggleMobileMenu}>{!openMobileMenu ? <HamburgerIcon className="HamburgerIcon" /> : <CrossIcon className="CrossIcon" />}</IconButton>
                     </Stack>
                 </Stack>
             </Container>
