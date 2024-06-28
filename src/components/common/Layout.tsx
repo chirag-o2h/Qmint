@@ -39,9 +39,6 @@ function Layout({ children }: any) {
   }, [])
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
   useEffect(() => {
-    dispatch(getLiveDashboardChartData({ url: ENDPOINTS.getLiveDashboardChartData }))
-  }, [])
-  useEffect(() => {
     dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
   }, [isLoggedIn])
   useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })

@@ -10,10 +10,12 @@ import { ClickTooltip } from "@/components/common/CustomTooltip"
 import ChartMenuChart from "./ChartMenuChart"
 
 // Hooks
-import { useAppSelector } from "@/hooks"
+import { useAppDispatch, useAppSelector } from "@/hooks"
 import { metalColors } from "@/utils/common"
 import { navigate } from "gatsby"
 import { THEME_TYPE } from "@/axiosfolder"
+import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer"
+import { ENDPOINTS } from "@/utils/constants"
 
 const requiredChartKeys = new Set(["gold", "silver", "platinum", "palladium"])
 
@@ -62,6 +64,12 @@ function ChartMenu() {
       </Box>
     )
   }
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if(open && Object.keys(chartData).length === 0){
+      dispatch(getLiveDashboardChartData({ url: ENDPOINTS.getLiveDashboardChartData }))
+    }
+  }, [open,chartData])
   return (
     <ClickTooltip
       open={open}
