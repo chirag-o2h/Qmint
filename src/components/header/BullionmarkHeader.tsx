@@ -17,6 +17,7 @@ import FrontMain from "./FrontMain";
 import { Call } from "@/assets/icons";
 import useImageInView from "@/hooks/useImageInView";
 import { THEME_TYPE } from "@/axiosfolder";
+import useDebounce from "@/hooks/useDebounce";
 const Pricing = lazy(() => import('./Pricing'))
 const Main = lazy(() => import('./Main'))
 const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
@@ -63,12 +64,18 @@ const BullionmarkHeader = () => {
     disableHysteresis: true,
     threshold: isMobile ? 68 : 50,
   })
+  const trigerMemo = useDebounce(trigger,300)
   return (
     <>
       <Box id="HeaderWrapper" className={classNames("BullionmarkHeader",
         // isFrontHeader ? "FrontHeader" : "",
-        isFrontHeader && ((configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile) ? "" : (showTransprant ?    "FrontHeader" : trigger && "BmkBlackHeader")),
-        { "": (!trigger && isShopBannerAbsent) })}>
+        isFrontHeader &&
+        (configDetailsState?.Sliders_ShopHomepage_Enable?.value === false || isMobile
+          ? ""
+          : (trigerMemo ? (showTransprant ? "FrontHeader" : "BmkBlackHeader") : "")
+        ),
+      )}
+      >
 
         {!isMobile && <>
           <Suspense fallback={<></>}>
