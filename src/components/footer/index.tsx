@@ -16,6 +16,8 @@ import { useAppSelector } from '@/hooks'
 import { apicall, trimAllSpaceFromString } from '@/utils/helper'
 import useSubscription from '@/hooks/useSubscription'
 import { Link as NavigationLink, navigate } from "gatsby"
+import useAPIoneTime from '@/hooks/useAPIoneTime'
+import { getFooterLinks } from '@/redux/reducers/homepageReducer'
 
 export interface FooterLink {
   linkTitle: string;
@@ -24,6 +26,7 @@ export interface FooterLink {
 
 function index() {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
+  useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   const data = useAppSelector((state) => state.homePage.footerSections)
   const { email, handleEmailChange, subscribe } = useSubscription()
   const [fixWrapperHeight, setFixWrapperHeight] = useState<number>(0)

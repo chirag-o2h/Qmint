@@ -14,7 +14,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { useAppDispatch, useAppSelector, useToggle } from "@/hooks";
 import useInactiveLogout from "@/hooks/useInactiveLogout";
-import SessionExpiredDialog from "../header/SessionExpiredDialog";
+const SessionExpiredDialog = lazy(() => import("../header/SessionExpiredDialog"));
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
@@ -41,7 +41,7 @@ function Layout({ children }: any) {
   useEffect(() => {
     dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
   }, [isLoggedIn])
-  useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
+  // useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
   if (configDetailsState?.Store_FaviconURL?.value) {
     const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
@@ -51,6 +51,12 @@ function Layout({ children }: any) {
     link.href = faviconUrl;
     document.head.appendChild(link);
   }
+  const [laodFooter, setLoadFooter] = useState<Boolean>(false)
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadFooter(true)
+    }, 3000);
+  }, [])
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
@@ -61,16 +67,16 @@ function Layout({ children }: any) {
         {children}
         {/* </Suspense> */}
       </main>
-      {<Suspense fallback={
+      {laodFooter && <Suspense fallback={
         <></>
         // <Skeleton height='30vh'></Skeleton>
       }>
         {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </Suspense>}
-      {openSessionExpireDialog && <SessionExpiredDialog
+      {openSessionExpireDialog && <Suspense fallback={<></>}><SessionExpiredDialog
         open={openSessionExpireDialog}
         onClose={toggleSessionExpireDialog}
-      />}
+      /></Suspense>}
     </Stack>
   )
 }

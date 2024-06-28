@@ -594,7 +594,7 @@ export const createHomepageSlice = createSlice({
     })
     // GET FOOTER SECTIONS
     builder.addCase(getFooterLinks.pending, (state, action) => {
-      state.loading = true
+      // state.loading = true
     })
     builder.addCase(getFooterLinks.fulfilled, (state, action) => {
       const resData = action.payload.data.data
