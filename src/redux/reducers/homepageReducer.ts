@@ -530,7 +530,7 @@ export const createHomepageSlice = createSlice({
 
     // Live Dashboard Chart Data
     builder.addCase(getLiveDashboardChartData.pending, (state, action) => {
-      state.loading = true
+      // state.loading = true
     })
     builder.addCase(getLiveDashboardChartData.fulfilled, (state, action) => {
       const responseData = action.payload.data.data;
@@ -542,10 +542,10 @@ export const createHomepageSlice = createSlice({
       //   }
       // });
       state.liveDashboardChartData = responseData
-      state.loading = false
+      // state.loading = false
     })
     builder.addCase(getLiveDashboardChartData.rejected, (state, action) => {
-      state.loading = false
+      // state.loading = false
     })
     // popup details data
     builder.addCase(getPopUpDetailsAPI.pending, (state, action) => {

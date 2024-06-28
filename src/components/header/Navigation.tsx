@@ -51,9 +51,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
   useEffect(() => {
     setCurrententlySelected(getlastPartOfPath(window?.location?.pathname?.toLocaleLowerCase())?.replace(/[\s/]/g, ''))
   }, [window?.location?.pathname])
-  // useEffect(() => {
-  //   dispatch(getLiveDashboardChartData({ url: ENDPOINTS.getLiveDashboardChartData }))
-  // }, [])
+
   const [productIds, setProductIds] = useState({})
   const [cartItemsWithLivePrice, setCartItemsWithLivePrice] = useState<CartItemsWithLivePriceDetails[]>([]);
   const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);

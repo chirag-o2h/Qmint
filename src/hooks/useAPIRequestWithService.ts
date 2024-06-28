@@ -42,8 +42,9 @@ const useAPIRequestWithService = ({ service, endPoint, body, params, pollInterva
         if (conditionalCall) {
             fetchData();
         }
+
         // Polling
-        if (pollInterval) {
+        if (pollInterval && conditionalCall) {
             intervalId.current = setInterval(fetchData, pollInterval * 1000);
             return () => clearInterval(intervalId.current);
         }

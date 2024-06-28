@@ -16,6 +16,7 @@ import { navigate } from "gatsby"
 import { THEME_TYPE } from "@/axiosfolder"
 import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer"
 import { ENDPOINTS } from "@/utils/constants"
+import useAPIRequestWithService from "@/hooks/useAPIRequestWithService"
 
 const requiredChartKeys = new Set(["gold", "silver", "platinum", "palladium"])
 
@@ -65,11 +66,8 @@ function ChartMenu() {
     )
   }
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    if(open && Object.keys(chartData).length === 0){
-      dispatch(getLiveDashboardChartData({ url: ENDPOINTS.getLiveDashboardChartData }))
-    }
-  }, [open,chartData])
+  useAPIRequestWithService({service: getLiveDashboardChartData, endPoint: ENDPOINTS.getLiveDashboardChartData, pollInterval: 60,conditionalCall:(open || window.location.pathname.includes("charts")) })
+
   return (
     <ClickTooltip
       open={open}

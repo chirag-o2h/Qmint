@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Container, Divider } from "@mui/material";
 import { PageTitle } from "@/components/common/Utils";
 import Seo from "@/components/common/Seo";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import Layout from "@/components/common/Layout";
 import MetalChartsTitle from "@/components/partials/charts/MetalChartsTitle";
 import MetalCard from "@/components/partials/charts/MetalCard";
 import { THEME_TYPE } from "@/axiosfolder";
+import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer";
+import { ENDPOINTS } from "@/utils/constants";
+import useAPIRequestWithService from "@/hooks/useAPIRequestWithService";
 
 const colourForMembership: any = {
   gold: "#FFCC00",
@@ -24,10 +27,7 @@ const modifiedName: any = {
 };
 
 function ChartPage() {
-  const chartData = useAppSelector(
-    (state) => state.homePage.liveDashboardChartData
-  );
-
+  const chartData = useAppSelector((state) => state.homePage.liveDashboardChartData);
   return (
     <Layout>
       <Seo keywords={[`BMk Topics`]} title="Charts" lang="en" />
