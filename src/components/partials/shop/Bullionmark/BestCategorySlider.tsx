@@ -81,7 +81,7 @@ function BestCategorySlider(props: any) {
                               <img
                                 className="ProductImage"
                                 src={category.imageUrl}
-                                alt={category.name}
+                                alt="Product Image"
                               />
                             </Box>
                             <Box key="productTitle" className="ProductTitle">
