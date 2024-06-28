@@ -19,7 +19,7 @@ import Badge from '@mui/material/Badge';
 import { chartMenuData, subMenuItems } from "../../utils/data"
 import { Link, navigate } from "gatsby"
 import { ProductUpdateCountdown } from "../common/Utils"
-import { getShoppingCartData, updateSubTotal } from "@/redux/reducers/shoppingCartReducer"
+import { updateSubTotal } from "@/redux/reducers/shoppingCartReducer"
 import { ENDPOINTS } from "@/utils/constants"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { bodyForGetShoppingCartData, formatCategoryUrl, getLengthOfThePaths, getlastPartOfPath } from "@/utils/common"

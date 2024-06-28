@@ -4,12 +4,8 @@ import { useMediaQuery, useScrollTrigger, Theme, AppBar, Box, Divider, IconButto
 import classNames from "classnames"
 
 // Hooks
-import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { useAppSelector } from "@/hooks"
 
-// Utils
-import { ENDPOINTS } from "@/utils/constants";
-import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 
 // Components
 import { PageLoader } from './Loader'
@@ -24,7 +20,7 @@ const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
 const Navigation = lazy(() => import('./Navigation'))
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
-const frontHeaderList = ["/shop/"]
+// const frontHeaderList = ["/shop/"]
 
 const BullionmarkHeader = () => {
   // const [params] = useState({ page: 1 })
@@ -46,7 +42,7 @@ const BullionmarkHeader = () => {
     setOpenMobileMenu(!openMobileMenu)
   }, [openMobileMenu])
   const [isFrontHeader, setIsFrontHeader] = useState(false)
-  const [isShopBannerAbsent, setIsShopBannerAbsent] = useState(false)
+  // const [isShopBannerAbsent, setIsShopBannerAbsent] = useState(false)
 
   useEffect(() => {
     if ((window.location.pathname == "/" || window.location.pathname.includes("newpage"))) {
@@ -54,12 +50,12 @@ const BullionmarkHeader = () => {
     }
   }, [window.location.pathname])
 
-  useEffect(() => {
-    const BannerElementAbsent = document.querySelector('.TopBannerAbsent');
-    if (BannerElementAbsent) {
-      setIsShopBannerAbsent(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const BannerElementAbsent = document.querySelector('.TopBannerAbsent');
+  //   if (BannerElementAbsent) {
+  //     setIsShopBannerAbsent(true);
+  //   }
+  // }, []);
   const showTransprant = useScrollTrigger({
     disableHysteresis: true,
     threshold: isMobile ? 68 : 50,

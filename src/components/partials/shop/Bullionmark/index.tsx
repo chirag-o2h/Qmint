@@ -1,9 +1,9 @@
-import React, { Suspense, useEffect } from "react"
+import React, { lazy, Suspense } from "react"
 
-import { useAppDispatch, useAppSelector, useToggle } from "@/hooks"
+import {  useAppSelector } from "@/hooks"
 
 
-import Layout from "@/components/common/Layout";
+const Layout = lazy(()=>import("@/components/common/Layout"));
 import Loader from "@/components/common/Loader";
 import Toaster from "@/components/common/Toaster";
 import Seo from "@/components/common/Seo";
@@ -29,7 +29,7 @@ function BullionmarkShop() {
     useUserDetailsFromToken()
 
     return (
-        <Suspense fallback={<Box id="HeaderWrapper">...</Box>}>
+        <Suspense fallback={<div>...</div>}>
             <Layout>
                 {loading && <Loader open={loading} />}
                 {openToaster && <Toaster />}

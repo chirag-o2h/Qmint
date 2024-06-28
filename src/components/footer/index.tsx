@@ -26,7 +26,7 @@ export interface FooterLink {
 
 function index() {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-  useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
+  useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink, needLoadingorNot:false })
   const data = useAppSelector((state) => state.homePage.footerSections)
   const { email, handleEmailChange, subscribe } = useSubscription()
   const [fixWrapperHeight, setFixWrapperHeight] = useState<number>(0)

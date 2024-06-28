@@ -3,11 +3,11 @@ import PropTypes from "prop-types"
 import { Skeleton, Stack } from "@mui/material";
 
 // Utils
-import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
+import {  THEME_TYPE } from "@/axiosfolder"
 
 // Components
 import LazyHeader from "../header/index"
-import BullionmarkHeader from "../header/BullionmarkHeader"
+const  BullionmarkHeader = lazy(()=>import("../header/BullionmarkHeader")) 
 import { bodyForGetShoppingCartData, convertMinutesToMilliseconds, storeLastPage } from "@/utils/common";
 import { configDetails, getFooterLinks, getLiveDashboardChartData } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
@@ -39,7 +39,9 @@ function Layout({ children }: any) {
   }, [])
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
   useEffect(() => {
-    dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
+    setTimeout(() => {
+      dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
+    }, 2000);
   }, [isLoggedIn])
   // useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
@@ -60,7 +62,7 @@ function Layout({ children }: any) {
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      {THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
+      {THEME_TYPE === "1" ?<Suspense fallback={<></>}> <BullionmarkHeader /></Suspense> : <LazyHeader />}
       {/* </Suspense> */}
       <main>
         {/* <Suspense fallback={<Box></Box>}> */}

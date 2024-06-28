@@ -17,7 +17,7 @@ import { ENDPOINTS } from '@/utils/constants';
 
 function BullionmarkFooter() {
   const { configDetails: configDetailsState, bullionMarkPage } = useAppSelector((state) => state.homePage)
-  useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
+  useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink, needLoadingorNot:false })
   const data = useAppSelector((state) => state.homePage.footerSections)
 
   return (
