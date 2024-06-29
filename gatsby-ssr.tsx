@@ -27,11 +27,12 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostB
   setHeadComponents([
     <Partytown key="partytown" debug={true} forward={['dataLayer.push']} />,
     <script
-      async
+      defer
       src="https://www.googletagmanager.com/gtag/js?id=G-J4PT6SWF19"
       key="ga-script"
     />,
     <script
+      defer
       key="ga-setup"
       dangerouslySetInnerHTML={{
         __html: `
@@ -44,6 +45,7 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostB
     />,
     // Google Tag Manager
     <script
+      defer
       key="gtm-setup"
       dangerouslySetInnerHTML={{
         __html: `
@@ -68,16 +70,16 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostB
                 `,
       }}
     />,
-        // Google Tag Manager (noscript)
-        <noscript
-        key="gtm-noscript"
-        dangerouslySetInnerHTML={{
-          __html: `
+    // Google Tag Manager (noscript)
+    <noscript
+      key="gtm-noscript"
+      dangerouslySetInnerHTML={{
+        __html: `
             <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJLKDCRM"
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
           `,
-        }}
-      />,
+      }}
+    />,
   ]);
   // setPostBodyComponents([
 

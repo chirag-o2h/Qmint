@@ -79,6 +79,7 @@ function BestCategorySlider(props: any) {
                               className="ProductImageWrapper"
                             >
                               <img
+                                loading="eager"
                                 className="ProductImage"
                                 src={category.imageUrl}
                                 alt="Product Image"
