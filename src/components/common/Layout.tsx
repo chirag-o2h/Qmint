@@ -62,7 +62,7 @@ function Layout({ children }: any) {
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      {THEME_TYPE === "1" ?<Suspense fallback={<></>}> <BullionmarkHeader /></Suspense> : <LazyHeader />}
+      {THEME_TYPE === "1" ?<Suspense fallback={<Skeleton style={{ minHeight: '150px' }} />}> <BullionmarkHeader /></Suspense> : <LazyHeader />}
       {/* </Suspense> */}
       <main>
         {/* <Suspense fallback={<Box></Box>}> */}

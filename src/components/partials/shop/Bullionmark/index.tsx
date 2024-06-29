@@ -29,7 +29,7 @@ function BullionmarkShop() {
     useUserDetailsFromToken()
 
     return (
-        <Suspense fallback={<div>...</div>}>
+        <Suspense fallback={<Loader open={loading} />}>
             <Layout>
                 {loading && <Loader open={loading} />}
                 {openToaster && <Toaster />}
