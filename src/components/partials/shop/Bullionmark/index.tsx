@@ -30,7 +30,7 @@ function BullionmarkShop() {
     }, [configDetailsState]);
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100vh"}}>.......</div>}>
             <Layout>
                 {loading && <Loader open={loading} />}
                 {openToaster && <Toaster />}
