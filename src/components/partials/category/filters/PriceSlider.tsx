@@ -3,7 +3,7 @@ import useDebounce from '@/hooks/useDebounce'
 import { setPageSelectedSpecifications, setPageSelectedPrice } from '@/redux/reducers/categoryReducer'
 import { getlastPartOfPath } from '@/utils/common'
 import { Box, Slider, Typography, useMediaQuery } from '@mui/material'
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect,useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilters, mobilePriceFilters, setMobilePriceFilters }: { minPrice: number, maxPrice: number, setIsPriceChanged: any, pagesSelectedFilters: any, mobilePriceFilters?: number[], setMobilePriceFilters?: any }) => {
     const dispatch = useAppDispatch();

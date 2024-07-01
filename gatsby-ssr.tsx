@@ -28,6 +28,7 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostB
     <Partytown key="partytown" debug={true} forward={['dataLayer.push']} />,
     <script
       defer
+      type="text/partytown"
       src="https://www.googletagmanager.com/gtag/js?id=G-J4PT6SWF19"
       key="ga-script"
     />,
@@ -47,6 +48,7 @@ export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostB
     <script
       defer
       key="gtm-setup"
+      type="text/partytown"
       dangerouslySetInnerHTML={{
         __html: `
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

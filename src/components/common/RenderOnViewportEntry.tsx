@@ -1,4 +1,5 @@
 import useFirstViewportEntry from '@/hooks/useFirstViewportEntry'
+import { Skeleton } from '@mui/material'
 import React, { Suspense, useRef } from 'react'
 
 const RenderOnViewportEntry = ({
@@ -7,6 +8,7 @@ const RenderOnViewportEntry = ({
     minHeight = 240,
     root = null,
     rootMargin = "0px 0px 0px 0px",
+    skeletonMargin,
     ...wrapperDivProps
 }: any) => {
     const ref = useRef()
@@ -16,12 +18,7 @@ const RenderOnViewportEntry = ({
             minHeight: !entered ? minHeight : null,
         }}>
             {entered && <Suspense fallback={
-                <div
-                    className="CustomSkeleton"
-                    style={{
-                        minHeight: minHeight,
-                    }}
-                ></div>
+                <Skeleton height={minHeight} style={{marginTop: skeletonMargin && skeletonMargin}}/>
             }>{children}</Suspense>}
         </div>
     )

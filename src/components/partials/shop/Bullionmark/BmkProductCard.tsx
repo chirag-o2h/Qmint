@@ -6,7 +6,8 @@ import {
     Typography,
     Button,
     IconButton,
-    Box
+    Box,
+    useMediaQuery
 } from '@mui/material'
 import React, { useState } from 'react'
 import { Link as ProducLink, navigate } from "gatsby"
@@ -30,6 +31,7 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
     const { cartItems } = useAppSelector((state) => state.shoppingCart)
     const { showToaster } = useShowToaster();
     const { loading: loadingForAddToCart, error: errorForAddToCart, apiCallFunction } = useCallAPI()
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
 
     const handleAddToCart = async () => {
         if (cartItems?.length && (cartItems?.length >= configDetailsState?.Shoppingcart_MaxItems?.value)) {
@@ -72,7 +74,7 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
         <Card className="BmkCommonProductCard">
             <Stack className="ImageWrapper">
                 <ProducLink className="ImageLink" to={`/product-details/${product?.friendlypagename}`}>
-                    <img src={product?.imageUrl ?? noImage} alt="Product image" loading="lazy" />
+                    <img style={{minHeight: isMobile ? '': "250px"}} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high'/>
                 </ProducLink>
             </Stack>
             <CardContent>

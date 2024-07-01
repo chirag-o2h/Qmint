@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { BullionmarkSectionHeading } from '@/components/common/Utils'
 import { Box, Card, Skeleton, useMediaQuery, Container } from "@mui/material"
@@ -53,14 +53,14 @@ function BmkFeaturedProductsSlider(props: any) {
     }
 
     return (
-        <Box id="BmkFeaturedProductsSlider" component="section">
+        <Box id="BmkFeaturedProductsSlider" component="section" style={{ minHeight: isMobile ? '900px' : "950px" }}>
             <Container>
                 <BullionmarkSectionHeading title={props?.title} description={props?.description} />
                 <Box className="BmkProductsWrapper">
                     <Box className={classNames("SwiperContainer", [isMobile ? "CircleSwiperPagination" : "LinedSwiperPagination"])}>
                         <Swiper {...config}>
                             {
-                                data?.data?.items?.length > 0 ? data?.data?.items?.map((product) => {
+                                (data?.data?.items?.length > 0) ? data?.data?.items?.map((product) => {
                                     product.priceWithDetails = priceForEachId ? priceForEachId[product?.productId] : null;
                                     return (<SwiperSlide key={product.productId}>
                                         <BmkProductCard product={product} />
@@ -72,7 +72,7 @@ function BmkFeaturedProductsSlider(props: any) {
                                             return (
                                                 <SwiperSlide key={index}>
                                                     <Card className="ProductCard">
-                                                        <Skeleton animation="wave" height={500} style={{ padding: "0px" }} />
+                                                        <Skeleton animation="wave" height={370} style={{ padding: "0px" }} />
                                                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                                                             <Skeleton animation="wave" height={95} width="100%" style={{ marginBottom: "4px" }} />
                                                             <Skeleton animation="wave" height={70} width="100%" />
@@ -80,13 +80,14 @@ function BmkFeaturedProductsSlider(props: any) {
                                                     </Card>
                                                 </SwiperSlide>
                                             );
-                                        }) : Array(4).fill(0).map((_, index) => {
+                                        }) : Array(2).fill(0).map((_, index) => {
                                             return (
                                                 <SwiperSlide key={index}>
+                                                    {/* <Skeleton className="testing" animation="wave" height={'630px'} style={{ padding: "0px" }} /> */}
                                                     <Card className="ProductCard">
-                                                        <Skeleton animation="wave" height={320} style={{ padding: "0px" }} />
+                                                        <Skeleton animation="wave" height={410} style={{ padding: "0px" }} />
                                                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                                                            <Skeleton animation="wave" height={100} width="100%" style={{ marginBottom: "4px" }} />
+                                                            <Skeleton animation="wave" height={95} width="100%" style={{ marginBottom: "4px" }} />
                                                             <Skeleton animation="wave" height={70} width="100%" />
                                                         </div>
                                                     </Card>

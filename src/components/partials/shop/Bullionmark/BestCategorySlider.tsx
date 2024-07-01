@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, useMediaQuery, Container, Typography } from "@mui/material";
+import { Box, Card, useMediaQuery, Container, Typography, Skeleton } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Link } from "gatsby";
@@ -7,7 +7,8 @@ import { Link } from "gatsby";
 import { Navigation, Autoplay, Pagination, A11y } from "swiper/modules";
 
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
-import { useAppSelector } from "@/hooks";
+import LazyImage from "@/hooks/LazyImage";
+import noImage from '../../../../assets/images/noImage.png'
 
 function BestCategorySlider(props: any) {
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
@@ -58,14 +59,16 @@ function BestCategorySlider(props: any) {
       id="BestCategorySlider"
       component="section"
       className={props.PaddingClass}
+      style={{minHeight : isMobile ? 720 : 0}}
     >
       <Container>
         <BullionmarkSectionHeading title={props?.title} />
         <Box className="BmkProductsSliderWrapper">
           <Box className="SwiperContainer CircleSwiperPagination">
             <Swiper {...config}>
-              {props?.pageData &&
-                props?.pageData?.quickCategoryLinks?.map(
+              {(props?.pageData?.quickCategoryLinks?.length > 0) ?
+              <>
+                {props?.pageData?.quickCategoryLinks?.map(
                   (category: any, index: number) => {
                     return (
                       <SwiperSlide key={category.id || category.name}>
@@ -78,12 +81,22 @@ function BestCategorySlider(props: any) {
                               key="productImage"
                               className="ProductImageWrapper"
                             >
-                              <img
-                                loading="eager"
+                              {/* <img
+                              style={{minHeight: isMobile ? "430px" :"350px"}}
+                                // loading="eager"
+                                fetchPriority="high"
                                 className="ProductImage"
                                 src={category.imageUrl}
                                 alt="Product Image"
-                              />
+                              /> */}
+                                  <LazyImage
+                                    key={category.id}
+                                    src={category.imageUrl}
+                                    placeholder={noImage}
+                                    alt={category.name}
+                                    style={{minHeight: isMobile ? "430px" :"350px"}}
+                                    className="ProductImage"
+                                  />
                             </Box>
                             <Box key="productTitle" className="ProductTitle">
                               <Typography variant="h4">
@@ -95,7 +108,20 @@ function BestCategorySlider(props: any) {
                       </SwiperSlide>
                     );
                   }
-                )}
+                )}</> : !isMobile ? Array(6).fill(0).map((_, index) => {
+                                            return (
+                                                <SwiperSlide key={index}>
+                                                        <Skeleton animation="wave" height={500} style={{ padding: "0px" }} />
+                                                </SwiperSlide>
+                                            );
+                                        }) : Array(4).fill(0).map((_, index) => {
+                                            return (
+                                                <SwiperSlide key={index}>
+                                                        <Skeleton animation="wave" height={470} style={{ padding: "0px" }} />
+                                                </SwiperSlide>
+                                            );
+                                        })
+                }
             </Swiper>
           </Box>
         </Box>

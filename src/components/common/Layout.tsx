@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack, useMediaQuery } from "@mui/material";
 
 // Utils
 import {  THEME_TYPE } from "@/axiosfolder"
@@ -19,6 +19,7 @@ import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout({ children }: any) {
+  useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
   useInactiveLogout(isLoggedIn ? convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_LoggedInUsers?.value) : convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_Guest?.value), toggleSessionExpireDialog);
@@ -37,7 +38,6 @@ function Layout({ children }: any) {
       clearTimeout(x);
     }
   }, [])
-  useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
   useEffect(() => {
     setTimeout(() => {
       dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
@@ -59,10 +59,14 @@ function Layout({ children }: any) {
       setLoadFooter(true)
     }, 3000);
   }, [])
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'));
+
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      {THEME_TYPE === "1" ?<Suspense fallback={<Skeleton style={{ minHeight: '150px' }} />}> <BullionmarkHeader /></Suspense> : <LazyHeader />}
+      {THEME_TYPE === "1" ?<Suspense fallback={<Skeleton height={isMobile ? "20vh" : "260px"} style={{marginTop: isMobile ? "-40px" : "-60px"}}/>}> 
+      <BullionmarkHeader />
+      </Suspense> : <LazyHeader />}
       {/* </Suspense> */}
       <main>
         {/* <Suspense fallback={<Box></Box>}> */}
@@ -70,8 +74,7 @@ function Layout({ children }: any) {
         {/* </Suspense> */}
       </main>
       {laodFooter && <Suspense fallback={
-        <></>
-        // <Skeleton height='30vh'></Skeleton>
+        <Skeleton height='30vh'></Skeleton>
       }>
         {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </Suspense>}

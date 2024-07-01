@@ -61,7 +61,7 @@ function FrontMain(props: any) {
                         <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomeOrShopPage ?
                              isItHomePage ? (trigger ? 'BrandLogoURL_Header' :'Brand_Dark_LogoURL' ) : (trigger ? 'BrandLogoURL_Header' :'Brand_Dark_LogoURL' )
                              
-                             : "Brand_Dark_LogoURL"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" loading="eager" /></Link>
+                             : "Brand_Dark_LogoURL"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" fetchPriority="high" /></Link>
                     </Stack>
                     <Stack className="Center">
                         {/* // todo when need to conver again from home page to shope page related things */}

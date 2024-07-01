@@ -34,6 +34,7 @@ function BullionmarkFooter() {
                 src={configDetailsState?.BrandLogoURL_Footer?.value}
                 alt="Bullionmark Footer logo"
                 loading="lazy"
+                fetchPriority='high'
               />
             </GatsbyLink>
             <Box className="MenuWrapper ContactUs">

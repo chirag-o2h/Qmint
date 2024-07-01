@@ -13,10 +13,11 @@ import { Call } from "@/assets/icons";
 import useImageInView from "@/hooks/useImageInView";
 import { THEME_TYPE } from "@/axiosfolder";
 import useDebounce from "@/hooks/useDebounce";
-const Pricing = lazy(() => import('./Pricing'))
-const Main = lazy(() => import('./Main'))
+// const Pricing = lazy(() => import('./Pricing'))
+import Pricing from "./Pricing";
 const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
-const Navigation = lazy(() => import('./Navigation'))
+// const Navigation = lazy(() => import('./Navigation'))
+import Navigation from "./Navigation";
 const MobileMenu = lazy(() => import('./MobileMenu'))
 const PageLoader = lazy(() => import('./Loader').then((module) => ({ default: module.PageLoader })));
 
@@ -75,23 +76,25 @@ const BullionmarkHeader = () => {
       >
 
         {!isMobile && <>
-          <Suspense fallback={<Skeleton style={{ minHeight: '50px' }} />}>
+          {/* <Suspense fallback={<Skeleton style={{ minHeight: '50px' }} />}> */}
             <Pricing />
-          </Suspense>
+          {/* </Suspense> */}
           <Divider />
         </>}
 
         <AppBar position={(showTransprant && !trigger) ? "fixed" : "static"}>
           {loading && <Suspense fallback={<></>}><PageLoader /></Suspense>}
-          <Suspense fallback={<Skeleton style={{ minHeight: '80px' }} />}>
+          {/* <Suspense fallback={<Skeleton style={{ minHeight: '80px' }} />}> */}
             <FrontMain toggleMobileMenu={toggleMobileMenu} isFrontHeader={isFrontHeader} />
-          </Suspense>
+          {/* </Suspense> */}
           <Divider />
-          <Suspense fallback={<Skeleton style={{ minHeight: '80px' }} />}><Navigation /></Suspense>
+          {/* <Suspense fallback={<Skeleton style={{ minHeight: '80px' }} />}> */}
+          <Navigation />
+          {/* </Suspense> */}
         </AppBar>
-        <Suspense fallback={<Skeleton style={{ minHeight: '60px' }} />}>
-          {isMobile && openMobileMenu && <MobileMenu open={isMobile && openMobileMenu} trigger={showTransprant} toggleMobileMenu={toggleMobileMenu} />}
-        </Suspense >
+        {isMobile && openMobileMenu && <Suspense fallback={<Skeleton style={{ minHeight: '60px' }} />}>
+          { <MobileMenu open={isMobile && openMobileMenu} trigger={showTransprant} toggleMobileMenu={toggleMobileMenu} />}
+        </Suspense >}
         {isMobile && <Suspense fallback={<Skeleton style={{ minHeight: '60px' }} />}> <MobileSecondaryMenu /></Suspense>}
       </Box >
     </>

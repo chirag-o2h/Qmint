@@ -1,11 +1,11 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useAppDispatch } from '.'
 import { setLoadingFalse, setLoadingTrue } from '@/redux/reducers/homepageReducer'
 
 const useAPIoneTime = ({ service, endPoint, body, params, conditionalCall = true, needLoadingorNot=true }: { service: any, endPoint?: string, body?: any, params?: any, callAgain?: any, conditionalCall?: boolean,needLoadingorNot?:boolean }) => {
     const dispatch = useAppDispatch()
-    useLayoutEffect(() => {
+    useEffect(() => {
         // console.log("bugs")
         let timeoutId: any;
         needLoadingorNot && dispatch(setLoadingTrue())
