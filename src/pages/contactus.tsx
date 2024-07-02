@@ -31,7 +31,7 @@ function ContactUs() {
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-        title="Home"
+        title=""
         lang="en"
       />
       {openToaster && <Toaster />}
