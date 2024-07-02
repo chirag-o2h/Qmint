@@ -7,7 +7,7 @@ import { joinWithPipe } from "@/utils/common"
 
 function Seo({ description, lang, meta, keywords, title, isItShopPage = false }: any) {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-  title = joinWithPipe([(isItShopPage ? (configDetailsState?.Store_ShopPage_Title?.value) : (configDetailsState?.Store_Title?.value)), (title ?? '')])
+  title = joinWithPipe([(title ?? ''), (isItShopPage ? (configDetailsState?.Store_ShopPage_Title?.value) : (configDetailsState?.Store_Title?.value))])
   const { site } = useStaticQuery(graphql`
     query DefaultSEOQuery {
       site {
