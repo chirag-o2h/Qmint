@@ -160,7 +160,10 @@
           padding: 10px;
           background: #ff00003d;
           margin-top: 10px;
-          color: $error;
+          color: #000000c9;
+           a{
+            color: $pumpkinOrange;
+          }
         }
       }
 
