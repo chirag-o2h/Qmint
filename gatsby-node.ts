@@ -7,15 +7,28 @@ exports.onPreBuild = async () => {
 // exports.onPreBootstrap = async () => {
 //     await copyLibFiles(path.join(__dirname, "public/static", "~partytown"));
 // };
-exports.onCreateWebpackConfig = ({ actions }: any) => {
-    actions.setWebpackConfig({
+exports.onCreateWebpackConfig = ({ stage, actions }:any) => {
+    const webpackConfig:any = {
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, 'src'),
-                'assets': path.resolve(__dirname, 'static/assets')
+                'assets': path.resolve(__dirname, 'static/assets'),
             },
         },
-    })
+    };
+
+    if (stage === "build-javascript" || stage === "develop") {
+        webpackConfig.optimization = {
+            splitChunks: {
+                chunks: 'all',
+                minSize: 5000,  // Minimum size for splitting chunks
+                minChunks: 10,    // Minimum number of chunks that must share a module before splitting
+                maxAsyncRequests: 10,  // Maximum number of parallel requests for chunks on initial load
+            },
+        };
+    }
+
+    actions.setWebpackConfig(webpackConfig);
 };
 exports.onCreateBabelConfig = ({ actions }: any) => {
     actions.setBabelPlugin({
@@ -99,4 +112,3 @@ exports.createPages = async ({  actions }:any) => {
       });
     });
   };
-  

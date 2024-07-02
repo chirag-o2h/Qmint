@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Card, useMediaQuery, Container, Typography, Skeleton } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -9,10 +9,11 @@ import { Navigation, Autoplay, Pagination, A11y } from "swiper/modules";
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
 import LazyImage from "@/hooks/LazyImage";
 import noImage from '../../../../assets/images/noImage.png'
+import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 
 function BestCategorySlider(props: any) {
+  const removeMinHeight =useUnloadMinHeight()
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
-
   const config = {
     slidesPerView: 1,
     spaceBetween: 16,
@@ -54,12 +55,13 @@ function BestCategorySlider(props: any) {
       },
     },
   };
+
   return (
     <Box
       id="BestCategorySlider"
       component="section"
       className={props.PaddingClass}
-      style={{minHeight : isMobile ? 720 : 0}}
+      style={removeMinHeight ? { minHeight: isMobile ? 720 : 650 } : {}}
     >
       <Container>
         <BullionmarkSectionHeading title={props?.title} />
@@ -67,29 +69,29 @@ function BestCategorySlider(props: any) {
           <Box className="SwiperContainer CircleSwiperPagination">
             <Swiper {...config}>
               {(props?.pageData?.quickCategoryLinks?.length > 0) ?
-              <>
-                {props?.pageData?.quickCategoryLinks?.map(
-                  (category: any, index: number) => {
-                    return (
-                      <SwiperSlide key={category.id || category.name}>
-                        <Link
-                          to={category.linkUrl}
-                          className="BmkProductCardLink"
-                        >
-                          <Card className="BmkProductCard">
-                            <Box
-                              key="productImage"
-                              className="ProductImageWrapper"
-                            >
-                              <img
-                              style={{minHeight: isMobile ? "430px" :"350px"}}
-                                // loading="eager"
-                                fetchPriority="high"
-                                className="ProductImage"
-                                src={category.imageUrl}
-                                alt="Product Image"
-                              />
-                                  {/* <LazyImage
+                <>
+                  {props?.pageData?.quickCategoryLinks?.map(
+                    (category: any, index: number) => {
+                      return (
+                        <SwiperSlide key={category.id || category.name}>
+                          <Link
+                            to={category.linkUrl}
+                            className="BmkProductCardLink"
+                          >
+                            <Card className="BmkProductCard">
+                              <Box
+                                key="productImage"
+                                className="ProductImageWrapper"
+                              >
+                                <img
+                                  style={removeMinHeight ? { minHeight: isMobile ? "430px" : "350px" } : {}}
+                                  // loading="eager"
+                                  fetchPriority="high"
+                                  className="ProductImage"
+                                  src={category.imageUrl}
+                                  alt="Product Image"
+                                />
+                                {/* <LazyImage
                                     key={category.id}
                                     src={category.imageUrl}
                                     placeholder={noImage}
@@ -97,31 +99,31 @@ function BestCategorySlider(props: any) {
                                     style={{minHeight: isMobile ? "430px" :"350px"}}
                                     className="ProductImage"
                                   /> */}
-                            </Box>
-                            <Box key="productTitle" className="ProductTitle">
-                              <Typography variant="h4">
-                                {category.name}
-                              </Typography>
-                            </Box>
-                          </Card>
-                        </Link>
+                              </Box>
+                              <Box key="productTitle" className="ProductTitle">
+                                <Typography variant="h4">
+                                  {category.name}
+                                </Typography>
+                              </Box>
+                            </Card>
+                          </Link>
+                        </SwiperSlide>
+                      );
+                    }
+                  )}</> : !isMobile ? Array(6).fill(0).map((_, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <Skeleton animation="wave" height={500} style={{ padding: "0px" }} />
                       </SwiperSlide>
                     );
-                  }
-                )}</> : !isMobile ? Array(6).fill(0).map((_, index) => {
-                                            return (
-                                                <SwiperSlide key={index}>
-                                                        <Skeleton animation="wave" height={500} style={{ padding: "0px" }} />
-                                                </SwiperSlide>
-                                            );
-                                        }) : Array(4).fill(0).map((_, index) => {
-                                            return (
-                                                <SwiperSlide key={index}>
-                                                        <Skeleton animation="wave" height={470} style={{ padding: "0px" }} />
-                                                </SwiperSlide>
-                                            );
-                                        })
-                }
+                  }) : Array(4).fill(0).map((_, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <Skeleton animation="wave" height={470} style={{ padding: "0px" }} />
+                      </SwiperSlide>
+                    );
+                  })
+              }
             </Swiper>
           </Box>
         </Box>

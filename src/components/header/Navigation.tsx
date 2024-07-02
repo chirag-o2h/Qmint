@@ -32,6 +32,9 @@ import { Call } from "@/assets/icons";
 
 
 export interface Icategory {
+  url: string,
+  isurl: boolean,
+  type: number,
   categoryId: number,
   name: string,
   description: any,
@@ -104,7 +107,8 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                         placement="bottom-start"
                         renderComponent={
                           <Link
-                            to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                            // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                            to={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
                             aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                             className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                           >
@@ -118,7 +122,8 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                       </HoverTooltip>
                       </Fragment>
                       : <Fragment key={category.name}><Link
-                        to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                        // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                        to={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
                         aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                         className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                       >

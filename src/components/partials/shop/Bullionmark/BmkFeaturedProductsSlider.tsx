@@ -7,8 +7,10 @@ import { Autoplay, Pagination, A11y } from 'swiper/modules'
 import BmkProductCard from "./BmkProductCard"
 import classNames from "classnames"
 import useGetFeaturesProductaData from "@/hooks/useGetFeaturedProductaData"
+import useUnloadMinHeight from "@/hooks/useUnloadMinHeight"
 
 function BmkFeaturedProductsSlider(props: any) {
+    const removeMinHeight =useUnloadMinHeight()
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     const { data, priceForEachId } = useGetFeaturesProductaData()
 
@@ -53,7 +55,7 @@ function BmkFeaturedProductsSlider(props: any) {
     }
 
     return (
-        <Box id="BmkFeaturedProductsSlider" component="section" style={{ minHeight: isMobile ? '900px' : "950px" }}>
+  <Box id="BmkFeaturedProductsSlider" component="section" style={removeMinHeight ? { minHeight: isMobile ? '900px' : "950px" } : {}}>
             <Container>
                 <BullionmarkSectionHeading title={props?.title} description={props?.description} />
                 <Box className="BmkProductsWrapper">

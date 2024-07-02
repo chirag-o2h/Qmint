@@ -22,9 +22,11 @@ import { ENDPOINTS } from '@/utils/constants'
 import { getShoppingCartData } from '@/redux/reducers/shoppingCartReducer'
 import { bodyForGetShoppingCartData } from '@/utils/common'
 import useCallAPI from '@/hooks/useCallAPI'
+import useUnloadMinHeight from '@/hooks/useUnloadMinHeight'
 
 
 function BmkProductCard({ product }: { product: IFeaturedProducts }) {
+    const removeMinHeight = useUnloadMinHeight()
     const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
     const dispatch = useAppDispatch()
     const renderStockStatus = isLoggedIn || configDetailsState?.AvailabilityForGuests_Enable?.value
@@ -74,7 +76,7 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
         <Card className="BmkCommonProductCard">
             <Stack className="ImageWrapper">
                 <ProducLink className="ImageLink" to={`/product-details/${product?.friendlypagename}`}>
-                    <img style={{minHeight: isMobile ? '': "250px"}} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high'/>
+                    <img style={removeMinHeight ? {minHeight: isMobile ? '': "250px"}  :{ }} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high'/>
                 </ProducLink>
             </Stack>
             <CardContent>

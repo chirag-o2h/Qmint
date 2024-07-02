@@ -16,9 +16,11 @@ import { useAppDispatch, useAppSelector, useToggle } from "@/hooks";
 import useInactiveLogout from "@/hooks/useInactiveLogout";
 const SessionExpiredDialog = lazy(() => import("../header/SessionExpiredDialog"));
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
+import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout({ children }: any) {
+  const removeMinHeight =useUnloadMinHeight()
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
@@ -68,7 +70,7 @@ function Layout({ children }: any) {
       <BullionmarkHeader />
       </Suspense> : <LazyHeader />}
       {/* </Suspense> */}
-      <main>
+      <main style={removeMinHeight ? {minHeight: '100vh'} : {}}>
         {/* <Suspense fallback={<Box></Box>}> */}
         {children}
         {/* </Suspense> */}
