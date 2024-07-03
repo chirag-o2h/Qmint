@@ -76,7 +76,7 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
         <Card className="BmkCommonProductCard">
             <Stack className="ImageWrapper">
                 <ProducLink className="ImageLink" to={`/product-details/${product?.friendlypagename}`}>
-                    <img style={removeMinHeight ? {minHeight: isMobile ? '': "250px"}  :{ }} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high'/>
+                    <img style={removeMinHeight ? { minHeight: isMobile ? '' : "250px" } : {}} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high' />
                 </ProducLink>
             </Stack>
             <CardContent>
@@ -107,12 +107,15 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
                             : null}
                     </Stack>
                 </Stack>
-                <Typography
-                    className={classNames("OfferBadge")}
-                    sx={{ backgroundColor: product?.tagColor }}
-                >
-                    {product?.tagName}
-                </Typography>
+                {
+                    product?.tagName &&
+                    <Typography
+                        className={classNames("OfferBadge")}
+                        sx={{ backgroundColor: product?.tagColor }}
+                    >
+                        {product?.tagName}
+                    </Typography>
+                }
             </CardContent>
             <CardActions>
                 <Button name='learnMore' aria-label='Learn More' variant="contained" className="PrimaryAction" onClick={() => {
