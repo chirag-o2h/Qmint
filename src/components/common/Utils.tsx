@@ -319,24 +319,50 @@ export function isActionRejected(str: string): boolean {
   const state = parts[parts.length - 1];
   return state === "rejected";
 }
-export function generateGUID() {
-  let uniqueId = localStorage.getItem("uniqueSessionId");
+// export function generateGUID() {
+//   let uniqueId = localStorage?.getItem("uniqueSessionId");
 
-  if (!uniqueId) {
-    uniqueId = "xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx".replace(
-      /[xy]/g,
-      function (c) {
+//   if (!uniqueId) {
+//     uniqueId = "xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx".replace(
+//       /[xy]/g,
+//       function (c) {
+//         const r = (Math.random() * 16) | 0;
+//         const v = c === "x" ? r : (r & 0x3) | 0x8;
+//         return v.toString(16);
+//       }
+//     );
+
+//     localStorage?.setItem("uniqueSessionId", uniqueId);
+//   }
+
+//   return uniqueId;
+// }
+export function generateGUID() {
+  if (typeof window === 'undefined') {
+    // Running on the server side, generate a new GUID without using localStorage
+    return "xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  } else {
+    // Running on the client side, use localStorage
+    let uniqueId = localStorage.getItem("uniqueSessionId");
+
+    if (!uniqueId) {
+      uniqueId = "xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
         const r = (Math.random() * 16) | 0;
         const v = c === "x" ? r : (r & 0x3) | 0x8;
         return v.toString(16);
-      }
-    );
+      });
 
-    localStorage.setItem("uniqueSessionId", uniqueId);
+      localStorage.setItem("uniqueSessionId", uniqueId);
+    }
+
+    return uniqueId;
   }
-
-  return uniqueId;
 }
+
 // Helper function to check if an image URL is valid
 export const checkImageUrl = (url:any) => {
   return new Promise((resolve) => {

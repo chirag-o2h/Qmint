@@ -19,12 +19,13 @@ import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
-function Layout({ children }: any) {
+function Layout(props: any) {
+  const  { children, isItMainPage=false} = props
   const removeMinHeight =useUnloadMinHeight()
-  useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
   useInactiveLogout(isLoggedIn ? convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_LoggedInUsers?.value) : convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_Guest?.value), toggleSessionExpireDialog);
+  useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore, conditionalCall: !isItMainPage})
   // useInactiveLogout(2000, toggleSessionExpireDialog);
   // const [loading, setLoading] = useState(true);
   const [wait, setWait] = useState(false)
@@ -43,7 +44,7 @@ function Layout({ children }: any) {
   useEffect(() => {
     setTimeout(() => {
       dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
-    }, 2000);
+    }, 0);
   }, [isLoggedIn])
   // useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
@@ -75,11 +76,11 @@ function Layout({ children }: any) {
         {children}
         {/* </Suspense> */}
       </main>
-      {laodFooter && <Suspense fallback={
+      {/* {laodFooter && <Suspense fallback={
         <Skeleton height='30vh'></Skeleton>
       }>
         {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
-      </Suspense>}
+      </Suspense>} */}
       {openSessionExpireDialog && <Suspense fallback={<></>}><SessionExpiredDialog
         open={openSessionExpireDialog}
         onClose={toggleSessionExpireDialog}
@@ -90,6 +91,7 @@ function Layout({ children }: any) {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  isItMainPage: PropTypes.bool
 }
 
 export default Layout

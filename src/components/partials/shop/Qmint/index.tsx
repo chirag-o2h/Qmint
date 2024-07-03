@@ -19,7 +19,7 @@ import ProductsSlider from "@/components/partials/shop/Qmint/ProductsSlider";
 import Seo from "@/components/common/Seo"
 import Banner from "./Banner"
 
-function QmintShop() {
+const QmintShop=()=> {
     const dispatch = useAppDispatch()
     const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'))
@@ -95,5 +95,13 @@ function QmintShop() {
         </Layout>
     )
 }
-
+// Implement getServerData for QmintShop
+QmintShop.getServerData = async (context:any) => {
+    // Fetch data for QmintShop
+    return {
+      props: {
+        // Your data here
+      },
+    };
+  };
 export default QmintShop
