@@ -446,7 +446,6 @@ export const ToolTipOptionsForTheChartCards = () => {
 }
 export const LineChartCard = (props: any) => {
   const { place, description, bgColor, currentPrice, low, high, valueForChart, title } = props;
-  // console.log("🚀 ~ LineChartCard ~ low:", low)
   const [liveHoldingsOptions, setLiveHoldingsOptions] = useState<boolean>(false)
   const tooltipRef: any = useRef(null)
 
