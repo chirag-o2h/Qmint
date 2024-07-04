@@ -99,22 +99,17 @@ BullionmarkShop.getServerData = async (context:any) => {
     try {
         console.log("getServerData -- starting",Date.now())
         // Use axios.get to fetch data and extract response.data
-        const endpointBaseURL = "https://qmapi.azurewebsites.net/api/v1/";
-        const headers = {
-            "Storecode": "25",
-            "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
-        };
 
         console.log("getServerData -- before fetching data",Date.now())
         const [configDetailsResponse,
             bmkShopPageSectionsResponse,
             //  bannerDataResponse
         ] = await Promise.all([
-            axios.get(endpointBaseURL + ENDPOINTS.getConfigStore, { headers }),
-            // axiosInstance.get(ENDPOINTS.getConfigStore),
+            // axios.get(endpointBaseURL + ENDPOINTS.getConfigStore, { headers }),
+            axiosInstance.get(ENDPOINTS.getConfigStore),
 
-            axios.get(endpointBaseURL + ENDPOINTS.bullionMarkShopSections, { headers }),
-            // axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
+            // axios.get(endpointBaseURL + ENDPOINTS.bullionMarkShopSections, { headers }),
+            axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
             // axios.get(endpointBaseURL + ENDPOINTS.getSlider.replace('typeEnum', '0'), { headers }),
         ]);
         console.log("getServerData -- after fetching data",Date.now())
