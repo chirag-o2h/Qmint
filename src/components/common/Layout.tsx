@@ -76,11 +76,11 @@ function Layout(props: any) {
         {children}
         {/* </Suspense> */}
       </main>
-      {/* {laodFooter && <Suspense fallback={
+      {laodFooter && <Suspense fallback={
         <Skeleton height='30vh'></Skeleton>
       }>
         {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
-      </Suspense>} */}
+      </Suspense>}
       {openSessionExpireDialog && <Suspense fallback={<></>}><SessionExpiredDialog
         open={openSessionExpireDialog}
         onClose={toggleSessionExpireDialog}
