@@ -64,6 +64,9 @@ const BullionmarkShop=(props:any)=> {
                     <BmkFeaturedProductsSlider
                         title={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Title"]?.value}
                         description={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Subtitle"]?.value}
+                        needToCallProductAPI={false}
+                        productData = {serverData?.productData}
+                        priceForEachId={serverData?.priceForEachId}
                     />
                     {/* </RenderOnViewportEntry> */}
                     <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={600}>
@@ -97,40 +100,60 @@ const BullionmarkShop=(props:any)=> {
 // Implement getServerData for BullionmarkShop
 BullionmarkShop.getServerData = async (context:any) => {
     try {
-        console.log("getServerData -- starting",Date.now())
-        // Use axios.get to fetch data and extract response.data
+        console.log("getServerData -- starting", Date.now());
 
-        console.log("getServerData -- before fetching data",Date.now())
-        const [configDetailsResponse,
+        const dataforbody = {
+            "search": "",
+            "pageNo": 0,
+            "pageSize": -1,
+            "sortBy": "",
+            "sortOrder": "",
+            "filters": {
+                "isFeatureProduct": true
+            }
+        };
+
+        console.log("getServerData -- before fetching data", Date.now());
+        const [
+            configDetailsResponse,
             bmkShopPageSectionsResponse,
-            //  bannerDataResponse
+            productResponse
         ] = await Promise.all([
-            // axios.get(endpointBaseURL + ENDPOINTS.getConfigStore, { headers }),
             axiosInstance.get(ENDPOINTS.getConfigStore),
-
-            // axios.get(endpointBaseURL + ENDPOINTS.bullionMarkShopSections, { headers }),
             axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
-            // axios.get(endpointBaseURL + ENDPOINTS.getSlider.replace('typeEnum', '0'), { headers }),
+            axiosInstance.post(ENDPOINTS.getProduct, dataforbody),
         ]);
-        console.log("getServerData -- after fetching data",Date.now())
-        // Extract response.data from axios responses
-        const configDetails = configDetailsResponse.data.data;
-        // const mainHomePageData = mainHomePageDataResponse.data.data;
-        // const bannerData = bannerDataResponse.data.data
-        const bmkShopPageSections = bmkShopPageSectionsResponse.data.data
-        // console.log("🚀 ~ getServerData ~ configDetails:", configDetails,bmkShopPageSections)
 
-        console.log("getServerData -- before returning props",Date.now())
+        const configDetails = configDetailsResponse.data.data;
+        const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
+        const productData = productResponse.data;
+
+        let priceForEachId = null;
+
+        if (productData?.data?.items?.length > 0) {
+            const ids = productData.data.items.map((product:any) => product.productId);
+            const priceResponse = await axiosInstance.post(ENDPOINTS.productPrices, { productIds: ids });
+            const priceData = priceResponse.data;
+
+            priceForEachId = {};
+            priceData?.data?.forEach((product:any) => {
+                priceForEachId[product.productId] = product;
+            });
+        }
+
+        console.log("getServerData -- before returning props", Date.now());
 
         return {
             props: {
                 configDetails,
                 bmkShopPageSections,
+                productData: productData.data,
+                priceForEachId,
             }
         };
     } catch (error) {
         console.error("🚀 ~ getServerData ~ error:", error);
-        console.log("getServerData -- inside catch block",Date.now())
+        console.log("getServerData -- inside catch block", Date.now());
         return {
             status: 500,
             headers: {},
@@ -138,6 +161,7 @@ BullionmarkShop.getServerData = async (context:any) => {
         };
     }
 };
+
 
   
 export default BullionmarkShop;

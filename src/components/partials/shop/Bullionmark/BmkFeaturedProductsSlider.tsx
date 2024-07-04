@@ -12,8 +12,13 @@ import useUnloadMinHeight from "@/hooks/useUnloadMinHeight"
 function BmkFeaturedProductsSlider(props: any) {
     const removeMinHeight =useUnloadMinHeight()
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-    const { data, priceForEachId } = useGetFeaturesProductaData()
-
+    let { data, priceForEachId } = useGetFeaturesProductaData(props?.needToCallProductAPI)
+    console.log("🚀 ~ BmkFeaturedProductsSlider ~ data:", data)
+        if(!props?.needToCallProductAPI){
+            data = {data:props?.productData}
+            priceForEachId = props?.priceForEachId
+        }
+        console.log("🚀 ~ BmkFeaturedProductsSlider ~ data:", data)
     const config = {
         slidesPerView: 1,
         spaceBetween: 16,

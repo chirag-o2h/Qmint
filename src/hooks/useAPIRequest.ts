@@ -6,7 +6,7 @@ import { useAppDispatch } from '.';
 import { setLoadingFalse, setLoadingTrue } from '@/redux/reducers/homepageReducer';
 import { ENDPOINTS } from '@/utils/constants';
 
-const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData: any = null, pollInterval: number | null = null): { data:any, loading:boolean, error:any} => {
+const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData: any = null, pollInterval: number | null = null,conditionalCall=true): { data:any, loading:boolean, error:any} => {
     const dispatch = useAppDispatch()
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
     let intervalId: number | any = useRef(null);
 
     useEffect(() => {
-        if (requestData === null || (typeof requestData === 'object' && Object.keys(requestData).length > 0) || (Array.isArray(requestData) && requestData.length > 0)) {
+        if ((requestData === null || (typeof requestData === 'object' && Object.keys(requestData).length > 0) || (Array.isArray(requestData) && requestData.length > 0))&& conditionalCall) {
             const fetchData = async () => {
                 // setLoading(true);
                 // dispatch(setLoadingTrue())

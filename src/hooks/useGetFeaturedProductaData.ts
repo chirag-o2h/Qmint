@@ -7,7 +7,7 @@ import axiosInstance from "@/axiosfolder";
 let cancellationSource: AbortController | null = null;
 let timeoutId: number | any = null;
 
-const useGetFeaturesProductaData = () => {
+const useGetFeaturesProductaData = (conditionalCall=true) => {
     const [dataforbody] = useState({
         "search": "",
         "pageNo": 0,
@@ -18,7 +18,7 @@ const useGetFeaturesProductaData = () => {
             "isFeatureProduct": true
         }
     })
-    const { data }: Idata = useApiRequest(ENDPOINTS.getProduct, 'post', dataforbody);
+    const { data }: Idata = useApiRequest(ENDPOINTS.getProduct, 'post', dataforbody,null,conditionalCall);
     const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
 
     useEffect(() => {
