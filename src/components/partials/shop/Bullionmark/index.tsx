@@ -97,7 +97,10 @@ const BullionmarkShop=(props:any)=> {
 // Implement getServerData for BullionmarkShop
 BullionmarkShop.getServerData = async (context:any) => {
     try {
+        console.log("getServerData -- starting",Date.now())
         // Use axios.get to fetch data and extract response.data
+
+        console.log("getServerData -- before fetching data",Date.now())
         const [configDetailsResponse,
             bmkShopPageSectionsResponse,
             //  bannerDataResponse
@@ -109,13 +112,15 @@ BullionmarkShop.getServerData = async (context:any) => {
             axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
             // axios.get(endpointBaseURL + ENDPOINTS.getSlider.replace('typeEnum', '0'), { headers }),
         ]);
-
+        console.log("getServerData -- after fetching data",Date.now())
         // Extract response.data from axios responses
         const configDetails = configDetailsResponse.data.data;
         // const mainHomePageData = mainHomePageDataResponse.data.data;
         // const bannerData = bannerDataResponse.data.data
         const bmkShopPageSections = bmkShopPageSectionsResponse.data.data
-        console.log("🚀 ~ getServerData ~ configDetails:", configDetails,bmkShopPageSections)
+        // console.log("🚀 ~ getServerData ~ configDetails:", configDetails,bmkShopPageSections)
+
+        console.log("getServerData -- before returning props",Date.now())
 
         return {
             props: {
@@ -125,6 +130,7 @@ BullionmarkShop.getServerData = async (context:any) => {
         };
     } catch (error) {
         console.error("🚀 ~ getServerData ~ error:", error);
+        console.log("getServerData -- inside catch block",Date.now())
         return {
             status: 500,
             headers: {},
