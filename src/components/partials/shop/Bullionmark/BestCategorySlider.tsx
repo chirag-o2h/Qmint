@@ -84,7 +84,7 @@ function BestCategorySlider(props: any) {
                                 className="ProductImageWrapper"
                               >
                                 <img
-                                  style={removeMinHeight ? { minHeight: isMobile ? "430px" : "350px" } : {}}
+                                  style={removeMinHeight ? { minHeight: isMobile ? "300px" : "270px" } : {}}
                                   // loading="eager"
                                   fetchPriority="high"
                                   className="ProductImage"
