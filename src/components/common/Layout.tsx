@@ -17,6 +17,7 @@ import useInactiveLogout from "@/hooks/useInactiveLogout";
 const SessionExpiredDialog = lazy(() => import("../header/SessionExpiredDialog"));
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
+import RenderOnViewportEntry from "./RenderOnViewportEntry";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout(props: any) {
@@ -67,20 +68,26 @@ function Layout(props: any) {
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      {THEME_TYPE === "1" ?<Suspense fallback={<Skeleton height={isMobile ? "20vh" : "260px"} style={{marginTop: isMobile ? "-40px" : "-60px"}}/>}> 
+      {/* {THEME_TYPE === "1" ?<Suspense fallback={<Skeleton height={isMobile ? "20vh" : "260px"} style={{marginTop: isMobile ? "-40px" : "-60px"}}/>}> 
       <BullionmarkHeader />
-      </Suspense> : <LazyHeader />}
+      </Suspense> : <LazyHeader />} */}
+      <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={isMobile ? "20vh" : 260}>
+      {THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
+      </RenderOnViewportEntry>
       {/* </Suspense> */}
       <main style={removeMinHeight ? {minHeight: '100vh'} : {}}>
         {/* <Suspense fallback={<Box></Box>}> */}
         {children}
         {/* </Suspense> */}
       </main>
-      {laodFooter && <Suspense fallback={
+      {/* {laodFooter && <Suspense fallback={
         <Skeleton height='30vh'></Skeleton>
       }>
         {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
-      </Suspense>}
+      </Suspense>} */}
+                    <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={800}>
+                    {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
+                    </RenderOnViewportEntry>
       {openSessionExpireDialog && <Suspense fallback={<></>}><SessionExpiredDialog
         open={openSessionExpireDialog}
         onClose={toggleSessionExpireDialog}

@@ -23,6 +23,7 @@ import { getShoppingCartData } from '@/redux/reducers/shoppingCartReducer'
 import { bodyForGetShoppingCartData } from '@/utils/common'
 import useCallAPI from '@/hooks/useCallAPI'
 import useUnloadMinHeight from '@/hooks/useUnloadMinHeight'
+import LazyImage from '@/hooks/LazyImage'
 
 
 function BmkProductCard({ product }: { product: IFeaturedProducts }) {
@@ -76,7 +77,15 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
         <Card className="BmkCommonProductCard">
             <Stack className="ImageWrapper">
                 <ProducLink className="ImageLink" to={`/product-details/${product?.friendlypagename}`}>
-                    <img style={removeMinHeight ? {minHeight: isMobile ? '': "250px"}  :{ }} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high'/>
+                    {/* <img style={removeMinHeight ? {minHeight: isMobile ? '': "250px"}  :{ }} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high'/> */}
+                    <LazyImage
+                                    key={product.imageUrl}
+                                    src={product?.imageUrl ?? noImage}
+                                    placeholder={noImage}
+                                    alt="Product image"
+                                    style={removeMinHeight ? {minHeight: isMobile ? '': "250px"}  :{ }}
+                                    className="ProductImage"
+                                  />
                 </ProducLink>
             </Stack>
             <CardContent>

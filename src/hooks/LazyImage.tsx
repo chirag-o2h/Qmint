@@ -31,7 +31,7 @@ const LazyImage = ({ src, alt, placeholder, style, className }:any) => {
   return (
     <div ref={imgRef} style={style} className={className}>
       {isVisible ? (
-        <img src={src} alt={alt} loading="lazy" style={style} />
+        <img src={src} alt={alt} loading="eager" style={style} />
       ) : (
         <img src={placeholder} alt="Loading..." style={style} />
       )}

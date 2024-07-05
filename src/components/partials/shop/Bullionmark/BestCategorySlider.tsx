@@ -10,9 +10,9 @@ import { BullionmarkSectionHeading } from "@/components/common/Utils";
 import LazyImage from "@/hooks/LazyImage";
 import noImage from '../../../../assets/images/noImage.png'
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
-
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 function BestCategorySlider(props: any) {
-  const removeMinHeight =useUnloadMinHeight()
+  const removeMinHeight = useUnloadMinHeight()
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const config = {
     slidesPerView: 1,
@@ -83,22 +83,30 @@ function BestCategorySlider(props: any) {
                                 key="productImage"
                                 className="ProductImageWrapper"
                               >
-                                <img
+                                {/* <GatsbyImage
+                                  style={removeMinHeight ? { minHeight: isMobile ? '300px' : '270px' } : {}}
+                                  loading="eager"
+                                  fetchPriority="high"
+                                  className="ProductImage"
+                                  image={getImage(category.imageUrl)!}
+                                  alt="Product Image"
+                                /> */}
+                                {/* <img
                                   style={removeMinHeight ? { minHeight: isMobile ? "300px" : "270px" } : {}}
-                                  // loading="eager"
+                                  loading="eager"
                                   fetchPriority="high"
                                   className="ProductImage"
                                   src={category.imageUrl}
                                   alt="Product Image"
-                                />
-                                {/* <LazyImage
+                                /> */}
+                                <LazyImage
                                     key={category.id}
                                     src={category.imageUrl}
                                     placeholder={noImage}
                                     alt={category.name}
                                     style={{minHeight: isMobile ? "430px" :"350px"}}
                                     className="ProductImage"
-                                  /> */}
+                                  />
                               </Box>
                               <Box key="productTitle" className="ProductTitle">
                                 <Typography variant="h4">

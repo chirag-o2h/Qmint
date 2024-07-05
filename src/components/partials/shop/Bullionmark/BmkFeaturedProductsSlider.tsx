@@ -13,12 +13,10 @@ function BmkFeaturedProductsSlider(props: any) {
     const removeMinHeight =useUnloadMinHeight()
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
     let { data, priceForEachId } = useGetFeaturesProductaData(props?.needToCallProductAPI, props?.productData)
-    console.log("🚀 ~ BmkFeaturedProductsSlider ~ data:x", data)
         if(!props?.needToCallProductAPI){
             data = {data:props?.productData}
-            priceForEachId = props?.priceForEachId
+            // priceForEachId = props?.priceForEachId
         }
-        console.log("🚀 ~ BmkFeaturedProductsSlider ~ data:", data?.data?.items?.length,priceForEachId)
     const config = {
         slidesPerView: 1,
         spaceBetween: 16,

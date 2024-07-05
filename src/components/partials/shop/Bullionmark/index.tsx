@@ -13,10 +13,10 @@ const Layout = lazy(() => import("@/components/common/Layout"));
 // const Loader = lazy(() => import("@/components/common/Loader"));
 import Loader from "@/components/common/Loader"
 const Toaster = lazy(() => import("@/components/common/Toaster"));
-// const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
-// const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
-import BestCategorySlider from "./BestCategorySlider"
-import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
+const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
+const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
+// import BestCategorySlider from "./BestCategorySlider"
+// import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
 import axios from "axios";
 import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
@@ -53,14 +53,14 @@ const BullionmarkShop=(props:any)=> {
                         description={configDetailsState?.Store_ShopPage_Meta_Description?.value}
                     />
                     {!isMobile && configDetailsState?.Sliders_ShopHomepage_Enable?.value == true && <Suspense fallback={<Skeleton height={'500px'}></Skeleton>}><BannerSlider isItShopPage={true} /></Suspense>}
-                    {/* <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={900} skeletonMargin={-220}> */}
+                    <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={900} skeletonMargin={-220}>
                     <BestCategorySlider
                         pageData={bmkShopPageSections}
                         PaddingClass={!isMobile && configDetailsState?.Sliders_ShopHomepage_Enable?.value ? "" : "TopBannerAbsent"}
                         title={configDetailsState?.["ShopHomepage_Section_1_Featured_Categories_Title"]?.value}
                     />
-                    {/* </RenderOnViewportEntry> */}
-                    {/* <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={950} skeletonMargin={-220} >  */}
+                    </RenderOnViewportEntry>
+                    <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={950} skeletonMargin={-220} > 
                     <BmkFeaturedProductsSlider
                         title={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Title"]?.value}
                         description={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Subtitle"]?.value}
@@ -68,7 +68,7 @@ const BullionmarkShop=(props:any)=> {
                         productData = {serverData?.productData}
                         // priceForEachId={serverData?.priceForEachId}
                     />
-                    {/* </RenderOnViewportEntry> */}
+                    </RenderOnViewportEntry>
                     <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={600}>
                         <ThreePicsRow />
                     </RenderOnViewportEntry>
@@ -94,7 +94,7 @@ const BullionmarkShop=(props:any)=> {
                     {openToaster && <Suspense fallback={<></>}><Toaster /></Suspense>}
                 </Layout>
             </>
-        </Suspense>
+         </Suspense>
     );
 }
 // Implement getServerData for BullionmarkShop
