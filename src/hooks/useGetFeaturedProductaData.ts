@@ -7,7 +7,7 @@ import axiosInstance from "@/axiosfolder";
 let cancellationSource: AbortController | null = null;
 let timeoutId: number | any = null;
 
-const useGetFeaturesProductaData = (conditionalCall=true) => {
+const useGetFeaturesProductaData = (conditionalCall=true,dataWhenConditionCallFalse:any=null) => {
     const [dataforbody] = useState({
         "search": "",
         "pageNo": 0,
@@ -18,12 +18,15 @@ const useGetFeaturesProductaData = (conditionalCall=true) => {
             "isFeatureProduct": true
         }
     })
-    const { data }: Idata = useApiRequest(ENDPOINTS.getProduct, 'post', dataforbody,null,conditionalCall);
+    let { data }: Idata = useApiRequest(ENDPOINTS.getProduct, 'post', dataforbody,null,conditionalCall);
+    
     const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
 
     useEffect(() => {
-        if (data?.data?.items?.length > 0) {
-            const ids: number[] = data?.data?.items?.map((product) => product.productId)
+        const dataOfTheProducts = {data:dataWhenConditionCallFalse} || data
+        if(conditionalCall || dataWhenConditionCallFalse){
+        if (dataOfTheProducts?.data?.items?.length > 0) {
+            const ids: number[] = dataOfTheProducts?.data?.items?.map((product: { productId: any; }) => product.productId)
             const fetchData = async () => {
                 // Clear any pending timeout or request
                 timeoutId && clearTimeout(timeoutId);
@@ -70,7 +73,8 @@ const useGetFeaturesProductaData = (conditionalCall=true) => {
                 cancellationSource.abort();
             }
         };
-    }, [data]);
+    }
+    }, [data,conditionalCall,dataWhenConditionCallFalse]);
 
     return { data, priceForEachId }
 }

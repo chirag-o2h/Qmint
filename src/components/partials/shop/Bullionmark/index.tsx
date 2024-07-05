@@ -66,7 +66,7 @@ const BullionmarkShop=(props:any)=> {
                         description={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Subtitle"]?.value}
                         needToCallProductAPI={false}
                         productData = {serverData?.productData}
-                        priceForEachId={serverData?.priceForEachId}
+                        // priceForEachId={serverData?.priceForEachId}
                     />
                     {/* </RenderOnViewportEntry> */}
                     <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={600}>
@@ -128,18 +128,18 @@ BullionmarkShop.getServerData = async (context:any) => {
         const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
         const productData = productResponse.data;
 
-        let priceForEachId = null;
+        // let priceForEachId = null;
 
-        if (productData?.data?.items?.length > 0) {
-            const ids = productData.data.items.map((product:any) => product.productId);
-            const priceResponse = await axiosInstance.post(ENDPOINTS.productPrices, { productIds: ids });
-            const priceData = priceResponse.data;
+        // if (productData?.data?.items?.length > 0) {
+        //     const ids = productData.data.items.map((product:any) => product.productId);
+        //     const priceResponse = await axiosInstance.post(ENDPOINTS.productPrices, { productIds: ids });
+        //     const priceData = priceResponse.data;
 
-            priceForEachId = {};
-            priceData?.data?.forEach((product:any) => {
-                priceForEachId[product.productId] = product;
-            });
-        }
+        //     priceForEachId = {};
+        //     priceData?.data?.forEach((product:any) => {
+        //         priceForEachId[product.productId] = product;
+        //     });
+        // }
 
         console.log("getServerData -- before returning props", Date.now());
 
@@ -148,7 +148,7 @@ BullionmarkShop.getServerData = async (context:any) => {
                 configDetails,
                 bmkShopPageSections,
                 productData: productData.data,
-                priceForEachId,
+                // priceForEachId,
             }
         };
     } catch (error) {
