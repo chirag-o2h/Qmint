@@ -14,12 +14,12 @@ module.exports = {
         path: `${__dirname}/src/assets/`,
       },
     },
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        icon: `src/assets/favicon.ico`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     icon: `src/assets/favicon.ico`,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-google-fonts-v2`,
       options: {
