@@ -57,22 +57,23 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
 
   const [productIds, setProductIds] = useState({})
   const [cartItemsWithLivePrice, setCartItemsWithLivePrice] = useState<CartItemsWithLivePriceDetails[]>([]);
-  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);
+  const pathName = window.location.pathname.replace(/\//g, '')
+  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, (pathName.includes('shopping-cart') || pathName.includes('checkout')) ? null : 60);
   useEffect(() => {
     if (priceData?.data?.length > 0) {
       const idwithpriceObj: any = {}
       priceData?.data?.forEach((product: any) => idwithpriceObj[product?.productId] = product)
-
-      let subTotal = 0;
+// no need to update the subtotal as we are doing from that perticular page
+      // let subTotal = 0;
       const cartItemsWithLivePrice = cartItems?.map((item: CartItem) => {
-        subTotal += (idwithpriceObj?.[item.productId]?.price * item.quantity)
+        // subTotal += (idwithpriceObj?.[item.productId]?.price * item.quantity)
         return {
           ...item,
           LivePriceDetails: idwithpriceObj[item.productId]
         }
       })
 
-      dispatch(updateSubTotal(subTotal))
+      // dispatch(updateSubTotal(subTotal))
 
       if (cartItemsWithLivePrice) {
         setCartItemsWithLivePrice(cartItemsWithLivePrice)

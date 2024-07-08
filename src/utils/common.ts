@@ -228,6 +228,7 @@ export const joinWithPipe = (parts: any[]) => {
 };
 export function calculatePrice(product:any, qty:any) {
   // Destructure the product object to get the necessary properties
+  if(product){
   const { price, tierPriceList } = product;
 
   // If there is no tierPriceList or it's empty, return the base price
@@ -240,4 +241,5 @@ export function calculatePrice(product:any, qty:any) {
 
   // If a matching tier price is found, return the tier price, otherwise return the base price
   return tier ? tier.price : price;
+}
 }

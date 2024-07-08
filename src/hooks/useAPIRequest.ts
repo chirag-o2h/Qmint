@@ -71,10 +71,13 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
             // Polling
             if (pollInterval) {
                 intervalId.current = setInterval(fetchData, pollInterval * 1000);
-                return () => clearInterval(intervalId.current);
+                return () =>{
+                     clearInterval(intervalId.current)
+                    };
             }
 
             return () => {
+                intervalId.current && clearInterval(intervalId.current)
                 clearTimeout(timeoutId.current);
                 if (cancellationSource.current) {
                     cancellationSource.current.abort();
