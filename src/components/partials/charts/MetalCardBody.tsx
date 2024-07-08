@@ -41,7 +41,7 @@ function MetalCardBody(props: any) {
     );
   }
 
-  if (currentPrice) {
+  if (currentPrice !== undefined) {
     return (
       <Box className="MetalCardBody">
         <Box className="MetalCardContent">

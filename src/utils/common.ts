@@ -183,13 +183,17 @@ export const calculationOfThePremiumAndDiscount = (premium: string | number, pre
     return null;
   }
 
-  const percentage = Math.round((parsedDiscount / parsedPremium) * 100);
+  let percentage = roundOfThePrice((parsedDiscount / parsedPremium) * 100);
 
-  if (isNaN(percentage)) {
+  if (isNaN(Number(percentage))) {
     return null;
   }
 
-  return `${percentage}% Off on premium`;
+  percentage = percentage.slice(percentage.length - 2, percentage.length) === '00'
+    ? percentage.slice(0, percentage.length - 3)
+    : percentage
+
+  return `%${percentage} off the premium`;
 }
 export const getlastPartOfPath = (path: any) => {
   const parts = path.split('/').filter((part: string) => part !== '');

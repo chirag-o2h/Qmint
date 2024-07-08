@@ -321,6 +321,11 @@ function AboutProduct({ productId }: any) {
       </Stack>
     )
   }
+
+  let discountedPrice = roundOfThePrice(productDetailsData?.premiumDiscount);
+  discountedPrice = discountedPrice.slice(discountedPrice.length - 2, discountedPrice.length) === '00'
+    ? discountedPrice.slice(0, discountedPrice.length - 3)
+    : discountedPrice
   return (
     <Box className="AboutProduct">
       {openToaster && <Toaster />}
@@ -362,7 +367,7 @@ function AboutProduct({ productId }: any) {
                         <Typography className="SaveMessage">SAVE</Typography>
                         <TextFlipAnimation
                           frontValue={calculationOfThePremiumAndDiscount(productDetailsData?.productPremium, productDetailsData?.premiumDiscount)!}
-                          backValue={'$' + roundOfThePrice(productDetailsData?.premiumDiscount) + ' Off'}
+                          backValue={'$' + discountedPrice + ' Off'}
                         /></Stack>
                       : null}
                     {/* valueChangeForPrice({ currentprice: priceData?.data?.[0]?.price, min:progressData?.data?.minPrice, max:progressData?.data?.maxPrice}) */}
@@ -466,7 +471,9 @@ function AboutProduct({ productId }: any) {
                       {productDetailsData?.condition && <Typography className="ProductMessage">{productDetailsData?.condition}</Typography>}
                       <Typography className="ShipmentDetail">{productDetailsData?.description}</Typography></>
                     :
-                    <Typography className="ProductMessage">{configDetailsState?.ProductDetails_Text_Guests?.value}</Typography>
+                    <Typography className="ProductMessage" dangerouslySetInnerHTML={{
+                      __html: configDetailsState?.ProductDetails_Text_Guests?.value,
+                    }} />
                   }
                 </Stack>
                 {productDetailsData?.availability !== "Sold Out" &&
