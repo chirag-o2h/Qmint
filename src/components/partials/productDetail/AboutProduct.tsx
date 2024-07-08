@@ -615,7 +615,7 @@ function AboutProduct({ productId }: any) {
               <Box className="PromotionalDetails">
                 <Accordion defaultExpanded>
                   <AccordionSummary>
-                    <Typography variant="titleLarge">Promo Pack Content</Typography>
+                    <Typography variant="titleLarge">MaxPax Contents</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <TableContainer className="GreyTable">

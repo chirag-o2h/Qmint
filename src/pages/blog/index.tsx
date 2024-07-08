@@ -105,25 +105,30 @@ function Blog() {
             >
               {configDetailsState?.["AllBlogs_Subtitle"]?.value}
             </Typography>
-            <Box className="PostWrapper">
-              <Stack className="LeftPostWrapper">
-                <PostCard details={topThree?.[0]} navigate={() =>
-                  navigate(`/blog/${topThree?.[0]?.friendlyName}`)
-                } />
-              </Stack>
-              <Stack className="RightPostWrapper">
-                {topThree?.[1] ? (
-                  <PostCard details={topThree?.[1]} navigate={() =>
-                    navigate(`/blog/${topThree?.[1]?.friendlyName}`)
-                  } />
-                ) : null}
-                {topThree?.[2] ? (
-                  <PostCard details={topThree?.[2]} navigate={() =>
-                    navigate(`/blog/${topThree?.[2]?.friendlyName}`)
-                  } />
-                ) : null}
-              </Stack>
-            </Box>
+            {topThree.length === 0 ?
+               <Box className="PostWrapper">
+               <Stack className="LeftPostWrapper">
+                 <PostCard details={topThree?.[0]} navigate={() =>
+                   navigate(`/blog/${topThree?.[0]?.friendlyName}`)
+                 } />
+               </Stack>
+               <Stack className="RightPostWrapper">
+                 {topThree?.[1] ? (
+                   <PostCard details={topThree?.[1]} navigate={() =>
+                     navigate(`/blog/${topThree?.[1]?.friendlyName}`)
+                   } />
+                 ) : null}
+                 {topThree?.[2] ? (
+                   <PostCard details={topThree?.[2]} navigate={() =>
+                     navigate(`/blog/${topThree?.[2]?.friendlyName}`)
+                   } />
+                 ) : null}
+               </Stack>
+             </Box>
+            : 
+            <Box className="PostWrapper" sx={{justifyContent:"center"}}><RecordNotFound message="No blogs to show" isTextAlignCenter={true} /></Box>
+            }
+         
           </Container>
         </Box>
         <Box className="DiscoverPost">
@@ -204,7 +209,7 @@ function Blog() {
                   //   <Button variant="contained">Load More</Button>
                   // </Stack>
                   null
-                ) : <RecordNotFound message="No blogs to show" />}
+                ) : <RecordNotFound message="No blogs to show" isTextAlignCenter={true} />}
               </TabPanel>
             </Box>
           </Container>

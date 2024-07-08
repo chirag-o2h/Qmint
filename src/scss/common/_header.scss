@@ -682,6 +682,14 @@
           .MainHeader {
             .MainHeader__Wrapper {
               .Center {
+                padding-right: 200px;
+
+                @include media($mmmd){
+                  padding-right: 100px;
+                }
+                @include media($md){
+                  padding-right: 0;
+                }
                 .NavigationHeader {
                   .NavigationHeader__Wrapper {
                     .MenuLink {
@@ -772,6 +780,14 @@
     .HeaderContainerWrapper {
       .MainHeader__Wrapper {
         .Center {
+          padding-right: 200px;
+
+          @include media($mmmd){
+            padding-right: 100px;
+          }
+          @include media($md){
+            padding-right: 0;
+          }
           .NavigationHeader {
             padding: 0;
           }

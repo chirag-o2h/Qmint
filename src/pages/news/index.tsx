@@ -82,7 +82,7 @@ function News() {
             >
               {configDetailsState?.["AllNews_Subtitle"]?.value}
             </Typography>
-            <Box className="PostWrapper">
+            {topThree.length !== 0 ? <Box className="PostWrapper">
               <Stack className="LeftPostWrapper">
                 <PostCard isNews={true} details={topThree?.[0]} navigate={() => navigate(`/news/${topThree?.[0]?.friendlyName}`)} />
               </Stack>
@@ -90,7 +90,8 @@ function News() {
                 {topThree?.[1] ? <PostCard isNews={true} details={topThree?.[1]} navigate={() => navigate(`/news/${topThree?.[1]?.friendlyName}`)} /> : null}
                 {topThree?.[2] ? <PostCard isNews={true} details={topThree?.[2]} navigate={() => navigate(`/news/${topThree?.[2]?.friendlyName}`)} /> : null}
               </Stack>
-            </Box>
+            </Box> : <Box className="PostWrapper" sx={{justifyContent:"center"}}><RecordNotFound message="No news to show" isTextAlignCenter={true} /></Box>
+            }
           </Container>
         </Box>
         <Box className="DiscoverPost">
