@@ -11,7 +11,7 @@ interface ChartMenuChart {
 function ChartMenuChart(props: ChartMenuChart) {
   const { data, color, max, min } = props
   return (
-    <ResponsiveContainer width={240} height={60}>
+    <ResponsiveContainer width="100%" height={60}>
       <LineChart data={data.map((item: number) => ({ amt: item }))}>
         <Line type="linear" dataKey="amt" stroke={color} strokeWidth={1} dot={false}/>
         <YAxis domain={[min, max]} hide={true}/>
