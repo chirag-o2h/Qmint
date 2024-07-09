@@ -18,7 +18,6 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
     useEffect(() => {
         if ((requestData === null || (typeof requestData === 'object' && Object.keys(requestData).length > 0) || (Array.isArray(requestData) && requestData.length > 0))&&conditionalCall) {
             const fetchData = async (test:any) => {
-                console.log("🚀 ~ fetchData ~ test:", test)
                 // setLoading(true);
                 // dispatch(setLoadingTrue())
                 // Clear any pending timeout or request
