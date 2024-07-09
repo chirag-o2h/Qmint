@@ -243,3 +243,36 @@ export function calculatePrice(product:any, qty:any) {
   return tier ? tier.price : price;
 }
 }
+export enum ShippingMethod {
+  LocalShipping = 'localShipping',
+  VaultStorage = 'vaultStorage',
+  SecureShipping = 'secureShipping',
+}
+export const ShippingMethodToNumber = {
+  VaultStorage : 1,
+  secureShipping : 2,
+  localShipping : 3,
+}
+export function getCommonShippingMethods(products: any): number[] {
+  if (products.length === 0) {
+    return [];
+  }
+
+  // Initialize commonMethods with the allowed shipping methods of the first product
+  let commonMethods = products[0].allowedShippingMethods;
+  console.log("🚀 ~ getCommonShippingMethods ~ commonMethods:", commonMethods)
+
+  // Iterate through the rest of the products to find common shipping methods
+  for (const product of products) {
+    commonMethods = commonMethods.filter((method:any) =>
+      product.allowedShippingMethods.includes(method)
+    );
+
+    // If no common methods are left, return an empty array early
+    if (commonMethods.length === 0) {
+      return [];
+    }
+  }
+
+  return commonMethods;
+}

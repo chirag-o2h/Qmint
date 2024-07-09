@@ -17,7 +17,7 @@ import useApiRequest from "@/hooks/useAPIRequest"
 import { CartItemsWithLivePriceDetails } from "../shopping-cart/CartDetails"
 import useDebounce from "@/hooks/useDebounce"
 import { deleteShoppingCartData, getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
-import { bodyForGetShoppingCartData, calculatePrice, getDefaultOption, hasFulfilled } from "@/utils/common"
+import { bodyForGetShoppingCartData, calculatePrice, getCommonShippingMethods, getDefaultOption, hasFulfilled, ShippingMethod, ShippingMethodToNumber } from "@/utils/common"
 import useShowToaster from "@/hooks/useShowToaster"
 
 function Step2() {
@@ -26,7 +26,7 @@ function Step2() {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { checkoutPageData, finalDataForTheCheckout } = useAppSelector((state) => state.checkoutPage)
 
-  const enabledPaymentMethods = useMemo(() => {
+  const enabledShippingMethods = useMemo(() => {
     const defaultPaymentType = getDefaultOption([
       { enabled: configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value, value: 'SecureShipping' },
       { enabled: configDetailsState?.Checkout_DeliveryMethod_Localpickup_Enable?.value, value: 'LocalShipping' },
@@ -35,7 +35,7 @@ function Step2() {
     return defaultPaymentType
   }, [configDetailsState]);
 
-  const [deliveryMethod, setDeliveryMethod] = useState<'LocalShipping' | 'VaultStorage' | 'SecureShipping'>(enabledPaymentMethods)
+  const [deliveryMethod, setDeliveryMethod] = useState<'LocalShipping' | 'VaultStorage' | 'SecureShipping'>(enabledShippingMethods)
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({})
   const [deliveryMethods, setDeliveryMethods] = useState<{ [key: number]: string }>({})
   const [productIds, setProductIds] = useState({})
@@ -190,6 +190,29 @@ function Step2() {
   useEffect(() => {
     dispatch(updateFinalDataForTheCheckout({ parentDeliveryMethod: deliveryMethod }))
   }, [deliveryMethod])
+  const commonShippingMethods = useMemo(()=>{
+    if(cartItemsWithLivePrice?.length){
+      const productsWithAllowedMethods = cartItemsWithLivePrice.map((product:any)=>({allowedShippingMethods:product?.shippingMethod}))
+      return getCommonShippingMethods(productsWithAllowedMethods)
+    }
+    // return []
+  }, [cartItemsWithLivePrice])
+  const hasCommonShippingMethods = useMemo((): boolean => {
+    return (
+      (configDetailsState?.Checkout_DeliveryMethod_Localpickup_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["localShipping"])) ||
+      (configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["secureShipping"])) ||
+      (configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["VaultStorage"]))
+    );
+  },[configDetailsState,commonShippingMethods])
+  useEffect(() => {
+  if(hasCommonShippingMethods == false){
+    toggleChangeDiffrenceDeliveryMethods()
+  }
+    return () => {
+      // toggleChangeDiffrenceDeliveryMethods()
+    }
+  }, [hasCommonShippingMethods])
+  
   return (
     <StepWrapper title="Step 2" className="Step2">
       <Box className="StepHeader">
@@ -208,23 +231,24 @@ function Step2() {
               {configDetailsState?.["Checkout_DeliveryInfoText"]?.value}
             </HoverTooltip>
           </Typography>
-          <Select
+         {hasCommonShippingMethods && <Select
             color="secondary"
             className="DeliveryMethodSelect"
             value={deliveryMethod}
             onChange={handleDeliveryMethod}
             IconComponent={SelectDropdown}
           >
-            {configDetailsState?.Checkout_DeliveryMethod_Localpickup_Enable?.value && <MenuItem value="LocalShipping">Local Pickup</MenuItem>}
-            {configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value && <MenuItem value="SecureShipping">Secure Shipping</MenuItem>}
-            {configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value && <MenuItem value="VaultStorage">Vault Storage</MenuItem>}
-          </Select>
+            {configDetailsState?.Checkout_DeliveryMethod_Localpickup_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["localShipping"])&&<MenuItem value="LocalShipping">Local Pickup</MenuItem>}
+            {configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["secureShipping"]) &&<MenuItem value="SecureShipping">Secure Shipping</MenuItem>}
+            {configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["VaultStorage"])&&<MenuItem value="VaultStorage">Vault Storage</MenuItem>}
+          </Select>}
         </Stack>
         {cartItemsWithLivePrice?.length > 1 && <FormControlLabel
           className="DeliveryCheckbox"
           control={<Checkbox checked={changeDiffrenceDeliveryMethods} onClick={() => {
             toggleChangeDiffrenceDeliveryMethods()
           }} />}
+          disabled={!hasCommonShippingMethods}
           label="Select different delivery method per product"
         />}
       </Box>
@@ -242,4 +266,4 @@ function Step2() {
   )
 }
 
-export default Step2
+export default React.memo(Step2)
