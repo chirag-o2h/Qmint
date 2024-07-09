@@ -15,9 +15,11 @@ import { registrationTokenVarified } from "@/redux/reducers/authReducer"
 import { isActionRejected } from "@/components/common/Utils"
 import { AxiosError } from "axios"
 import classNames from "classnames"
+import { useLocation } from "@reach/router"
 
 function EmailConfirmation() {
-  const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search]);
+  const location = useLocation()
+  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
   const [loading, setLoading] = useState<boolean>(false);
   const [isTokenVarified, setIsTokenVarified] = useState<boolean>(false)

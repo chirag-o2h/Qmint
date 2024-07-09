@@ -50,9 +50,11 @@ import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { passwordRecoverySave, passwordRecoveryTokenVarified } from '@/redux/reducers/authReducer';
 import { IrecoveryPasswordSave } from '@/apis/services/authServices';
+import { useLocation } from '@reach/router';
 
 function ResetPassword(params: any) {
-  const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search]);
+  const location = useLocation()
+  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const [isTokenVarified, setIsTokenVarified] = useState<boolean>(false)
   const { configDetails: configDetailsState, loadingForSignIn } = useAppSelector((state) => state.homePage)
   const openToaster = useAppSelector(state => state.homePage.openToaster)

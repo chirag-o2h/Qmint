@@ -4,8 +4,8 @@ import { useAppSelector } from '.';
 const useImageInView = (imageId="BmkBanner") => {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
     const [imageInView, setImageInView] = useState(false);
-    const imageElement = document.getElementById(imageId)
     useEffect(() => {
+    const imageElement = document?.getElementById(imageId)
         const handleScroll = () => {
             if (!imageElement) return;
 
@@ -14,13 +14,13 @@ const useImageInView = (imageId="BmkBanner") => {
             setImageInView(inView);
         };
 
-        document.addEventListener('scroll', handleScroll);
+        document?.addEventListener('scroll', handleScroll);
         handleScroll(); // Initial check
 
         return () => {
-            document.removeEventListener('scroll', handleScroll);
+            document?.removeEventListener('scroll', handleScroll);
         };
-    }, [imageId,imageElement,configDetailsState?.Sliders_ShopHomepage_Enable,configDetailsState?.Sliders_ShopHomepage_Enable]);
+    }, [imageId,configDetailsState?.Sliders_ShopHomepage_Enable,configDetailsState?.Sliders_ShopHomepage_Enable]);
 
     return imageInView;
 };

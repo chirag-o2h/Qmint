@@ -19,6 +19,7 @@ import useDebounce from "@/hooks/useDebounce"
 import { navigate } from "gatsby"
 import classNames from "classnames"
 import { THEME_TYPE } from "@/axiosfolder"
+import { useLocation } from "@reach/router"
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -36,7 +37,8 @@ export const requestBodyDefault: categoryRequestBody = {
 let timeOut: any;
 
 function Category(props: any) {
-    const searchParams = useMemo(() => new URLSearchParams(props?.location?.search), [props?.location, window.location]);
+    const location = useLocation();
+    const searchParams = useMemo(() => new URLSearchParams(props?.location?.search), [props?.location, location]);
     const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
     const [page, setPage] = useState(searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1);
     const dispatch = useAppDispatch();
@@ -55,7 +57,7 @@ function Category(props: any) {
     useEffect(() => {
         setPage(1); // reset page number to 1 when path changes for new category
         fetchData()
-    }, [window.location.pathname])
+    }, [location.pathname])
 
     useEffect(() => {
         dispatch(serProgressLoaderStatus(true))

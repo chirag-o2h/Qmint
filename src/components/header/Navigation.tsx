@@ -29,6 +29,7 @@ import { CartItem } from "@/types/shoppingCart"
 import { CartItemsWithLivePriceDetails } from "../partials/shopping-cart/CartDetails"
 import SearchField from "./SearchField";
 import { Call } from "@/assets/icons";
+import { useLocation } from "@reach/router";
 
 
 export interface Icategory {
@@ -48,12 +49,13 @@ export interface Icategory {
 }
 function Navigation({ frontPage = false, showNavigation = false }: { frontPage?: boolean, showNavigation?: boolean }) {
   const dispatch = useAppDispatch()
+  const location = useLocation()
   const { configDetails: configDetailsState, categoriesList, needToShowProgressLoader, isLoggedIn } = useAppSelector((state) => state.homePage)
   const { cartItems } = useAppSelector((state) => state.shoppingCart)
   const [currententlySelected, setCurrententlySelected] = useState('')
   useEffect(() => {
-    setCurrententlySelected(getlastPartOfPath(window?.location?.pathname?.toLocaleLowerCase())?.replace(/[\s/]/g, ''))
-  }, [window?.location?.pathname])
+    setCurrententlySelected(getlastPartOfPath(location?.pathname?.toLocaleLowerCase())?.replace(/[\s/]/g, ''))
+  }, [location?.pathname])
 
   const [productIds, setProductIds] = useState({})
   const [cartItemsWithLivePrice, setCartItemsWithLivePrice] = useState<CartItemsWithLivePriceDetails[]>([]);
@@ -87,7 +89,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
       setCartItemsWithLivePrice([])
     }
   }, [cartItems])
-  const isThisInsideCategory = getLengthOfThePaths(window?.location?.pathname?.toLocaleLowerCase()).length == 2
+  const isThisInsideCategory = getLengthOfThePaths(location?.pathname?.toLocaleLowerCase()).length == 2
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   return (
     <Box className="NavigationHeader">

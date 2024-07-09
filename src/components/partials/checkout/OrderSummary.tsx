@@ -23,6 +23,7 @@ import useShowToaster from "@/hooks/useShowToaster"
 import { IPopUpDetails } from "@/apis/services/ConfigServices"
 import { getPopUpDetailsAPI } from "@/redux/reducers/homepageReducer"
 import SessionExpiredDialog from "@/components/header/SessionExpiredDialog"
+import { useLocation } from "@reach/router"
 
 export interface PlaceOrderBody {
   OrderCustomerID: number;
@@ -76,6 +77,7 @@ interface Body {
 }
 
 function OrderSummary() {
+  const location = useLocation()
   const dispatch = useAppDispatch()
   const { showToaster } = useShowToaster();
   const { deviceInfo, locationInfo }: any = useDeviceDetails()
@@ -131,7 +133,7 @@ function OrderSummary() {
     // }
   }, [orderTotal])
 
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(location.search);
   const placeOrderFun = useCallback(async () => {
       // call place order API
       const prepareBodyData: PlaceOrderBody = {

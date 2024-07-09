@@ -39,10 +39,10 @@ function FrontMain(props: any) {
             navigate('/')
         }
     }
-    // const isItHomepage = window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page))
+    // const isItHomepage = location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page))
     // todo when need to conver again from home page to shope page related things
-    // const isItHomepage = pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page) && window.location.pathname.split('/').filter((item) => item).some((name) => name === page))
-    const [params] = useState({ page: pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page) && window.location.pathname.split('/').filter((item) => item).some((name) => name === page)) ? 0 : 1 })
+    // const isItHomepage = pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page) && location.pathname.split('/').filter((item) => item).some((name) => name === page))
+    const [params] = useState({ page: pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page) && location.pathname.split('/').filter((item) => item).some((name) => name === page)) ? 0 : 1 })
     useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
     const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
@@ -51,8 +51,8 @@ function FrontMain(props: any) {
             setIsBullionmarkHomePage(true)
         }
     }, [])
-    const isItHomeOrShopPage = window.location.pathname == "/" || window.location.pathname.includes('newpage') //BrandLogoURL_Header,Brand_Dark_LogoURL,Homepage_HeaderLogo_URL
-    const isItHomePage = window.location.pathname.includes("newpage")
+    const isItHomeOrShopPage = location.pathname == "/" || location.pathname.includes('newpage') //BrandLogoURL_Header,Brand_Dark_LogoURL,Homepage_HeaderLogo_URL
+    const isItHomePage = location.pathname.includes("newpage")
     return (
         <Box className="HeaderContainerWrapper">
             <Container className="MainHeader">
@@ -67,7 +67,7 @@ function FrontMain(props: any) {
                         {/* // todo when need to conver again from home page to shope page related things */}
                         <Navigation
                             // frontPage={false}
-                            frontPage={isItNewsOrBlogPage.some((page) => window.location.pathname.includes(page)) ? true : false}
+                            frontPage={isItNewsOrBlogPage.some((page) => location.pathname.includes(page)) ? true : false}
                             showNavigation={true} />
                     </Stack>
                     <Stack className="Right">

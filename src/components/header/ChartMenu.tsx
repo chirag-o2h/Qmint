@@ -17,10 +17,12 @@ import { THEME_TYPE } from "@/axiosfolder"
 import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer"
 import { ENDPOINTS } from "@/utils/constants"
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService"
+import { useLocation } from "@reach/router"
 
 const requiredChartKeys = new Set(["gold", "silver", "platinum", "palladium"])
 
 function ChartMenu() {
+  const location = useLocation()
   let chartData = useAppSelector(state => state.homePage.liveDashboardChartData);
   Object.keys(chartData).map((key: string) => {
     chartData = {
@@ -66,7 +68,7 @@ function ChartMenu() {
     )
   }
   const dispatch = useAppDispatch()
-  useAPIRequestWithService({service: getLiveDashboardChartData, endPoint: ENDPOINTS.getLiveDashboardChartData, pollInterval: 60,conditionalCall:(open || window.location.pathname.includes("charts")) })
+  useAPIRequestWithService({service: getLiveDashboardChartData, endPoint: ENDPOINTS.getLiveDashboardChartData, pollInterval: 60,conditionalCall:(open || location.pathname.includes("charts")) })
 
   return (
     <ClickTooltip

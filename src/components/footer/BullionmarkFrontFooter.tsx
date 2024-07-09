@@ -12,12 +12,13 @@ import { navigate } from "gatsby";
 import { useAppSelector } from "@/hooks"
 import useAPIoneTime from '@/hooks/useAPIoneTime'
 import { getBullionMarkPageAPI } from '@/redux/reducers/homepageReducer'
+import { useLocation } from '@reach/router'
 
 function BullionmarkFrontFooter() {
     const { configDetails: configDetailsState, bullionMarkPage } = useAppSelector((state) => state.homePage)
     const bullionmarkFooter = bullionMarkPage?.homepage_Section_9_Footer_Quick_Links ?? []
     useAPIoneTime({ service: getBullionMarkPageAPI })
-
+    const location = useLocation()
     return (
         <Box id="BullionmarkFooterSection" className='BullionmarkFrontFooter' component="footer">
             <Container className="Container">
@@ -57,10 +58,10 @@ function BullionmarkFrontFooter() {
                     <Box className="MenuWrapper Social">
                         <Typography className="MenuTitle" variant="subtitle2" component="p">Social Media</Typography>
                         <Stack className="SocialMedia">
-                            <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>
-                            <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? window?.location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
-                            <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? window?.location?.href}><YoutubeIcon /></IconButton>
-                            <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? window?.location?.href}><TwitterIcon fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? location?.href}><FacebookIcon fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? location?.href}><YoutubeIcon /></IconButton>
+                            <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? location?.href}><TwitterIcon fontSize="small" /></IconButton>
                         </Stack>
                     </Box>
                 </Stack>

@@ -22,6 +22,7 @@ import { navigate } from 'gatsby'
 import { Icategory } from '../header/Navigation'
 import { getMainHomePageData } from '@/redux/reducers/homepageReducer'
 import useAPIoneTime from '@/hooks/useAPIoneTime'
+import { useLocation } from '@reach/router'
 export interface FooterLink {
     linkTitle: string;
     linkUrl: string;
@@ -40,6 +41,7 @@ function FrontFooter() {
     // else CSR
     useAPIoneTime({ service: getMainHomePageData })
     const { email, handleEmailChange, subscribe } = useSubscription()
+    const location = useLocation()
     return (
         <Box id="MainFooterSection" className='FrontFooter' component="footer">
             <Container className="Container">
@@ -49,10 +51,10 @@ function FrontFooter() {
                             <img src={configDetailsState?.["Homepage_FooterLogo_URLfooterlogo"]?.value} alt="Footer logo" loading="lazy" />
                         </LogoLink>
                         <Stack className="SocialWrapper">
-                            <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>
-                            <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? window?.location?.href}><YoutubeIcon /></IconButton>
-                            <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? window?.location?.href}><TwitterIcon fontSize="small" /></IconButton>
-                            <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? window?.location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? location?.href}><FacebookIcon fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? location?.href}><YoutubeIcon /></IconButton>
+                            <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? location?.href}><TwitterIcon fontSize="small" /></IconButton>
+                            <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
                         </Stack>
                     </Stack>
                     <Stack className="MenuesPart" component="nav">

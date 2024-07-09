@@ -9,6 +9,7 @@ import { PageLoader } from './Loader'
 import { useAppSelector } from "@/hooks"
 import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
 import useImageInView from "@/hooks/useImageInView"
+import { useLocation } from "@reach/router"
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
 interface FrontHeader {
@@ -34,11 +35,12 @@ const FrontHeader = (props: FrontHeader) => {
         setOpenMobileMenu(!openMobileMenu)
     }, [openMobileMenu])
     const [isFrontHeader, setIsFrontHeader] = useState(false)
+  const location = useLocation();
     useEffect(() => {
-        if ((window.location.pathname == "/" ||window.location.pathname.includes("newpage") )) {
+        if ((location.pathname == "/" ||location.pathname.includes("newpage") )) {
           setIsFrontHeader(true)
         }
-      }, [window.location.pathname])
+      }, [location.pathname])
       const showTransprant = useScrollTrigger({
         disableHysteresis: true,
         threshold: isMobile ? 68 : 50,

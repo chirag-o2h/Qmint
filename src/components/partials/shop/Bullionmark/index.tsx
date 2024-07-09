@@ -8,14 +8,14 @@ import { Box, Skeleton, useMediaQuery } from "@mui/material";
 import useUserDetailsFromToken from "@/hooks/useUserDetailsFromToken";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 
-const Layout = lazy(() => import("@/components/common/Layout"));
-// import Layout from "@/components/common/Layout"
+// const Layout = lazy(() => import("@/components/common/Layout"));
+import Layout from "@/components/common/Layout"
 // const Loader = lazy(() => import("@/components/common/Loader"));
 import Loader from "@/components/common/Loader"
 const Toaster = lazy(() => import("@/components/common/Toaster"));
-const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
+// const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
 const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
-// import BestCategorySlider from "./BestCategorySlider"
+import BestCategorySlider from "./BestCategorySlider"
 // import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
 import axios from "axios";
 import { ENDPOINTS } from "@/utils/constants";
@@ -27,6 +27,7 @@ const ExclusiveJourneys = lazy(() => import("../../landing-page/Bullionmark/Excl
 const InspiringStories = lazy(() => import("../../landing-page/Bullionmark/InspiringStories"));
 
 const BullionmarkShop=(props:any)=> {
+    console.log("🚀 ~ BullionmarkShop ~ props:", props)
     const {serverData} = props
     const dispatch = useAppDispatch()
     const { configDetails: configDetailsState, openToaster, loading, bmkShopPageSections } = useAppSelector((state) => state.homePage);
@@ -42,25 +43,25 @@ const BullionmarkShop=(props:any)=> {
         return configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(',') || [];
     }, [configDetailsState]);
     return (
-        <Suspense fallback={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>.......</div>}>
+        // <Suspense fallback={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>.......</div>}>
             <>
-                <Loader open={loading} />
-                <Layout isItMainPage={true}>
+                {loading &&<Loader open={loading} />}
+                {/* <Layout isItMainPage={true}> */}
                     <Seo
                         keywords={['gatsby', 'tailwind', 'react', 'tailwindcss', 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
                         lang="en"
                         isItShopPage={true}
                         description={configDetailsState?.Store_ShopPage_Meta_Description?.value}
                     />
-                    {!isMobile && configDetailsState?.Sliders_ShopHomepage_Enable?.value == true && <Suspense fallback={<Skeleton height={'500px'}></Skeleton>}><BannerSlider isItShopPage={true} /></Suspense>}
-                    <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={900} skeletonMargin={-220}>
+                    {/* {!isMobile && configDetailsState?.Sliders_ShopHomepage_Enable?.value == true && <Suspense fallback={<Skeleton height={'500px'}></Skeleton>}><BannerSlider isItShopPage={true} /></Suspense>} */}
+                    {/* <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={900} skeletonMargin={-220}> */}
                     <BestCategorySlider
-                        pageData={bmkShopPageSections}
+                        pageData={serverData?.bmkShopPageSections}
                         PaddingClass={!isMobile && configDetailsState?.Sliders_ShopHomepage_Enable?.value ? "" : "TopBannerAbsent"}
-                        title={configDetailsState?.["ShopHomepage_Section_1_Featured_Categories_Title"]?.value}
+                        title={"1234"}
                     />
-                    </RenderOnViewportEntry>
-                    <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={950} skeletonMargin={-220} > 
+                    {/* </RenderOnViewportEntry> */}
+                    {/* <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={950} skeletonMargin={-220} > 
                     <BmkFeaturedProductsSlider
                         title={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Title"]?.value}
                         description={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Subtitle"]?.value}
@@ -90,11 +91,11 @@ const BullionmarkShop=(props:any)=> {
                             data={bmkShopPageSections?.shopHomepage_Section_7_Two_pics_in_a_rows}
                             className="ShopInspiringStories"
                         />
-                    </RenderOnViewportEntry>
+                    </RenderOnViewportEntry> */}
                     {openToaster && <Suspense fallback={<></>}><Toaster /></Suspense>}
-                </Layout>
+                {/* </Layout> */}
             </>
-         </Suspense>
+        //  </Suspense>
     );
 }
 // Implement getServerData for BullionmarkShop

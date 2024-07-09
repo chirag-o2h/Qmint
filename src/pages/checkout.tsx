@@ -28,6 +28,7 @@ import classNames from "classnames"
 import { THEME_TYPE } from "@/axiosfolder"
 
 function Checkout() {
+  const location = useLocation()
   const { loadingForCheckingLogin } = useRequireLogin()
   const dispatch = useAppDispatch()
   const checkLoadingStatus = useAppSelector(state => state.checkoutPage.loading);
@@ -43,10 +44,10 @@ function Checkout() {
     }
   }, [configDetailsState?.Checkout_TermsOfService_Enable?.value])
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(location.search);
     const isInstantBuy = urlParams.get('isInstantBuy')
     setState((prev: any) => ({ ...prev, params: { isInstantBuy: isInstantBuy ?? false } }))
-  }, [window.location.search, cartItems?.length])
+  }, [location.search, cartItems?.length])
   useAPIoneTime(state)
   useAlertPopUp({ pageName: 'Checkout', openPopup: toggleSessionExpireDialog })
   if (configDetailsState?.Checkout_Enable?.value !== true) {

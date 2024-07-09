@@ -14,12 +14,13 @@ import { navigationItems } from '@/utils/data';
 import useAPIoneTime from '@/hooks/useAPIoneTime';
 import { getFooterLinks } from '@/redux/reducers/homepageReducer';
 import { ENDPOINTS } from '@/utils/constants';
+import { useLocation } from '@reach/router';
 
 function BullionmarkFooter() {
   const { configDetails: configDetailsState, bullionMarkPage } = useAppSelector((state) => state.homePage)
   useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink, needLoadingorNot:false })
   const data = useAppSelector((state) => state.homePage.footerSections)
-
+  const location = useLocation()
   return (
     <Box
       id="BullionmarkFooterSection"
@@ -94,7 +95,7 @@ function BullionmarkFooter() {
                 target={"_blank"}
                 href={
                   configDetailsState?.SocialLinks_Facebook?.value ??
-                  window?.location?.href
+                  location?.href
                 }
               >
                 <FacebookIcon fontSize="small" />
@@ -105,7 +106,7 @@ function BullionmarkFooter() {
                 target={"_blank"}
                 href={
                   configDetailsState?.SocialLinks_Instagram?.value ??
-                  window?.location?.href
+                  location?.href
                 }
               >
                 <InstagramIcon1 fontSize="small" />
@@ -116,7 +117,7 @@ function BullionmarkFooter() {
                 target={"_blank"}
                 href={
                   configDetailsState?.SocialLinks_Youtube?.value ??
-                  window?.location?.href
+                  location?.href
                 }
               >
                 <YoutubeIcon />
@@ -127,7 +128,7 @@ function BullionmarkFooter() {
                 target={"_blank"}
                 href={
                   configDetailsState?.SocialLinks_Twitter?.value ??
-                  window?.location?.href
+                  location?.href
                 }
               >
                 <TwitterIcon fontSize="small" />

@@ -18,6 +18,7 @@ import Pricing from "./Pricing";
 const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
 // const Navigation = lazy(() => import('./Navigation'))
 import Navigation from "./Navigation";
+import { useLocation } from "@reach/router";
 const MobileMenu = lazy(() => import('./MobileMenu'))
 const PageLoader = lazy(() => import('./Loader').then((module) => ({ default: module.PageLoader })));
 
@@ -45,12 +46,12 @@ const BullionmarkHeader = () => {
   }, [openMobileMenu])
   const [isFrontHeader, setIsFrontHeader] = useState(false)
   // const [isShopBannerAbsent, setIsShopBannerAbsent] = useState(false)
-
+  const location = useLocation();
   useEffect(() => {
-    if ((window.location.pathname == "/" || window.location.pathname.includes("newpage"))) {
+    if ((location.pathname == "/" || location.pathname.includes("newpage"))) {
       setIsFrontHeader(true)
     }
-  }, [window.location.pathname])
+  }, [location.pathname])
 
   // useEffect(() => {
   //   const BannerElementAbsent = document.querySelector('.TopBannerAbsent');

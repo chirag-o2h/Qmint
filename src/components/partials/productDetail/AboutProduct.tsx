@@ -37,6 +37,7 @@ import noImage from '../../../assets/images/noImage.png'
 import useShowToaster from "@/hooks/useShowToaster"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
 import { THEME_TYPE } from "@/axiosfolder"
+import { useLocation } from "@reach/router"
 
 function createData(
   quantity: string,
@@ -66,6 +67,7 @@ const schema = yup.object().shape({
 
 
 function AboutProduct({ productId }: any) {
+  const location = useLocation()
   const dispatch = useAppDispatch();
   const styles: any = createStyles({
     tableBody: {
@@ -535,25 +537,25 @@ function AboutProduct({ productId }: any) {
                 <Typography>Price Alert</Typography>
               </Button> */}
 
-              <FacebookShareButton url={window.location.href} hashtag="qmint" title="Qmint Product Detail">
+              <FacebookShareButton url={location.href} hashtag="qmint" title="Qmint Product Detail">
                 <IconButton className="IconWrapper" aria-label="Facebook Icon" >
                   <FacebookIcon />
                 </IconButton>
               </FacebookShareButton>
-              <TwitterShareButton url={window.location.href} title="Qmint Product Detail" hashtags={["qmint", "productDetail"]}>
+              <TwitterShareButton url={location.href} title="Qmint Product Detail" hashtags={["qmint", "productDetail"]}>
                 <IconButton className="IconWrapper" aria-label="Twitter Icon">
                   <TwitterIcon />
                 </IconButton>
               </TwitterShareButton>
-              <WhatsappShareButton url={window.location.href} title="Qmint Product Detail">
+              <WhatsappShareButton url={location.href} title="Qmint Product Detail">
                 <IconButton className="IconWrapper" aria-label="Whatsapp Icon">
                   <WhatsappIcon />
                 </IconButton>
               </WhatsappShareButton>
 
-              {/* <IconButton href={configDetailsState?.SocialLinks_Youtube?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><YoutubeIcon /></IconButton>
-              <IconButton href={configDetailsState?.SocialLinks_Facebook?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><FacebookIcon /></IconButton>
-              <IconButton href={configDetailsState?.SocialLinks_Twitter?.value ?? window?.location?.href} target="_blank" className="IconWrapper"><TwitterIcon /></IconButton> */}
+              {/* <IconButton href={configDetailsState?.SocialLinks_Youtube?.value ?? location?.href} target="_blank" className="IconWrapper"><YoutubeIcon /></IconButton>
+              <IconButton href={configDetailsState?.SocialLinks_Facebook?.value ?? location?.href} target="_blank" className="IconWrapper"><FacebookIcon /></IconButton>
+              <IconButton href={configDetailsState?.SocialLinks_Twitter?.value ?? location?.href} target="_blank" className="IconWrapper"><TwitterIcon /></IconButton> */}
             </Stack>
             <Divider />
             {(priceData?.data?.[0]?.tierPriceList?.length > 0 || productDetailsData?.isGradingShow) ? <Stack className="AdditionalDetails">

@@ -42,8 +42,10 @@ import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from "re
 import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import Loader from "@/components/common/Loader";
 import Seo from "@/components/common/Seo";
+import { useLocation } from "@reach/router";
 
 function NewsDetails(params: any) {
+  const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
   const dispatch = useAppDispatch()
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
@@ -131,17 +133,17 @@ function NewsDetails(params: any) {
                 <Box className="Left">
                   <Typography>Share this post</Typography>
                   <Stack className="SocialIconWrapper">
-                    <FacebookShareButton url={window.location.href} hashtag="qmint" title="Qmint news">
+                    <FacebookShareButton url={location.href} hashtag="qmint" title="Qmint news">
                       <IconButton className="SocialIcon" aria-label="Facebook Icon" >
                         <FacebookIcon />
                       </IconButton>
                     </FacebookShareButton>
-                    <TwitterShareButton url={window.location.href} title="Qmint news" hashtags={["qmint", "news"]}>
+                    <TwitterShareButton url={location.href} title="Qmint news" hashtags={["qmint", "news"]}>
                       <IconButton className="SocialIcon" aria-label="Twitter Icon">
                         <TwitterIcon />
                       </IconButton>
                     </TwitterShareButton>
-                    <WhatsappShareButton url={window.location.href} title="Qmint news">
+                    <WhatsappShareButton url={location.href} title="Qmint news">
                       <IconButton className="SocialIcon" aria-label="Whatsapp Icon">
                         <WhatsappIcon />
                       </IconButton>

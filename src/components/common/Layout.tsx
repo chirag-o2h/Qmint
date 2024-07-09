@@ -18,9 +18,11 @@ const SessionExpiredDialog = lazy(() => import("../header/SessionExpiredDialog")
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 import RenderOnViewportEntry from "./RenderOnViewportEntry";
+import { useLocation } from "@reach/router";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout(props: any) {
+  const location = useLocation()
   const  { children, isItMainPage=false} = props
   const removeMinHeight =useUnloadMinHeight()
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
@@ -37,7 +39,7 @@ function Layout(props: any) {
       setWait(true)
       // setLoading(false);
     }, 2000);
-    storeLastPage(window.location.pathname)
+    storeLastPage(location.pathname)
     return () => {
       clearTimeout(x);
     }

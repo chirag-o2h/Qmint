@@ -2,8 +2,8 @@ import checkoutPageReducer from './reducers/checkoutReducer';
 import { configureStore } from '@reduxjs/toolkit'
 import homepageReducer from './reducers/homepageReducer'
 import blogReducer from './reducers/blogReducer'
-import { persistStore, persistReducer, PERSIST, FLUSH, REHYDRATE, PAUSE, PURGE, REGISTER } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+// import { persistStore, persistReducer, PERSIST, FLUSH, REHYDRATE, PAUSE, PURGE, REGISTER } from 'redux-persist'
+// import storage from 'redux-persist/lib/storage'
 import categoryReducer from './reducers/categoryReducer'
 import contactUsPageReducer from './reducers/contactUs'
 import newsReducer from './reducers/newsReducer'
@@ -17,25 +17,30 @@ import orderDetailsReducer from './reducers/orderDetailsReducer';
 import myVaultReducer from './reducers/myVaultReducer';
 import authReducer from './reducers/authReducer';
 // Configuration for redux-persist
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: [
-    'configDetails']
-  // Reducers you want to persist
-}
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+//   whitelist: [
+//     'configDetails']
+//   // Reducers you want to persist
+// }
 
 const store = configureStore({
   reducer: {
-    homePage: persistReducer(persistConfig, homepageReducer),
+    // homePage: persistReducer(persistConfig, homepageReducer),
+    homePage: homepageReducer,
     category: categoryReducer,
     contactUs: contactUsPageReducer,
     shoppingCart: shoppingCartReducer,
-    blogPage: persistReducer(persistConfig, blogReducer),
-    newsPage: persistReducer(persistConfig, newsReducer),
-    calculators: persistReducer(persistConfig, calculatorsReducer),
+    // blogPage: persistReducer(persistConfig, blogReducer),
+    blogPage:blogReducer,
+    // newsPage: persistReducer(persistConfig, newsReducer),
+    newsPage: newsReducer,
+    // calculators: persistReducer(persistConfig, calculatorsReducer),
+    calculators : calculatorsReducer,
     checkoutPage: checkoutPageReducer,
-    compareProducts: persistReducer(persistConfig, compareProductsReducer),
+    // compareProducts: persistReducer(persistConfig, compareProductsReducer),
+    compareProducts: compareProductsReducer,
     wishList: wishListReducer,
     orderConfirmationDetails: orderConfirmationDetailsPageSlice.reducer,
     topic: topicReducer,
@@ -57,7 +62,8 @@ const store = configureStore({
       serializableCheck: false,
     }),
 })
-const persistor = persistStore(store)
+// const persistor = persistStore(store)
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
-export { store, persistor }
+// export { store, persistor }
+export {store}

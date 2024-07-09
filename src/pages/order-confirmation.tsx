@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Seo from "../components/common/Seo"
 import Layout from "@/components/common/Layout";
 import { Box, Stack, Container, Typography, Icon, Button, TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Divider } from "@mui/material"
@@ -11,11 +11,13 @@ import { useAppSelector } from "@/hooks";
 // import { rows } from "./order-details";
 import { navigate } from "gatsby";
 import Loader from "@/components/common/Loader";
-import { roundOfThePrice } from "@/utils/common";
+import { isBrowser, roundOfThePrice } from "@/utils/common";
 import noImage from '../assets/images/noImage.png'
 import useDownloadInvoiceHandler from "@/hooks/useDownloadInvoiceHandler";
+import { useLocation } from "@reach/router";
 
 function OrderConfirmation(props: any) {
+    const location = useLocation()
     const loading = useAppSelector(state => state.orderConfirmationDetails.loading)
     const isOrderFound = useAppSelector(state => state.orderConfirmationDetails.isOrderFound)
     const [loadingForNavigate, setLoadingForNavigate] = useState(false)
@@ -38,11 +40,13 @@ function OrderConfirmation(props: any) {
         )
     }
     const downloadInvoiceHandler = useDownloadInvoiceHandler()
-    window.handleLinkClick = async () => {
-        setLoadingForNavigate(true)
-        await downloadInvoiceHandler(orderConfirmationDetailsData?.orderNumber)
-        setLoadingForNavigate(false)
-    };
+    useEffect(()=>{
+        window.handleLinkClick = async () => {
+            setLoadingForNavigate(true)
+            await downloadInvoiceHandler(orderConfirmationDetailsData?.orderNumber)
+            setLoadingForNavigate(false)
+        };
+    },[])
 
     if(!isLoggedIn){
         navigate('/login')

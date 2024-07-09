@@ -12,7 +12,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { isActionRejected } from '@/components/common/Utils';
 import { Link, navigate } from 'gatsby';
 import { AxiosError } from 'axios';
-import { getLastPage, storeLastPage } from '@/utils/common';
+import { getLastPage, isBrowser, storeLastPage } from '@/utils/common';
 import Loader from '@/components/common/Loader';
 import useAPIoneTime from '@/hooks/useAPIoneTime';
 import ConfigServices from '@/apis/services/ConfigServices';
@@ -94,19 +94,19 @@ function SignInPage() {
     setLoadingForNavigate(false)
   }
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
-
-  window.handleLinkClick = async () => {
-    setLoadingForNavigate(true)
-    const email = getValues('email');
-    const response = await ConfigServices.sendVerificationEmailAPI(ENDPOINTS.sendVerificationEmail.replace('useEmail', email));
-    setLoadingForNavigate(false)
-    setLoginError(null)
-    showToaster({
-      message: response.data.message,
-      severity: 'success'
-    })
-  };
-
+  if (isBrowser) {
+    window.handleLinkClick = async () => {
+      setLoadingForNavigate(true)
+      const email = getValues('email');
+      const response = await ConfigServices.sendVerificationEmailAPI(ENDPOINTS.sendVerificationEmail.replace('useEmail', email));
+      setLoadingForNavigate(false)
+      setLoginError(null)
+      showToaster({
+        message: response.data.message,
+        severity: 'success'
+      })
+    };
+  }
   const handleEnterKeyPress = (e: any) => {
     if (e.key === 'Enter') {
       handleSubmit(onSubmit)()
@@ -149,7 +149,7 @@ function SignInPage() {
                   <Typography variant="h3" component="p">{configDetailsState?.Loginpage_Rightside_Title?.value}</Typography>
                   <Typography variant="body2" className="Description" component="p">{configDetailsState?.Loginpage_Rightside_Subtitle?.value}</Typography>
                   {loginError && <Typography variant="body2" component="p" className="ErrorMessage" dangerouslySetInnerHTML={{
-                    __html : loginError
+                    __html: loginError
                   }}></Typography>}
                   {/* {message && !loginError && <Typography variant="body2" component="p" className="SuccessMessage">{message}</Typography>} */}
                 </Box>

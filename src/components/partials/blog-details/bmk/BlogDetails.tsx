@@ -38,8 +38,10 @@ import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
 import Seo from "@/components/common/Seo";
+import { useLocation } from "@reach/router";
 
 function BlogDetails(params: any) {
+  const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const dispatch = useAppDispatch()
@@ -133,17 +135,17 @@ function BlogDetails(params: any) {
               <Stack className="SocialMedia">
                 <Typography className="Title">Share this post</Typography>
                 <Stack className="SocialIconWrapper">
-                  <WhatsappShareButton url={window.location.href} title="Bullionmark blog">
+                  <WhatsappShareButton url={location.href} title="Bullionmark blog">
                     <IconButton className="CircleButton SocialIcon" aria-label="Whatsapp Icon">
                       <WhatsappIcon />
                     </IconButton>
                   </WhatsappShareButton>
-                  <FacebookShareButton url={window.location.href} hashtag="bmk" title="Bullionmark blog">
+                  <FacebookShareButton url={location.href} hashtag="bmk" title="Bullionmark blog">
                     <IconButton className="CircleButton SocialIcon" aria-label="Facebook Icon" >
                       <FacebookIcon />
                     </IconButton>
                   </FacebookShareButton>
-                  <TwitterShareButton url={window.location.href} title="Bullionmark blog" hashtags={["bmk", "blog"]}>
+                  <TwitterShareButton url={location.href} title="Bullionmark blog" hashtags={["bmk", "blog"]}>
                     <IconButton className="CircleButton SocialIcon" aria-label="Twitter Icon">
                       <TwitterIcon />
                     </IconButton>

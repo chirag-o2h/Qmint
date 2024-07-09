@@ -1,5 +1,3 @@
-import { STORE_CODE } from "@/axiosfolder"
-
 export const ENDPOINTS = {
     // Registration
     registration: "account/GSEYlTkJeVSWkGhXentuvoUQf2c",
@@ -160,7 +158,7 @@ export const StoreData = {
     returnUrl: typeof window !== 'undefined' ? window.location.href : null
 }
 
-export const changePasswordURL = "https://register.qmint.com/passwordrecovery?id=" + STORE_CODE
+export const changePasswordURL = "https://register.qmint.com/passwordrecovery?id=" + process.env.STORE_CODE
 export const forbiddenKeywords = [
     "post", "p . o .", "p. o .", "p . o.", "p .o.", "p .o .", "p. o. Box",
     "PO Box 2951", "P.O. Box", "P. O. Box No. 2653", "p.o box", "p o box",

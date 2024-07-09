@@ -18,6 +18,7 @@ import useSubscription from '@/hooks/useSubscription'
 import { Link as NavigationLink, navigate } from "gatsby"
 import useAPIoneTime from '@/hooks/useAPIoneTime'
 import { getFooterLinks } from '@/redux/reducers/homepageReducer'
+import { useLocation } from '@reach/router'
 
 export interface FooterLink {
   linkTitle: string;
@@ -34,6 +35,7 @@ function index() {
   useEffect(() => {
     setFixWrapperHeight(FixWrapperHeight ?? 0)
   }, [FixWrapperHeight])
+  const location = useLocation()
   return (
     <Box id="MainFooterSection" component="footer" sx={{ paddingBottom: `${fixWrapperHeight}px` }}>
       <Container className="Container">
@@ -90,11 +92,11 @@ function index() {
               <Typography className="ConsentMessage" variant="body2">Your email is safe with us, we don't spam</Typography>
             </Box> */}
             <Stack className="SocialWrapper">
-              <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? window?.location?.href}><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? window?.location?.href}><YoutubeIcon /></IconButton>
-              <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? window?.location?.href}><TwitterIcon fontSize="small" /></IconButton>
-              <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? window?.location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
-              {/* <IconButton title="Follow us on Feed" target={"_blank"} href={configDetailsState?.feedIcon?.value ?? window?.location?.href}><FeedIcon /></IconButton> */}
+              <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? location?.href}><FacebookIcon fontSize="small" /></IconButton>
+              <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? location?.href}><YoutubeIcon /></IconButton>
+              <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? location?.href}><TwitterIcon fontSize="small" /></IconButton>
+              <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
+              {/* <IconButton title="Follow us on Feed" target={"_blank"} href={configDetailsState?.feedIcon?.value ?? location?.href}><FeedIcon /></IconButton> */}
             </Stack>
           </Stack>
         </Stack>

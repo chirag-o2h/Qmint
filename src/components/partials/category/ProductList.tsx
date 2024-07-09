@@ -16,8 +16,10 @@ import useApiRequest from "@/hooks/useAPIRequest"
 import { ENDPOINTS } from "@/utils/constants"
 import { THEME_TYPE } from "@/axiosfolder"
 import BmkProductCard from "../shop/Bullionmark/BmkProductCard"
+import { useLocation } from "@reach/router"
 
 function ProductList({ page, setPage }: { page: number, setPage: any }) {
+  const location = useLocation()
   const categoryData = useAppSelector((state) => state.category);
   const pageSortOrder = useAppSelector((state) => state.category.pageSortOrder);
   const dispatch = useAppDispatch();

@@ -38,8 +38,10 @@ import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/news";
 import MainLayout from "@/components/common/MainLayout";
 import Seo from "@/components/common/Seo";
+import { useLocation } from "@reach/router";
 
 function NewsDetails(params: any) {
+  const location = useLocation()
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
   const dispatch = useAppDispatch()
@@ -133,17 +135,17 @@ function NewsDetails(params: any) {
               <Stack className="SocialMedia">
                 <Typography className="Title">Share this post</Typography>
                 <Stack className="SocialIconWrapper">
-                  <WhatsappShareButton url={window.location.href} title="Bullionmark news">
+                  <WhatsappShareButton url={location.href} title="Bullionmark news">
                     <IconButton className="CircleButton SocialIcon" aria-label="Whatsapp Icon">
                       <WhatsappIcon />
                     </IconButton>
                   </WhatsappShareButton>
-                  <FacebookShareButton url={window.location.href} hashtag="bmk" title="Bullionmark news">
+                  <FacebookShareButton url={location.href} hashtag="bmk" title="Bullionmark news">
                     <IconButton className="CircleButton SocialIcon" aria-label="Facebook Icon" >
                       <FacebookIcon />
                     </IconButton>
                   </FacebookShareButton>
-                  <TwitterShareButton url={window.location.href} title="Bullionmark news" hashtags={["bmk", "news"]}>
+                  <TwitterShareButton url={location.href} title="Bullionmark news" hashtags={["bmk", "news"]}>
                     <IconButton className="CircleButton SocialIcon" aria-label="Twitter Icon">
                       <TwitterIcon />
                     </IconButton>

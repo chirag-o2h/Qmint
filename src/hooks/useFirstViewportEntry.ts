@@ -1,20 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 
 const useFirstViewportEntry = (ref: any, observerOptions: any) => {
-    const [entered, setEntered] = useState(false)
-    const observer = useRef(new IntersectionObserver(([entry]) => setEntered(entry.isIntersecting), observerOptions))
-    useEffect(() => {
-        const element = ref.current
-        const ob = observer.current
+  const [entered, setEntered] = useState(false);
 
-        if (entered) {
-            ob.disconnect()
-            return
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          setEntered(true);
+          if (observer) {
+            observer.disconnect();
+            observer = null;
+          }
         }
-        if (element && !entered) ob.observe(element)
-        return () => ob.disconnect()
-    }, [entered, ref, observer])
-    return entered
-}
+      }, observerOptions);
 
-export default useFirstViewportEntry
+      const element = ref.current;
+      if (element && !entered) {
+        observer.observe(element);
+      }
+    }
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+    };
+  }, [ref, observerOptions]);
+
+  return entered;
+};
+
+export default useFirstViewportEntry;

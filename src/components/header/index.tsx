@@ -14,16 +14,18 @@ import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import { pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
+import { useLocation } from "@reach/router";
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
 const Index = () => {
+  const location = useLocation()
   const loading = useAppSelector((state) => state.homePage.loading)
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
   // todo when need to conver again from home page to shope page related things
-  const [params] = useState({ page: pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page) && window.location.pathname.split('/').filter((item) => item).some((name) => name === page)) ? 0 : 1 })
-  // const [params] = useState({ page: window.location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => window.location.pathname.includes(page)) ? 0 : 1 })
+  const [params] = useState({ page: pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page) && location.pathname.split('/').filter((item) => item).some((name) => name === page)) ? 0 : 1 })
+  // const [params] = useState({ page: location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page)) ? 0 : 1 })
   useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
 
   const trigger = useScrollTrigger({

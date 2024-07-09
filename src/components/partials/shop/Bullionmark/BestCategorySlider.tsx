@@ -12,6 +12,7 @@ import noImage from '../../../../assets/images/noImage.png'
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 function BestCategorySlider(props: any) {
+  console.log("🚀 ~ BestCategorySlider ~ props:", props)
   const removeMinHeight = useUnloadMinHeight()
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const config = {
@@ -91,22 +92,22 @@ function BestCategorySlider(props: any) {
                                   image={getImage(category.imageUrl)!}
                                   alt="Product Image"
                                 /> */}
-                                {/* <img
+                                <img
                                   style={removeMinHeight ? { minHeight: isMobile ? "300px" : "270px" } : {}}
                                   loading="eager"
                                   fetchPriority="high"
                                   className="ProductImage"
                                   src={category.imageUrl}
                                   alt="Product Image"
-                                /> */}
-                                <LazyImage
+                                />
+                                {/* <LazyImage
                                     key={category.id}
                                     src={category.imageUrl}
                                     placeholder={noImage}
                                     alt={category.name}
                                     style={{minHeight: isMobile ? "430px" :"350px"}}
                                     className="ProductImage"
-                                  />
+                                  /> */}
                               </Box>
                               <Box key="productTitle" className="ProductTitle">
                                 <Typography variant="h4">

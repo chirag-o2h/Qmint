@@ -6,8 +6,10 @@ import LargerScreenFilters from "./LargerScreenFilters"
 import { navigate } from "gatsby"
 import { useAppSelector } from "@/hooks"
 import { getlastPartOfPath } from "@/utils/common"
+import { useLocation } from "@reach/router"
 
 function CategoryFilters({ isPriceChanged, setIsPriceChanged }: { isPriceChanged: boolean, setIsPriceChanged: any }) {
+  const location = useLocation()
   const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
   const categoryData = useAppSelector(state => state.category)

@@ -40,8 +40,10 @@ import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
 import Seo from "@/components/common/Seo";
+import { useLocation } from "@reach/router";
 
 function BlogDetails(params: any) {
+  const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   const dispatch = useAppDispatch()
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
@@ -139,17 +141,17 @@ function BlogDetails(params: any) {
                 <Box className="Left">
                   <Typography>Share this post</Typography>
                   <Stack className="SocialIconWrapper">
-                    <FacebookShareButton url={window.location.href} hashtag="qmint" title="Qmint blog">
+                    <FacebookShareButton url={location.href} hashtag="qmint" title="Qmint blog">
                       <IconButton className="SocialIcon" aria-label="Facebook Icon" >
                         <FacebookIcon />
                       </IconButton>
                     </FacebookShareButton>
-                    <TwitterShareButton url={window.location.href} title="Qmint blog" hashtags={["qmint", "blog"]}>
+                    <TwitterShareButton url={location.href} title="Qmint blog" hashtags={["qmint", "blog"]}>
                       <IconButton className="SocialIcon" aria-label="Twitter Icon">
                         <TwitterIcon />
                       </IconButton>
                     </TwitterShareButton>
-                    <WhatsappShareButton url={window.location.href} title="Qmint blog">
+                    <WhatsappShareButton url={location.href} title="Qmint blog">
                       <IconButton className="SocialIcon" aria-label="Whatsapp Icon">
                         <WhatsappIcon />
                       </IconButton>

@@ -78,7 +78,7 @@ function FrontMobileMenu(props: any) {
           THEME_TYPE === "1" && isHomePage &&
           trigger &&
           !isItNewsOrBlogPage.some((page) =>
-            window.location.pathname.includes(page)
+            location.pathname.includes(page)
           ),
         BmkMobileMenuWithoutAnygap: THEME_TYPE === "1",
       })}

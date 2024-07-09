@@ -8,6 +8,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { ENDPOINTS } from "@/utils/constants";
 import { navigate } from "gatsby";
 import useShowToaster from "@/hooks/useShowToaster";
+import { useLocation } from "@reach/router";
 
 interface Option {
   name: string;
@@ -15,7 +16,8 @@ interface Option {
 }
 
 function SearchField() {
-  const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search]);
+  const location = useLocation()
+  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const { apiCallFunction } = useCallAPI();
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
