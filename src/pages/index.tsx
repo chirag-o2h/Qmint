@@ -8,8 +8,8 @@ const ShopWrapper = (props: any) => {
 };
 
 // Export getServerData from the component that will be used
-export const getServerData = async (context: any) => {
-  return BullionmarkShop.getServerData(context);
-};
+// export const getServerData = async (context: any) => {
+//   return BullionmarkShop.getServerData(context);
+// };
 
 export default ShopWrapper;

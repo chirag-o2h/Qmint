@@ -46,7 +46,7 @@ function Layout(props: any) {
   useAPIoneTime({
     service: configDetails,
     endPoint: ENDPOINTS.getConfigStore,
-    conditionalCall: !isItMainPage,
+    // conditionalCall: !isItMainPage,
   });
   // useInactiveLogout(2000, toggleSessionExpireDialog);
   // const [loading, setLoading] = useState(true);

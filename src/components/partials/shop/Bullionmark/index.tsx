@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import Seo from "@/components/common/Seo";
 import {
+  getBullionMarkShopPageSections,
   setBmkShopPageSections,
   setConfigDetails,
 } from "@/redux/reducers/homepageReducer";
@@ -16,12 +17,13 @@ const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
 import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
 
 // IT IS CAUSING CACHING ERROR
-// const BmkFeaturedProductsSlider = lazy(
-//   () => import("./BmkFeaturedProductsSlider")
-// );
+const BmkFeaturedProductsSlider = lazy(
+  () => import("./BmkFeaturedProductsSlider")
+);
 
 import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
+import useAPIoneTime from "@/hooks/useAPIoneTime";
 // import Layout from "@/components/common/Layout";
 
 const BullionmarkHeader = lazy(
@@ -41,7 +43,7 @@ const InspiringStories = lazy(
   () => import("../../landing-page/Bullionmark/InspiringStories")
 );
 const BullionmarkShop = (props: any) => {
-  const { serverData } = props;
+  // const { serverData } = props;
   const [isRendering, setIsRendering] = useState(true);
   const dispatch = useAppDispatch();
   const {
@@ -52,11 +54,12 @@ const BullionmarkShop = (props: any) => {
   } = useAppSelector((state) => state.homePage);
 
   useEffect(() => {
-    dispatch(setConfigDetails(serverData?.configDetails));
-    dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
+    // dispatch(setConfigDetails(serverData?.configDetails));
+    // dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
     setTimeout(() => setIsRendering(false), 3500);
-  }, [serverData]);
-
+    // }, [serverData]);
+  }, []);
+  useAPIoneTime({ service: getBullionMarkShopPageSections });
   useUserDetailsFromToken();
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
   const keyWords = useMemo(() => {
@@ -141,7 +144,7 @@ const BullionmarkShop = (props: any) => {
             }
           />
         </RenderOnViewportEntry>
-        {/* <RenderOnViewportEntry
+        <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
           minHeight={950}
@@ -158,11 +161,11 @@ const BullionmarkShop = (props: any) => {
                 "ShopHomepage_Section_2_Featured_Products_Subtitle"
               ]?.value
             }
-            needToCallProductAPI={false}
-            productData={serverData?.productData}
+            needToCallProductAPI={true}
+            // productData={serverData?.productData}
             // priceForEachId={serverData?.priceForEachId}
           />
-        </RenderOnViewportEntry> */}
+        </RenderOnViewportEntry>
         <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
@@ -240,68 +243,68 @@ const BullionmarkShop = (props: any) => {
   );
 };
 // Implement getServerData for BullionmarkShop
-BullionmarkShop.getServerData = async (context: any) => {
-  try {
-    console.log("getServerData -- starting", Date.now());
+// BullionmarkShop.getServerData = async (context: any) => {
+//   try {
+//     console.log("getServerData -- starting", Date.now());
 
-    const dataforbody = {
-      search: "",
-      pageNo: 0,
-      pageSize: -1,
-      sortBy: "",
-      sortOrder: "",
-      filters: {
-        isFeatureProduct: true,
-      },
-    };
+//     const dataforbody = {
+//       search: "",
+//       pageNo: 0,
+//       pageSize: -1,
+//       sortBy: "",
+//       sortOrder: "",
+//       filters: {
+//         isFeatureProduct: true,
+//       },
+//     };
 
-    console.log("getServerData -- before fetching data", Date.now());
-    const [
-      configDetailsResponse,
-      bmkShopPageSectionsResponse,
-      productResponse,
-    ] = await Promise.all([
-      axiosInstance.get(ENDPOINTS.getConfigStore),
-      axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
-      axiosInstance.post(ENDPOINTS.getProduct, dataforbody),
-    ]);
+//     console.log("getServerData -- before fetching data", Date.now());
+//     const [
+//       configDetailsResponse,
+//       bmkShopPageSectionsResponse,
+//       productResponse,
+//     ] = await Promise.all([
+//       axiosInstance.get(ENDPOINTS.getConfigStore),
+//       axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
+//       axiosInstance.post(ENDPOINTS.getProduct, dataforbody),
+//     ]);
 
-    const configDetails = configDetailsResponse.data.data;
-    const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
-    const productData = productResponse.data;
+//     const configDetails = configDetailsResponse.data.data;
+//     const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
+//     const productData = productResponse.data;
 
-    // let priceForEachId = null;
+//     // let priceForEachId = null;
 
-    // if (productData?.data?.items?.length > 0) {
-    //     const ids = productData.data.items.map((product:any) => product.productId);
-    //     const priceResponse = await axiosInstance.post(ENDPOINTS.productPrices, { productIds: ids });
-    //     const priceData = priceResponse.data;
+//     // if (productData?.data?.items?.length > 0) {
+//     //     const ids = productData.data.items.map((product:any) => product.productId);
+//     //     const priceResponse = await axiosInstance.post(ENDPOINTS.productPrices, { productIds: ids });
+//     //     const priceData = priceResponse.data;
 
-    //     priceForEachId = {};
-    //     priceData?.data?.forEach((product:any) => {
-    //         priceForEachId[product.productId] = product;
-    //     });
-    // }
+//     //     priceForEachId = {};
+//     //     priceData?.data?.forEach((product:any) => {
+//     //         priceForEachId[product.productId] = product;
+//     //     });
+//     // }
 
-    console.log("getServerData -- before returning props", Date.now());
+//     console.log("getServerData -- before returning props", Date.now());
 
-    return {
-      props: {
-        configDetails,
-        bmkShopPageSections,
-        productData: productData.data,
-        // priceForEachId,
-      },
-    };
-  } catch (error) {
-    console.error("🚀 ~ getServerData ~ error:", error);
-    console.log("getServerData -- inside catch block", Date.now());
-    return {
-      status: 500,
-      headers: {},
-      props: {},
-    };
-  }
-};
+//     return {
+//       props: {
+//         configDetails,
+//         bmkShopPageSections,
+//         productData: productData.data,
+//         // priceForEachId,
+//       },
+//     };
+//   } catch (error) {
+//     console.error("🚀 ~ getServerData ~ error:", error);
+//     console.log("getServerData -- inside catch block", Date.now());
+//     return {
+//       status: 500,
+//       headers: {},
+//       props: {},
+//     };
+//   }
+// };
 
 export default BullionmarkShop;
