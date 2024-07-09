@@ -6,7 +6,7 @@ import { useAppDispatch } from '.';
 import { setLoadingFalse, setLoadingTrue } from '@/redux/reducers/homepageReducer';
 import { ENDPOINTS } from '@/utils/constants';
 
-const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData: any = null, pollInterval: number | null = null): { data:any, loading:boolean, error:any} => {
+const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData: any = null, pollInterval: number | null = null,conditionalCall:boolean=true): { data:any, loading:boolean, error:any} => {
     const dispatch = useAppDispatch()
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -16,8 +16,9 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
     let intervalId: number | any = useRef(null);
 
     useEffect(() => {
-        if (requestData === null || (typeof requestData === 'object' && Object.keys(requestData).length > 0) || (Array.isArray(requestData) && requestData.length > 0)) {
-            const fetchData = async () => {
+        if ((requestData === null || (typeof requestData === 'object' && Object.keys(requestData).length > 0) || (Array.isArray(requestData) && requestData.length > 0))&&conditionalCall) {
+            const fetchData = async (test:any) => {
+                console.log("🚀 ~ fetchData ~ test:", test)
                 // setLoading(true);
                 // dispatch(setLoadingTrue())
                 // Clear any pending timeout or request
@@ -65,13 +66,17 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
                     setLoading(false);
                 }
             };
-
-            fetchData();
+            clearTimeout(timeoutId.current);
+            timeoutId.current = setTimeout(() => {
+                fetchData("call: timeout");
+            }, 500);
 
             // Polling
             if (pollInterval) {
-                intervalId.current = setInterval(fetchData, pollInterval * 1000);
+                intervalId.current && clearInterval(intervalId.current)
+                intervalId.current = setInterval(()=>fetchData("call: interval"), pollInterval * 1000);
                 return () =>{
+                    timeoutId?.current && clearTimeout(timeoutId.current);
                      clearInterval(intervalId.current)
                     };
             }
@@ -84,7 +89,7 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
                 }
             };
         }
-    }, [url, method, requestData, pollInterval]);
+    }, [url, method, requestData, pollInterval,conditionalCall]);
 
     return { data, loading, error };
 };

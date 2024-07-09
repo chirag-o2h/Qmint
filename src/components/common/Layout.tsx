@@ -43,7 +43,7 @@ function Layout({ children }: any) {
   useEffect(() => {
     setTimeout(() => {
       dispatch(getShoppingCartData({ url: ENDPOINTS.getShoppingCartData, body: bodyForGetShoppingCartData }))
-    }, 2000);
+    }, 200);
   }, [isLoggedIn])
   // useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
