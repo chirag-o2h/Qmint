@@ -50,18 +50,10 @@ function Layout(props: any) {
   });
   // useInactiveLogout(2000, toggleSessionExpireDialog);
   // const [loading, setLoading] = useState(true);
-  const [wait, setWait] = useState(false);
   const dispatch = useAppDispatch();
   // Call the custom hook to handle user inactivity and logout
   useEffect(() => {
-    const x = setTimeout(() => {
-      setWait(true);
-      // setLoading(false);
-    }, 2000);
     storeLastPage(window.location.pathname);
-    return () => {
-      clearTimeout(x);
-    };
   }, []);
   useEffect(() => {
     setTimeout(() => {
@@ -85,12 +77,6 @@ function Layout(props: any) {
     link.href = faviconUrl;
     document.head.appendChild(link);
   }
-  const [laodFooter, setLoadFooter] = useState<Boolean>(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoadFooter(true);
-    }, 3000);
-  }, []);
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
 
   return (

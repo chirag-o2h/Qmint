@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import Seo from "@/components/common/Seo";
 import {
+  configDetails,
   getBullionMarkShopPageSections,
   setBmkShopPageSections,
   setConfigDetails,
@@ -24,6 +25,8 @@ const BmkFeaturedProductsSlider = lazy(
 import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
+import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
+import { bodyForGetShoppingCartData } from "@/utils/common";
 // import Layout from "@/components/common/Layout";
 
 const BullionmarkHeader = lazy(
@@ -51,6 +54,7 @@ const BullionmarkShop = (props: any) => {
     openToaster,
     loading,
     bmkShopPageSections,
+    isLoggedIn
   } = useAppSelector((state) => state.homePage);
 
   useEffect(() => {
@@ -67,6 +71,31 @@ const BullionmarkShop = (props: any) => {
       configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []
     );
   }, [configDetailsState]);
+  useAPIoneTime({
+    service: configDetails,
+    endPoint: ENDPOINTS.getConfigStore,
+    // conditionalCall: !isItMainPage,
+  });
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(
+        getShoppingCartData({
+          url: ENDPOINTS.getShoppingCartData,
+          body: bodyForGetShoppingCartData,
+        })
+      );
+      if (configDetailsState?.Store_FaviconURL?.value) {
+        const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+        // Update favicon dynamically
+        const link: any =
+          document.querySelector("link[rel='icon']") ||
+          document.createElement("link");
+        link.rel = "icon";
+        link.href = faviconUrl;
+        document.head.appendChild(link);
+      }
+    }, 0);
+  }, [isLoggedIn]);
   return (
     <>
       <>
