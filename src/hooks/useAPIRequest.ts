@@ -6,7 +6,7 @@ import { useAppDispatch } from '.';
 import { setLoadingFalse, setLoadingTrue } from '@/redux/reducers/homepageReducer';
 import { ENDPOINTS } from '@/utils/constants';
 
-const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData: any = null, pollInterval: number | null = null,conditionalCall=true): { data:any, loading:boolean, error:any} => {
+const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData: any = null, pollInterval: number | null = null,conditionalCall:boolean=true): { data:any, loading:boolean, error:any} => {
     const dispatch = useAppDispatch()
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -65,23 +65,30 @@ const useApiRequest = (url: string, method: 'get' | 'post' = 'get', requestData:
                     setLoading(false);
                 }
             };
-
-            fetchData();
+            clearTimeout(timeoutId.current);
+            timeoutId.current = setTimeout(() => {
+                fetchData();
+            }, 500);
 
             // Polling
             if (pollInterval) {
-                intervalId.current = setInterval(fetchData, pollInterval * 1000);
-                return () => clearInterval(intervalId.current);
+                intervalId.current && clearInterval(intervalId.current)
+                intervalId.current = setInterval(()=>fetchData(), pollInterval * 1000);
+                return () =>{
+                    timeoutId?.current && clearTimeout(timeoutId.current);
+                     clearInterval(intervalId.current)
+                    };
             }
 
             return () => {
+                intervalId.current && clearInterval(intervalId.current)
                 clearTimeout(timeoutId.current);
                 if (cancellationSource.current) {
                     cancellationSource.current.abort();
                 }
             };
         }
-    }, [url, method, requestData, pollInterval]);
+    }, [url, method, requestData, pollInterval,conditionalCall]);
 
     return { data, loading, error };
 };

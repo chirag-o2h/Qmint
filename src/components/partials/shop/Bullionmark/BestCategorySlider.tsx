@@ -28,7 +28,6 @@ function BestCategorySlider(props: any) {
     pagination: {
       clickable: true,
     },
-    // centeredSlides: isMobile,
     loop: true,
     speed: 500,
     modules: [Navigation, Autoplay, Pagination, A11y],

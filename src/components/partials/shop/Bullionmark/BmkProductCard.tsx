@@ -116,12 +116,15 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
                             : null}
                     </Stack>
                 </Stack>
-                <Typography
-                    className={classNames("OfferBadge")}
-                    sx={{ backgroundColor: product?.tagColor }}
-                >
-                    {product?.tagName}
-                </Typography>
+                {
+                    product?.tagName &&
+                    <Typography
+                        className={classNames("OfferBadge")}
+                        sx={{ backgroundColor: product?.tagColor }}
+                    >
+                        {product?.tagName}
+                    </Typography>
+                }
             </CardContent>
             <CardActions>
                 <Button name='learnMore' aria-label='Learn More' variant="contained" className="PrimaryAction" onClick={() => {

@@ -40,6 +40,7 @@ const HoverTooltip = React.memo((props: any) => {
       slotProps={slotProps}
       arrow={arrow}
       enterDelay={400}
+      leaveDelay={1000}
       open={open}
     >
       {renderComponent}

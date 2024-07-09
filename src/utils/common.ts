@@ -183,13 +183,17 @@ export const calculationOfThePremiumAndDiscount = (premium: string | number, pre
     return null;
   }
 
-  const percentage = Math.round((parsedDiscount / parsedPremium) * 100);
+  let percentage = roundOfThePrice((parsedDiscount / parsedPremium) * 100);
 
-  if (isNaN(percentage)) {
+  if (isNaN(Number(percentage))) {
     return null;
   }
 
-  return `${percentage}% Off on premium`;
+  percentage = percentage.slice(percentage.length - 2, percentage.length) === '00'
+    ? percentage.slice(0, percentage.length - 3)
+    : percentage
+
+  return `%${percentage} off the premium`;
 }
 export const getlastPartOfPath = (path: any) => {
   const parts = path.split('/').filter((part: string) => part !== '');
@@ -224,6 +228,7 @@ export const joinWithPipe = (parts: any[]) => {
 };
 export function calculatePrice(product:any, qty:any) {
   // Destructure the product object to get the necessary properties
+  if(product){
   const { price, tierPriceList } = product;
 
   // If there is no tierPriceList or it's empty, return the base price
@@ -236,4 +241,38 @@ export function calculatePrice(product:any, qty:any) {
 
   // If a matching tier price is found, return the tier price, otherwise return the base price
   return tier ? tier.price : price;
+}
+}
+export enum ShippingMethod {
+  LocalShipping = 'localShipping',
+  VaultStorage = 'vaultStorage',
+  SecureShipping = 'secureShipping',
+}
+export const ShippingMethodToNumber = {
+  VaultStorage : 1,
+  secureShipping : 2,
+  localShipping : 3,
+}
+export function getCommonShippingMethods(products: any): number[] {
+  if (products.length === 0) {
+    return [];
+  }
+
+  // Initialize commonMethods with the allowed shipping methods of the first product
+  let commonMethods = products[0].allowedShippingMethods;
+  console.log("🚀 ~ getCommonShippingMethods ~ commonMethods:", commonMethods)
+
+  // Iterate through the rest of the products to find common shipping methods
+  for (const product of products) {
+    commonMethods = commonMethods.filter((method:any) =>
+      product.allowedShippingMethods.includes(method)
+    );
+
+    // If no common methods are left, return an empty array early
+    if (commonMethods.length === 0) {
+      return [];
+    }
+  }
+
+  return commonMethods;
 }

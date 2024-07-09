@@ -20,9 +20,7 @@ function ShoppingCart() {
         "sortOrder": "",
         "filters": {}
     })
-    useAPIoneTime({
-        service: getShoppingCartData, endPoint: ENDPOINTS.getShoppingCartData, body
-    });
+    useAPIoneTime({service: getShoppingCartData, endPoint: ENDPOINTS.getShoppingCartData, body});
 
     return (
         <Layout>

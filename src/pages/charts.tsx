@@ -140,27 +140,29 @@ function ChartPage() {
                   }
                   isVolatility={true}
                 />
-                <MetalCard
-                  color={color}
-                  headerTitle1={cardName}
-                  headerTitle2="LIVE BUY BACK"
-                  currentPrice={
-                    value.livebuybackprice &&
-                    value.livebuybackprice[0] &&
-                    value.livebuybackprice[0].current
-                  }
-                  move={
-                    value.livebuybackprice &&
-                    value.livebuybackprice[0] &&
-                    value.livebuybackprice[0].move
-                  }
-                  percentage={
-                    value.livebuybackprice &&
-                    value.livebuybackprice[0] &&
-                    value.livebuybackprice[0].percentage
-                  }
-                  isDollarSign={true}
-                />
+                {key !== 'goldSilverratio' && key !== 'audusDcross' ?
+                  <MetalCard
+                    color={color}
+                    headerTitle1={cardName}
+                    headerTitle2="LIVE BUY BACK"
+                    currentPrice={
+                      value.livebuybackprice &&
+                      value.livebuybackprice[0] &&
+                      value.livebuybackprice[0].current
+                    }
+                    move={
+                      value.livebuybackprice &&
+                      value.livebuybackprice[0] &&
+                      value.livebuybackprice[0].move
+                    }
+                    percentage={
+                      value.livebuybackprice &&
+                      value.livebuybackprice[0] &&
+                      value.livebuybackprice[0].percentage
+                    }
+                    isDollarSign={true}
+                  />
+                  : null}
               </Box>
               <Divider />
             </Box>
