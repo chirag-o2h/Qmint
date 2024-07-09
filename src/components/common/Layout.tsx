@@ -67,6 +67,7 @@ function Layout(props: any) {
   }, [isLoggedIn]);
   // useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
+useEffect(() => {
   if (configDetailsState?.Store_FaviconURL?.value) {
     const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
     // Update favicon dynamically
@@ -77,6 +78,8 @@ function Layout(props: any) {
     link.href = faviconUrl;
     document.head.appendChild(link);
   }
+}, [configDetailsState])
+
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
 
   return (

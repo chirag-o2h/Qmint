@@ -56,6 +56,18 @@ const BullionmarkShop = (props: any) => {
     bmkShopPageSections,
     isLoggedIn
   } = useAppSelector((state) => state.homePage);
+useEffect(() => {
+  if (configDetailsState?.Store_FaviconURL?.value) {
+    const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+    // Update favicon dynamically
+    const link: any =
+      document.querySelector("link[rel='icon']") ||
+      document.createElement("link");
+    link.rel = "icon";
+    link.href = faviconUrl;
+    document.head.appendChild(link);
+  }
+}, [configDetailsState])
 
   useEffect(() => {
     // dispatch(setConfigDetails(serverData?.configDetails));
@@ -84,16 +96,6 @@ const BullionmarkShop = (props: any) => {
           body: bodyForGetShoppingCartData,
         })
       );
-      if (configDetailsState?.Store_FaviconURL?.value) {
-        const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-        // Update favicon dynamically
-        const link: any =
-          document.querySelector("link[rel='icon']") ||
-          document.createElement("link");
-        link.rel = "icon";
-        link.href = faviconUrl;
-        document.head.appendChild(link);
-      }
     }, 0);
   }, [isLoggedIn]);
   return (

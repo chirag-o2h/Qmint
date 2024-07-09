@@ -23,7 +23,7 @@ const useGetFeaturesProductaData = (conditionalCall=true,dataWhenConditionCallFa
     const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
 
     useEffect(() => {
-        const dataOfTheProducts = {data:dataWhenConditionCallFalse} || data
+        const dataOfTheProducts = dataWhenConditionCallFalse ? {data:dataWhenConditionCallFalse} : data
         if(conditionalCall || dataWhenConditionCallFalse){
         if (dataOfTheProducts?.data?.items?.length > 0) {
             const ids: number[] = dataOfTheProducts?.data?.items?.map((product: { productId: any; }) => product.productId)
@@ -48,6 +48,7 @@ const useGetFeaturesProductaData = (conditionalCall=true,dataWhenConditionCallFa
                     axiosInstance
                         .post(ENDPOINTS.productPrices, { productIds: ids }, { signal: cancellationSource?.signal })
                         .then(response => {
+                            console.log("🚀 ~ timeoutId=setTimeout ~ response?.data?.data:", response?.data?.data)
                             if (response?.data?.data) {
                                 const idwithpriceObj: any = {}
                                 response?.data?.data?.forEach((product: any) => idwithpriceObj[product?.productId] = product)
