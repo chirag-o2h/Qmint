@@ -6,13 +6,13 @@
 
 // You can delete this file if you're not using it
 
-import React from 'react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { persistor, store } from '@/redux/store';
-import { Provider } from 'react-redux';
-import theme from '@/theme';
-import { PersistGate } from 'redux-persist/integration/react';
-import { Partytown } from '@builder.io/partytown/react';
+import React from "react";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { persistor, store } from "@/redux/store";
+import { Provider } from "react-redux";
+import theme from "@/theme";
+import { PersistGate } from "redux-persist/integration/react";
+import { Partytown } from "@builder.io/partytown/react";
 export const wrapRootElement = ({ element }: any) => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -23,9 +23,13 @@ export const wrapRootElement = ({ element }: any) => (
     </PersistGate>
   </Provider>
 );
-export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostBodyComponents }: any) => {
+export const onRenderBody = ({
+  setHeadComponents,
+  setPreBodyComponents,
+  setPostBodyComponents,
+}: any) => {
   setHeadComponents([
-    <Partytown key="partytown" debug={true} forward={['dataLayer.push']} />,
+    <Partytown key="partytown" debug={true} forward={["dataLayer.push"]} />,
     <script
       defer
       type="text/partytown"

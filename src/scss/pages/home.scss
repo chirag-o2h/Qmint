@@ -67,7 +67,6 @@
 #ProductsSlider {
   @include padding-vertical(70, 50);
 
-
   .ProductsSliderWrapper {
     @include media-min($md) {
       @include padding-horizontal(24);
@@ -91,7 +90,6 @@
           @include padding-horizontal(40);
           @include margin-horizontal(-40);
         }
-
 
         .ProductCardLink {
           text-decoration: none;
@@ -130,8 +128,6 @@
             }
           }
         }
-
-
       }
 
       .swiper-pagination {
@@ -285,7 +281,6 @@
   .ToggleWrapper {
     margin-top: 29px;
 
-
     @include media-min($sm) {
       justify-content: center;
     }
@@ -412,7 +407,7 @@
           }
 
           @include media($sm) {
-            align-items: initial
+            align-items: initial;
           }
         }
       }
