@@ -17,7 +17,6 @@ import { getCheckoutPageData, updateFinalDataForTheCheckout } from "@/redux/redu
 import { ENDPOINTS } from "@/utils/constants"
 import { useAppDispatch, useAppSelector, useToggle } from "@/hooks"
 import useDeviceDetails from "@/hooks/useDeviceDetails"
-import { navigate } from "gatsby"
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import useAlertPopUp from "@/hooks/useAlertPopUp"
@@ -26,6 +25,8 @@ import useRequireLogin from "@/hooks/useRequireLogin"
 import RecordNotFound from "@/components/common/RecordNotFound"
 import classNames from "classnames"
 import { THEME_TYPE } from "@/axiosfolder"
+import { useLocation } from "@reach/router"
+import { navigate } from "gatsby"
 
 function Checkout() {
   const location = useLocation()
@@ -50,9 +51,11 @@ function Checkout() {
   }, [location.search, cartItems?.length])
   useAPIoneTime(state)
   useAlertPopUp({ pageName: 'Checkout', openPopup: toggleSessionExpireDialog })
-  if (configDetailsState?.Checkout_Enable?.value !== true) {
-    navigate('/shop')
-  }
+  useEffect(() => {
+    if (configDetailsState?.Checkout_Enable?.value !== true) {
+      navigate('/shop')
+    }
+  }, [configDetailsState?.Checkout_Enable?.value])
   if (loadingForCheckingLogin) {
     return
   }

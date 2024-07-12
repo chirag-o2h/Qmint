@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Seo from "../components/common/Seo"
 import Layout from "@/components/common/Layout";
 import { Box, Grid, Container, Typography } from "@mui/material"
@@ -50,10 +50,11 @@ function Memberships() {
             navigate('/checkout')
         }
     }
-    if (!isLoggedIn) {
-        navigate('/login', { replace: true })
-        return;
-    }
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login')
+        }
+    }, [isLoggedIn])
     return (
         <Layout>
             <>

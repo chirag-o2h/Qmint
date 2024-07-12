@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useLayoutEffect, useState } from "react"
 import Seo from "../components/common/Seo"
 import Layout from "@/components/common/Layout";
 import { Box, Stack, Container, Typography, Icon, Button, TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Divider } from "@mui/material"
@@ -40,17 +40,19 @@ function OrderConfirmation(props: any) {
         )
     }
     const downloadInvoiceHandler = useDownloadInvoiceHandler()
-    useEffect(()=>{
+    useEffect(() => {
         window.handleLinkClick = async () => {
             setLoadingForNavigate(true)
             await downloadInvoiceHandler(orderConfirmationDetailsData?.orderNumber)
             setLoadingForNavigate(false)
         };
-    },[])
+    }, [])
 
-    if(!isLoggedIn){
-        navigate('/login')
-    }
+    useLayoutEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login')
+        }
+    }, [isLoggedIn])
     return (
         <Layout>
             {checkLoadingStatus || loadingForNavigate && <Loader open={checkLoadingStatus || loadingForNavigate} />}
