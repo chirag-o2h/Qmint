@@ -59,7 +59,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
 
   const [productIds, setProductIds] = useState({})
   const [cartItemsWithLivePrice, setCartItemsWithLivePrice] = useState<CartItemsWithLivePriceDetails[]>([]);
-  const pathName = useMemo(() => window.location.pathname.replace(/\//g, ''), [window.location])
+  const pathName = useMemo(() => location.pathname.replace(/\//g, ''), [location])
   const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, (pathName.includes('shopping-cart') || pathName.includes('checkout')) ? null : 60,!showNavigation);
   useEffect(() => {
     if (priceData?.data?.length > 0) {
