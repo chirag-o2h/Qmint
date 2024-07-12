@@ -141,7 +141,7 @@ function Vault() {
                   by calling our office during business hours. */}
                 </Typography>
                 <Button size="large" variant="contained" sx={{ mt: 5 }} onClick={() => {
-                  navigate('/shop')
+                  navigate('/')
                 }}>
                   Shop Now
                 </Button>

@@ -1,44 +1,66 @@
-import React, { useMemo, lazy, useState, useEffect } from "react"
-import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box, useScrollTrigger } from "@mui/material"
-import classNames from "classnames"
-import { useLocation } from '@reach/router';
-
-
-// Components
-import SearchField from "./SearchField"
+import React, { useState, useEffect } from "react";
+import {
+  useMediaQuery,
+  Container,
+  Stack,
+  Button,
+  IconButton,
+  Typography,
+  Box,
+  useScrollTrigger,
+} from "@mui/material";
+import classNames from "classnames";
+import { useLocation } from "@reach/router";
 
 // Assets
-import { Call, SignInIcon, SignOutIcon, HamburgerIcon, CrossIcon, BullionmarkSignInIcon } from "../../assets/icons/index"
-import { useAppDispatch, useAppSelector } from "@/hooks"
+import {
+  SignInIcon,
+  SignOutIcon,
+  HamburgerIcon,
+  CrossIcon,
+  BullionmarkSignInIcon,
+} from "../../assets/icons/index";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 // Utils
-import { ENDPOINTS } from "../../utils/constants"
-import { Link, navigate } from "gatsby"
-import { CategoriesListDetails, LogOutUserAPI } from "@/redux/reducers/homepageReducer"
-import useAPIoneTime from "@/hooks/useAPIoneTime"
-import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
-import { isItNewsOrBlogPage, pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
+import { ENDPOINTS } from "../../utils/constants";
+import { Link, navigate } from "gatsby";
+import {
+  CategoriesListDetails,
+  LogOutUserAPI,
+} from "@/redux/reducers/homepageReducer";
+import useAPIoneTime from "@/hooks/useAPIoneTime";
+import { THEME_TYPE } from "@/axiosfolder";
+import {
+  isItNewsOrBlogPage,
+  pagesOnWhichNeedToCallTopCategoriesAPi,
+} from "@/utils/common";
 import useImageInView from "@/hooks/useImageInView";
-const Navigation = lazy(() => import('./Navigation'))
+import Navigation from "./Navigation";
 
 function FrontMain(props: any) {
-    const dispatch = useAppDispatch()
-    const mobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-    const trigger = THEME_TYPE == "1" ? useImageInView(): useScrollTrigger({
-        disableHysteresis: true,
-        threshold: mobile ? 68 : 50,
-    })
-    const { openMobileMenu, toggleMobileMenu, isFrontHeader } = (props)
-    const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
-    const location = useLocation();
-    const handleAuth = () => {
-        if (!isLoggedIn) {
-            navigate('/login')
-        } else {
-            dispatch(LogOutUserAPI() as any)
-            navigate('/')
-        }
+  const dispatch = useAppDispatch();
+  const mobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
+  const trigger =
+    THEME_TYPE == "1"
+      ? useImageInView()
+      : useScrollTrigger({
+          disableHysteresis: true,
+          threshold: mobile ? 68 : 50,
+        });
+  const { openMobileMenu, toggleMobileMenu, isFrontHeader } = props;
+  const { configDetails: configDetailsState, isLoggedIn } = useAppSelector(
+    (state) => state.homePage
+  );
+  const location = useLocation();
+  const handleAuth = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      dispatch(LogOutUserAPI() as any);
+      navigate("/");
     }
+  }
     // const isItHomepage = location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page))
     // todo when need to conver again from home page to shope page related things
     // const isItHomepage = pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page) && location.pathname.split('/').filter((item) => item).some((name) => name === page))
@@ -76,13 +98,25 @@ function FrontMain(props: any) {
                         {/* <Button name='Contact us' aria-label='Contact us' onClick={() => { 
                             navigate('/contactus')
                         }} variant="outlined" className="ActionButton">Contact Us</Button> */}
-                        {/* </Link> */}
-                        <IconButton color="secondary"  title="HamburgerButton"  area-label="HamburgerMenuButton" className="HamburgerButton MenuButton" onClick={toggleMobileMenu}>{!openMobileMenu ? <HamburgerIcon className="HamburgerIcon" /> : <CrossIcon className="CrossIcon" />}</IconButton>
-                    </Stack>
-                </Stack>
-            </Container>
-        </Box>
-    )
+            {/* </Link> */}
+            <IconButton
+              color="secondary"
+              title="HamburgerButton"
+              area-label="HamburgerMenuButton"
+              className="HamburgerButton MenuButton"
+              onClick={toggleMobileMenu}
+            >
+              {!openMobileMenu ? (
+                <HamburgerIcon className="HamburgerIcon" />
+              ) : (
+                <CrossIcon className="CrossIcon" />
+              )}
+            </IconButton>
+          </Stack>
+        </Stack>
+      </Container>
+    </Box>
+  );
 }
 
-export default React.memo(FrontMain)
+export default React.memo(FrontMain);

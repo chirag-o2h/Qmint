@@ -4,8 +4,8 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-import React from 'react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import React from "react";
+import { ThemeProvider, CssBaseline } from "@mui/material";
 // Assets
 import "./src/scss/style.scss"
 import { Provider } from 'react-redux';
@@ -14,6 +14,7 @@ import {store} from "@/redux/store"
 import theme from '@/theme';
 // import { PersistGate } from 'redux-persist/integration/react';
 // import LogoutUserOnTabClose from '@/components/common/LogoutUserOnTabClose';
+
 export const wrapRootElement = ({ element }: any) => (
   <Provider store={store}>
     {/* <PersistGate loading={null} persistor={persistor}> */}

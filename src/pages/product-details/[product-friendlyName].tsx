@@ -58,7 +58,7 @@ function ProductDetail({ params }: any) {
         lang="en"
         isItShopPage={true}
       />
-      {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: params?.["product-friendlyName"] }]} />
+      {productDetailsData && !productDetailsData?.errorMessage ? (<><Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: productDetailsData?.name }]} />
         <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": THEME_TYPE == '1' })}>
           {productDetailsData?.productId && <AboutProduct productId={productDetailsData?.productId} />}
           {productDetailsData?.relatedProducts?.length > 0 && <RelatedProduct relatedProductsList={structuredClone(productDetailsData?.relatedProducts)} heading={configDetails["ProductDetails_RelatedProducts_SectionTitle"]?.value} description={configDetails["ProductDetails_RelatedProducts_SectionSubtitle"]?.value} />}

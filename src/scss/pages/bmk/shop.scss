@@ -1,142 +1,156 @@
 #BestCategorySlider {
-    @include padding-vertical(54, 50);
+  @include padding-vertical(54, 50);
 
-    @include media($md) {
-        @include padding-vertical(60, 82);
+  @include media($md) {
+    @include padding-vertical(60, 82);
+  }
+
+  // &.TopBannerAbsent {
+  //     padding-top: 230px;
+
+  //     @include media($md) {
+  //         padding-top: 130px;
+  //     }
+  // }
+
+  .BullionmarkSectionHeading {
+    margin-bottom: 49px;
+
+    .Title {
+      @include media($md) {
+        font-size: 32px;
+        letter-spacing: -2px;
+      }
     }
+  }
 
-    // &.TopBannerAbsent {
-    //     padding-top: 230px;
+  .BmkProductsSliderWrapper {
+    .SwiperContainer {
+      .ProductTitle {
+        position: absolute;
+        bottom: 0;
+        left: 15px;
+        right: 15px;
+        @include padding-vertical(10);
+        background-color: $pumpkinOrange;
+        border: 1px solid rgb($pumpkinOrange, 0.35);
+        box-shadow: 0px 4px 14px 0px #00000014;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
 
-    //     @include media($md) {
-    //         padding-top: 130px;
-    //     }
-    // }
-
-    .BullionmarkSectionHeading {
-        margin-bottom: 49px;
-
-        .Title {
-            @include media($md) {
-                font-size: 32px;
-                letter-spacing: -2px;
-            }
+        h4 {
+          font-size: 13px;
+          line-height: 19px;
         }
-    }
+      }
 
-    .BmkProductsSliderWrapper {
-        .SwiperContainer {
-            .swiper {
-                .BmkProductCardLink {
-                    text-decoration: none;
+      .swiper {
+        .BmkProductCardLink {
+          text-decoration: none;
 
-                    .BmkProductCard {
-                        padding-bottom: 20px;
-                        border-radius: 0;
-                        height: 100%;
+          .BmkProductCard {
+            padding-bottom: 20px;
+            border-radius: 0;
+            height: 100%;
 
-
-                        .ProductImageWrapper {
-                            .ProductImage {
-                                width: 100%;
-                                // min-height: min-content;
-                            }
-                        }
-
-                        .ProductTitle {
-                            position: absolute;
-                            bottom: 0;
-                            left: 15px;
-                            right: 15px;
-                            @include padding-vertical(10);
-                            background-color: $pumpkinOrange;
-                            border: 1px solid rgb($pumpkinOrange, .35);
-                            box-shadow: 0px 4px 14px 0px #00000014;
-                            color: $white;
-                            text-align: center;
-                            text-transform: uppercase;
-
-                            h4 {
-                                font-size: 13px;
-                                line-height: 19px;
-                            }
-                        }
-                    }
-                }
-
-                .swiper-pagination {
-                    padding-top: 45px;
-
-                    @include media($md) {
-                        display: none
-                    }
-                }
+            .ProductImageWrapper {
+              .ProductImage {
+                width: 100%;
+                // min-height: min-content;
+              }
             }
+
+            .ProductTitle {
+              position: absolute;
+              bottom: 0;
+              left: 15px;
+              right: 15px;
+              @include padding-vertical(10);
+              background-color: $pumpkinOrange;
+              border: 1px solid rgb($pumpkinOrange, 0.35);
+              box-shadow: 0px 4px 14px 0px #00000014;
+              color: $white;
+              text-align: center;
+              text-transform: uppercase;
+
+              h4 {
+                font-size: 13px;
+                line-height: 19px;
+              }
+            }
+          }
         }
 
+        .swiper-pagination {
+          padding-top: 45px;
+
+          @include media($md) {
+            display: none;
+          }
+        }
+      }
     }
+  }
 }
 
 #BmkFeaturedProductsSlider {
-    @include padding-vertical(93, 125);
-    background: #F7EDE566;
+  @include padding-vertical(93, 125);
+  background: #f7ede566;
 
-    @include media($md) {
-        @include padding-vertical(63, 57);
-    }
+  @include media($md) {
+    @include padding-vertical(63, 57);
+  }
 
-    .BmkProductsWrapper {
-        .SwiperContainer {
-            .swiper {
-                padding-top: 56px;
+  .BmkProductsWrapper {
+    .SwiperContainer {
+      .swiper {
+        padding-top: 56px;
 
-                @include media($md) {
-                    padding-top: 40px;
-                }
-
-                .swiper-pagination {
-                    padding-top: 57px;
-                }
-            }
+        @include media($md) {
+          padding-top: 40px;
         }
+
+        .swiper-pagination {
+          padding-top: 57px;
+        }
+      }
     }
-
-
+  }
 }
 
 #BmkPopularProductSlider {
-    @include padding-vertical(88, 62);
+  @include padding-vertical(88, 62);
+
+  @include media($md) {
+    @include padding-vertical(68);
+  }
+
+  .BullionmarkSectionHeading {
+    margin-bottom: 55px;
 
     @include media($md) {
-        @include padding-vertical(68);
+      margin-bottom: 38px;
     }
+  }
 
-    .BullionmarkSectionHeading {
-        margin-bottom: 55px;
+  .ToggleWrapper {
+    justify-content: center;
+  }
+
+  .BmkProductsWrapper {
+    .SwiperContainer {
+      .swiper {
+        padding-top: 63px;
 
         @include media($md) {
-            margin-bottom: 38px;
+          padding-top: 50px;
         }
-    }
 
-    .ToggleWrapper {
-        justify-content: center;
-    }
-
-    .BmkProductsWrapper {
-        .SwiperContainer {
-            .swiper {
-                padding-top: 63px;
-
-                @include media($md) {
-                    padding-top: 50px;
-                }
-
-                .swiper-pagination {
-                    padding-top: 65px;
-                }
-            }
+        .swiper-pagination {
+          padding-top: 65px;
         }
+      }
     }
-
+  }
 }

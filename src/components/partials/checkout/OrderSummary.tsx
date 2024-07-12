@@ -150,7 +150,7 @@ function OrderSummary() {
           })
         }),
         "PaymentMethod": paymentMethodEnum[finalDataForTheCheckout?.paymentType],
-        "ShippingMethod": shipmentTypeToEnum[finalDataForTheCheckout?.parentDeliveryMethod || 'SecureShipping'],
+        "ShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod ? 4 : shipmentTypeToEnum[finalDataForTheCheckout?.parentDeliveryMethod || 'SecureShipping'],
         "IsDifferentShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod,
         "IsUsedRewardPoints": false,
         "AgentId": localAgentDetails?.agentId ?? null,

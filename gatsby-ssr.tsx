@@ -23,9 +23,13 @@ export const wrapRootElement = ({ element }: any) => (
     {/* </PersistGate> */}
   </Provider>
 );
-export const onRenderBody = ({ setHeadComponents, setPreBodyComponents, setPostBodyComponents }: any) => {
+export const onRenderBody = ({
+  setHeadComponents,
+  setPreBodyComponents,
+  setPostBodyComponents,
+}: any) => {
   setHeadComponents([
-    <Partytown key="partytown" debug={true} forward={['dataLayer.push']} />,
+    <Partytown key="partytown" debug={true} forward={["dataLayer.push"]} />,
     <script
       defer
       type="text/partytown"

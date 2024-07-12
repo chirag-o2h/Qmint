@@ -7,6 +7,17 @@ exports.onPreBuild = async () => {
 // exports.onPreBootstrap = async () => {
 //     await copyLibFiles(path.join(__dirname, "public/static", "~partytown"));
 // };
+
+exports.onCreateWebpackConfig = ({ actions }: any) => {
+    actions.setWebpackConfig({
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, 'src'),
+                'assets': path.resolve(__dirname, 'static/assets')
+            },
+        },
+    })
+};
 exports.onCreateWebpackConfig = ({ stage, actions }:any) => {
     const webpackConfig:any = {
         resolve: {
