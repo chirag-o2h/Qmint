@@ -61,7 +61,7 @@ const BullionmarkShop=(props:any)=> {
                         title={"1234"}
                     />
                     {/* </RenderOnViewportEntry> */}
-                    {/* <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={950} skeletonMargin={-220} > 
+                    <RenderOnViewportEntry rootMargin="200px" threshold={0.25} minHeight={950} skeletonMargin={-220} > 
                     <BmkFeaturedProductsSlider
                         title={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Title"]?.value}
                         description={configDetailsState?.["ShopHomepage_Section_2_Featured_Products_Subtitle"]?.value}
@@ -91,7 +91,7 @@ const BullionmarkShop=(props:any)=> {
                             data={bmkShopPageSections?.shopHomepage_Section_7_Two_pics_in_a_rows}
                             className="ShopInspiringStories"
                         />
-                    </RenderOnViewportEntry> */}
+                    </RenderOnViewportEntry>
                     {openToaster && <Suspense fallback={<></>}><Toaster /></Suspense>}
                 {/* </Layout> */}
             </>
