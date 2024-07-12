@@ -59,6 +59,7 @@ const BullionmarkShop = (props: any) => {
     bmkShopPageSections,
     isLoggedIn
   } = useAppSelector((state) => state.homePage);
+  console.log("🚀 ~ useEffect ~ serverData?.configDetails:", serverData?.configDetails)
 useEffect(() => {
   if (serverData?.configDetails?.Store_FaviconURL?.value) {
     const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
@@ -73,7 +74,7 @@ useEffect(() => {
 }, [serverData?.configDetails])
 
   useEffect(() => {
-    dispatch(setConfigDetails(serverData?.configDetails));
+    dispatch(setConfigDetails(serverData?.configDetailsForRedux));
     dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
     setTimeout(() => setIsRendering(false), 3500);
     }, [serverData]);
@@ -324,7 +325,11 @@ BullionmarkShop.getServerData = async (context: any) => {
 
     return {
       props: {
-        configDetails,
+        configDetails : configDetails?.reduce((acc: any, curr: any) => {
+          acc[curr.key] = curr
+          return acc
+        }, {}),
+        configDetailsForRedux: configDetails,
         bmkShopPageSections,
         productData: productData.data,
         // priceForEachId,
