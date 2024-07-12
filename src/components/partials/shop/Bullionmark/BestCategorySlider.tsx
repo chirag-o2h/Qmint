@@ -111,7 +111,7 @@ function BestCategorySlider(props: any) {
                                     src={category.imageUrl}
                                     placeholder={noImage}
                                     alt={category.name}
-                                    style={removeMinHeight ? {minHeight: isMobile ? "430px" : "350px"} :{}}
+                                    style={removeMinHeight ? {minHeight: isMobile ?  "300px" : "270px"} :{}}
                                     className="ProductImage"
                                   />
                                 </Box>

@@ -160,7 +160,7 @@ export const StoreData = {
   storeCode: 12,
   returnUrl: typeof window !== "undefined" ? window.location.href : null,
 };
-25;
+// 25;
 export const changePasswordURL =
   "https://register.qmint.com/passwordrecovery?id=" + 25;
 export const forbiddenKeywords = [

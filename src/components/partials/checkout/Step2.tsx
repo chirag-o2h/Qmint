@@ -216,7 +216,7 @@ function Step2() {
   return (
     <StepWrapper title="Step 2" className="Step2">
       <Box className="StepHeader">
-        <Stack
+       {!changeDiffrenceDeliveryMethods && <Stack
           className="HeaderWrapper"
           sx={cartItemsWithLivePrice?.length > 1 ? {} : { mb: 1 }}
         >
@@ -242,7 +242,7 @@ function Step2() {
             {configDetailsState?.Checkout_DeliveryMethod_SecureShipping_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["secureShipping"]) &&<MenuItem value="SecureShipping">Secure Shipping</MenuItem>}
             {configDetailsState?.Checkout_DeliveryMethod_VaultStorage_Enable?.value && commonShippingMethods?.includes(ShippingMethodToNumber["VaultStorage"])&&<MenuItem value="VaultStorage">Vault Storage</MenuItem>}
           </Select>}
-        </Stack>
+        </Stack>}
         {cartItemsWithLivePrice?.length > 1 && <FormControlLabel
           className="DeliveryCheckbox"
           control={<Checkbox checked={changeDiffrenceDeliveryMethods} onClick={() => {
