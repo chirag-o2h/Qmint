@@ -20,9 +20,9 @@ import Layout from "@/components/common/Layout"
 import Loader from "@/components/common/Loader"
 const Toaster = lazy(() => import("@/components/common/Toaster"));
 // const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
-const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
+// const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
 import BestCategorySlider from "./BestCategorySlider"
-// import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
+import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
 import axios from "axios";
 import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
@@ -49,7 +49,7 @@ const InspiringStories = lazy(
   () => import("../../landing-page/Bullionmark/InspiringStories")
 );
 const BullionmarkShop = (props: any) => {
-  // const { serverData } = props;
+  const { serverData } = props;
   const [isRendering, setIsRendering] = useState(true);
   const dispatch = useAppDispatch();
   const {
@@ -60,8 +60,8 @@ const BullionmarkShop = (props: any) => {
     isLoggedIn
   } = useAppSelector((state) => state.homePage);
 useEffect(() => {
-  if (configDetailsState?.Store_FaviconURL?.value) {
-    const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+  if (serverData?.configDetails?.Store_FaviconURL?.value) {
+    const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
     // Update favicon dynamically
     const link: any =
       document.querySelector("link[rel='icon']") ||
@@ -70,37 +70,37 @@ useEffect(() => {
     link.href = faviconUrl;
     document.head.appendChild(link);
   }
-}, [configDetailsState])
+}, [serverData?.configDetails])
 
   useEffect(() => {
-    // dispatch(setConfigDetails(serverData?.configDetails));
-    // dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
+    dispatch(setConfigDetails(serverData?.configDetails));
+    dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
     setTimeout(() => setIsRendering(false), 3500);
-    // }, [serverData]);
-  }, []);
-  useAPIoneTime({ service: getBullionMarkShopPageSections });
+    }, [serverData]);
+  // }, []);
+  // useAPIoneTime({ service: getBullionMarkShopPageSections });
   useUserDetailsFromToken();
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
   const keyWords = useMemo(() => {
     return (
-      configDetailsState?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []
+      serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []
     );
-  }, [configDetailsState]);
-  useAPIoneTime({
-    service: configDetails,
-    endPoint: ENDPOINTS.getConfigStore,
-    // conditionalCall: !isItMainPage,
-  });
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(
-        getShoppingCartData({
-          url: ENDPOINTS.getShoppingCartData,
-          body: bodyForGetShoppingCartData,
-        })
-      );
-    }, 0);
-  }, [isLoggedIn]);
+  }, [serverData?.configDetails]);
+  // useAPIoneTime({
+  //   service: configDetails,
+  //   endPoint: ENDPOINTS.getConfigStore,
+  //   // conditionalCall: !isItMainPage,
+  // });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     dispatch(
+  //       getShoppingCartData({
+  //         url: ENDPOINTS.getShoppingCartData,
+  //         body: bodyForGetShoppingCartData,
+  //       })
+  //     );
+  //   }, 0);
+  // }, [isLoggedIn]);
   return (
     <>
       <>
@@ -119,13 +119,13 @@ useEffect(() => {
           lang="en"
           isItShopPage={true}
           description={
-            configDetailsState?.Store_ShopPage_Meta_Description?.value
+            serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
           }
         />
         {!isRendering && <BullionmarkHeader />}
 
         {!isMobile &&
-          configDetailsState?.Sliders_ShopHomepage_Enable?.value == true && (
+          serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
             <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
               <BannerSlider isItShopPage={true} />
             </Suspense>
@@ -140,15 +140,15 @@ useEffect(() => {
 
             {isMobile && (
               <BestCategorySliderSkeleton
-                pageData={bmkShopPageSections}
+                pageData={serverData?.bmkShopPageSections}
                 PaddingClass={
                   !isMobile &&
-                  configDetailsState?.Sliders_ShopHomepage_Enable?.value
+                  serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
                     ? ""
                     : "TopBannerAbsent"
                 }
                 title={
-                  configDetailsState?.[
+                  serverData?.configDetails?.[
                     "ShopHomepage_Section_1_Featured_Categories_Title"
                   ]?.value
                 }
@@ -157,49 +157,49 @@ useEffect(() => {
           </>
         )}
 
-        <RenderOnViewportEntry
+        {/* <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
           minHeight={900}
           skeletonMargin={-220}
-        >
+        > */}
           <BestCategorySlider
-            pageData={bmkShopPageSections}
+            pageData={serverData?.bmkShopPageSections}
             PaddingClass={
               !isMobile &&
-              configDetailsState?.Sliders_ShopHomepage_Enable?.value
+              serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
                 ? ""
                 : "TopBannerAbsent"
             }
             title={
-              configDetailsState?.[
+              serverData?.configDetails?.[
                 "ShopHomepage_Section_1_Featured_Categories_Title"
               ]?.value
             }
           />
-        </RenderOnViewportEntry>
-        <RenderOnViewportEntry
+        {/* </RenderOnViewportEntry> */}
+        {/* <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
           minHeight={950}
           skeletonMargin={-220}
-        >
+        > */}
           <BmkFeaturedProductsSlider
             title={
-              configDetailsState?.[
+              serverData?.configDetails?.[
                 "ShopHomepage_Section_2_Featured_Products_Title"
               ]?.value
             }
             description={
-              configDetailsState?.[
+              serverData?.configDetails?.[
                 "ShopHomepage_Section_2_Featured_Products_Subtitle"
               ]?.value
             }
-            needToCallProductAPI={true}
-            // productData={serverData?.productData}
+            needToCallProductAPI={false}
+            productData={serverData?.productData}
             // priceForEachId={serverData?.priceForEachId}
           />
-        </RenderOnViewportEntry>
+        {/* </RenderOnViewportEntry> */}
         <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
@@ -221,12 +221,12 @@ useEffect(() => {
         >
           <BmkPopularProductSlider
             title={
-              configDetailsState?.[
+              serverData?.configDetails?.[
                 "ShopHomepage_Section_5_Popular_Products_Title"
               ]?.value
             }
             description={
-              configDetailsState?.[
+              serverData?.configDetails?.[
                 "ShopHomepage_Section_5_Popular_Products_Subtitle"
               ]?.value
             }
@@ -250,7 +250,7 @@ useEffect(() => {
         >
           <InspiringStories
             title={
-              configDetailsState?.[
+              serverData?.configDetails?.[
                 "ShopHomepage_Section_7_Two_pics_in_a_rows_Title"
               ]?.value
             }
