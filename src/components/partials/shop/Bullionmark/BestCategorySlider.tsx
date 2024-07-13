@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Box,
   Card,
@@ -19,7 +19,6 @@ import noImage from "../../../../assets/images/noImage.png";
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 
 function BestCategorySlider(props: any) {
-  console.log("🚀 ~ BestCategorySlider ~ props:", props)
   const removeMinHeight = useUnloadMinHeight()
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const config = {

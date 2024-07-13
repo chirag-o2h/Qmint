@@ -2,8 +2,6 @@ import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import Seo from "@/components/common/Seo";
 import {
-  configDetails,
-  getBullionMarkShopPageSections,
   setBmkShopPageSections,
   setConfigDetails,
 } from "@/redux/reducers/homepageReducer";
@@ -15,28 +13,23 @@ import useUserDetailsFromToken from "@/hooks/useUserDetailsFromToken";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 
 // const Layout = lazy(() => import("@/components/common/Layout"));
-import Layout from "@/components/common/Layout"
 // const Loader = lazy(() => import("@/components/common/Loader"));
-import Loader from "@/components/common/Loader"
 const Toaster = lazy(() => import("@/components/common/Toaster"));
 // const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
 const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
 import BestCategorySlider from "./BestCategorySlider"
 // import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
-import axios from "axios";
 import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
-import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import { bodyForGetShoppingCartData } from "@/utils/common";
 // import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
-import BullionmarkHeader from "@/components/header/BullionmarkHeader";
-import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
+// import BullionmarkHeader from "@/components/header/BullionmarkHeader";
 // import Layout from "@/components/common/Layout";
 
-// const BullionmarkHeader = lazy(
-//   () => import("@/components/header/BullionmarkHeader")
-// );
+const BullionmarkHeader = lazy(
+  () => import("@/components/header/BullionmarkHeader")
+);
 const LazyBullionmarkFooter = lazy(
   () => import("@/components/footer/BullionmarkFooter")
 );
@@ -96,14 +89,17 @@ const BullionmarkShop = (props: any) => {
   //   // conditionalCall: !isItMainPage,
   // });
   useEffect(() => {
-    setTimeout(() => {
+   const x =  setTimeout(() => {
       dispatch(
         getShoppingCartData({
           url: ENDPOINTS.getShoppingCartData,
           body: bodyForGetShoppingCartData,
         })
       );
-    }, 0);
+    }, 3000);
+  return ()=>{
+    clearTimeout(x)
+  }
   }, [isLoggedIn]);
   return (
     <>
@@ -126,9 +122,15 @@ const BullionmarkShop = (props: any) => {
             serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
           }
         />
-        {!isRendering && <BullionmarkHeader />}
+        {!isRendering && <Suspense fallback={
+                      <Skeleton
+                      height={"124px"}
+                      width={"100%"}
+                      style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+                    />        
+        }><BullionmarkHeader /></Suspense>}
 
-        {!isMobile &&
+        {!isMobile && !isRendering &&
           serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
             <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
               <BannerSlider isItShopPage={true} />
@@ -137,9 +139,9 @@ const BullionmarkShop = (props: any) => {
         {isRendering && (
           <>
             <Skeleton
-              height={"128px"}
+              height={"124px"}
               width={"100%"}
-              style={{ marginBottom: "32px", transform: "scale(1)" }}
+              style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
             />
 
             {/* {isMobile && (
