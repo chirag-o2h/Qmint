@@ -28,16 +28,16 @@ exports.onCreateWebpackConfig = ({ stage, actions }:any) => {
         },
     };
 
-    // if (stage === "build-javascript" || stage === "develop") {
-    //     webpackConfig.optimization = {
-    //         splitChunks: {
-    //             chunks: 'all',
-    //             minSize: 10000,  // Minimum size for splitting chunks
-    //             minChunks: 10,    // Minimum number of chunks that must share a module before splitting
-    //             maxAsyncRequests: 10,  // Maximum number of parallel requests for chunks on initial load
-    //         },
-    //     };
-    // }
+    if (stage === "build-javascript" || stage === "develop") {
+        webpackConfig.optimization = {
+            splitChunks: {
+                chunks: 'all',
+                minSize: 10000,  // Minimum size for splitting chunks
+                minChunks: 10,    // Minimum number of chunks that must share a module before splitting
+                maxAsyncRequests: 10,  // Maximum number of parallel requests for chunks on initial load
+            },
+        };
+    }
 
     actions.setWebpackConfig(webpackConfig);
 };
