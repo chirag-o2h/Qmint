@@ -29,12 +29,14 @@ import axiosInstance from "@/axiosfolder";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import { bodyForGetShoppingCartData } from "@/utils/common";
+// import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
+import BullionmarkHeader from "@/components/header/BullionmarkHeader";
 import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
 // import Layout from "@/components/common/Layout";
 
-const BullionmarkHeader = lazy(
-  () => import("@/components/header/BullionmarkHeader")
-);
+// const BullionmarkHeader = lazy(
+//   () => import("@/components/header/BullionmarkHeader")
+// );
 const LazyBullionmarkFooter = lazy(
   () => import("@/components/footer/BullionmarkFooter")
 );
@@ -124,7 +126,7 @@ const BullionmarkShop = (props: any) => {
             serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
           }
         />
-        {!isRendering && <Suspense><BullionmarkHeader /></Suspense>}
+        {!isRendering && <BullionmarkHeader />}
 
         {!isMobile &&
           serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
@@ -140,7 +142,7 @@ const BullionmarkShop = (props: any) => {
               style={{ marginBottom: "32px", transform: "scale(1)" }}
             />
 
-            {isMobile && (
+            {/* {isMobile && (
               <BestCategorySliderSkeleton
                 pageData={serverData?.bmkShopPageSections}
                 PaddingClass={
@@ -155,7 +157,7 @@ const BullionmarkShop = (props: any) => {
                   ]?.value
                 }
               />
-            )}
+            )} */}
           </>
         )}
 
@@ -165,7 +167,7 @@ const BullionmarkShop = (props: any) => {
           minHeight={900}
           skeletonMargin={-220}
         > */}
-          <BestCategorySlider
+         <BestCategorySlider
             pageData={serverData?.bmkShopPageSections}
             PaddingClass={
               !isMobile &&
