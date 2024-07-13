@@ -1,4 +1,4 @@
-import { THEME_TYPE } from "@/axiosfolder";
+// import { THEME_TYPE } from "@/axiosfolder";
 import BullionmarkShop from "@/components/partials/shop/Bullionmark";
 import React from "react";
 

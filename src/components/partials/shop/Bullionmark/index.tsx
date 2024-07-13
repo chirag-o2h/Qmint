@@ -20,9 +20,9 @@ import Layout from "@/components/common/Layout"
 import Loader from "@/components/common/Loader"
 const Toaster = lazy(() => import("@/components/common/Toaster"));
 // const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
-// const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
+const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
 import BestCategorySlider from "./BestCategorySlider"
-import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
+// import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
 import axios from "axios";
 import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
@@ -60,25 +60,26 @@ const BullionmarkShop = (props: any) => {
     isLoggedIn
   } = useAppSelector((state) => state.homePage);
   console.log("🚀 ~ useEffect ~ serverData?.configDetails:", serverData?.configDetails)
-useEffect(() => {
-  if (serverData?.configDetails?.Store_FaviconURL?.value) {
-    const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-    // Update favicon dynamically
-    const link: any =
-      document.querySelector("link[rel='icon']") ||
-      document.createElement("link");
-    link.rel = "icon";
-    link.href = faviconUrl;
-    document.head.appendChild(link);
-  }
-}, [serverData?.configDetails])
-
   useEffect(() => {
     dispatch(setConfigDetails(serverData?.configDetailsForRedux));
     dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
-    setTimeout(() => setIsRendering(false), 3500);
+
+    if (serverData?.configDetails?.Store_FaviconURL?.value) {
+      const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+      // Update favicon dynamically
+      const link: any =
+        document.querySelector("link[rel='icon']") ||
+        document.createElement("link");
+      link.rel = "icon";
+      link.href = faviconUrl;
+      document.head.appendChild(link);
+    }
     }, [serverData]);
   // }, []);
+  useEffect(() => {
+    setTimeout(() => setIsRendering(false), 3500);
+  }, [])
+  
   // useAPIoneTime({ service: getBullionMarkShopPageSections });
   useUserDetailsFromToken();
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
@@ -92,16 +93,16 @@ useEffect(() => {
   //   endPoint: ENDPOINTS.getConfigStore,
   //   // conditionalCall: !isItMainPage,
   // });
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     dispatch(
-  //       getShoppingCartData({
-  //         url: ENDPOINTS.getShoppingCartData,
-  //         body: bodyForGetShoppingCartData,
-  //       })
-  //     );
-  //   }, 0);
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(
+        getShoppingCartData({
+          url: ENDPOINTS.getShoppingCartData,
+          body: bodyForGetShoppingCartData,
+        })
+      );
+    }, 0);
+  }, [isLoggedIn]);
   return (
     <>
       <>
@@ -123,7 +124,7 @@ useEffect(() => {
             serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
           }
         />
-        {!isRendering && <BullionmarkHeader />}
+        {!isRendering && <Suspense><BullionmarkHeader /></Suspense>}
 
         {!isMobile &&
           serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
@@ -179,12 +180,12 @@ useEffect(() => {
             }
           />
         {/* </RenderOnViewportEntry> */}
-        {/* <RenderOnViewportEntry
+        <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
           minHeight={950}
           skeletonMargin={-220}
-        > */}
+        >
           <BmkFeaturedProductsSlider
             title={
               serverData?.configDetails?.[
@@ -200,7 +201,7 @@ useEffect(() => {
             productData={serverData?.productData}
             // priceForEachId={serverData?.priceForEachId}
           />
-        {/* </RenderOnViewportEntry> */}
+        </RenderOnViewportEntry>
         <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
