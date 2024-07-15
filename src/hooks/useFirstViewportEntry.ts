@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const useFirstViewportEntry = (ref: any, observerOptions: any) => {
   const [entered, setEntered] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let observer: IntersectionObserver | null = null;
 
     if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
+import React, { Suspense, lazy, useEffect, useMemo, useState, useTransition } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import Seo from "@/components/common/Seo";
 import {
@@ -23,7 +23,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import { bodyForGetShoppingCartData } from "@/utils/common";
-// import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
+import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
 // import BullionmarkHeader from "@/components/header/BullionmarkHeader";
 // import Layout from "@/components/common/Layout";
 
@@ -54,7 +54,6 @@ const BullionmarkShop = (props: any) => {
     bmkShopPageSections,
     isLoggedIn
   } = useAppSelector((state) => state.homePage);
-  console.log("🚀 ~ useEffect ~ serverData?.configDetails:", serverData?.configDetails)
   useEffect(() => {
     dispatch(setConfigDetails(serverData?.configDetailsForRedux));
     dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
@@ -71,8 +70,12 @@ const BullionmarkShop = (props: any) => {
     }
     }, [serverData]);
   // }, []);
+  const [isPending, startTransition] = useTransition();
   useEffect(() => {
-    setTimeout(() => setIsRendering(false), 3500);
+    startTransition(() => {
+      // Simulating initial data fetch
+      setTimeout(() => setIsRendering(false), 3500);
+    });
   }, [])
   
   // useAPIoneTime({ service: getBullionMarkShopPageSections });
@@ -104,7 +107,7 @@ const BullionmarkShop = (props: any) => {
   return (
     <>
       <>
-        <Seo
+        {/* <Seo
           keywords={[
             "gatsby",
             "tailwind",
@@ -121,7 +124,7 @@ const BullionmarkShop = (props: any) => {
           description={
             serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
           }
-        />
+        /> */}
         {!isRendering && <Suspense fallback={
                       <Skeleton
                       height={"124px"}
@@ -130,8 +133,7 @@ const BullionmarkShop = (props: any) => {
                     />        
         }><BullionmarkHeader /></Suspense>}
 
-        {!isMobile && !isRendering &&
-          serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
+        {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
             <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
               <BannerSlider isItShopPage={true} />
             </Suspense>

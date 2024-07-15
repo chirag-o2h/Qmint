@@ -1,6 +1,6 @@
-import useFirstViewportEntry from '@/hooks/useFirstViewportEntry';
-import { Skeleton } from '@mui/material';
-import React, { Suspense, useRef } from 'react';
+import useFirstViewportEntry from '@/hooks/useFirstViewportEntry'
+import { Skeleton } from '@mui/material'
+import React, { Suspense, useRef } from 'react'
 
 const RenderOnViewportEntry = ({
     children,
@@ -11,16 +11,17 @@ const RenderOnViewportEntry = ({
     skeletonMargin,
     ...wrapperDivProps
 }: any) => {
-    const ref = useRef(null);
-    const entered = useFirstViewportEntry(ref, { threshold, root, rootMargin });
-
+    const ref = useRef()
+    const entered = useFirstViewportEntry(ref, { threshold, root, rootMargin })
     return (
-        <div {...wrapperDivProps} ref={ref} style={{ minHeight: !entered ? minHeight : null }}>
-            <Suspense fallback={<Skeleton height={minHeight} style={{ marginTop: skeletonMargin }}>{children}</Skeleton>}>
-                {entered && children}
-            </Suspense>
+        <div {...wrapperDivProps} ref={ref}  style={{
+            minHeight: !entered ? minHeight : null,
+        }}>
+            {entered && <Suspense fallback={
+                <Skeleton height={minHeight} style={{marginTop: skeletonMargin && skeletonMargin}}/>
+            }>{children}</Suspense>}
         </div>
-    );
-};
+    )
+}
 
-export default RenderOnViewportEntry;
+export default RenderOnViewportEntry

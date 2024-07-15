@@ -98,22 +98,22 @@ function BestCategorySlider(props: any) {
                                   image={getImage(category.imageUrl)!}
                                   alt="Product Image"
                                 /> */}
-                                  {/* <img
+                                  <img
                                   style={removeMinHeight ? { minHeight: isMobile ? "300px" : "270px" } : {}}
                                   loading="eager"
                                   fetchPriority="high"
                                   className="ProductImage"
                                   src={category.imageUrl}
                                   alt="Product Image"
-                                /> */}
-                                  <LazyImage
+                                />
+                                  {/* <LazyImage
                                     key={category.id}
                                     src={category.imageUrl}
                                     placeholder={noImage}
                                     alt={category.name}
                                     style={removeMinHeight ? {minHeight: isMobile ?  "300px" : "270px"} :{}}
                                     className="ProductImage"
-                                  />
+                                  /> */}
                                 </Box>
                                 <Box
                                   key="productTitle"
