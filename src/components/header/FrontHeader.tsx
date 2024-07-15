@@ -49,8 +49,7 @@ const FrontHeader = (props: FrontHeader) => {
         <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": THEME_TYPE == '1' })}>
             {((!isMobile && configDetailsState?.["Store_HomePage_Ticker_Enable"]?.value) ) && <>
                 <Suspense fallback={
-                    <></>
-                    // <Skeleton style={{ minHeight: '60px' }} />
+                    <Skeleton style={{ minHeight: '60px' }} />
                 }>
                     <FrontPricing />
                 </Suspense>
@@ -58,8 +57,7 @@ const FrontHeader = (props: FrontHeader) => {
             </>}
             <AppBar position={(showTransprant && !trigger) ? "fixed" : "static"}>
                 {loading && <PageLoader />}
-                <Suspense fallback={<></>}>
-                    {/* <Skeleton style={{ minHeight: '80px' }} /> */}
+                <Suspense fallback={<><Skeleton style={{ minHeight: '80px' }} /></>}>
                     <FrontMain toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} trigger={trigger} isFrontHeader={isFrontHeader}/>
                 </Suspense>
             </AppBar>
