@@ -11,5 +11,17 @@ const ShopWrapper = (props: any) => {
 export const getServerData = async (context: any) => {
   return BullionmarkShop.getServerData(context);
 };
-
+export const Head = () => (
+  <>
+        <title>Bullion Mark | E-commerse</title>
+        <meta
+          name="description"
+          content="Get stats about every music from every movie"
+        />
+        <meta
+          name="keywords"
+          content="Music, Audio, Lyrics"
+        />
+  </>
+)
 export default ShopWrapper;

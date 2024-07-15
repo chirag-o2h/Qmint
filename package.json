@@ -28,6 +28,7 @@
     "gatsby-plugin-manifest": "^5.13.1",
     "gatsby-plugin-perf-budgets": "^0.0.18",
     "gatsby-plugin-preact": "^7.13.1",
+    "gatsby-plugin-react-helmet": "^6.13.1",
     "gatsby-plugin-sass": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-source-filesystem": "^5.13.1",

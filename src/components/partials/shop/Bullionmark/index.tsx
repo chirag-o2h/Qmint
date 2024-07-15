@@ -107,7 +107,7 @@ const BullionmarkShop = (props: any) => {
   return (
     <>
       <>
-        {/* <Seo
+        <Seo
           keywords={[
             "gatsby",
             "tailwind",
@@ -124,7 +124,8 @@ const BullionmarkShop = (props: any) => {
           description={
             serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
           }
-        /> */}
+          configDetailsState={serverData?.configDetails}
+        />
         {!isRendering && <Suspense fallback={
                       <Skeleton
                       height={"124px"}
@@ -352,5 +353,4 @@ BullionmarkShop.getServerData = async (context: any) => {
     };
   }
 };
-
 export default BullionmarkShop;

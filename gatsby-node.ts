@@ -32,9 +32,9 @@ exports.onCreateWebpackConfig = ({ stage, actions }:any) => {
     //     webpackConfig.optimization = {
     //         splitChunks: {
     //             chunks: 'all',
-    //             minSize: 10000,  // Minimum size for splitting chunks
-    //             minChunks: 10,    // Minimum number of chunks that must share a module before splitting
-    //             maxAsyncRequests: 10,  // Maximum number of parallel requests for chunks on initial load
+    //             // minSize: 10000,  // Minimum size for splitting chunks
+    //             // minChunks: 10,    // Minimum number of chunks that must share a module before splitting
+    //             // maxAsyncRequests: 10,  // Maximum number of parallel requests for chunks on initial load
     //         },
     //     };
     // }
