@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { lazy, Suspense, useEffect, useMemo, useState, useTransition } from "react";
 import {
   Box,
   Grid,
@@ -9,6 +9,8 @@ import {
   Button,
   Tabs,
   Tab,
+  Skeleton,
+  useMediaQuery,
 } from "@mui/material";
 
 import TabPanel from "@/components/common/TabPanel";
@@ -22,10 +24,9 @@ import { Breadcrumb } from "@/components/common/Utils";
 
 // CSS Variable
 import * as variable from "../../scss/settings/variables.module.scss";
-
 // Assets
 import { SearchButtonIcon } from "../../assets/icons/index";
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { BlogList } from "@/redux/reducers/blogReducer";
 import { ENDPOINTS } from "@/utils/constants";
@@ -47,30 +48,41 @@ export const bodyData = {
 }
 import Loader from "@/components/common/Loader";
 import Seo from "@/components/common/Seo";
-function Blog() {
+import { setConfigDetails } from "@/redux/reducers/homepageReducer";
+import FrontHeader from "@/components/header/FrontHeader";
+import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
+const LazyBullionmarkFooter = lazy(
+  () => import("@/components/footer/BullionmarkFooter")
+);
+function Blog({serverData}:any) {
+  const configDetailsState= serverData?.configDetails
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+  const dispatch = useAppDispatch()
   // ssr uncommit below line
-  // let blogList = serverData.data
-  // let topThree = serverData.data.items.slice(0, 3)
+  let blogList = serverData?.blogList
+  let topThree = serverData?.blogList?.items.slice(0, 3)
   const { blogList: blogListFromTheRedux, topThree: topThreeFromTheRedux }: any = useAppSelector((state) => state.blogPage);
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
-  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const [value, setValue] = React.useState<any>("all");
   const [searchValue, setSearchValue] = useState<string>("");
   // if ssr then remove the bodydata form initiatl 
-  const [body, setbody] = useState<any>(bodyData);
+  const [body, setbody] = useState<any>();
   const debounce = useDebounce(body, 500);
   // ssr uncommit below line
-  // blogList = Object.keys(body ?? {}).length > 0 ? blogListFromTheRedux : blogList
-  // topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length? topThreeFromTheRedux : topThree
-  let blogList = blogListFromTheRedux
-  let topThree = topThreeFromTheRedux
-
+  blogList = Object.keys(body ?? {}).length > 0 ? blogListFromTheRedux : blogList
+  topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length? topThreeFromTheRedux : topThree
+  // let blogList = blogListFromTheRedux
+  // let topThree = topThreeFromTheRedux
+const conditionalCall = useMemo(()=>{
+ return  Object.keys(debounce ?? {}).length > 0
+},[debounce])
   useAPIoneTime({
     service: BlogList,
     endPoint: ENDPOINTS.BlogList,
     body: debounce,
     // if ssr then uncommit this below line
-    // conditionalCall: Object.keys(debounce ?? {}).length > 0
+    conditionalCall: conditionalCall,
+    needLoadingorNot: false
   });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -83,8 +95,45 @@ function Blog() {
     }));
   };
 
+  useEffect(() => {
+    dispatch(setConfigDetails(serverData?.configDetailsForRedux));
+
+    if (serverData?.configDetails?.Store_FaviconURL?.value) {
+      const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+      // Update favicon dynamically
+      const link: any =
+        document.querySelector("link[rel='icon']") ||
+        document.createElement("link");
+      link.rel = "icon";
+      link.href = faviconUrl;
+      document.head.appendChild(link);
+    }
+  }, [serverData]);
+  const [isRendering, setIsRendering] = useState(true);
+  const [isPending, startTransition] = useTransition();
+  useEffect(() => {
+    startTransition(() => {
+      // Simulating initial data fetch
+      setTimeout(() => setIsRendering(false), 3500);
+    });
+  }, [])
   return (
-    <MainLayout blackTheme>
+    <>
+              {isRendering && (
+            <>
+              <Skeleton
+                height={"124px"}
+                width={"100%"}
+                style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+              />
+            </>)}
+          {!isRendering && <Suspense fallback={
+            <Skeleton
+              height={"124px"}
+              width={"100%"}
+              style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+            />
+          }><FrontHeader blackTheme={true} /></Suspense>}
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
         keywords={['blog', 'latest posts', 'articles']}
@@ -105,7 +154,7 @@ function Blog() {
             >
               {configDetailsState?.["AllBlogs_Subtitle"]?.value}
             </Typography>
-            {topThree.length === 0 ?
+            {topThree?.length !== 0 ?
                <Box className="PostWrapper">
                <Stack className="LeftPostWrapper">
                  <PostCard details={topThree?.[0]} navigate={() =>
@@ -215,31 +264,49 @@ function Blog() {
           </Container>
         </Box>
       </Box>
-    </MainLayout>
+      <RenderOnViewportEntry
+            rootMargin="200px"
+            threshold={0.25}
+            minHeight={800}
+          >
+            <LazyBullionmarkFooter />
+          </RenderOnViewportEntry>
+      </>
   );
 }
 
 export default Blog;
-// export async function getServerData() {
-//   try {
-//     const res = await axios.post("https://qmapistaging.qmint.com/api/v1/" + ENDPOINTS.BlogList, bodyData, {
-//       headers: {
-//         "Storecode": 12,
-//         "Validkey": "MBXCSv6SGIx8mx1tHvrMw5b0H3R91eMmtid4c2ItRHRKL4Pnzo"
-//       }
-//     })
-//     if (!res.data) {
-//       throw new Error(`Response failed`)
-//     }
+export async function getServerData(context: any) {
+  try {
+    console.log("before fatching ", Date.now())
+    const [
+      configDetailsResponse,
+      blogListResponse,
+    ] = await Promise.all([
+      axiosInstance.get(ENDPOINTS.getConfigStore),
+      axiosInstance.post(ENDPOINTS.BlogList, bodyData),
+    ]);
+    console.log("after fatching ", Date.now())
+    const configDetails = configDetailsResponse?.data?.data;
+    const blogList = blogListResponse?.data?.data;
+    console.log("🚀 ~ getServerData ~ blogList:", blogListResponse)
 
-//     return {
-//       props: res.data,
-//     }
-//   } catch (error) {
-//     return {
-//       status: 500,
-//       headers: {},
-//       props: {}
-//     }
-//   }
-// }
+    return {
+      props: {
+        configDetails: configDetails?.reduce((acc: any, curr: any) => {
+          acc[curr.key] = curr
+          return acc
+        }, {}),
+        configDetailsForRedux: configDetails,
+        blogList,
+      },
+    };
+  } catch (error) {
+    console.log("🚀 ~ getServerData ~ error:", error)
+    return {
+      status: 500,
+      headers: {},
+      props: {}
+    }
+  }
+}

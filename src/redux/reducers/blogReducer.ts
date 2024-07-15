@@ -41,9 +41,6 @@ export const blogpageSlice = createSlice({
             state.blogDetailsData={}
             state.topThree = []
         },
-        setLoadingTrue: (state) => {
-            state.loading = true
-        },
         setLoadingFalse: (state) => {
             state.loading = false
         },
@@ -78,6 +75,6 @@ export const blogpageSlice = createSlice({
     },
 })
 
-export const { resetWholeBlogPageData, setLoadingTrue, setLoadingFalse } = blogpageSlice.actions
+export const { resetWholeBlogPageData, setLoadingFalse } = blogpageSlice.actions
 
 export default blogpageSlice.reducer
