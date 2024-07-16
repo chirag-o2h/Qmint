@@ -1,8 +1,9 @@
 {
     "rewrites": [
       {
-        "source": "/topics/:topicName",
-        "destination": "/topics/:topicName"
+        "source": "/topics/:topic-name",
+        "destination": "/topics/[topic-name]"
       }
     ]
   }
+  
