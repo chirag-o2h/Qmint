@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      {
+        "source": "/topics/:topicName",
+        "destination": "/topics/:topicName"
+      }
+    ]
+  }
