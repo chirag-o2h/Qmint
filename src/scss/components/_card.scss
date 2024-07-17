@@ -1215,7 +1215,7 @@
         padding: 50px 10px 0;
         height: 380px;
 
-        @include media-min($sm) {
+        @include media($sm) {
           height: 300px;
         }
 

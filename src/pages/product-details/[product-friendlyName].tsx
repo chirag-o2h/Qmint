@@ -18,7 +18,8 @@ import useShowToaster from "@/hooks/useShowToaster"
 import PageNotFound from "@/components/partials/productDetail/PageNotFound"
 import classNames from "classnames"
 import axiosInstance, { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
-import BullionmarkHeader from "@/components/header/BullionmarkHeader"
+const BullionmarkHeader = lazy(()=> import("@/components/header/BullionmarkHeader"))
+
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 const LazyBullionmarkFooter = lazy(
   () => import("@/components/footer/BullionmarkFooter")

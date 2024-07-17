@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
-import { useMediaQuery, Theme, Container, Stack } from "@mui/material"
+import React, { lazy, Suspense, useCallback, useEffect, useMemo, useState, useTransition } from "react"
+import { useMediaQuery, Theme, Container, Stack, Skeleton } from "@mui/material"
 
 // Components
 import Layout from "@/components/common/Layout"
@@ -12,14 +12,18 @@ import { ENDPOINTS } from "@/utils/constants"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { categoryRequestBody } from "@/types/categoryRequestBody"
 import useApiRequest from "@/hooks/useAPIRequest"
-import { serProgressLoaderStatus } from "@/redux/reducers/homepageReducer"
+import { serProgressLoaderStatus, setConfigDetails } from "@/redux/reducers/homepageReducer"
 import Loader from "@/components/common/Loader"
-import { getlastPartOfPath } from "@/utils/common"
+import { bodyForGetShoppingCartData, getlastPartOfPath } from "@/utils/common"
 import useDebounce from "@/hooks/useDebounce"
 import { navigate } from "gatsby"
 import classNames from "classnames"
-import { THEME_TYPE } from "@/axiosfolder"
+import axiosInstance, { THEME_TYPE } from "@/axiosfolder"
 import { useLocation } from "@reach/router"
+import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
+import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
+const BullionmarkHeader = lazy(() => import("@/components/header/BullionmarkHeader"));
+const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -35,17 +39,33 @@ export const requestBodyDefault: categoryRequestBody = {
     }
 }
 let timeOut: any;
+interface ServerDataProps {
+    categoryPageMetadata: any;
+    items: any[];
+    count: number;
+    categories: any[];
+    manufacturers: any[];
+    price: any;
+    specifications: any;
+    configDetails: any;
+    configDetailsForRedux:any;
+    categoryData:any;
+    configDetail:any
+}
 
-function Category(props: any) {
+interface Props {
+    serverData: ServerDataProps;
+    props: any; // Adjust according to the actual props type
+}
+function Category({ serverData, props }: Props) {
+    const { isLoggedIn } = useAppSelector((state) => state.homePage)
     const location = useLocation();
-    const searchParams = useMemo(() => new URLSearchParams(props?.location?.search), [props?.location, location]);
+    const searchParams = useMemo(() => new URLSearchParams(location?.search), [location]);
     const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
     const [page, setPage] = useState(searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1);
     const dispatch = useAppDispatch();
-    const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
 
     const checkLoadingStatus = useAppSelector(state => state.category.loading);
-    const categoryPageMetadata = useAppSelector(state => state.category.categoryPageMetadata)
     const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
     const [isPriceChanged, setIsPriceChanged] = useState<boolean>(false);
     const clearFilters = useAppSelector(state => state.category.clearFilters)
@@ -53,7 +73,7 @@ function Category(props: any) {
     const priceD = useMemo(() => pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null, [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]])
     const debounceFilter = useDebounce(filtersD, 700);
     const debouncePrice = useDebounce(priceD, 700);
-
+    console.log("testing")
     useEffect(() => {
         setPage(1); // reset page number to 1 when path changes for new category
         fetchData()
@@ -87,10 +107,11 @@ function Category(props: any) {
             navigate(`?${searchParams.toString()}`, { replace: true });
             fetchData();
         }
-    }, [clearFilters, debounceFilter, debouncePrice,isPriceChanged])
+    }, [clearFilters, debounceFilter, debouncePrice, isPriceChanged])
     const keywordData = useMemo(() => {
         return searchParams.get("keyword")
     }, [searchParams.get("keyword")])
+    // this below use effect not using in ssr/csr
     // useEffect(() => {
     //     if (clearFilters) {
     //         return;
@@ -103,7 +124,7 @@ function Category(props: any) {
     //     navigate(`?${searchParams.toString()}`, { replace: true });
     //     fetchData();
     // }, [debounceFilter, debouncePrice])
-
+    //========================================================= 
     useEffect(() => {
         fetchData();
     }, [page])
@@ -149,31 +170,164 @@ function Category(props: any) {
         //   argumentForService) as any)
         // }
     }
-    const keyWords = categoryPageMetadata?.metaKeywords?.value?.split(',')?.length > 0 ? categoryPageMetadata?.metaKeywords?.value?.split(',') : []
+    const keyWords = serverData?.categoryPageMetadata?.metaKeywords?.value?.split(',')?.length > 0 ? serverData?.categoryPageMetadata?.metaKeywords?.value?.split(',') : []
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(
+                getShoppingCartData({
+                    url: ENDPOINTS.getShoppingCartData,
+                    body: bodyForGetShoppingCartData,
+                })
+            );
+        }, 0);
+    }, [isLoggedIn]);
+    useEffect(() => {
+    dispatch(setConfigDetails(serverData?.configDetailsForRedux));
+    console.log("🚀 ~ useEffect ~ serverData?.configDetailsForRedux:", serverData?.configDetailsForRedux)
+        if (serverData?.configDetail?.Store_FaviconURL?.value) {
+            const faviconUrl = serverData?.configDetail?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+            // Update favicon dynamically
+            const link: any =
+                document.querySelector("link[rel='icon']") ||
+                document.createElement("link");
+            link.rel = "icon";
+            link.href = faviconUrl;
+            document.head.appendChild(link);
+        }
+    }, [serverData])
+    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+    const [isPending, startTransition] = useTransition();
+    const [isRendering, setIsRendering] = useState(true);
+    useEffect(() => {
+        startTransition(() => {
+            // Simulating initial data fetch
+            setTimeout(() => setIsRendering(false), 3500);
+        });
+    }, [])
+    console.log(serverData?.categoryData,"serverData?.categoryData")
     return (
-        <Layout>
+        <>
+            {isRendering && (
+                <>
+                    <Skeleton
+                        height={"124px"}
+                        width={"100%"}
+                        style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+                    /></>)}
+            {!isRendering && <Suspense fallback={
+                <Skeleton
+                    height={"124px"}
+                    width={"100%"}
+                    style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }} />}>
+                <BullionmarkHeader />
+            </Suspense>}
             {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
             <Seo
-                title={(categoryPageMetadata.metaTitle ?? '')}
+                title={(serverData?.categoryPageMetadata.metaTitle ?? '')}
                 isItShopPage={true}
                 keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
-                description={categoryPageMetadata?.metaDescription}
+                description={serverData?.categoryPageMetadata?.metaDescription}
                 lang="en"
+                configDetailsState={serverData?.configDetails}
             />
             <Container id="PageCategory" className={classNames({ "BmkCategoryPage": THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
                         <SortBy />
-                        <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} />
+                        <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData}/>
                     </Stack>
                 ) : null}
                 <Stack className="MainContent">
-                    {!isSmallScreen ? <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} /> : null}
-                    <ProductList page={page} setPage={setPage} />
+                    {!isSmallScreen ? <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData}/> : null}
+                    <ProductList page={page} setPage={setPage} categoryData={serverData?.categoryData}/>
                 </Stack>
             </Container>
-        </Layout >
+            <RenderOnViewportEntry
+                rootMargin="200px"
+                threshold={0.25}
+                minHeight={800}
+            >
+                <LazyBullionmarkFooter />
+            </RenderOnViewportEntry>
+        </>
     )
 }
 
 export default Category
+export async function getServerData(context: { params: any, query: any }) {
+    try {
+        const { params, query } = context;
+        const { keyword } = query;
+        const { 'category': category } = params;
+        const pageNo = query.page ? parseInt(query.page, 10) - 1 : 0;
+
+        const selectedPrice = null; // Placeholder: Get selected price based on your logic
+        const selectedFilters = {}; // Placeholder: Get selected filters based on your logic
+
+        const commonArgument = {
+            pageNo,
+            filters: { minPrice: selectedPrice?.[0], maxPrice: selectedPrice?.[1], specification: selectedFilters }
+        };
+
+        const argumentForService = {
+            url: keyword ? ENDPOINTS.search : `${ENDPOINTS.getCategoryData}/${category}`,
+            body: keyword
+                ? { ...requestBodyDefault, search: keyword, ...commonArgument }
+                : { ...requestBodyDefault, ...commonArgument }
+        };
+
+
+        const [
+            configDetailsResponse,
+            categoryDataResponse,
+        ] = await Promise.all([
+            axiosInstance.get(ENDPOINTS.getConfigStore),
+            axiosInstance.post(argumentForService.url, argumentForService.body)
+        ]);
+        const configDetails = configDetailsResponse.data.data;
+        const categoryData = categoryDataResponse.data.data;
+        const additionalField = categoryData.additionalField;
+        const categoryPageMetadata = {
+            metaDescription: categoryData?.metaDescription,
+            metaKeywords: categoryData?.metaKeywords,
+            metaTitle: categoryData?.metaTitle,
+        };
+
+        const filtersData = additionalField?.filters || {};
+        const items = categoryData.items || [];
+        categoryData.sortedItems = categoryData.items || [];
+        const count = categoryData.count || 0;
+        const categories = filtersData.categories || [];
+        const manufacturers = filtersData.manufactureres || [];
+        const price = filtersData.price || {};
+        const specifications = filtersData.sepecifications || {};
+        categoryData.specifications = filtersData.sepecifications || {};
+        categoryData.loading = false
+        categoryData.categories = filtersData.categories
+        return {
+            props: {
+                configDetails: configDetails?.reduce((acc: any, curr: any) => {
+                    acc[curr.key] = curr
+                    return acc
+                }, {}),
+                configDetailsForRedux: configDetails,
+                categoryData: categoryData,
+                categoryPageMetadata,
+                items,
+                count,
+                categories,
+                manufacturers,
+                price,
+                specifications,
+            },
+        };
+    } catch (error) {
+        console.error("🚀 ~ getServerData ~ error:", error);
+        console.log("getServerData -- inside catch block", Date.now());
+        return {
+            status: 500,
+            headers: {},
+            props: {},
+        };
+    }
+}

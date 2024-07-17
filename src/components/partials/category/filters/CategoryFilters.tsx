@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from "react"
+import React, { Fragment, useCallback, useMemo } from "react"
 import { useMediaQuery, Theme, ListItem, ListItemButton, ListItemText, Divider } from "@mui/material"
 
 import SmallScreenFilters from "./SmallScreenFilters"
@@ -8,12 +8,13 @@ import { useAppSelector } from "@/hooks"
 import { getlastPartOfPath } from "@/utils/common"
 import { useLocation } from "@reach/router"
 
-function CategoryFilters({ isPriceChanged, setIsPriceChanged }: { isPriceChanged: boolean, setIsPriceChanged: any }) {
+function CategoryFilters({ isPriceChanged, setIsPriceChanged,categoryData:categoryDataFromServer }: { isPriceChanged: boolean, setIsPriceChanged: any,categoryData:any }) {
   const location = useLocation()
   const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
   const categoryData = useAppSelector(state => state.category)
-
+  const currentCategoryData = useMemo(()=>{
+    return (!!(categoryData?.items?.length) ? categoryData : categoryDataFromServer)},[categoryData,categoryDataFromServer])
   const renderList = useCallback((data: any) => {
     return (
       <>
@@ -35,10 +36,10 @@ function CategoryFilters({ isPriceChanged, setIsPriceChanged }: { isPriceChanged
 
   return (
     // ensure that filtrs and price are not empty before hiding the all filters section
-    <Fragment>{((categoryData.items && categoryData.items.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
-      <SmallScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={categoryData} />
+    <Fragment>{((currentCategoryData.items && currentCategoryData.items.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
+      <SmallScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={currentCategoryData} />
     ) : (
-      <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={categoryData} />
+      <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={currentCategoryData} />
     )) : null}</Fragment>
   )
 }

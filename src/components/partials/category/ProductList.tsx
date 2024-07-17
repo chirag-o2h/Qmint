@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Box, Skeleton, Card, Pagination, Stack, Typography } from "@mui/material"
 
 // Components
@@ -14,13 +14,14 @@ import { sortByMostPopular, sortByPriceHighToLow, sortByPriceLowToHigh } from "@
 import { getlastPartOfPath } from "@/utils/common"
 import useApiRequest from "@/hooks/useAPIRequest"
 import { ENDPOINTS } from "@/utils/constants"
-import { THEME_TYPE } from "@/axiosfolder"
 import BmkProductCard from "../shop/Bullionmark/BmkProductCard"
 import { useLocation } from "@reach/router"
 
-function ProductList({ page, setPage }: { page: number, setPage: any }) {
-  const location = useLocation()
+function ProductList({ page, setPage,categoryData:categoryDataFromServer }: { page: number, setPage: any,categoryData:any }) {
   const categoryData = useAppSelector((state) => state.category);
+  const currentCategoryData = useMemo(()=>{
+    return ((categoryData?.items?.length) ? categoryData : categoryDataFromServer)},[categoryData,categoryDataFromServer])
+  const location = useLocation()
   const pageSortOrder = useAppSelector((state) => state.category.pageSortOrder);
   const dispatch = useAppDispatch();
   const [productIds, setProductIds] = useState({})
@@ -38,24 +39,24 @@ function ProductList({ page, setPage }: { page: number, setPage: any }) {
     const sortByValue = pageSortOrder[getlastPartOfPath(location.pathname)];
     // console.log("🚀 ~ useEffect ~ sortByValue:", sortByValue)
     if (!sortByValue) return;
-    if (!categoryData.items) return;
+    if (!currentCategoryData.items) return;
     if (sortByValue === SortingOption.Popular) {
-      dispatch(setSortedItems(sortByMostPopular(categoryData.items)));
+      dispatch(setSortedItems(sortByMostPopular(currentCategoryData.items)));
     }
     else if (sortByValue === SortingOption.PriceHighToLow) {
-      dispatch(setSortedItems(sortByPriceHighToLow(categoryData.items)));
+      dispatch(setSortedItems(sortByPriceHighToLow(currentCategoryData.items)));
     }
     else if (sortByValue === SortingOption.PriceLowToHigh) {
-      dispatch(setSortedItems(sortByPriceLowToHigh(categoryData.items)));
+      dispatch(setSortedItems(sortByPriceLowToHigh(currentCategoryData.items)));
     }
-  }, [categoryData?.items, pageSortOrder, page, location.pathname]);
+  }, [currentCategoryData?.items, pageSortOrder, page, location.pathname]);
 
   useEffect(() => {
-    if (categoryData.items?.length ?? 0 > 0) {
-      const productIds = categoryData?.items?.map((product: any) => product?.productId);
+    if (currentCategoryData.items?.length ?? 0 > 0) {
+      const productIds = currentCategoryData?.items?.map((product: any) => product?.productId);
       setProductIds({ productIds })
     }
-  }, [categoryData.specifications])
+  }, [currentCategoryData?.specifications])
 
   useEffect(() => {
     if (priceData?.data?.length > 0) {
@@ -65,16 +66,17 @@ function ProductList({ page, setPage }: { page: number, setPage: any }) {
       dispatch(setPriceForEachItem(idwithpriceObj));
     }
   }, [priceData])
-
   return (
     <Box className="ProductList">
       {openToaster && <Toaster />}
       <Box className="ProductListWrapper">
         {
-          !categoryData.loading ? (
-            categoryData.sortedItems?.map((product: any) => {
+          !currentCategoryData.loading ? (
+            currentCategoryData.sortedItems?.map((product: any) => {
               return (
-               THEME_TYPE == '1' ? <BmkProductCard product={product} key={product.productId}/>: <ProductCard key={product.productId} product={product} stickyProduct={false} />
+                process.env.THEME_TYPE == '1' ? 
+               <BmkProductCard product={product} key={product.productId}/>: 
+               <ProductCard key={product.productId} product={product} stickyProduct={false} />
               );
             })
           ) : (
@@ -97,12 +99,12 @@ function ProductList({ page, setPage }: { page: number, setPage: any }) {
           )
         }
       </Box>
-      {!categoryData.loading && categoryData.items && categoryData.items.length === 0 && <Typography variant="h6" component="p">There are no products in this category or filters you have selected.</Typography>}
-      {categoryData?.count > 0 && <Stack className="Pagination">
-        <Pagination count={Math.ceil(categoryData?.count / pageSize)} page={page} shape="rounded" onChange={handlePageChange} />
+      {!currentCategoryData.loading && currentCategoryData.items && currentCategoryData.items.length === 0 && <Typography variant="h6" component="p">There are no products in this category or filters you have selected.</Typography>}
+      {currentCategoryData?.count > 0 && <Stack className="Pagination">
+        <Pagination count={Math.ceil(currentCategoryData?.count / pageSize)} page={page} shape="rounded" onChange={handlePageChange} />
       </Stack>}
     </Box>
   )
 }
 
-export default ProductList
+export default React.memo(ProductList)
