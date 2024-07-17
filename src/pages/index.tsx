@@ -14,14 +14,6 @@ export const getServerData = async (context: any) => {
 export const Head = () => (
   <>
         <title>Bullion Mark | E-commerse</title>
-        <meta
-          name="description"
-          content="Get stats about every music from every movie"
-        />
-        <meta
-          name="keywords"
-          content="Music, Audio, Lyrics"
-        />
   </>
 )
 export default ShopWrapper;
