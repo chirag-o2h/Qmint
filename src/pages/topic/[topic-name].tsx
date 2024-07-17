@@ -124,9 +124,9 @@ export default Topics;
 
 export async function getServerData(context: { params: any; }) {
   try {
+    console.log("before fatching ", Date.now(),"context",context)
     const { params } = context;
     const topicName = params["topic-name"];
-    console.log("nefore fatching ", Date.now())
     const [
       configDetailsResponse,
       topicPageDataResponse,
