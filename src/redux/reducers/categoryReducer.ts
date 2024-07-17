@@ -80,6 +80,9 @@ export const categoryPageSlice = createSlice({
       state.productDetailsData = {}
       state.loading = false
     },
+    setProductDetails:(state, action)=>{
+      state.productDetailsData = action.payload
+    },
     // setSortBy: (state, action) => {
     //   state.sortBy = action.payload
     // },
@@ -182,6 +185,6 @@ export const categoryPageSlice = createSlice({
   },
 })
 
-export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice, setPageSortOrder } = categoryPageSlice.actions;
+export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice, setPageSortOrder, setProductDetails } = categoryPageSlice.actions;
 
 export default categoryPageSlice.reducer
