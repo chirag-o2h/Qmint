@@ -22,6 +22,7 @@
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.10",
     "dotenv": "^16.4.5",
+    "express-useragent": "^1.0.15",
     "gatsby": "^5.13.3",
     "gatsby-plugin-google-gtag": "^5.13.1",
     "gatsby-plugin-image": "^3.13.1",
@@ -59,6 +60,7 @@
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.2.3",
     "@types/axios": "^0.14.0",
+    "@types/express-useragent": "^1.0.5",
     "@types/node": "^20.11.17",
     "@types/react": "^18.2.55",
     "@types/react-date-range": "^1.4.9",

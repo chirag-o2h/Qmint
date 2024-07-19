@@ -43,6 +43,7 @@ const ExclusiveJourneys = lazy(
 const InspiringStories = lazy(
   () => import("../../landing-page/Bullionmark/InspiringStories")
 );
+import useragent from 'express-useragent';
 const BullionmarkShop = (props: any) => {
   const { serverData } = props;
   const [isRendering, setIsRendering] = useState(true);
@@ -68,7 +69,7 @@ const BullionmarkShop = (props: any) => {
       link.href = faviconUrl;
       document.head.appendChild(link);
     }
-    }, [serverData]);
+  }, [serverData]);
   // }, []);
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
@@ -77,10 +78,10 @@ const BullionmarkShop = (props: any) => {
       setTimeout(() => setIsRendering(false), 3500);
     });
   }, [])
-  
+
   // useAPIoneTime({ service: getBullionMarkShopPageSections });
   useUserDetailsFromToken();
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+  const isMobile =serverData?.isMobile // useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
   const keyWords = useMemo(() => {
     return (
       serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []
@@ -92,7 +93,7 @@ const BullionmarkShop = (props: any) => {
   //   // conditionalCall: !isItMainPage,
   // });
   useEffect(() => {
-   const x =  setTimeout(() => {
+    const x = setTimeout(() => {
       dispatch(
         getShoppingCartData({
           url: ENDPOINTS.getShoppingCartData,
@@ -100,9 +101,9 @@ const BullionmarkShop = (props: any) => {
         })
       );
     }, 3000);
-  return ()=>{
-    clearTimeout(x)
-  }
+    return () => {
+      clearTimeout(x)
+    }
   }, [isLoggedIn]);
   return (
     <>
@@ -127,18 +128,18 @@ const BullionmarkShop = (props: any) => {
           configDetailsState={serverData?.configDetails}
         />
         {!isRendering && <Suspense fallback={
-                      <Skeleton
-                      height={"124px"}
-                      width={"100%"}
-                      style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
-                    />        
+          <Skeleton
+            height={"124px"}
+            width={"100%"}
+            style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+          />
         }><BullionmarkHeader /></Suspense>}
 
         {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
-            <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
-              <BannerSlider isItShopPage={true} />
-            </Suspense>
-          )}
+          <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
+            <BannerSlider isItShopPage={true} />
+          </Suspense>
+        )}
         {isRendering && (
           <>
             <Skeleton
@@ -172,20 +173,20 @@ const BullionmarkShop = (props: any) => {
           minHeight={900}
           skeletonMargin={-220}
         > */}
-         <BestCategorySlider
-            pageData={serverData?.bmkShopPageSections}
-            PaddingClass={
-              !isMobile &&
+        <BestCategorySlider
+          pageData={serverData?.bmkShopPageSections}
+          PaddingClass={
+            !isMobile &&
               serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
-                ? ""
-                : "TopBannerAbsent"
-            }
-            title={
-              serverData?.configDetails?.[
-                "ShopHomepage_Section_1_Featured_Categories_Title"
-              ]?.value
-            }
-          />
+              ? ""
+              : "TopBannerAbsent"
+          }
+          title={
+            serverData?.configDetails?.[
+              "ShopHomepage_Section_1_Featured_Categories_Title"
+            ]?.value
+          }
+        />
         {/* </RenderOnViewportEntry> */}
         <RenderOnViewportEntry
           rootMargin="200px"
@@ -206,7 +207,7 @@ const BullionmarkShop = (props: any) => {
             }
             needToCallProductAPI={false}
             productData={serverData?.productData}
-            // priceForEachId={serverData?.priceForEachId}
+          // priceForEachId={serverData?.priceForEachId}
           />
         </RenderOnViewportEntry>
         <RenderOnViewportEntry
@@ -288,8 +289,11 @@ const BullionmarkShop = (props: any) => {
 // Implement getServerData for BullionmarkShop
 BullionmarkShop.getServerData = async (context: any) => {
   try {
-    console.log("getServerData -- starting", Date.now());
-
+    console.log("getServerData -- starting",context.headers.get('user-agent'), Date.now());
+    // Parse the user-agent from the context
+    const ua = useragent.parse(context.headers.get('user-agent'));
+    const isMobile = ua.isMobile ? true : false;
+    console.log("🚀 ~ BullionmarkShop.getServerData= ~ isMobile:", isMobile)
     const dataforbody = {
       search: "",
       pageNo: 0,
@@ -329,11 +333,12 @@ BullionmarkShop.getServerData = async (context: any) => {
     //     });
     // }
 
-    console.log("getServerData -- before returning props", Date.now());
+    console.log("getServerData -- before returning props",isMobile, Date.now());
 
     return {
       props: {
-        configDetails : configDetails?.reduce((acc: any, curr: any) => {
+        isMobile,
+        configDetails: configDetails?.reduce((acc: any, curr: any) => {
           acc[curr.key] = curr
           return acc
         }, {}),
