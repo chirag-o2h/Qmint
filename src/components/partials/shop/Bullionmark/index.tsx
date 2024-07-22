@@ -5,9 +5,10 @@ import {
   setBmkShopPageSections,
   setConfigDetails,
 } from "@/redux/reducers/homepageReducer";
-const BannerSlider = lazy(
-  () => import("../../landing-page/Bullionmark/BannerSlider")
-);
+// const BannerSlider = lazy(
+//   () => import("../../landing-page/Bullionmark/BannerSlider")
+// );
+import BannerSlider from "../../landing-page/Bullionmark/BannerSlider"
 import { Skeleton, useMediaQuery } from "@mui/material";
 import useUserDetailsFromToken from "@/hooks/useUserDetailsFromToken";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
@@ -135,10 +136,12 @@ const BullionmarkShop = (props: any) => {
           />
         }><BullionmarkHeader /></Suspense>}
 
-        {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
-          <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
+        {
+        // !isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && 
+        (
+          // <Suspense fallback={<Skeleton height={"100px"}></Skeleton>}>
             <BannerSlider isItShopPage={true} />
-          </Suspense>
+          // </Suspense>
         )}
         {isRendering && (
           <>
