@@ -186,6 +186,7 @@ const BullionmarkShop = (props: any) => {
               "ShopHomepage_Section_1_Featured_Categories_Title"
             ]?.value
           }
+          isMobile={isMobile}
         />
         {/* </RenderOnViewportEntry> */}
         <RenderOnViewportEntry

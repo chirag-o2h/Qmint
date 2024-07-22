@@ -5,7 +5,7 @@ module.exports = {
   siteMetadata: {
     title: `Discover Treasure`,
     headline: `Queensland Mint`,
-    siteUrl: `https://kaleidoscopic-sopapillas-147291.netlify.app/`,
+    siteUrl: `https://bullionmark.netlify.app`,
     description: `Discover treasure at the Queensland Mint. Biggest range of Australian gold and silver coins. Public welcome. Buy & sell QMINT Direct and save. Visit us Instore, buy online or call 07 3184 8300.`,
     author: `@QMint`,
   },

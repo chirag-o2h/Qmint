@@ -20,7 +20,7 @@ import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 
 function BestCategorySlider(props: any) {
   const removeMinHeight = useUnloadMinHeight()
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
+  const isMobile = props?.isMobile //useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const config = {
     slidesPerView: 1,
     spaceBetween: 16,
@@ -61,13 +61,12 @@ function BestCategorySlider(props: any) {
       },
     },
   };
-
   return (
     <Box
       id="BestCategorySlider"
       component="section"
       className={props.PaddingClass}
-      style={removeMinHeight ? { minHeight: isMobile ? 720 : 650 } : {}}
+      style={removeMinHeight ? { maxHeight: isMobile ? 720 : 650 } : {}}
     >
       <Container>
         <BullionmarkSectionHeading title={props?.title} />
@@ -76,8 +75,7 @@ function BestCategorySlider(props: any) {
             {
               <Swiper {...config}>
                 {props?.pageData?.quickCategoryLinks?.length > 0 ? (
-                  <>
-                    {props?.pageData?.quickCategoryLinks?.map(
+                    props?.pageData?.quickCategoryLinks?.map(
                       (category: any, index: number) => {
                         return (
                           <SwiperSlide key={category.id || category.name}>
@@ -98,22 +96,22 @@ function BestCategorySlider(props: any) {
                                   image={getImage(category.imageUrl)!}
                                   alt="Product Image"
                                 /> */}
-                                  <img
+                                  {/* <img
                                   style={removeMinHeight ? { minHeight: isMobile ? "300px" : "270px" } : {}}
                                   loading="eager"
                                   fetchPriority="high"
                                   className="ProductImage"
                                   src={category.imageUrl}
                                   alt="Product Image"
-                                />
-                                  {/* <LazyImage
+                                /> */}
+                                  <LazyImage
                                     key={category.id}
                                     src={category.imageUrl}
                                     placeholder={noImage}
                                     alt={category.name}
                                     style={removeMinHeight ? {minHeight: isMobile ?  "300px" : "270px"} :{}}
                                     className="ProductImage"
-                                  /> */}
+                                  />
                                 </Box>
                                 <Box
                                   key="productTitle"
@@ -128,9 +126,9 @@ function BestCategorySlider(props: any) {
                           </SwiperSlide>
                         );
                       }
-                    )}
-                  </>
-                ) : !isMobile ? (
+                    )
+                ) : 
+                !isMobile ? (
                   Array(6)
                     .fill(0)
                     .map((_, index) => {
@@ -158,7 +156,8 @@ function BestCategorySlider(props: any) {
                         </SwiperSlide>
                       );
                     })
-                )}
+                )
+                }
               </Swiper>
             }
           </Box>

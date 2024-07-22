@@ -29,7 +29,7 @@ const LazyImage = ({ src, alt, placeholder, style, className }:any) => {
   }, []);
 
   return (
-    <div ref={imgRef} style={style} className={className}>
+    <div ref={imgRef} style={{...style,display:'flex',justifyContent:'center',alignItems:'center'}} className={className}>
       {isVisible ? (
         <img src={src} alt={alt} loading="eager" style={style} />
       ) : (
