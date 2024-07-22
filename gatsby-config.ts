@@ -10,6 +10,7 @@ module.exports = {
     author: `@QMint`,
   },
   plugins: [
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
