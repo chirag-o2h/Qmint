@@ -122,7 +122,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
       {checkLoadingStatus || checkLoadingStatusOfTheGetWishlist && <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />}
 
       {serverData?.productDetailsData && !serverData?.productDetailsData?.errorMessage ? (<>
-        <Breadcrumb arr={[{ navigate: '/shop', name: 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
+        <Breadcrumb arr={[{ navigate: '/category/buy', name: 'Buy' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
         <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": THEME_TYPE == '1' })}>
 
           {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData}/>}

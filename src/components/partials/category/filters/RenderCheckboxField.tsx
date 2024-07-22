@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import { useMediaQuery } from '@mui/material'
 import { setPageSelectedSpecifications } from '@/redux/reducers/categoryReducer'
 import { getlastPartOfPath } from '@/utils/common'
+import { useLocation } from '@reach/router'
 
 const schema = yup.object().shape({
     Gender: yup.array().required().nullable(),
@@ -20,6 +21,7 @@ interface props {
 }
 
 const RenderCheckboxField = ({ filter, options, mobileSelectedFilters, setMobileSelectedFilters }: props) => {
+    const location = useLocation()
     const [isPending, startTransition] = useTransition();
     const dispatch = useAppDispatch()
     const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
