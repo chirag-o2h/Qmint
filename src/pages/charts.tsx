@@ -10,6 +10,7 @@ import { THEME_TYPE } from "@/axiosfolder";
 import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
 const colourForMembership: any = {
   gold: "#FFCC00",
@@ -26,11 +27,11 @@ const modifiedName: any = {
   audusDcross: "AUD/USD",
 };
 
-function ChartPage() {
+function ChartPage({ serverData }:{serverData:IconfigDataFromServer}) {
   const chartData = useAppSelector((state) => state.homePage.liveDashboardChartData);
   return (
     <Layout>
-      <Seo keywords={[`BMk Topics`]} title="Charts" lang="en" />
+      <Seo keywords={[`BMk Topics`,...serverData?.keywords]} title="Charts" lang="en" configDetailsState={serverData?.configDetails}/>
       <PageTitle title={"Charts"} />
       {Object.entries(chartData).map(([key, value]: any) => {
         const color =
@@ -172,5 +173,7 @@ function ChartPage() {
     </Layout>
   );
 }
-
+export const getServerData = async (context:any) => {
+  return await getConfigData();
+};
 export default ChartPage;

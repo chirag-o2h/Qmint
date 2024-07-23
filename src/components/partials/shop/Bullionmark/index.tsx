@@ -5,10 +5,10 @@ import {
   setBmkShopPageSections,
   setConfigDetails,
 } from "@/redux/reducers/homepageReducer";
-// const BannerSlider = lazy(
-//   () => import("../../landing-page/Bullionmark/BannerSlider")
-// );
-import BannerSlider from "../../landing-page/Bullionmark/BannerSlider"
+const BannerSlider = lazy(
+  () => import("../../landing-page/Bullionmark/BannerSlider")
+);
+// import BannerSlider from "../../landing-page/Bullionmark/BannerSlider"
 import { Skeleton, useMediaQuery } from "@mui/material";
 import useUserDetailsFromToken from "@/hooks/useUserDetailsFromToken";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
@@ -82,7 +82,7 @@ const BullionmarkShop = (props: any) => {
 
   // useAPIoneTime({ service: getBullionMarkShopPageSections });
   useUserDetailsFromToken();
-  const isMobile =serverData?.isMobile // useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+  const isMobile = serverData?.isMobile // useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
   const keyWords = useMemo(() => {
     return (
       serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []
@@ -136,12 +136,10 @@ const BullionmarkShop = (props: any) => {
           />
         }><BullionmarkHeader /></Suspense>}
 
-        {
-        // !isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && 
-        (
-          // <Suspense fallback={<Skeleton height={"100px"}></Skeleton>}>
+        {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
+          <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
             <BannerSlider isItShopPage={true} />
-          // </Suspense>
+          </Suspense>
         )}
         {isRendering && (
           <>
@@ -293,7 +291,7 @@ const BullionmarkShop = (props: any) => {
 // Implement getServerData for BullionmarkShop
 BullionmarkShop.getServerData = async (context: any) => {
   try {
-    console.log("getServerData -- starting",context.headers.get('user-agent'), Date.now());
+    console.log("getServerData -- starting", context.headers.get('user-agent'), Date.now());
     // Parse the user-agent from the context
     const ua = useragent.parse(context.headers.get('user-agent'));
     const isMobile = ua.isMobile ? true : false;
@@ -337,7 +335,7 @@ BullionmarkShop.getServerData = async (context: any) => {
     //     });
     // }
 
-    console.log("getServerData -- before returning props",isMobile, Date.now());
+    console.log("getServerData -- before returning props", isMobile, Date.now());
 
     return {
       props: {
