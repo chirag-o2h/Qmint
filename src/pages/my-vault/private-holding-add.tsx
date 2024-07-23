@@ -34,6 +34,7 @@ import { hasFulfilled } from "@/utils/common";
 import { PrivateHoldingDocumentTypeEnum, PrivateHoldingDocumentTypeReverseEnum, WeightTypes } from "@/types/enums";
 import { navigate } from "gatsby";
 import RecordNotFound from "@/components/common/RecordNotFound";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
 const schema = yup.object().shape({
     Account: yup.string().notOneOf(["none"], "Account is required field"),
@@ -89,7 +90,7 @@ export interface IFile {
     documentType?: string
 }
 
-function privateHoldingAdd({ location }: { location: any }) {
+function privateHoldingAdd({ location, serverData }: { location: any, serverData: IconfigDataFromServer }) {
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const { loadingForCheckingLogin } = useRequireLogin()
     const loading = useAppSelector(state => state.myVault.loading);
@@ -164,7 +165,7 @@ function privateHoldingAdd({ location }: { location: any }) {
         setValue("PurchaseFrom", currentPrivateHolding.purchasedFrom);
         setValue("Weight", currentPrivateHolding.weight);
         setValue("Qty", currentPrivateHolding.qty.toString());
-        setValue("PurchasePrice", +currentPrivateHolding.price as any) 
+        setValue("PurchasePrice", +currentPrivateHolding.price as any)
         setProvenanceDocuments(currentPrivateHolding.attachments.filter(doc => doc.type !== "ProductPhotos").map((doc: any) => {
             return {
                 id: doc.id,
@@ -214,7 +215,13 @@ function privateHoldingAdd({ location }: { location: any }) {
     })
 
     if (loadingForCheckingLogin) {
-        return
+        return(
+            <Seo
+            keywords={[`Private Holdings`, ...serverData?.keywords]}
+            lang="en"
+            configDetailsState={serverData?.configDetails}
+        />
+        )
     }
 
     const onSubmit = async (data: IPrivateHoldingAddInputs) => {
@@ -319,14 +326,14 @@ function privateHoldingAdd({ location }: { location: any }) {
 
     return (
         <>
+            <Seo
+                keywords={[`Private Holdings`, ...serverData?.keywords]}
+                lang="en"
+                configDetailsState={serverData?.configDetails}
+            />
             {loading || preparingDataLoading && <Loader open={loading || preparingDataLoading} />}
             {openToaster && <Toaster />}
             <Layout>
-                <Seo
-                    keywords={[`QMint Topics`]}
-                    title="Add New Private Holding"
-                    lang="en"
-                />
                 <PageTitle title={searchParams.has("holdingId") ? "Update Private Holding" : "Add New Private Holding"} isMyVaultSubpage={true} backToDashboard={true} />
                 {searchParams.has("holdingId") && currentPrivateHolding === "rejected" ? <Typography style={{ textAlign: "center" }}>Private holding not found!</Typography>
                     : (<Box id="PrivateHoldingAddPage" className='PrivateHoldingAddPage' component="section">
@@ -490,7 +497,7 @@ function privateHoldingAdd({ location }: { location: any }) {
                                             margin='none'
                                             className='Weight'
                                             setValue={setValue}
-                                            alloweTheDotIntertion = {true}
+                                            alloweTheDotIntertion={true}
                                             inputProps={{ step: "0.01" }}
                                         />
                                         <RenderFields
@@ -575,5 +582,7 @@ function privateHoldingAdd({ location }: { location: any }) {
         </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+};
 export default privateHoldingAdd

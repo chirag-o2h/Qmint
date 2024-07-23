@@ -18,8 +18,9 @@ import AddAddress from "@/components/partials/checkout/AddAddress"
 import { getStateAndCountryLists } from "@/redux/reducers/checkoutReducer"
 import { navigate } from "gatsby"
 import useRequireLogin from "@/hooks/useRequireLogin"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function Addresses() {
+function Addresses({ serverData }: { serverData: IconfigDataFromServer }) {
   const { loadingForCheckingLogin } = useRequireLogin()
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const loading = useAppSelector(state => state.myVault.loading)
@@ -56,22 +57,28 @@ function Addresses() {
       showToaster({ message: "Address remove failed! Please Try again", severity: "error" })
     }
   }
-  if (loadingForCheckingLogin) {
-    return
-  }
   const onClickAction = () => {
     handleAddAddress()
   }
+  if (loadingForCheckingLogin) {
+    return(
+      <Seo
+      lang="en"
+      keywords={[`BMk Topics`, ...serverData?.keywords]}
+      configDetailsState={serverData?.configDetails}
+    />
+    )
+  }
   return (
     <>
-      {loading &&  <Loader open={loading} />}
+      <Seo
+        lang="en"
+        keywords={[`BMk Topics`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
+      />
+      {loading && <Loader open={loading} />}
       {openToaster && <Toaster />}
       <Layout>
-        <Seo
-          keywords={[`QMint Topics`]}
-          title="Address"
-          lang="en"
-        />
         <PageTitle title="Addresses" backToDashboard={true} redirectOnClick={onClickAction} />
 
         <Box className="AddressesPage">
@@ -103,5 +110,7 @@ function Addresses() {
     </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default Addresses

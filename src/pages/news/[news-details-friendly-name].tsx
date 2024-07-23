@@ -3,3 +3,7 @@ import QmintNewsDetails from "@/components/partials/news-details/qmint/NewsDetai
 import BmkNewsDetails from "@/components/partials/news-details/bmk/NewsDetails"
 
 export default (THEME_TYPE == '1' ? BmkNewsDetails : QmintNewsDetails)
+// Export getServerData from the component that will be used
+export const getServerData = async (context: any) => {
+    return BmkNewsDetails.getServerData(context);
+  };

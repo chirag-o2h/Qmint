@@ -19,6 +19,8 @@ import useShowToaster from '@/hooks/useShowToaster';
 import Toaster from '@/components/common/Toaster';
 import MainLayout from '@/components/common/MainLayout';
 import { passwordRecoveryEmail } from '@/redux/reducers/authReducer';
+import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
+import Seo from '@/components/common/Seo';
 export interface IdispatchType {
   type: string,
   meta: {
@@ -46,7 +48,7 @@ declare global {
   }
 }
 
-function ForgotPassword() {
+function ForgotPassword({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const dispatch: Dispatch<any> = useAppDispatch()
   const openToaster = useAppSelector(state => state.homePage.openToaster)
@@ -83,6 +85,11 @@ function ForgotPassword() {
 
   return (
     <>
+      <Seo
+        lang="en"
+        keywords={[`Loans`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
+      />
       {openToaster && <Toaster />}
       {loading && <Loader open={loading} />}
       <MainLayout blackTheme>
@@ -134,5 +141,7 @@ function ForgotPassword() {
     </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default ForgotPassword

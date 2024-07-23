@@ -16,6 +16,7 @@ import { PageTitle } from "@/components/common/Utils"
 import SitemapList from "@/components/partials/sitemap/SitemapList"
 import Services from "@/components/partials/sitemap/Services"
 import { THEME_TYPE } from "@/axiosfolder"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 const bodyForSiteMap = {
   "search": "",
   "pageNo": 0,
@@ -24,27 +25,31 @@ const bodyForSiteMap = {
   "sortOrder": "",
   "filters": {}
 }
-function Sitemap() {
+function Sitemap({ serverData }: { serverData: IconfigDataFromServer }) {
   const [state, setState] = useState({ service: getSiteMapData, body: bodyForSiteMap })
   useAPIoneTime(state)
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setState((prev) => ({ ...prev, body: { ...prev.body, pageNo: value - 1 } }))
   }
   return (
-    <Layout>
-      {/* <Loader open={false} /> */}
+    <>
       <Seo
-        keywords={[`QMint Sitemap`]}
-        title="Sitemap"
         lang="en"
+        keywords={[`sitemap`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
       />
-      <PageTitle title="Sitemap" />
-      <Container id="PageSitemap">
-        <SitemapList handlePageChange={handlePageChange} />
-        {THEME_TYPE !== "1" && < Services />}
-      </Container>
-    </Layout>
+      <Layout>
+        {/* <Loader open={false} /> */}
+        <PageTitle title="Sitemap" />
+        <Container id="PageSitemap">
+          <SitemapList handlePageChange={handlePageChange} />
+          {THEME_TYPE !== "1" && < Services />}
+        </Container>
+      </Layout>
+    </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default Sitemap 

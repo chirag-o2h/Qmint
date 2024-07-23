@@ -16,6 +16,7 @@ import { navigate } from "gatsby";
 import ConfigServices from "@/apis/services/ConfigServices";
 import useShowToaster from "@/hooks/useShowToaster";
 import Toaster from "@/components/common/Toaster";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
 
 const colourForMembership: any = {
@@ -32,7 +33,7 @@ export const MembershipPlanEnum = {
     platinum: { displayName: "Platinum", value: 3 },
     palladium: { displayName: "Palladium", value: 4 },
 };
-function Memberships() {
+function Memberships({ serverData }: { serverData: IconfigDataFromServer }) {
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const { mebershipPlanDetailsData, loading } = useAppSelector((state) => state.homePage)
     const { showToaster } = useShowToaster();
@@ -41,7 +42,7 @@ function Memberships() {
     const dispatch = useAppDispatch()
 
     const handleUpgradPlan = async (title: keyof typeof MembershipPlanEnum) => {
-        const res = await dispatch(upgradePlaneOfMembership({ FkqHBCX: MembershipPlanEnum?.[title].value }))
+        const res:any = await dispatch(upgradePlaneOfMembership({ FkqHBCX: MembershipPlanEnum?.[title].value }))
         showToaster({
             message: res?.payload?.data?.message,
             severity: 'success'
@@ -56,8 +57,13 @@ function Memberships() {
         }
     }, [isLoggedIn])
     return (
-        <Layout>
-            <>
+        <>
+            <Seo
+                lang="en"
+                keywords={[`Memberships`, ...serverData?.keywords]}
+                configDetailsState={serverData?.configDetails}
+            />
+            <Layout>
                 {openToaster && <Toaster />}
                 {loading && <Loader open={loading} />}
                 <Seo
@@ -81,9 +87,11 @@ function Memberships() {
                         </Box>
                     </Container>
                 </Box>
-            </>
-        </Layout>
+            </Layout>
+        </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+};
 export default Memberships

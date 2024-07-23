@@ -16,8 +16,9 @@ import { requestBodyOrderHistory } from "./buy-back-order-history";
 import { navigate } from "gatsby";
 import Toaster from "@/components/common/Toaster";
 import useRequireLogin from "@/hooks/useRequireLogin";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
-function OrderHistory() {
+function OrderHistory({ serverData }: { serverData: IconfigDataFromServer }) {
   const { loadingForCheckingLogin } = useRequireLogin()
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const loading = useAppSelector(state => state.myVault.loading)
@@ -38,7 +39,14 @@ function OrderHistory() {
   })
   // useAPIoneTime({service : getOrderHistory , endPoint : ENDPOINTS.getOrderHistory , body :{ ...requestBodyDefault, filters: {} } })
   if (loadingForCheckingLogin) {
-    return
+    return(
+      <Seo
+      keywords={[`QMint OrderHistory`,...serverData?.keywords]}
+      title="Order History"
+      lang="en"
+      configDetailsState={serverData?.configDetails}
+    />
+    )
   }
   return (
     <>
@@ -46,9 +54,10 @@ function OrderHistory() {
       {openToaster && <Toaster/>}
       <Layout>
         <Seo
-          keywords={[`QMint OrderHistory`]}
+          keywords={[`QMint OrderHistory`,...serverData?.keywords]}
           title="Order History"
           lang="en"
+          configDetailsState={serverData?.configDetails}
         />
         <PageTitle title="Orders" backToDashboard={true} />
         <Box
@@ -71,5 +80,7 @@ function OrderHistory() {
     </>
   );
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default OrderHistory;

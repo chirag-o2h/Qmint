@@ -20,6 +20,7 @@ import useShowToaster from "@/hooks/useShowToaster";
 import { AxiosError } from "axios";
 import Loader from "@/components/common/Loader";
 import useDownloadInvoiceHandler from "@/hooks/useDownloadInvoiceHandler";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
 export function createData(
     Name: string,
@@ -30,7 +31,7 @@ export function createData(
     return { Name, Price, Quantity, Total };
 }
 
-function orderDetails({ location }: { location: any }) {
+function orderDetails({ location, serverData }: { location: any, serverData: IconfigDataFromServer }) {
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
     const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search])
@@ -48,14 +49,14 @@ function orderDetails({ location }: { location: any }) {
 
     const downloadInvoiceHandler = useDownloadInvoiceHandler()
     return (
-        <Layout>
-            <>
+        <>
+            <Seo
+                lang="en"
+                keywords={[`Order details`, ...serverData?.keywords]}
+                configDetailsState={serverData?.configDetails}
+            />
+            <Layout>
                 {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
-                <Seo
-                    keywords={[`gatsby`, `order-details`, `react`]}
-                    title="Order details"
-                    lang="en"
-                />
                 {openToaster && <Toaster />}
                 <Box id="OrderDetailsPage" className='OrderDetailsPage' component="section">
                     <Container>
@@ -241,9 +242,12 @@ function orderDetails({ location }: { location: any }) {
                         </Box>
                     </Container>
                 </Box >
-            </>
-        </Layout >
+            </Layout >
+        </>
     )
 }
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+};
 
 export default orderDetails

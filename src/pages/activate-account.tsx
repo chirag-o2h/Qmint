@@ -14,8 +14,10 @@ import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import { isActionRejected } from "@/components/common/Utils"
 import useShowToaster from "@/hooks/useShowToaster"
+import Seo from "@/components/common/Seo"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function ActivateAccount() {
+function ActivateAccount({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   const [loading, setLoading] = useState(false)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const dispatch = useAppDispatch()
@@ -29,7 +31,7 @@ function ActivateAccount() {
         message: response?.payload?.data.message,
         severity: "success"
       })
-    }else{
+    } else {
       showToaster({
         message: 'Something went wrong.',
         severity: "error"
@@ -56,26 +58,35 @@ function ActivateAccount() {
     }
   }, []);
   return (
-    <MainLayout blackTheme>
-      {openToaster && <Toaster />}
-      {loading && <Loader open={loading} />}
-      <Container id="ActivateAccount">
-        <Box className="Content">
-          <Typography variant="h4" className="Title" component="p">Activate Account</Typography>
-          <Typography className="Description" dangerouslySetInnerHTML={{ __html: data }}>
-            {/* An email has been Sent to <Typography variant="inherit" component="span">(info@example.com)</Typography> containing an activation link <br />Please click on the link to activate your account */}
-          </Typography>
-          <Typography variant="overline" className="HelperText" component="p">Didn't receive an email? Check your span folder!</Typography>
-          <Button className="ResendLink" onClick={() => {
-            callResentAndTryAgainEmail()
-          }}>Resend and try again</Button>
-          <Divider />
-          <Typography className="NavigateText">If you have already validated your account, click below to login</Typography>
-          <Button variant="contained" size="large" className="ActionButton" onClick={() => navigate(ENDPOINTS.login)}>Sign Me In</Button>
-        </Box>
-      </Container>
-    </MainLayout>
+    <>
+      <Seo
+        lang="en"
+        keywords={[`Contactus page`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
+      />
+      <MainLayout blackTheme>
+        {openToaster && <Toaster />}
+        {loading && <Loader open={loading} />}
+        <Container id="ActivateAccount">
+          <Box className="Content">
+            <Typography variant="h4" className="Title" component="p">Activate Account</Typography>
+            <Typography className="Description" dangerouslySetInnerHTML={{ __html: data }}>
+              {/* An email has been Sent to <Typography variant="inherit" component="span">(info@example.com)</Typography> containing an activation link <br />Please click on the link to activate your account */}
+            </Typography>
+            <Typography variant="overline" className="HelperText" component="p">Didn't receive an email? Check your span folder!</Typography>
+            <Button className="ResendLink" onClick={() => {
+              callResentAndTryAgainEmail()
+            }}>Resend and try again</Button>
+            <Divider />
+            <Typography className="NavigateText">If you have already validated your account, click below to login</Typography>
+            <Button variant="contained" size="large" className="ActionButton" onClick={() => navigate(ENDPOINTS.login)}>Sign Me In</Button>
+          </Box>
+        </Container>
+      </MainLayout>
+    </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default ActivateAccount

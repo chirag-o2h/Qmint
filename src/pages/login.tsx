@@ -19,6 +19,8 @@ import ConfigServices from '@/apis/services/ConfigServices';
 import useShowToaster from '@/hooks/useShowToaster';
 import Toaster from '@/components/common/Toaster';
 import MainLayout from '@/components/common/MainLayout';
+import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
+import Seo from '@/components/common/Seo';
 export interface IdispatchType {
   type: string,
   meta: {
@@ -46,7 +48,7 @@ declare global {
   }
 }
 
-function SignInPage() {
+function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
   const { configDetails: configDetailsState, loadingForSignIn } = useAppSelector((state) => state.homePage)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loadingForSignIn);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
@@ -135,6 +137,11 @@ function SignInPage() {
   }
   return (
     <>
+      <Seo
+        lang="en"
+        keywords={[`Login`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
+      />
       {openToaster && <Toaster />}
       {checkLoadingStatus || loadingForNavigate && <Loader open={checkLoadingStatus || loadingForNavigate} />}
       {THEME_TYPE == '1' ? (
@@ -301,5 +308,7 @@ function SignInPage() {
     </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default SignInPage

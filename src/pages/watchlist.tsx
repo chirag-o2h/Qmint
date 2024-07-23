@@ -13,8 +13,9 @@ import Loader from "@/components/common/Loader";
 const WISHLIST_URL = "http://queenslandmint.com/wishlist/5b455134-e44c-492a-a79b-33487860ff00"
 import Toaster from "@/components/common/Toaster";
 import { useAppSelector, useToggle } from "@/hooks";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
-function Wishlist() {
+function Wishlist({ serverData }: { serverData: IconfigDataFromServer }) {
   const [openEmailFriend, toggleEmailFriend] = useToggle(false);
   const openToaster = useAppSelector(state => state.homePage.openToaster);
   // const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
@@ -43,18 +44,20 @@ function Wishlist() {
   };
 
   return (
-    <Layout>
-      {checkloadingstatus && <Loader open={checkloadingstatus} />}
-      {openToaster && <Toaster />}
+    <>
       <Seo
-        keywords={["QMint Watchlist"]}
         lang="en"
+        keywords={[`Watchlist`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
       />
-      <PageTitle title="Watchlist" maxWidth="lg" />
-      <Container id="Pagewishlist" maxWidth="lg">
-        <WishListDetails toggleEmailFriend={toggleEmailFriend} />
-        {/* FOR URL OF WATCHLIST */}
-        {/* <Box className="WishlistLink">
+      <Layout>
+        {checkloadingstatus && <Loader open={checkloadingstatus} />}
+        {openToaster && <Toaster />}
+        <PageTitle title="Watchlist" maxWidth="lg" />
+        <Container id="Pagewishlist" maxWidth="lg">
+          <WishListDetails toggleEmailFriend={toggleEmailFriend} />
+          {/* FOR URL OF WATCHLIST */}
+          {/* <Box className="WishlistLink">
           <Typography>Your Watchlist URL for sharing</Typography>
           <Stack className="Wrapper">
             <Button>{WISHLIST_URL}</Button>
@@ -68,10 +71,13 @@ function Wishlist() {
               </IconButton>}
           </Stack>
         </Box> */}
-        <EmailFriend open={openEmailFriend} onClose={toggleEmailFriend} />
-      </Container>
-    </Layout>
+          <EmailFriend open={openEmailFriend} onClose={toggleEmailFriend} />
+        </Container>
+      </Layout>
+    </>
   );
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default Wishlist;

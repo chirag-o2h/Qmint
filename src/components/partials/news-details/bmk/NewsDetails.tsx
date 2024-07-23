@@ -44,7 +44,8 @@ interface IserverData{
   configDetails:any
   configDetailsForRedux: any,
   newsDetailsData: any,
-  newsList: any
+  newsList: any,
+  keywords:any
 }
 function NewsDetails({serverData,params}:{serverData:IserverData,params:any}) {
   const location = useLocation()
@@ -81,10 +82,11 @@ function NewsDetails({serverData,params}:{serverData:IserverData,params:any}) {
   return (
     <>
     <Seo
-    keywords={['Travel', 'Qmit', 'gold', 'metal']}
+    keywords={['Travel', 'Qmit', 'gold', 'metal',...serverData?.keywords]}
     title={serverData?.newsDetailsData?.metaTitle}
     lang="en"
     description={serverData?.configDetails?.Store_Meta_Description?.value}
+    configDetailsState={serverData?.configDetails}
   />
     <MainLayout blackTheme>
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
@@ -220,16 +222,17 @@ NewsDetails.getServerData = async (context: any) => {
     const newsDetailsData = newsDetailsDataResponse.data.data;
     const newsList = newsListDataResponse.data.data;
     console.log("🚀 ~ getServerData ~ productDetailsData:", newsDetailsData)
-
+    const modifiedConfigDetails = configDetails?.reduce((acc:any, curr:any) => {
+      acc[curr.key] = curr;
+      return acc;
+    }, {})
     return {
       props: {
-        configDetails:configDetails?.reduce((acc: any, curr: any) => {
-          acc[curr.key] = curr
-          return acc
-        }, {}),
+        configDetails:modifiedConfigDetails,
         configDetailsForRedux: configDetails,
         newsDetailsData: newsDetailsData,
-        newsList
+        newsList,
+        keywords: modifiedConfigDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || [],
       },
     };
   } catch (error) {
@@ -242,4 +245,4 @@ NewsDetails.getServerData = async (context: any) => {
     };
   }
 };
-export default React.memo(NewsDetails);
+export default NewsDetails;

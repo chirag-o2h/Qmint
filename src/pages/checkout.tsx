@@ -57,7 +57,13 @@ function Checkout() {
     }
   }, [configDetailsState?.Checkout_Enable?.value])
   if (loadingForCheckingLogin) {
-    return
+    return(
+      <Seo
+        keywords={[`QMint categories`]}
+        title="Category"
+        lang="en"
+      />
+    )
   }
   return (
     <Layout>

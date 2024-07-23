@@ -16,8 +16,10 @@ import { isActionRejected } from "@/components/common/Utils"
 import { AxiosError } from "axios"
 import classNames from "classnames"
 import { useLocation } from "@reach/router"
+import Seo from "@/components/common/Seo"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function EmailConfirmation() {
+function EmailConfirmation({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   const location = useLocation()
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
@@ -57,21 +59,30 @@ function EmailConfirmation() {
     }
   }
   return (
-    <MainLayout blackTheme>
-      <Container id="EmailConfirmation">
-        <Box className={classNames("Content", { "error": loginError })}>
-          {loginError ? <ContainedCrossIcon className="TickIcon" /> : <TickIcon className="TickIcon" />}
-          <Typography variant="h4" className="Title" component="p">{loginError ? 'Error' : 'Confirmation'}</Typography>
-          <Typography className="Description" dangerouslySetInnerHTML={{
-            __html: loginError ?? message
-          }}>
-            {/* Your email has been successfully verified. Please <Link to={ENDPOINTS.login} className="Link">click here</Link> to login. */}
-          </Typography>
-          <Button variant="contained" size="large" className="ActionButton" onClick={() => navigate(ENDPOINTS.login)}>Sign Me In</Button>
-        </Box>
-      </Container>
-    </MainLayout>
+    <>
+      <Seo
+        lang="en"
+        keywords={[`Loans`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
+      />
+      <MainLayout blackTheme>
+        <Container id="EmailConfirmation">
+          <Box className={classNames("Content", { "error": loginError })}>
+            {loginError ? <ContainedCrossIcon className="TickIcon" /> : <TickIcon className="TickIcon" />}
+            <Typography variant="h4" className="Title" component="p">{loginError ? 'Error' : 'Confirmation'}</Typography>
+            <Typography className="Description" dangerouslySetInnerHTML={{
+              __html: loginError ?? message
+            }}>
+              {/* Your email has been successfully verified. Please <Link to={ENDPOINTS.login} className="Link">click here</Link> to login. */}
+            </Typography>
+            <Button variant="contained" size="large" className="ActionButton" onClick={() => navigate(ENDPOINTS.login)}>Sign Me In</Button>
+          </Box>
+        </Container>
+      </MainLayout>
+    </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default EmailConfirmation

@@ -49,8 +49,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { passwordRecoverySave, passwordRecoveryTokenVarified } from '@/redux/reducers/authReducer';
 import { IrecoveryPasswordSave } from '@/apis/services/authServices';
 import { useLocation } from '@reach/router';
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import Seo from "@/components/common/Seo";
 
-function ResetPassword(params: any) {
+function ResetPassword({ serverData }: { serverData: IconfigDataFromServer }) {
   const location = useLocation()
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const [isTokenVarified, setIsTokenVarified] = useState<boolean>(false)
@@ -176,6 +178,11 @@ function ResetPassword(params: any) {
   };
   return (
     <>
+      <Seo
+        lang="en"
+        keywords={[`reset-password`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
+      />
       {openToaster && <Toaster />}
       {loading && <Loader open={loading} />}
       <MainLayout blackTheme>
@@ -224,7 +231,7 @@ function ResetPassword(params: any) {
                     <RenderFields
                       type="password"
                       register={register}
-                      error={errors.Password}
+                      error={errors.Password as any}
                       name="Password"
                       placeholder="Password"
                       className="Password"
@@ -294,7 +301,7 @@ function ResetPassword(params: any) {
                     <RenderFields
                       type="password"
                       register={register}
-                      error={errors.ConfirmPassword}
+                      error={errors.ConfirmPassword as any}
                       name="ConfirmPassword"
                       placeholder="Confirm Password"
                       className="Password"
@@ -361,5 +368,7 @@ function ResetPassword(params: any) {
     </>
   );
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default ResetPassword;

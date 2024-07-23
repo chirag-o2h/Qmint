@@ -18,8 +18,9 @@ import { getStateAndCountryLists } from "@/redux/reducers/checkoutReducer"
 import Toaster from "@/components/common/Toaster"
 import { navigate } from "gatsby"
 import useRequireLogin from "@/hooks/useRequireLogin"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function Accounts() {
+function Accounts({ serverData }: { serverData: IconfigDataFromServer }) {
     const { loadingForCheckingLogin } = useRequireLogin()
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const loading = useAppSelector(state => state.myVault.loading)
@@ -61,23 +62,29 @@ function Accounts() {
     ) => {
         setAlignment(newAlignment);
     };
-    if (loadingForCheckingLogin) {
-        return
-    }
 
     const onClickAction = () => {
         handleAccountTypeDialog()
     }
+    if (loadingForCheckingLogin) {
+        return(
+            <Seo
+            lang="en"
+            keywords={[`BMk Topics`, ...serverData?.keywords]}
+            configDetailsState={serverData?.configDetails}
+        />
+        )
+    }
     return (
         <>
-            {loading &&  <Loader open={loading} />}
+            <Seo
+                lang="en"
+                keywords={[`BMk Topics`, ...serverData?.keywords]}
+                configDetailsState={serverData?.configDetails}
+            />
+            {loading && <Loader open={loading} />}
             {openToaster && <Toaster />}
             <Layout>
-                <Seo
-                    keywords={[`QMint Accounts`]}
-                    title="Accounts"
-                    lang="en"
-                />
                 <PageTitle title="Accounts" backToDashboard={true} redirectOnClick={onClickAction} />
                 <Box className="AddressesPage">
                     <Container>
@@ -107,5 +114,7 @@ function Accounts() {
         </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+};
 export default Accounts

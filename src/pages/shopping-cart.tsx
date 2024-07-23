@@ -9,8 +9,9 @@ import useAPIoneTime from '@/hooks/useAPIoneTime';
 import ShoppingCartComponent from '@/components/partials/shopping-cart/ShoppingCartComponent';
 import Loader from '@/components/common/Loader';
 import { useAppSelector } from '@/hooks';
+import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
 
-function ShoppingCart() {
+function ShoppingCart({ serverData }: { serverData: IconfigDataFromServer }) {
     const checkLoadingStatus = useAppSelector(state => state.shoppingCart.loading);
     const [body] = useState({
         "search": "",
@@ -20,17 +21,17 @@ function ShoppingCart() {
         "sortOrder": "",
         "filters": {}
     })
-    useAPIoneTime({service: getShoppingCartData, endPoint: ENDPOINTS.getShoppingCartData, body});
+    useAPIoneTime({ service: getShoppingCartData, endPoint: ENDPOINTS.getShoppingCartData, body });
 
     return (
-        <Layout>
-            <>
+        <>
+            <Seo
+                lang="en"
+                keywords={[`sitemap`, ...serverData?.keywords]}
+                configDetailsState={serverData?.configDetails}
+            />
+            <Layout>
                 {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
-                <Seo
-                    keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-                    title="Home"
-                    lang="en"
-                />
                 <Box id="ShoppingCart" component="section" className='ShoppingCartPage'>
                     <Box className="TitleWrapper">
                         <PageTitle title="Shopping cart" />
@@ -39,9 +40,11 @@ function ShoppingCart() {
                         <ShoppingCartComponent />
                     </Container>
                 </Box>
-            </>
-        </Layout>
+            </Layout>
+        </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+  };
 export default ShoppingCart

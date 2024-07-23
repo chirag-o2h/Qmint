@@ -13,8 +13,9 @@ import { resetCalculatorData, saveCalculatorsData } from '@/redux/reducers/calcu
 import { ENDPOINTS } from '@/utils/constants';
 import Loader from '@/components/common/Loader';
 import { roundOfThePrice } from '@/utils/common';
+import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
 
-function Calculator() {
+function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
     const dispatch = useAppDispatch();
     const calculators = useAppSelector(state => state.calculators.calculators)
     const vaultStorage = useAppSelector(state => state.calculators.vaultStorage)
@@ -34,33 +35,37 @@ function Calculator() {
     }, [])
 
     return (
-        <Layout>
-            {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+        <>
             <Seo
-                keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-                title="Home"
                 lang="en"
+                keywords={[`vault Calculator`, ...serverData?.keywords]}
+                configDetailsState={serverData?.configDetails}
             />
-            <Box id="Calculator" className='Calculator' component="section">
-                <Box className="TitleWrapper">
-                    <PageTitle title="Vault" />
-                </Box>
-                <Container>
-                    <Box className='CalculatorPageContent'>
-                        <MetalForm CalculatorType={1} />
-                        <CalculatorCards />
-                        <Box className="TotalWrapper TotalValueWrapper">
-                            <Stack
-                                className='DataValueWrapper TotalValueNestedWrapper'>
-                                <Typography variant="body1">Total Vault Storage</Typography>
-                                <Typography variant="subtitle1">${roundOfThePrice(vaultStorage)}</Typography>
-                            </Stack>
-                        </Box>
+            <Layout>
+                {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+                <Box id="Calculator" className='Calculator' component="section">
+                    <Box className="TitleWrapper">
+                        <PageTitle title="Vault" />
                     </Box>
-                </Container>
-            </Box>
-        </Layout>
+                    <Container>
+                        <Box className='CalculatorPageContent'>
+                            <MetalForm CalculatorType={1} />
+                            <CalculatorCards />
+                            <Box className="TotalWrapper TotalValueWrapper">
+                                <Stack
+                                    className='DataValueWrapper TotalValueNestedWrapper'>
+                                    <Typography variant="body1">Total Vault Storage</Typography>
+                                    <Typography variant="subtitle1">${roundOfThePrice(vaultStorage)}</Typography>
+                                </Stack>
+                            </Box>
+                        </Box>
+                    </Container>
+                </Box>
+            </Layout>
+        </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+};
 export default Calculator

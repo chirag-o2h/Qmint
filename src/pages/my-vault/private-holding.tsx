@@ -15,8 +15,9 @@ import { navigate } from "gatsby"
 import useRequireLogin from "@/hooks/useRequireLogin"
 import { IPrivateHolding, IPrivateHoldingLivePrice } from "@/types/myVault"
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function privateHolding(paramsData: any) {
+function privateHolding({ serverData }: { serverData: IconfigDataFromServer }) {
     const { loadingForCheckingLogin } = useRequireLogin()
     const loading = useAppSelector(state => state.myVault.loading)
     const [privateHoldingsData, setPrivateHoldingsData] = useState<(IPrivateHolding & IPrivateHoldingLivePrice)[]>([]);
@@ -63,19 +64,25 @@ function privateHolding(paramsData: any) {
         service: getPrivateHoldingsListLivePrice, endPoint: ENDPOINTS.getPrivateHoldingsListLivePrice, body: BodyForThePrivateHoldingPriceList, pollInterval: 60, conditionalCall: checkCondition
     })
     if (loadingForCheckingLogin) {
-        return
+        return(
+            <Seo
+            keywords={[`Private Holdings`, ...serverData?.keywords]}
+            lang="en"
+            configDetailsState={serverData?.configDetails}
+        />
+        )
     }
     const onClickAction = () => {
         navigate("/my-vault/private-holding-add")
     }
     return (
         <>
-            {loading &&  <Loader open={loading} />}
+            {loading && <Loader open={loading} />}
             <Layout>
                 <Seo
-                    keywords={[`QMint Topics`]}
-                    title="Private Holdings"
+                    keywords={[`Private Holdings`, ...serverData?.keywords]}
                     lang="en"
+                    configDetailsState={serverData?.configDetails}
                 />
                 <PageTitle title="Private Holdings" backToDashboard={true} redirectOnClick={onClickAction} />
                 <Box id="PrivateHoldingPage" className='PrivateHoldingPage' component="section">
@@ -95,5 +102,7 @@ function privateHolding(paramsData: any) {
         </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+};
 export default privateHolding

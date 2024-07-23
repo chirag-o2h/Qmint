@@ -14,6 +14,7 @@ import { requestBodyDefault } from "../category/[category]"
 import { navigate } from "gatsby"
 import Toaster from "@/components/common/Toaster"
 import useRequireLogin from "@/hooks/useRequireLogin"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
 export const requestBodyOrderHistory = {
     ...requestBodyDefault, filters: {
@@ -25,7 +26,7 @@ export const requestBodyOrderHistory = {
     pageSize: -1
 }
 
-function BuyBackOrderHistory() {
+function BuyBackOrderHistory({ serverData }: { serverData: IconfigDataFromServer }) {
     const { loadingForCheckingLogin } = useRequireLogin()
     const orderBuypackHistoryDetails = useAppSelector(state => state.myVault.buyBackOrderHistory)
     const loading = useAppSelector(state => state.myVault.loading)
@@ -46,18 +47,24 @@ function BuyBackOrderHistory() {
         endPoint: ENDPOINTS.getConfigDropdown
     })
     if (loadingForCheckingLogin) {
-        return
+        return(
+            <Seo
+            lang="en"
+            keywords={[`BMk Topics`, ...serverData?.keywords]}
+            configDetailsState={serverData?.configDetails}
+        />
+        )
     }
     return (
         <>
-            {loading &&  <Loader open={loading} />}
+            <Seo
+                lang="en"
+                keywords={[`BMk Topics`, ...serverData?.keywords]}
+                configDetailsState={serverData?.configDetails}
+            />
+            {loading && <Loader open={loading} />}
             {openToaster && <Toaster />}
             <Layout>
-                <Seo
-                    keywords={[`QMint BuyBackOrderHistory`]}
-                    title="Buyback orders"
-                    lang="en"
-                />
                 <PageTitle title="Buyback orders" backToDashboard={true} />
                 <Box id="BuybackOrderHistoryPage" className='BuybackOrderHistoryPage' component="section">
                     <Container>
@@ -75,5 +82,7 @@ function BuyBackOrderHistory() {
         </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+  };
 export default BuyBackOrderHistory

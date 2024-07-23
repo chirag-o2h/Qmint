@@ -17,8 +17,9 @@ import { useAppSelector } from '@/hooks';
 import Loader from '@/components/common/Loader';
 import Toaster from '@/components/common/Toaster';
 import MainLayout from '@/components/common/MainLayout';
+import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
 
-function ContactUs() {
+function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
   const configDetails = useAppSelector(state => state.homePage.configDetails)
@@ -27,52 +28,56 @@ function ContactUs() {
   useAPIoneTime({ service: getConfiguration, endPoint: ENDPOINTS.getContactUsConfiguration })
 
   return (
-    <MainLayout blackTheme>
-      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+    <>
       <Seo
-        keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-        title=""
         lang="en"
+        keywords={[`Contactus page`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
       />
-      {openToaster && <Toaster />}
-      <Box id="ContactUsPage" className='ContactUsPage' component="section">
-        <Box className="TitleWrapper">
-          <PageTitle title="Contact us" />
-        </Box>
-        <Container>
-          <Stack className="ContactCardsWrapper">
-            <Box className="AddressWrapper ContactCard">
-              <Box className="IconWrapper" sx={{backgroundColor: "primary.main"}}>
-                <Icon className='OriginalIcon'><AddressIcon /></Icon>
+      <MainLayout blackTheme>
+        {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+        {openToaster && <Toaster />}
+        <Box id="ContactUsPage" className='ContactUsPage' component="section">
+          <Box className="TitleWrapper">
+            <PageTitle title="Contact us" />
+          </Box>
+          <Container>
+            <Stack className="ContactCardsWrapper">
+              <Box className="AddressWrapper ContactCard">
+                <Box className="IconWrapper" sx={{ backgroundColor: "primary.main" }}>
+                  <Icon className='OriginalIcon'><AddressIcon /></Icon>
+                </Box>
+                <Typography variant="h4" component="h2" className="Title">Address</Typography>
+                <Typography variant="body1" className="AddressDesription">{configDetails?.Store_Address?.value}</Typography>
               </Box>
-              <Typography variant="h4" component="h2" className="Title">Address</Typography>
-              <Typography variant="body1" className="AddressDesription">{configDetails?.Store_Address?.value}</Typography>
-            </Box>
-            <Box className="CallUsWrapper ContactCard">
-              <Box className="IconWrapper" sx={{backgroundColor: "primary.main"}}>
-                <Icon className='OriginalIcon'><Calling /></Icon>
+              <Box className="CallUsWrapper ContactCard">
+                <Box className="IconWrapper" sx={{ backgroundColor: "primary.main" }}>
+                  <Icon className='OriginalIcon'><Calling /></Icon>
+                </Box>
+                <Typography variant="h4" component="h2" className="Title">Call us</Typography>
+                <Link href={`tel:${configDetails?.["StorePhoneNumber_International"]?.value}`} variant="body1" className="CallUsNumber">International: {configDetails?.["StorePhoneNumber_International"]?.value}</Link>
+                <Link href={`tel:${configDetails?.["StorePhoneNumber_AU"]?.value}`} variant="body1" className="CallUsNumber">Australia: {configDetails?.["StorePhoneNumber_AU"]?.value}</Link>
               </Box>
-              <Typography variant="h4" component="h2" className="Title">Call us</Typography>
-              <Link href={`tel:${configDetails?.["StorePhoneNumber_International"]?.value}`} variant="body1" className="CallUsNumber">International: {configDetails?.["StorePhoneNumber_International"]?.value}</Link>
-              <Link href={`tel:${configDetails?.["StorePhoneNumber_AU"]?.value}`} variant="body1" className="CallUsNumber">Australia: {configDetails?.["StorePhoneNumber_AU"]?.value}</Link>
-            </Box>
-            {/* <Box className="EmailWrapper ContactCard">
+              {/* <Box className="EmailWrapper ContactCard">
               <Box className="IconWrapper" sx={{backgroundColor: "primary.main"}}>
                 <Icon className='OriginalIcon'><Email /></Icon>
               </Box>
               <Typography variant="h4" component="h2" className="Title">Email Id</Typography>
               <Link href={`mailto: ${configDetails?.storecontactemail?.value}`} variant="body1" className="EmailAddress">{configDetails?.storecontactemail?.value}</Link>
             </Box> */}
-          </Stack>
-          <Box className="GetInTouchWrapper">
-            {/* <ContactUsForm /> */}
-            <Map />
-          </Box>
-          <SocialNetwork />
-        </Container>
-      </Box>
-
-    </MainLayout>)
+            </Stack>
+            <Box className="GetInTouchWrapper">
+              {/* <ContactUsForm /> */}
+              <Map />
+            </Box>
+            <SocialNetwork />
+          </Container>
+        </Box>
+      </MainLayout>
+    </>
+  )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default ContactUs

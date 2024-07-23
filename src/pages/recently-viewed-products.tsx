@@ -14,8 +14,9 @@ import { ENDPOINTS } from "@/utils/constants"
 import { IpriceForEachId } from "@/components/partials/shop/Qmint/FeaturedProducts"
 import Loader from "@/components/common/Loader"
 import Toaster from "@/components/common/Toaster"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function RecentlyViewedProducts() {
+function RecentlyViewedProducts({ serverData}: { serverData: IconfigDataFromServer}) {
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const { recentlyViewedProducts } = useAppSelector((state) => state.homePage)
@@ -48,14 +49,16 @@ function RecentlyViewedProducts() {
   }, [priceData])
 
   return (
+    <>
+    <Seo
+    lang="en"
+    keywords={[`registration`, ...serverData?.keywords]}
+    configDetailsState={serverData?.configDetails}
+  />
     <Layout>
       {openToaster && <Toaster />}
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
-      <Seo
-        keywords={[`QMint RecentlyViewedProducts`]}
-        title="RecentlyViewedProducts"
-        lang="en"
-      />
+
       <PageTitle title="Recently viewed products" />
       <Container id="PageRecentlyViewedProducts">
         <Box className="ProductList">
@@ -71,7 +74,11 @@ function RecentlyViewedProducts() {
         {recentlyViewedProducts && recentlyViewedProducts.length === 0 && <RecordNotFound />}
       </Container>
     </Layout>
+    </>
   )
 }
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 
 export default RecentlyViewedProducts

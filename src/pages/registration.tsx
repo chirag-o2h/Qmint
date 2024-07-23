@@ -34,6 +34,8 @@ import { getLastPage, hasFulfilled } from "@/utils/common"
 import useShowToaster from "@/hooks/useShowToaster"
 import { AxiosError } from "axios"
 import { IGetRegistrationOTPPayload, IRegistrationPayload } from "@/apis/services/authServices"
+import Seo from "@/components/common/Seo"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
 interface Inputs {
   FirstName: string,
@@ -104,14 +106,14 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
     // Address1: yup.string().trim().required("Address 1 is a required field"),
     // Address2: yup.string().trim(),
     Address1: yup.string().trim()
-    .required("Address 1 is a required field")
-    .test("forbidden-keyword", `in Address 1 ${messageForForbiddenKeyword}`, function (value) {
-      return !containsForbiddenKeyword(value, forbiddenKeywords);
-    }),
-  Address2: yup.string().trim()
-    .test("forbidden-keyword", `in Address 2 ${messageForForbiddenKeyword}`, function (value) {
-      return !containsForbiddenKeyword(value, forbiddenKeywords);
-    }),
+      .required("Address 1 is a required field")
+      .test("forbidden-keyword", `in Address 1 ${messageForForbiddenKeyword}`, function (value) {
+        return !containsForbiddenKeyword(value, forbiddenKeywords);
+      }),
+    Address2: yup.string().trim()
+      .test("forbidden-keyword", `in Address 2 ${messageForForbiddenKeyword}`, function (value) {
+        return !containsForbiddenKeyword(value, forbiddenKeywords);
+      }),
 
     City: yup.string().required().trim(),
     State: yup.string().required(),
@@ -123,7 +125,7 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
   });
 };
 
-function Registration() {
+function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const loading = useAppSelector(state => state.auth.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
@@ -262,7 +264,7 @@ function Registration() {
   }
 
   const handleFormSubmit = async (data: any) => {
-      if (!isOtpVerified) {
+    if (!isOtpVerified) {
       showToaster({
         message: "Please verify Phone number to proceed",
         severity: "warning"
@@ -412,7 +414,7 @@ function Registration() {
 
   useEffect(() => {
     // setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
-    setSliderImageHeight(document.body.clientHeight +130 - topImageMinHeight)
+    setSliderImageHeight(document.body.clientHeight + 130 - topImageMinHeight)
   }, [trigger, headerHeight, sliderImageHeight, isMobile])
 
   useEffect(() => {
@@ -428,331 +430,341 @@ function Registration() {
   }, []);
 
   return (
-    <MainLayout blackTheme>
-      {openToaster && <Toaster />}
-      {loading &&  <Loader open={loading} />}
-      <Stack id="RegistrationPage">
-        <Stack className="LeftPart">
-          <Box className="StickyWrapper" sx={{ top: !isMobile ? headerHeight : null }}>
-            <Stack className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})`, minHeight: !isMobile ? topImageMinHeight : null }}>
-              <Box dangerouslySetInnerHTML={{
-                __html: configDetailsState?.Registrationpage_Top_Leftside_pic_Text?.value
-              }}></Box>
-            </Stack>
-            <Box className="SliderWrapper">
-              <Box className="SwiperContainer CircleSwiperPaginationWhite">
-                <Swiper {...config}>
-                  {validImageUrls.map((url) => {
-                    return (
-                      <SwiperSlide>
-                        <Box className="ImageWrapper">
-                          <img src={url} alt="Registration featured image" style={!isMobile ? { height: sliderImageHeight } : {}} />
-                        </Box>
-                      </SwiperSlide>
-                    )
-                  })}
-                </Swiper>
+    <>
+      <Seo
+        lang="registration"
+        keywords={[`registration`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
+      />
+      <MainLayout blackTheme>
+        {openToaster && <Toaster />}
+        {loading && <Loader open={loading} />}
+        <Stack id="RegistrationPage">
+          <Stack className="LeftPart">
+            <Box className="StickyWrapper" sx={{ top: !isMobile ? headerHeight : null }}>
+              <Stack className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})`, minHeight: !isMobile ? topImageMinHeight : null }}>
+                <Box dangerouslySetInnerHTML={{
+                  __html: configDetailsState?.Registrationpage_Top_Leftside_pic_Text?.value
+                }}></Box>
+              </Stack>
+              <Box className="SliderWrapper">
+                <Box className="SwiperContainer CircleSwiperPaginationWhite">
+                  <Swiper {...config}>
+                    {validImageUrls.map((url) => {
+                      return (
+                        <SwiperSlide>
+                          <Box className="ImageWrapper">
+                            <img src={url} alt="Registration featured image" style={!isMobile ? { height: sliderImageHeight } : {}} />
+                          </Box>
+                        </SwiperSlide>
+                      )
+                    })}
+                  </Swiper>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Stack>
-        <Box className="RightPart">
-          <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <Box className="Header">
-              <Typography className="Title" variant="h4" component="p">{configDetailsState?.Registrationpage_Title?.value}</Typography>
-              <Typography className="Description" variant="body2">{configDetailsState?.Registrationpage_Subtitle?.value}</Typography>
-            </Box>
-            <Stack className="AllFields">
-              <Stack className="Column">
-                <RenderFields
-                  register={register}
-                  error={errors.FirstName}
-                  name="FirstName"
-                  placeholder="First Name"
-                  control={control}
-                  variant="outlined"
-                  margin="none"
-                  fullWidth
-                />
-                <RenderFields
-                  register={register}
-                  error={errors.LastName}
-                  name="LastName"
-                  placeholder="Last Name"
-                  control={control}
-                  variant="outlined"
-                  margin="none"
-                  fullWidth
-                />
-              </Stack>
-              <Stack className="Column">
-                <RenderFields
-                  type="password"
-                  register={register}
-                  error={errors.Password}
-                  name="Password"
-                  placeholder="Password"
-                  className="Password"
-                  control={control}
-                  variant="outlined"
-                  margin="none"
-                  fullWidth
-                />
-                <RenderFields
-                  type="password"
-                  register={register}
-                  error={errors.ConfirmPassword}
-                  name="ConfirmPassword"
-                  placeholder="Confirm Password"
-                  className="Password"
-                  control={control}
-                  variant="outlined"
-                  margin="none"
-                  fullWidth
-                />
-              </Stack>
-              <Box className="PasswordCondition">
-                <Typography className="Message">Your Password Must :</Typography>
-                <Stack className="ConditionWrapper">
-                  {renderPasswordConditionItem("Be at least 8 characters in length", password.length >= 8)}
-                  {renderPasswordConditionItem("An uppercase letter (A - Z)", /[A-Z]/.test(password))}
-                  {renderPasswordConditionItem("A lowercase letter (a - z)", /[a-z]/.test(password))}
-                  {renderPasswordConditionItem("A number (0 - 9)", /[0-9]/.test(password))}
-                </Stack>
+          </Stack>
+          <Box className="RightPart">
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
+              <Box className="Header">
+                <Typography className="Title" variant="h4" component="p">{configDetailsState?.Registrationpage_Title?.value}</Typography>
+                <Typography className="Description" variant="body2">{configDetailsState?.Registrationpage_Subtitle?.value}</Typography>
               </Box>
-              <RenderFields
-                register={register}
-                error={errors.Email}
-                name="Email"
-                placeholder="E-mail"
-                control={control}
-                variant="outlined"
-                margin="none"
-                fullWidth
-              />
-              <Box className="OTPWrapper">
+              <Stack className="AllFields">
                 <Stack className="Column">
-                  <Box className="PhoneNumber">
-                    <RenderFields
-                      register={register}
-                      type="phoneInput"
-                      control={control}
-                      setValue={setValue}
-                      name="PhoneNumber"
-                      error={errors.PhoneNumber}
-                      value={phoneNumberValue.value}
-                      setPhoneNumberValue={setPhoneNumberValue}
-                      className="ContactSelect"
-                      variant="outlined"
-                      margin="none"
-                      fullWidth
-                      disabled={isOtpVerified}
-                    />
-                    <Button variant="contained" onClick={getOtpHandler} disabled={!!errors.PhoneNumber || !phoneNumberValue.value || isOtpVerified}>GET OTP</Button>
-                  </Box>
-                  {showOTPField && !isOtpVerified && <RenderFields
-                    register={register}
-                    error={errors.OTP}
-                    name="OTP"
-                    placeholder="OTP"
-                    control={control}
-                    variant="outlined"
-                    margin="none"
-                    className="OTPField"
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton onClick={verifyOtpHandler}>
-                          <SmallRightIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    fullWidth
-                  />}
-                </Stack>
-                {showOTPField && !isOtpVerified && <Stack className="ResendOTP">
-                  <Typography className="Message">Didn't received OTP? <Typography color="primary.main" variant="inherit" component="span">
-                    00:{timer < 10 ? `0${timer}` : timer}
-                  </Typography></Typography>
-                  <Button onClick={handleResendClick} disabled={isButtonDisabled}>Resend OTP</Button>
-                </Stack>}
-                {isOtpVerified && <Box className="PasswordCondition mt-3"><Stack className="ConditionWrapper">{renderPasswordConditionItem("Your number is verified.", isOtpVerified)}</Stack></Box>}
-              </Box>
-              <GoogleMaps setParsedAddress={setGoogleAddressComponents} />
-              <RenderFields
-                register={register}
-                error={errors.Address1}
-                name="Address1"
-                placeholder="Address line 1"
-                control={control}
-                variant="outlined"
-                margin="none"
-                fullWidth
-              />
-              <RenderFields
-                register={register}
-                error={errors.Address2}
-                name="Address2"
-                placeholder="Address line 2"
-                control={control}
-                variant="outlined"
-                margin="none"
-                fullWidth
-              />
-              <Stack className="Column">
-                {countryList?.length > 0 &&
                   <RenderFields
                     register={register}
-                    type="select"
+                    error={errors.FirstName}
+                    name="FirstName"
+                    placeholder="First Name"
                     control={control}
-                    clearErrors={clearErrors}
-                    error={errors.Country}
-                    name="Country"
-                    getValues={getValues}
                     variant="outlined"
                     margin="none"
-                    value={countryValue}
-                    setValue={setValue}
-                    onChange={OnChange}
-                    fullWidth
-                  >
-                    <MenuItem value="none">Select Country</MenuItem>
-                    {countryList.map((country: StateOrCountry) => (
-                      <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
-                    ))}
-                  </RenderFields>}
-                <Box className="InputRow">
-                  <Autocomplete
-                    disablePortal
-                    options={stateList}
-                    getOptionLabel={option => {
-                      if (typeof option === "string") {
-                        return option;
-                      }
-                      return option.name;
-                    }}
-                    renderInput={(params) => <TextField placeholder="Enter State" {...params} error={errors.State as boolean | undefined} />}
-                    onChange={(_, value) => {
-                      if (!value) {
-                        return;
-                      }
-
-                      if (typeof value === "string") {
-                        setValue("State", value);
-                      }
-                      else {
-                        setValue("State", value.name);
-                      }
-                    }}
-                    inputValue={stateValue ?? ""}
-                    onInputChange={(event, newInputValue) => {
-                      setValue("State", newInputValue);
-                      setstateValue(newInputValue)
-                      if (newInputValue !== "") {
-                        clearErrors("State")
-                      }
-                      else {
-                        setError("State", {
-                          type: "manual",
-                          message: "State is a required field"
-                        });
-                      }
-                    }}
-                    freeSolo
                     fullWidth
                   />
-                  {!!errors["State"] && (
-                    <FormHelperText className={classNames({ "Mui-error": !!errors["State"] })}>
-                      {errors.State.message}
-                    </FormHelperText>
-                  )}
+                  <RenderFields
+                    register={register}
+                    error={errors.LastName}
+                    name="LastName"
+                    placeholder="Last Name"
+                    control={control}
+                    variant="outlined"
+                    margin="none"
+                    fullWidth
+                  />
+                </Stack>
+                <Stack className="Column">
+                  <RenderFields
+                    type="password"
+                    register={register}
+                    error={errors.Password}
+                    name="Password"
+                    placeholder="Password"
+                    className="Password"
+                    control={control}
+                    variant="outlined"
+                    margin="none"
+                    fullWidth
+                  />
+                  <RenderFields
+                    type="password"
+                    register={register}
+                    error={errors.ConfirmPassword}
+                    name="ConfirmPassword"
+                    placeholder="Confirm Password"
+                    className="Password"
+                    control={control}
+                    variant="outlined"
+                    margin="none"
+                    fullWidth
+                  />
+                </Stack>
+                <Box className="PasswordCondition">
+                  <Typography className="Message">Your Password Must :</Typography>
+                  <Stack className="ConditionWrapper">
+                    {renderPasswordConditionItem("Be at least 8 characters in length", password.length >= 8)}
+                    {renderPasswordConditionItem("An uppercase letter (A - Z)", /[A-Z]/.test(password))}
+                    {renderPasswordConditionItem("A lowercase letter (a - z)", /[a-z]/.test(password))}
+                    {renderPasswordConditionItem("A number (0 - 9)", /[0-9]/.test(password))}
+                  </Stack>
+                </Box>
+                <RenderFields
+                  register={register}
+                  error={errors.Email}
+                  name="Email"
+                  placeholder="E-mail"
+                  control={control}
+                  variant="outlined"
+                  margin="none"
+                  fullWidth
+                />
+                <Box className="OTPWrapper">
+                  <Stack className="Column">
+                    <Box className="PhoneNumber">
+                      <RenderFields
+                        register={register}
+                        type="phoneInput"
+                        control={control}
+                        setValue={setValue}
+                        name="PhoneNumber"
+                        error={errors.PhoneNumber}
+                        value={phoneNumberValue.value}
+                        setPhoneNumberValue={setPhoneNumberValue}
+                        className="ContactSelect"
+                        variant="outlined"
+                        margin="none"
+                        fullWidth
+                        disabled={isOtpVerified}
+                      />
+                      <Button variant="contained" onClick={getOtpHandler} disabled={!!errors.PhoneNumber || !phoneNumberValue.value || isOtpVerified}>GET OTP</Button>
+                    </Box>
+                    {showOTPField && !isOtpVerified && <RenderFields
+                      register={register}
+                      error={errors.OTP}
+                      name="OTP"
+                      placeholder="OTP"
+                      control={control}
+                      variant="outlined"
+                      margin="none"
+                      className="OTPField"
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton onClick={verifyOtpHandler}>
+                            <SmallRightIcon />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      fullWidth
+                    />}
+                  </Stack>
+                  {showOTPField && !isOtpVerified && <Stack className="ResendOTP">
+                    <Typography className="Message">Didn't received OTP? <Typography color="primary.main" variant="inherit" component="span">
+                      00:{timer < 10 ? `0${timer}` : timer}
+                    </Typography></Typography>
+                    <Button onClick={handleResendClick} disabled={isButtonDisabled}>Resend OTP</Button>
+                  </Stack>}
+                  {isOtpVerified && <Box className="PasswordCondition mt-3"><Stack className="ConditionWrapper">{renderPasswordConditionItem("Your number is verified.", isOtpVerified)}</Stack></Box>}
+                </Box>
+                <GoogleMaps setParsedAddress={setGoogleAddressComponents} />
+                <RenderFields
+                  register={register}
+                  error={errors.Address1}
+                  name="Address1"
+                  placeholder="Address line 1"
+                  control={control}
+                  variant="outlined"
+                  margin="none"
+                  fullWidth
+                />
+                <RenderFields
+                  register={register}
+                  error={errors.Address2}
+                  name="Address2"
+                  placeholder="Address line 2"
+                  control={control}
+                  variant="outlined"
+                  margin="none"
+                  fullWidth
+                />
+                <Stack className="Column">
+                  {countryList?.length > 0 &&
+                    <RenderFields
+                      register={register}
+                      type="select"
+                      control={control}
+                      clearErrors={clearErrors}
+                      error={errors.Country}
+                      name="Country"
+                      getValues={getValues}
+                      variant="outlined"
+                      margin="none"
+                      value={countryValue}
+                      setValue={setValue}
+                      onChange={OnChange}
+                      fullWidth
+                    >
+                      <MenuItem value="none">Select Country</MenuItem>
+                      {countryList.map((country: StateOrCountry) => (
+                        <MenuItem key={country.id} value={country.id}>{country.name}</MenuItem>
+                      ))}
+                    </RenderFields>}
+                  <Box className="InputRow">
+                    <Autocomplete
+                      disablePortal
+                      options={stateList}
+                      getOptionLabel={option => {
+                        if (typeof option === "string") {
+                          return option;
+                        }
+                        return option.name;
+                      }}
+                      renderInput={(params) => <TextField placeholder="Enter State" {...params} error={errors.State as boolean | undefined} />}
+                      onChange={(_, value) => {
+                        if (!value) {
+                          return;
+                        }
+
+                        if (typeof value === "string") {
+                          setValue("State", value);
+                        }
+                        else {
+                          setValue("State", value.name);
+                        }
+                      }}
+                      inputValue={stateValue ?? ""}
+                      onInputChange={(event, newInputValue) => {
+                        setValue("State", newInputValue);
+                        setstateValue(newInputValue)
+                        if (newInputValue !== "") {
+                          clearErrors("State")
+                        }
+                        else {
+                          setError("State", {
+                            type: "manual",
+                            message: "State is a required field"
+                          });
+                        }
+                      }}
+                      freeSolo
+                      fullWidth
+                    />
+                    {!!errors["State"] && (
+                      <FormHelperText className={classNames({ "Mui-error": !!errors["State"] })}>
+                        {errors.State.message}
+                      </FormHelperText>
+                    )}
+                  </Box>
+                </Stack>
+                <Stack className="Column">
+                  <RenderFields
+                    register={register}
+                    error={errors.City}
+                    name="City"
+                    placeholder="Town / City"
+                    control={control}
+                    variant="outlined"
+                    margin="none"
+                    fullWidth
+                  />
+                  <RenderFields
+                    type="number"
+                    register={register}
+                    error={errors.Code}
+                    name="Code"
+                    placeholder="Post Code"
+                    control={control}
+                    variant="outlined"
+                    margin="none"
+                    fullWidth
+                  />
+                </Stack>
+                <Box className="UserType">
+                  <RenderFields
+                    type="checkbox2"
+                    register={register}
+                    name="UserType"
+                    options={userTypeOptions}
+                    margin="none"
+                    icon={<RadioUncheckedRoundIcon />}
+                    checkedIcon={<RadioCheckedRoundIcon />}
+                    onChange={(e) => {
+                      const currentStack: any[] = structuredClone(radioButtonInput)
+                      if (currentStack.includes(e)) {
+                        setRadioButtonInput(currentStack.filter((i) => i !== e))
+                      } else {
+                        currentStack.push(e)
+                        setRadioButtonInput(currentStack)
+                      }
+                    }}
+                    row
+                  />
+                  {radioButtonInput.includes("agent") && <RenderFields
+                    register={register}
+                    error={errors.AgentCode}
+                    name="AgentCode"
+                    placeholder="Agent Code"
+                    control={control}
+                    className="AgentCode"
+                    variant="outlined"
+                    margin="none"
+                    fullWidth
+                  />}
+                </Box>
+                <Box className="AgreementWrapper">
+                  <RenderFields
+                    type="checkbox"
+                    register={register}
+                    name="PrivacyPolicy"
+                    label={
+                      <Typography>I Have Read And Agree The <StyledLink to="/topic/privacy-policy/">Privacy Policy</StyledLink></Typography>
+                    }
+                    margin="none"
+                  />
+                  <RenderFields
+                    type="checkbox"
+                    register={register}
+                    name="TermsCondition"
+                    label={
+                      <Typography>I Have Read And Agree The <StyledLink to="/topic/terms-of-service">Terms & Condition</StyledLink></Typography>
+                    }
+                    margin="none"
+                  />
                 </Box>
               </Stack>
-              <Stack className="Column">
-                <RenderFields
-                  register={register}
-                  error={errors.City}
-                  name="City"
-                  placeholder="Town / City"
-                  control={control}
-                  variant="outlined"
-                  margin="none"
-                  fullWidth
-                />
-                <RenderFields
-                  type="number"
-                  register={register}
-                  error={errors.Code}
-                  name="Code"
-                  placeholder="Post Code"
-                  control={control}
-                  variant="outlined"
-                  margin="none"
-                  fullWidth
-                />
+              <Stack className="ActionWrapper">
+                <Button type="submit" variant="contained" size="large" fullWidth disabled={loading || !privacyPolicy || !termsAndCondition}>
+                  Agree And Create Account
+                </Button>
               </Stack>
-              <Box className="UserType">
-                <RenderFields
-                  type="checkbox2"
-                  register={register}
-                  name="UserType"
-                  options={userTypeOptions}
-                  margin="none"
-                  icon={<RadioUncheckedRoundIcon />}
-                  checkedIcon={<RadioCheckedRoundIcon />}
-                  onChange={(e) => {
-                    const currentStack: any[] = structuredClone(radioButtonInput)
-                    if (currentStack.includes(e)) {
-                      setRadioButtonInput(currentStack.filter((i) => i !== e))
-                    } else {
-                      currentStack.push(e)
-                      setRadioButtonInput(currentStack)
-                    }
-                  }}
-                  row
-                />
-                {radioButtonInput.includes("agent") && <RenderFields
-                  register={register}
-                  error={errors.AgentCode}
-                  name="AgentCode"
-                  placeholder="Agent Code"
-                  control={control}
-                  className="AgentCode"
-                  variant="outlined"
-                  margin="none"
-                  fullWidth
-                />}
-              </Box>
-              <Box className="AgreementWrapper">
-                <RenderFields
-                  type="checkbox"
-                  register={register}
-                  name="PrivacyPolicy"
-                  label={
-                    <Typography>I Have Read And Agree The <StyledLink to="/topic/privacy-policy/">Privacy Policy</StyledLink></Typography>
-                  }
-                  margin="none"
-                />
-                <RenderFields
-                  type="checkbox"
-                  register={register}
-                  name="TermsCondition"
-                  label={
-                    <Typography>I Have Read And Agree The <StyledLink to="/topic/terms-of-service">Terms & Condition</StyledLink></Typography>
-                  }
-                  margin="none"
-                />
-              </Box>
-            </Stack>
-            <Stack className="ActionWrapper">
-              <Button type="submit" variant="contained" size="large" fullWidth disabled={loading || !privacyPolicy || !termsAndCondition}>
-                Agree And Create Account
-              </Button>
-            </Stack>
-          </form>
-        </Box>
-      </Stack>
-    </MainLayout>
+            </form>
+          </Box>
+        </Stack>
+      </MainLayout>
+    </>
   )
 }
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 
 export default Registration

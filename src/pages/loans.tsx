@@ -8,29 +8,32 @@ import { getTopicDetails } from "@/redux/reducers/topicReducer"
 import { useAppSelector } from "@/hooks"
 import Layout from "@/components/common/Layout"
 import Loader from "@/components/common/Loader";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function Topics(paramsData: any) {
+function Topics({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   const checkLoadingStatus = useAppSelector(state => state.topic.loading);
   const { topicDetails, loading } = useAppSelector(state => state.topic)
-  useAPIoneTime({ service: getTopicDetails, endPoint: ENDPOINTS.topicDetail?.replace('{{topic-name}}', paramsData?.params?.['topic-name']) })
+  useAPIoneTime({ service: getTopicDetails, endPoint: ENDPOINTS.topicDetail?.replace('{{topic-name}}', params?.['topic-name']) })
   return (
     <>
-    {checkLoadingStatus && <Loader open = {checkLoadingStatus} />}
-    {!loading && <Layout>
       <Seo
-        keywords={[`QMint Topics`]}
-        title="Loans"
         lang="en"
+        keywords={[`Loans`, ...serverData?.keywords]}
+        configDetailsState={serverData?.configDetails}
       />
-      <PageTitle title={topicDetails?.systemName} />
-      <Container id="PageTopics">
-        <Box className="Content"> 
-        Comming Soon
-        </Box>
-      </Container>
-    </Layout>}
-        </>
+      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+      {!loading && <Layout>
+        <PageTitle title={topicDetails?.systemName} />
+        <Container id="PageTopics">
+          <Box className="Content">
+            Comming Soon
+          </Box>
+        </Container>
+      </Layout>}
+    </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default Topics

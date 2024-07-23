@@ -13,8 +13,9 @@ import { resetCalculatorData, saveCalculatorsData } from '@/redux/reducers/calcu
 import { ENDPOINTS } from '@/utils/constants';
 import Loader from '@/components/common/Loader';
 import { roundOfThePrice } from '@/utils/common';
+import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
 
-function Calculator() {
+function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
     const checkLoadingStatus = useAppSelector(state => state.calculators.loading);
     const dispatch = useAppDispatch();
     const calculators = useAppSelector(state => state.calculators)
@@ -32,44 +33,48 @@ function Calculator() {
         }
     }, [])
     return (
-        <Layout>
-            {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+        <>
             <Seo
-                keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-                title="Home"
                 lang="en"
+                keywords={[`sitemap`, ...serverData?.keywords]}
+                configDetailsState={serverData?.configDetails}
             />
-            <Box id="Calculator" className='Calculator' component="section">
-                <Box className="TitleWrapper">
-                    <PageTitle title="Shipping Calculator" />
-                </Box>
-                <Container>
-                    <Box className='CalculatorPageContent'>
-                        <MetalForm CalculatorType={0} />
-                        <CalculatorCards />
-                        {/* <TotalPageFooter /> */}
-                        <Box className="TotalWrapper TotalValueWrapper">
-                            <Stack
-                                className='DataValueWrapper ValueNestedWrapper' style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
-                                <Typography variant="body1" className="">Shipping</Typography>
-                                <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping)}</Typography>
-                            </Stack>
-                            <Stack
-                                className='DataValueWrapper ValueNestedWrapper'>
-                                <Typography variant="body1" className="">Insurance</Typography>
-                                <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.insurance)}</Typography>
-                            </Stack>
-                            <Stack
-                                className='DataValueWrapper TotalValueNestedWrapper' style={{ borderTopLeftRadius: "0px", borderTopRightRadius: "0px" }}>
-                                <Typography variant="body1" className="">Total</Typography>
-                                <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping + calculators.insurance)}</Typography>
-                            </Stack>
-                        </Box>
+            <Layout>
+                {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+                <Box id="Calculator" className='Calculator' component="section">
+                    <Box className="TitleWrapper">
+                        <PageTitle title="Shipping Calculator" />
                     </Box>
-                </Container>
-            </Box>
-        </Layout>
+                    <Container>
+                        <Box className='CalculatorPageContent'>
+                            <MetalForm CalculatorType={0} />
+                            <CalculatorCards />
+                            {/* <TotalPageFooter /> */}
+                            <Box className="TotalWrapper TotalValueWrapper">
+                                <Stack
+                                    className='DataValueWrapper ValueNestedWrapper' style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+                                    <Typography variant="body1" className="">Shipping</Typography>
+                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping)}</Typography>
+                                </Stack>
+                                <Stack
+                                    className='DataValueWrapper ValueNestedWrapper'>
+                                    <Typography variant="body1" className="">Insurance</Typography>
+                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.insurance)}</Typography>
+                                </Stack>
+                                <Stack
+                                    className='DataValueWrapper TotalValueNestedWrapper' style={{ borderTopLeftRadius: "0px", borderTopRightRadius: "0px" }}>
+                                    <Typography variant="body1" className="">Total</Typography>
+                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping + calculators.insurance)}</Typography>
+                                </Stack>
+                            </Box>
+                        </Box>
+                    </Container>
+                </Box>
+            </Layout>
+        </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+  };
 export default Calculator
