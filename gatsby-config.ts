@@ -10,7 +10,6 @@ module.exports = {
     author: `@QMint`,
   },
   plugins: [
-    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -18,12 +17,6 @@ module.exports = {
         path: `${__dirname}/src/assets/`,
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     icon: `src/assets/favicon.ico`,
-    //   },
-    // },
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
@@ -39,11 +32,43 @@ module.exports = {
         },
       },
     },
+    
+    `gatsby-plugin-sass`,
+    'gatsby-plugin-react-helmet',
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap.xml`,
+        resolveSiteUrl: () => `https://bullionmark.netlify.app`,
+        // excludes: [`/path-to-exclude`],
+        query: `
+          {
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        serialize: ({ path }:any) => {
+          return {
+            url: path,
+            changefreq: `daily`,
+            priority: 0.7,
+          };
+        },
+      },
+    },
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     icon: `src/assets/favicon.ico`,
+    //   },
+    // },
     // `gatsby-plugin-image`,
     // `gatsby-plugin-sharp`,
     // `gatsby-transformer-sharp`,
-    `gatsby-plugin-sass`,
-    // `gatsby-plugin-preact`,
+        // `gatsby-plugin-preact`,
     // {
     //   resolve: `gatsby-plugin-purgecss`,
     //   options: {
@@ -61,6 +86,5 @@ module.exports = {
     //     ],
     //   },
     // },
-    'gatsby-plugin-react-helmet',
   ],
 };
