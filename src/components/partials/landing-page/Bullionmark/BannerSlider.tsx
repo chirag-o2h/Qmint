@@ -9,8 +9,11 @@ import { ENDPOINTS } from '@/utils/constants';
 import { openNewTab } from "@/utils/common"
 import { IbannerData } from '../../shop/Qmint/Banner';
 
-function BannerSlider({ isItShopPage = false }: { isItShopPage?: boolean }) {
-    const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', isItShopPage ? '1' : '0'));
+function BannerSlider({ isItShopPage = false, bannerSliderData = null }: { isItShopPage?: boolean, bannerSliderData?: any }) {
+    let { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', isItShopPage ? '1' : '0'), 'get', null, null, !isItShopPage);
+    if (bannerSliderData) {
+        data = bannerSliderData
+    }
     const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
     const config = {
@@ -40,7 +43,7 @@ function BannerSlider({ isItShopPage = false }: { isItShopPage?: boolean }) {
                                 data?.data?.map((item: IbannerData, index: number) => {
                                     return (
                                         <SwiperSlide key={`BannerSlider-${index}`}>
-                                            <Box 
+                                            <Box
                                                 className="HeroBannerSliderWrapper"
                                                 onClick={() => {
                                                     if (item.isImgUrl) {
@@ -48,7 +51,7 @@ function BannerSlider({ isItShopPage = false }: { isItShopPage?: boolean }) {
                                                     }
                                                 }}
                                             //  dangerouslySetInnerHTML={{ __html: item?.htmlCode }}
-                                             >
+                                            >
                                                 {/* <Box className="HeroBannerTopWrapper" dangerouslySetInnerHTML={{
                   __html: item?.htmlCode
                 }}>

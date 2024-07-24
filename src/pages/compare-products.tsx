@@ -15,7 +15,7 @@ import noImage from '../assets/images/noImage.png'
 import useShowToaster from "@/hooks/useShowToaster";
 import Toaster from "@/components/common/Toaster";
 import Loader from "@/components/common/Loader";
-import { IconfigDataFromServer } from "@/utils/getConfigData";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
 function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) {
     const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
@@ -105,5 +105,7 @@ function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) 
         </>
     );
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+  };
 export default CompareProducts;

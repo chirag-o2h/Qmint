@@ -132,21 +132,23 @@ const BullionmarkShop = (props: any) => {
           <Skeleton
             height={"124px"}
             width={"100%"}
-            style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+            style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)",position:"sticky",top:'0px' }}
           />
         }><BullionmarkHeader /></Suspense>}
 
-        {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
-          <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
-            <BannerSlider isItShopPage={true} />
-          </Suspense>
-        )}
-        {isRendering && (
+        {/* {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && ( */}
+          {/* <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}> */}
+            <BannerSlider isItShopPage={true} bannerSliderData={serverData?.bannerSliderData}/>
+          {/* </Suspense> */}
+        {/* )} */}
+        {
+        isRendering && 
+        (
           <>
             <Skeleton
               height={"124px"}
               width={"100%"}
-              style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+              style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)",position:"fixed",top:'0px',zIndex:9999,background:"gray" }}
             />
 
             {/* {isMobile && (
@@ -312,16 +314,18 @@ BullionmarkShop.getServerData = async (context: any) => {
       configDetailsResponse,
       bmkShopPageSectionsResponse,
       productResponse,
+      bannerSliderResponse
     ] = await Promise.all([
       axiosInstance.get(ENDPOINTS.getConfigStore),
       axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
       axiosInstance.post(ENDPOINTS.getProduct, dataforbody),
+      axiosInstance.get(ENDPOINTS.getSlider.replace('typeEnum',  '1'))
     ]);
 
     const configDetails = configDetailsResponse.data.data;
     const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
-    const productData = productResponse.data;
-
+    const productData = productResponse.data.data;
+    const bannerSliderData = bannerSliderResponse?.data
     // let priceForEachId = null;
 
     // if (productData?.data?.items?.length > 0) {
@@ -346,7 +350,8 @@ BullionmarkShop.getServerData = async (context: any) => {
         }, {}),
         configDetailsForRedux: configDetails,
         bmkShopPageSections,
-        productData: productData.data,
+        productData: productData,
+        bannerSliderData:bannerSliderData
         // priceForEachId,
       },
     };

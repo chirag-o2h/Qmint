@@ -7,7 +7,7 @@ import React from "react"
 import { PageTitle } from "@/components/common/Utils"
 import { useAppSelector } from "@/hooks";
 import Loader from "@/components/common/Loader";
-import { IconfigDataFromServer } from "@/utils/getConfigData";
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 
 const Calculators = ({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) => {
     const checkLoadingStatus = useAppSelector(state => state.calculators.loading);
@@ -41,5 +41,7 @@ const Calculators = ({ params, serverData }: { serverData: IconfigDataFromServer
         </>
     )
 }
-
+export const getServerData = async (context: any) => {
+    return await getConfigData();
+  };
 export default Calculators;
