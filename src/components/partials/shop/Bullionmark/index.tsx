@@ -132,15 +132,9 @@ const BullionmarkShop = (props: any) => {
           <Skeleton
             height={"124px"}
             width={"100%"}
-            style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)",position:"sticky",top:'0px' }}
+            style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)",position:"sticky",top:'0px' }}
           />
         }><BullionmarkHeader /></Suspense>}
-
-        {/* {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && ( */}
-          {/* <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}> */}
-            <BannerSlider isItShopPage={true} bannerSliderData={serverData?.bannerSliderData}/>
-          {/* </Suspense> */}
-        {/* )} */}
         {
         isRendering && 
         (
@@ -148,7 +142,7 @@ const BullionmarkShop = (props: any) => {
             <Skeleton
               height={"124px"}
               width={"100%"}
-              style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)",position:"fixed",top:'0px',zIndex:9999,background:"gray" }}
+              style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)",zIndex:9999,background:"gray" }}
             />
 
             {/* {isMobile && (
@@ -169,6 +163,11 @@ const BullionmarkShop = (props: any) => {
             )} */}
           </>
         )}
+        {/* {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && ( */}
+          {/* <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}> */}
+            <BannerSlider isItShopPage={true} bannerSliderData={serverData?.bannerSliderData}/>
+          {/* </Suspense> */}
+        {/* )} */}
 
         {/* <RenderOnViewportEntry
           rootMargin="200px"
