@@ -163,11 +163,11 @@ const BullionmarkShop = (props: any) => {
             )} */}
           </>
         )}
-        {/* {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && ( */}
-          {/* <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}> */}
+        {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
+          <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
             <BannerSlider isItShopPage={true} bannerSliderData={serverData?.bannerSliderData}/>
-          {/* </Suspense> */}
-        {/* )} */}
+          </Suspense>
+        )}
 
         {/* <RenderOnViewportEntry
           rootMargin="200px"
