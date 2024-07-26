@@ -47,7 +47,6 @@ interface IserverData{
     blogList: any
 }
 function BmkBlogDetails({serverData,params}:{serverData:IserverData,params:any}) {
-  console.log("🚀 ~ BmkBlogDetails ~ serverData:", serverData)
   const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   // const dispatch = useAppDispatch()
@@ -77,15 +76,16 @@ function BmkBlogDetails({serverData,params}:{serverData:IserverData,params:any})
       navigate(`/404`)
     }
   }, [serverData?.blogDetailsData])
-
+  const keyWords = serverData?.blogDetailsData?.metaKeywords?.split(',')?.length > 0 ? serverData?.blogDetailsData?.metaKeywords?.split(',') : []
   return (
     <MainLayout blackTheme>
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
-        keywords={['Travel', 'Qmit', 'gold', 'metal']}
+        keywords={['Travel', 'Qmit', 'gold', 'metal',...keyWords]}
         title={serverData?.blogDetailsData?.metaTitle}
         lang="en"
-        description={serverData?.configDetails?.Store_Meta_Description?.value}
+        description={serverData?.blogDetailsData?.metaDescription}
+        configDetailsState={serverData?.configDetails}
       />
       <Box className="BmkPostDetailPage">
         <Breadcrumb arr={[{ navigate: '/blog', name: 'Blog' }]} />
