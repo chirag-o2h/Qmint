@@ -125,7 +125,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
         <Breadcrumb arr={[{ navigate: '/category/buy', name: 'Buy' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
         <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": THEME_TYPE == '1' })}>
 
-          {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData}/>}
+          {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails}/>}
 
           {serverData?.productDetailsData?.relatedProducts?.length > 0 && <RelatedProduct relatedProductsList={structuredClone(serverData?.productDetailsData?.relatedProducts)} heading={serverData?.configDetails["ProductDetails_RelatedProducts_SectionTitle"]?.value} description={serverData?.configDetails["ProductDetails_RelatedProducts_SectionSubtitle"]?.value} />}
         </Container></>) : <PageNotFound />}
@@ -155,7 +155,7 @@ export async function getServerData(context: { params: any; }) {
       axiosInstance.get(ENDPOINTS.productDetails.replace('{{product-id}}', productFriendlyName)),
     ]);
     const configDetails = configDetailsResponse.data.data;
-    const productDetailsData = productDetailsDataResponse.data;
+    const productDetailsData = productDetailsDataResponse.data.data;
     console.log("🚀 ~ getServerData ~ productDetailsData:", productDetailsData)
 
     return {
@@ -165,7 +165,7 @@ export async function getServerData(context: { params: any; }) {
           return acc
         }, {}),
         configDetailsForRedux: configDetails,
-        productDetailsData: productDetailsData.data,
+        productDetailsData: productDetailsData,
       },
     };
   } catch (error) {

@@ -66,7 +66,7 @@ const schema = yup.object().shape({
 })
 
 
-function AboutProduct({ productId, productDetailsData }: any) {
+function AboutProduct({ productId, productDetailsData, configDetailsState }: any) {
   const location = useLocation()
   const dispatch = useAppDispatch();
   const styles: any = createStyles({
@@ -85,7 +85,7 @@ function AboutProduct({ productId, productDetailsData }: any) {
     },
   });
   const { cartItems } = useAppSelector((state) => state.shoppingCart)
-  const { configDetails: configDetailsState, isLoggedIn, openToaster } = useAppSelector((state) => state.homePage)
+  const { isLoggedIn, openToaster } = useAppSelector((state) => state.homePage)
   const { productIds: compareProducts } = useAppSelector((state) => state.compareProducts)
   const [quantityCount, setQuantityCount] = useState<number>(productDetailsData?.minimumCartQty ?? 1)
   const [productIds, setProductIds] = useState({ productIds: [Number(productId)] })
