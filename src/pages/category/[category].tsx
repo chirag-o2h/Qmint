@@ -170,7 +170,7 @@ function Category({ serverData, props }: Props) {
         //   argumentForService) as any)
         // }
     }
-    const keyWords = serverData?.categoryPageMetadata?.metaKeywords?.value?.split(',')?.length > 0 ? serverData?.categoryPageMetadata?.metaKeywords?.value?.split(',') : []
+    const keyWords = serverData?.categoryPageMetadata?.metaKeywords?.split(',')?.length > 0 ? serverData?.categoryPageMetadata?.metaKeywords?.split(',') : []
     useEffect(() => {
         setTimeout(() => {
             dispatch(
@@ -204,6 +204,7 @@ function Category({ serverData, props }: Props) {
         });
     }, [])
     console.log(serverData?.categoryData, "serverData?.categoryData")
+    console.log(serverData?.categoryPageMetadata, "serverData?.categoryPageMetadata")
     return (
         <>
             {isRendering && (

@@ -54,8 +54,8 @@ import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 const LazyBullionmarkFooter = lazy(
   () => import("@/components/footer/BullionmarkFooter")
 );
-function Blog({serverData}:any) {
-  const configDetailsState= serverData?.configDetails
+function Blog({ serverData }: any) {
+  const configDetailsState = serverData?.configDetails
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
   const dispatch = useAppDispatch()
   // ssr uncommit below line
@@ -70,12 +70,12 @@ function Blog({serverData}:any) {
   const debounce = useDebounce(body, 500);
   // ssr uncommit below line
   blogList = Object.keys(body ?? {}).length > 0 ? blogListFromTheRedux : blogList
-  topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length? topThreeFromTheRedux : topThree
+  topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length ? topThreeFromTheRedux : topThree
   // let blogList = blogListFromTheRedux
   // let topThree = topThreeFromTheRedux
-const conditionalCall = useMemo(()=>{
- return  Object.keys(debounce ?? {}).length > 0
-},[debounce])
+  const conditionalCall = useMemo(() => {
+    return Object.keys(debounce ?? {}).length > 0
+  }, [debounce])
   useAPIoneTime({
     service: BlogList,
     endPoint: ENDPOINTS.BlogList,
@@ -119,29 +119,24 @@ const conditionalCall = useMemo(()=>{
   }, [])
   return (
     <>
-              {isRendering && (
-            <>
-              <Skeleton
-                height={"124px"}
-                width={"100%"}
-                style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
-              />
-            </>)}
-          {!isRendering && <Suspense fallback={
-            <Skeleton
-              height={"124px"}
-              width={"100%"}
-              style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
-            />
-          }><FrontHeader blackTheme={true} /></Suspense>}
+      {isRendering && (
+        <>
+          <Skeleton
+            height={"124px"}
+            width={"100%"}
+            style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+          />
+        </>)}
+      {!isRendering && <Suspense fallback={
+        <Skeleton
+          height={"124px"}
+          width={"100%"}
+          style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+        />
+      }><FrontHeader blackTheme={true} /></Suspense>}
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
-      <Seo
-        keywords={['blog', 'latest posts', 'articles']}
-        title="Blog"
-        lang="en"
-        meta={[{ name: '', }]}
-        description={"Explore our latest blog posts for informative articles on various topics. Stay updated with our insights and analysis."}
-      />
+      <Seo keywords={[`Blog`, ...serverData?.keywords]} title="Charts" lang="en" configDetailsState={serverData?.configDetails} />
+
       <Box className="BlogPage">
         <Box className="HeroSection">
           <Container>
@@ -155,29 +150,29 @@ const conditionalCall = useMemo(()=>{
               {configDetailsState?.["AllBlogs_Subtitle"]?.value}
             </Typography>
             {topThree?.length !== 0 ?
-               <Box className="PostWrapper">
-               <Stack className="LeftPostWrapper">
-                 <PostCard details={topThree?.[0]} navigate={() =>
-                   navigate(`/blog/${topThree?.[0]?.friendlyName}`)
-                 } />
-               </Stack>
-               <Stack className="RightPostWrapper">
-                 {topThree?.[1] ? (
-                   <PostCard details={topThree?.[1]} navigate={() =>
-                     navigate(`/blog/${topThree?.[1]?.friendlyName}`)
-                   } />
-                 ) : null}
-                 {topThree?.[2] ? (
-                   <PostCard details={topThree?.[2]} navigate={() =>
-                     navigate(`/blog/${topThree?.[2]?.friendlyName}`)
-                   } />
-                 ) : null}
-               </Stack>
-             </Box>
-            : 
-            <Box className="PostWrapper" sx={{justifyContent:"center"}}><RecordNotFound message="No blogs to show" isTextAlignCenter={true} /></Box>
+              <Box className="PostWrapper">
+                <Stack className="LeftPostWrapper">
+                  <PostCard details={topThree?.[0]} navigate={() =>
+                    navigate(`/blog/${topThree?.[0]?.friendlyName}`)
+                  } />
+                </Stack>
+                <Stack className="RightPostWrapper">
+                  {topThree?.[1] ? (
+                    <PostCard details={topThree?.[1]} navigate={() =>
+                      navigate(`/blog/${topThree?.[1]?.friendlyName}`)
+                    } />
+                  ) : null}
+                  {topThree?.[2] ? (
+                    <PostCard details={topThree?.[2]} navigate={() =>
+                      navigate(`/blog/${topThree?.[2]?.friendlyName}`)
+                    } />
+                  ) : null}
+                </Stack>
+              </Box>
+              :
+              <Box className="PostWrapper" sx={{ justifyContent: "center" }}><RecordNotFound message="No blogs to show" isTextAlignCenter={true} /></Box>
             }
-         
+
           </Container>
         </Box>
         <Box className="DiscoverPost">
@@ -265,13 +260,13 @@ const conditionalCall = useMemo(()=>{
         </Box>
       </Box>
       <RenderOnViewportEntry
-            rootMargin="200px"
-            threshold={0.25}
-            minHeight={800}
-          >
-            <LazyBullionmarkFooter />
-          </RenderOnViewportEntry>
-      </>
+        rootMargin="200px"
+        threshold={0.25}
+        minHeight={800}
+      >
+        <LazyBullionmarkFooter />
+      </RenderOnViewportEntry>
+    </>
   );
 }
 
@@ -299,6 +294,10 @@ export async function getServerData(context: any) {
         }, {}),
         configDetailsForRedux: configDetails,
         blogList,
+        keywords: configDetails?.reduce((acc:any, curr:any) => {
+          acc[curr.key] = curr;
+          return acc;
+        }, {})?.Store_ShopPage_Meta_Keywords?.value?.split(",") || [],
       },
     };
   } catch (error) {
