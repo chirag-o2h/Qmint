@@ -34,8 +34,7 @@ import { sortByMostPopular, sortByPriceHighToLow, sortByPriceLowToHigh } from "@
 import { navigate } from "gatsby"
 import { getlastPartOfPath } from "@/utils/common"
 
-function SortBy() {
-  const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
+function SortBy({isSmallScreen}:{isSmallScreen:boolean}) {
   const [openSortBy, toggleSortBy] = useToggle(false)
   // const [sortBy, setSortBy] = useState<SortingOption | null>(null);
   const dispatch = useAppDispatch();

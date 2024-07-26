@@ -39,7 +39,7 @@ function CategoryFilters({ isPriceChanged, setIsPriceChanged, categoryData: cate
     <Fragment>{((currentCategoryData.items && currentCategoryData.items.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
       <SmallScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={currentCategoryData} />
     ) : (
-      <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={currentCategoryData} />
+      <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={currentCategoryData} isSmallScreen={isSmallScreen}/>
     )) : null}</Fragment>
   )
 }

@@ -235,7 +235,7 @@ function Category({ serverData, props }: Props) {
             <Container id="PageCategory" className={classNames({ "BmkCategoryPage": THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
-                        <SortBy />
+                        <SortBy isSmallScreen={isSmallScreen}/>
                         <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData} isSmallScreen={isSmallScreen}/>
                     </Stack>
                 ) : null}

@@ -15,9 +15,10 @@ interface props {
     pagesSelectedFilters: any,
     categoryData: categoryData
     // selectedPrice: number[] | null
+    isSmallScreen:boolean
 }
 
-const LargerScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilters ,categoryData}: props) => {
+const LargerScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilters ,categoryData,isSmallScreen}: props) => {
     // console.log("🚀 ~ LargerScreenFilters ~ selectedFilters:", selectedFilters)
     // const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search])
     const dispatch = useAppDispatch();
@@ -59,7 +60,7 @@ const LargerScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilte
                         Sort By
                     </AccordionSummary>
                     <AccordionDetails>
-                        <SortBy />
+                        <SortBy isSmallScreen={isSmallScreen}/>
                     </AccordionDetails>
                 </Accordion>
             </Box>}
