@@ -49,7 +49,7 @@ declare global {
 }
 
 function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
-  const { configDetails: configDetailsState, loadingForSignIn } = useAppSelector((state) => state.homePage)
+  const { loadingForSignIn } = useAppSelector((state) => state.homePage)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loadingForSignIn);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
@@ -153,13 +153,13 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
         <MainLayout blackTheme>
           <Stack id="BmkSignInPage">
             <Box className="LeftPart">
-              <img className="LoginImage" src={configDetailsState?.Loginpage_Leftside_pic?.value} alt="" />
+              <img className="LoginImage" src={serverData?.configDetails?.Loginpage_Leftside_pic?.value} alt="" />
             </Box>
             <Stack className="RightPart">
               <form id="login-form" onKeyDown={handleEnterKeyPress}>
                 <Box className="Header">
-                  <Typography variant="h3" component="p">{configDetailsState?.Loginpage_Rightside_Title?.value}</Typography>
-                  <Typography variant="body2" className="Description" component="p">{configDetailsState?.Loginpage_Rightside_Subtitle?.value}</Typography>
+                  <Typography variant="h3" component="p">{serverData?.configDetails?.Loginpage_Rightside_Title?.value}</Typography>
+                  <Typography variant="body2" className="Description" component="p">{serverData?.configDetails?.Loginpage_Rightside_Subtitle?.value}</Typography>
                   {loginError && <Typography variant="body2" component="p" className="ErrorMessage" dangerouslySetInnerHTML={{
                     __html: loginError
                   }}></Typography>}
@@ -234,7 +234,7 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
         <Box id="SignInPage">
           <Container maxWidth="sm" >
             <DialogTitle component="p">
-              <img onClick={() => { navigate('/') }} src={configDetailsState?.BrandLogoURL_Header?.value} alt="QMint logo" loading='eager' />
+              <img onClick={() => { navigate('/') }} src={serverData?.configDetails?.BrandLogoURL_Header?.value} alt="QMint logo" loading='eager' />
             </DialogTitle>
             {loginError && <Typography variant='subtitle1' component="p" className='LoginError' dangerouslySetInnerHTML={{
               __html: loginError
