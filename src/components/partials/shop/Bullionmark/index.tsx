@@ -296,7 +296,6 @@ BullionmarkShop.getServerData = async (context: any) => {
     // Parse the user-agent from the context
     const ua = useragent.parse(context.headers.get('user-agent'));
     const isMobile = ua.isMobile ? true : false;
-    console.log("🚀 ~ BullionmarkShop.getServerData= ~ isMobile:", isMobile)
     const dataforbody = {
       search: "",
       pageNo: 0,

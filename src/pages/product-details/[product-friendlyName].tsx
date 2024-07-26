@@ -5,7 +5,8 @@ import { Button, Container, Skeleton, useMediaQuery } from "@mui/material"
 import Layout from "@/components/common/Layout"
 import Seo from "@/components/common/Seo"
 import AboutProduct from "@/components/partials/productDetail/AboutProduct"
-import RelatedProduct from "@/components/partials/productDetail/RelatedProduct"
+// import RelatedProduct from "@/components/partials/productDetail/RelatedProduct"
+const RelatedProduct = lazy(()=>import("@/components/partials/productDetail/RelatedProduct"))
 import { Breadcrumb } from "@/components/common/Utils"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { getProductDetailsData, resetProductDetails, setProductDetails } from "@/redux/reducers/categoryReducer"
@@ -15,12 +16,14 @@ import { setConfigDetails, setRecentlyViewedProduct } from "@/redux/reducers/hom
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import useShowToaster from "@/hooks/useShowToaster"
-import PageNotFound from "@/components/partials/productDetail/PageNotFound"
+// import PageNotFound from "@/components/partials/productDetail/PageNotFound"
+const PageNotFound =lazy(()=>import("@/components/partials/productDetail/PageNotFound"))
 import classNames from "classnames"
 import axiosInstance, { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
 const BullionmarkHeader = lazy(()=> import("@/components/header/BullionmarkHeader"))
 
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
+import useragent from 'express-useragent';
 const LazyBullionmarkFooter = lazy(
   () => import("@/components/footer/BullionmarkFooter")
 );
@@ -36,6 +39,7 @@ interface ServerData {
     systemName: string;
   };
   productDetailsData: any
+  isMobile:boolean
 }
 function ProductDetail({ serverData, params }: { serverData: ServerData, params: any }) {
   // client side render code
@@ -45,8 +49,6 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
   //   return ENDPOINTS.productDetails.replace('{{product-id}}', params?.["product-friendlyName"])
   // }, [params])
   // useAPIoneTime({ service: getProductDetailsData, endPoint, params: params })
-
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
 
   const { showToaster } = useShowToaster();
   const checkLoadingStatus = useAppSelector(state => state.category.loading)
@@ -107,15 +109,15 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
        {isRendering && (
           <>
             <Skeleton
-              height={"124px"}
+              height={"115px"}
               width={"100%"}
-              style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
+              style={{ marginBottom: !serverData?.isMobile ? "32px" : "24px", transform: "scale(1)" }}
             /></>)}
       {!isRendering && <Suspense fallback={
         <Skeleton
-          height={"124px"}
+          height={"115px"}
           width={"100%"}
-          style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }} />}>
+          style={{ marginBottom: !serverData?.isMobile ? "32px" : "24px", transform: "scale(1)" }} />}>
         <BullionmarkHeader />
       </Suspense>}
 
@@ -127,8 +129,8 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
 
           {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails}/>}
 
-          {serverData?.productDetailsData?.relatedProducts?.length > 0 && <RelatedProduct relatedProductsList={structuredClone(serverData?.productDetailsData?.relatedProducts)} heading={serverData?.configDetails["ProductDetails_RelatedProducts_SectionTitle"]?.value} description={serverData?.configDetails["ProductDetails_RelatedProducts_SectionSubtitle"]?.value} />}
-        </Container></>) : <PageNotFound />}
+          {serverData?.productDetailsData?.relatedProducts?.length > 0 && <Suspense fallback={<></>}><RelatedProduct relatedProductsList={structuredClone(serverData?.productDetailsData?.relatedProducts)} heading={serverData?.configDetails["ProductDetails_RelatedProducts_SectionTitle"]?.value} description={serverData?.configDetails["ProductDetails_RelatedProducts_SectionSubtitle"]?.value} /></Suspense>}
+        </Container></>) : <Suspense fallback={<></>}><PageNotFound /></Suspense>}
         <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
@@ -142,9 +144,13 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
 
 export default ProductDetail
 
-export async function getServerData(context: { params: any; }) {
+export async function getServerData(context: {
+  headers: any,params: any; 
+}) {
   try {
     const { params } = context;
+    const ua = useragent.parse(context.headers.get('user-agent'));
+    const isMobile = ua.isMobile ? true : false;
     const productFriendlyName = params['product-friendlyName'];
     console.log("before fatching ", Date.now())
     const [
@@ -166,6 +172,7 @@ export async function getServerData(context: { params: any; }) {
         }, {}),
         configDetailsForRedux: configDetails,
         productDetailsData: productDetailsData,
+        isMobile,
       },
     };
   } catch (error) {

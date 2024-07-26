@@ -38,6 +38,7 @@ import useShowToaster from "@/hooks/useShowToaster"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
 import { THEME_TYPE } from "@/axiosfolder"
 import { useLocation } from "@reach/router"
+import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 
 function createData(
   quantity: string,
@@ -665,6 +666,11 @@ function AboutProduct({ productId, productDetailsData, configDetailsState }: any
           </form>
         </Box>
       </Stack>
+      <RenderOnViewportEntry
+          rootMargin="200px"
+          threshold={0.25}
+          minHeight={800}
+        >
       <Stack className="TabsWrapper">
         <Tabs
           value={tabValue}
@@ -708,6 +714,7 @@ function AboutProduct({ productId, productDetailsData, configDetailsState }: any
           </Box>
         </TabPanel> : null}
       </Stack>
+      </RenderOnViewportEntry>
     </Box>
   )
 }

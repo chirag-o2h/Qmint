@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Box, Stack } from "@mui/material"
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
@@ -11,6 +11,10 @@ import { type Swiper as SwiperTypes } from "swiper"
 
 function ProductImages({ productImages, offerBadge }: any) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperTypes | null>(null)
+  const [isClient, setisClient] = useState(false)
+  useEffect(() => {
+    setisClient(true)
+  }, [])
 
   return (
     <Box className="ProductImages">
@@ -39,7 +43,7 @@ function ProductImages({ productImages, offerBadge }: any) {
             </SwiperSlide>
           )) : null}
         </Swiper>
-        <Swiper
+        {isClient && <Swiper
           className="SupportImages"
           onSwiper={setThumbsSwiper}
           modules={[FreeMode, Navigation, Thumbs]}
@@ -79,7 +83,7 @@ function ProductImages({ productImages, offerBadge }: any) {
               <img src={url} />
             </SwiperSlide>
           )) : null}
-        </Swiper>
+        </Swiper>}
       </Box>
     </Box >
   )
