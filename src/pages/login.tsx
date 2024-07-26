@@ -122,6 +122,7 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
   }, [])
 
   if (isLoggedIn) {
+    console.log("inside the islogged in ")
     // console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
     const lastPage = getLastPage();
     // console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)
@@ -133,7 +134,11 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
       // Redirect the user to a default page
       navigate('/', { replace: true })
     }
-    return;
+    return <Seo
+      lang="en"
+      keywords={[`Login`, ...(serverData?.keywords || [])]}
+      configDetailsState={serverData?.configDetails}
+    />;
   }
   return (
     <>
