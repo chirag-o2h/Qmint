@@ -51,7 +51,6 @@ interface ServerDataProps {
     configDetails: any;
     configDetailsForRedux: any;
     categoryData: any;
-    configDetail: any;
     isMobile:boolean
 }
 
@@ -75,7 +74,6 @@ function Category({ serverData, props }: Props) {
     const priceD = useMemo(() => pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null, [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]])
     const debounceFilter = useDebounce(filtersD, 700);
     const debouncePrice = useDebounce(priceD, 700);
-    console.log("testing")
     useEffect(() => {
         setPage(1); // reset page number to 1 when path changes for new category
         fetchData()
@@ -185,9 +183,8 @@ function Category({ serverData, props }: Props) {
     }, [isLoggedIn]);
     useEffect(() => {
         dispatch(setConfigDetails(serverData?.configDetailsForRedux));
-        console.log("🚀 ~ useEffect ~ serverData?.configDetailsForRedux:", serverData?.configDetailsForRedux)
-        if (serverData?.configDetail?.Store_FaviconURL?.value) {
-            const faviconUrl = serverData?.configDetail?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+        if (serverData?.configDetails?.Store_FaviconURL?.value) {
+            const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
             // Update favicon dynamically
             const link: any =
                 document.querySelector("link[rel='icon']") ||
