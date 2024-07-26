@@ -135,7 +135,7 @@ function Blog({ serverData }: any) {
         />
       }><FrontHeader blackTheme={true} /></Suspense>}
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
-      <Seo keywords={[`Blog`, ...serverData?.keywords]} title="Charts" lang="en" configDetailsState={serverData?.configDetails} />
+      <Seo keywords={[`Blog`, ...(serverData?.keywords || [])]} title="Charts" lang="en" configDetailsState={serverData?.configDetails} />
 
       <Box className="BlogPage">
         <Box className="HeroSection">

@@ -115,7 +115,7 @@ function Vault({ serverData }: { serverData: IconfigDataFromServer }) {
   if (loadingForCheckingLogin) {
     return (<Seo
       lang="en"
-      keywords={[`BMk Topics`, ...serverData?.keywords]}
+      keywords={[`BMk Topics`, ...(serverData?.keywords || [])]}
       configDetailsState={serverData?.configDetails}
     />)
   }
@@ -123,7 +123,7 @@ function Vault({ serverData }: { serverData: IconfigDataFromServer }) {
     <>
       <Seo
         lang="en"
-        keywords={[`BMk Topics`, ...serverData?.keywords]}
+        keywords={[`BMk Topics`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       <Layout>

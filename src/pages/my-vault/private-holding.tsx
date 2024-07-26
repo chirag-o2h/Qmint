@@ -66,7 +66,7 @@ function privateHolding({ serverData }: { serverData: IconfigDataFromServer }) {
     if (loadingForCheckingLogin) {
         return(
             <Seo
-            keywords={[`Private Holdings`, ...serverData?.keywords]}
+            keywords={[`Private Holdings`, ...(serverData?.keywords || [])]}
             lang="en"
             configDetailsState={serverData?.configDetails}
         />
@@ -80,7 +80,7 @@ function privateHolding({ serverData }: { serverData: IconfigDataFromServer }) {
             {loading && <Loader open={loading} />}
             <Layout>
                 <Seo
-                    keywords={[`Private Holdings`, ...serverData?.keywords]}
+                    keywords={[`Private Holdings`, ...(serverData?.keywords || [])]}
                     lang="en"
                     configDetailsState={serverData?.configDetails}
                 />

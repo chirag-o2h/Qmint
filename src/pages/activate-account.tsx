@@ -61,7 +61,7 @@ function ActivateAccount({ params, serverData }: { serverData: IconfigDataFromSe
     <>
       <Seo
         lang="en"
-        keywords={[`Contactus page`, ...serverData?.keywords]}
+        keywords={[`Contactus page`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       <MainLayout blackTheme>

@@ -58,7 +58,7 @@ function OrderConfirmation({ serverData }: { serverData: IconfigDataFromServer }
         <>
             <Seo
                 lang="en"
-                keywords={[`Order confirmation`, ...serverData?.keywords]}
+                keywords={[`Order confirmation`, ...(serverData?.keywords || [])]}
                 configDetailsState={serverData?.configDetails}
             />
             <Layout>

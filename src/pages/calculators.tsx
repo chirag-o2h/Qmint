@@ -15,7 +15,7 @@ const Calculators = ({ params, serverData }: { serverData: IconfigDataFromServer
         <>
             <Seo
                 lang="en"
-                keywords={[`Calculator page`, ...serverData?.keywords]}
+                keywords={[`Calculator page`, ...(serverData?.keywords || [])]}
                 configDetailsState={serverData?.configDetails}
             />
             <Layout>

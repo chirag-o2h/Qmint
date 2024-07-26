@@ -52,7 +52,7 @@ function orderDetails({ location, serverData }: { location: any, serverData: Ico
         <>
             <Seo
                 lang="en"
-                keywords={[`Order details`, ...serverData?.keywords]}
+                keywords={[`Order details`, ...(serverData?.keywords || [])]}
                 configDetailsState={serverData?.configDetails}
             />
             <Layout>

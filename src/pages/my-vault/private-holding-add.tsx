@@ -217,7 +217,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
     if (loadingForCheckingLogin) {
         return(
             <Seo
-            keywords={[`Private Holdings`, ...serverData?.keywords]}
+            keywords={[`Private Holdings`, ...(serverData?.keywords || [])]}
             lang="en"
             configDetailsState={serverData?.configDetails}
         />
@@ -327,7 +327,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
     return (
         <>
             <Seo
-                keywords={[`Private Holdings`, ...serverData?.keywords]}
+                keywords={[`Private Holdings`, ...(serverData?.keywords || [])]}
                 lang="en"
                 configDetailsState={serverData?.configDetails}
             />

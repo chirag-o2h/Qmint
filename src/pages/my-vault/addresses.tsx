@@ -64,7 +64,7 @@ function Addresses({ serverData }: { serverData: IconfigDataFromServer }) {
     return(
       <Seo
       lang="en"
-      keywords={[`BMk Topics`, ...serverData?.keywords]}
+      keywords={[`BMk Topics`, ...(serverData?.keywords || [])]}
       configDetailsState={serverData?.configDetails}
     />
     )
@@ -73,7 +73,7 @@ function Addresses({ serverData }: { serverData: IconfigDataFromServer }) {
     <>
       <Seo
         lang="en"
-        keywords={[`BMk Topics`, ...serverData?.keywords]}
+        keywords={[`BMk Topics`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       {loading && <Loader open={loading} />}

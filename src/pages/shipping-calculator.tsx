@@ -36,7 +36,7 @@ function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
         <>
             <Seo
                 lang="en"
-                keywords={[`sitemap`, ...serverData?.keywords]}
+                keywords={[`sitemap`, ...(serverData?.keywords || [])]}
                 configDetailsState={serverData?.configDetails}
             />
             <Layout>

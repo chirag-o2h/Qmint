@@ -180,7 +180,7 @@ function ResetPassword({ serverData }: { serverData: IconfigDataFromServer }) {
     <>
       <Seo
         lang="en"
-        keywords={[`reset-password`, ...serverData?.keywords]}
+        keywords={[`reset-password`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       {openToaster && <Toaster />}

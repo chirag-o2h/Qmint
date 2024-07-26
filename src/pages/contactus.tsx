@@ -31,7 +31,7 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
     <>
       <Seo
         lang="en"
-        keywords={[`Contactus page`, ...serverData?.keywords]}
+        keywords={[`Contactus page`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       <MainLayout blackTheme>

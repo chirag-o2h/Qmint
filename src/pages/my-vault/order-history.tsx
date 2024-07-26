@@ -41,7 +41,7 @@ function OrderHistory({ serverData }: { serverData: IconfigDataFromServer }) {
   if (loadingForCheckingLogin) {
     return(
       <Seo
-      keywords={[`QMint OrderHistory`,...serverData?.keywords]}
+      keywords={[`QMint OrderHistory`,...(serverData?.keywords || [])]}
       title="Order History"
       lang="en"
       configDetailsState={serverData?.configDetails}
@@ -54,7 +54,7 @@ function OrderHistory({ serverData }: { serverData: IconfigDataFromServer }) {
       {openToaster && <Toaster/>}
       <Layout>
         <Seo
-          keywords={[`QMint OrderHistory`,...serverData?.keywords]}
+          keywords={[`QMint OrderHistory`,...(serverData?.keywords || [])]}
           title="Order History"
           lang="en"
           configDetailsState={serverData?.configDetails}

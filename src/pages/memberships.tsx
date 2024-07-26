@@ -60,7 +60,7 @@ function Memberships({ serverData }: { serverData: IconfigDataFromServer }) {
         <>
             <Seo
                 lang="en"
-                keywords={[`Memberships`, ...serverData?.keywords]}
+                keywords={[`Memberships`, ...(serverData?.keywords || [])]}
                 configDetailsState={serverData?.configDetails}
             />
             <Layout>

@@ -47,7 +47,7 @@ function Wishlist({ serverData }: { serverData: IconfigDataFromServer }) {
     <>
       <Seo
         lang="en"
-        keywords={[`Watchlist`, ...serverData?.keywords]}
+        keywords={[`Watchlist`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       <Layout>

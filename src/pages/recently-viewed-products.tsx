@@ -52,7 +52,7 @@ function RecentlyViewedProducts({ serverData}: { serverData: IconfigDataFromServ
     <>
     <Seo
     lang="en"
-    keywords={[`registration`, ...serverData?.keywords]}
+    keywords={[`registration`, ...(serverData?.keywords || [])]}
     configDetailsState={serverData?.configDetails}
   />
     <Layout>

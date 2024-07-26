@@ -38,7 +38,7 @@ function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
         <>
             <Seo
                 lang="en"
-                keywords={[`vault Calculator`, ...serverData?.keywords]}
+                keywords={[`vault Calculator`, ...(serverData?.keywords || [])]}
                 configDetailsState={serverData?.configDetails}
             />
             <Layout>

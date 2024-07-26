@@ -49,7 +49,6 @@ declare global {
 }
 
 function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
-  console.log("🚀 ~ SignInPage ~ serverData:", serverData?.keywords)
   const { configDetails: configDetailsState, loadingForSignIn } = useAppSelector((state) => state.homePage)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loadingForSignIn);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)

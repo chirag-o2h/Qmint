@@ -433,7 +433,7 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
     <>
       <Seo
         lang="registration"
-        keywords={[`registration`, ...serverData?.keywords]}
+        keywords={[`registration`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       <MainLayout blackTheme>

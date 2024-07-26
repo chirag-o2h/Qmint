@@ -31,7 +31,7 @@ function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
   const chartData = useAppSelector((state) => state.homePage.liveDashboardChartData);
   return (
     <>
-      <Seo keywords={[`BMk Topics`, ...serverData?.keywords]} title="Charts" lang="en" configDetailsState={serverData?.configDetails} />
+      <Seo keywords={[`BMk Topics`, ...(serverData?.keywords || [])]} title="Charts" lang="en" configDetailsState={serverData?.configDetails} />
       <Layout>
         <PageTitle title={"Charts"} />
         {Object.entries(chartData).map(([key, value]: any) => {

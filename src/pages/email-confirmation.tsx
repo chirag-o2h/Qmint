@@ -62,7 +62,7 @@ function EmailConfirmation({ params, serverData }: { serverData: IconfigDataFrom
     <>
       <Seo
         lang="en"
-        keywords={[`Loans`, ...serverData?.keywords]}
+        keywords={[`Loans`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       <MainLayout blackTheme>

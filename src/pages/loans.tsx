@@ -18,7 +18,7 @@ function Topics({ params, serverData }: { serverData: IconfigDataFromServer, par
     <>
       <Seo
         lang="en"
-        keywords={[`Loans`, ...serverData?.keywords]}
+        keywords={[`Loans`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}

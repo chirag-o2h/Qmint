@@ -87,7 +87,7 @@ function ForgotPassword({ params, serverData }: { serverData: IconfigDataFromSer
     <>
       <Seo
         lang="en"
-        keywords={[`Loans`, ...serverData?.keywords]}
+        keywords={[`Loans`, ...(serverData?.keywords || [])]}
         configDetailsState={serverData?.configDetails}
       />
       {openToaster && <Toaster />}
