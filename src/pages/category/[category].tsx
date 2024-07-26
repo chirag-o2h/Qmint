@@ -203,8 +203,6 @@ function Category({ serverData, props }: Props) {
             setTimeout(() => setIsRendering(false), 3500);
         });
     }, [])
-    console.log(serverData?.categoryData, "serverData?.categoryData")
-    console.log(serverData?.categoryPageMetadata, "serverData?.categoryPageMetadata")
     return (
         <>
             {isRendering && (

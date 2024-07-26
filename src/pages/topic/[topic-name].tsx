@@ -88,7 +88,7 @@ function Topics({ serverData }: { serverData: ServerData }) {
             ]}
             title={(topicDetails?.metaTitle ?? '')}
             lang="en"
-            description={configDetailsState?.Store_Meta_Description?.value + '|' + topicDetails?.metaDescription ?? ''}
+            description={configDetailsState?.Store_Meta_Description?.value + '|' + topicDetails?.metaDescription}
             configDetailsState={configDetailsState}
           />
           <Box className="PageTitle">

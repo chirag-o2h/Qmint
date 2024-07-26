@@ -6,7 +6,7 @@ import Layout from "@/components/common/Layout"
 import Seo from "@/components/common/Seo"
 import AboutProduct from "@/components/partials/productDetail/AboutProduct"
 // import RelatedProduct from "@/components/partials/productDetail/RelatedProduct"
-const RelatedProduct = lazy(()=>import("@/components/partials/productDetail/RelatedProduct"))
+const RelatedProduct = lazy(() => import("@/components/partials/productDetail/RelatedProduct"))
 import { Breadcrumb } from "@/components/common/Utils"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { getProductDetailsData, resetProductDetails, setProductDetails } from "@/redux/reducers/categoryReducer"
@@ -17,10 +17,10 @@ import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import useShowToaster from "@/hooks/useShowToaster"
 // import PageNotFound from "@/components/partials/productDetail/PageNotFound"
-const PageNotFound =lazy(()=>import("@/components/partials/productDetail/PageNotFound"))
+const PageNotFound = lazy(() => import("@/components/partials/productDetail/PageNotFound"))
 import classNames from "classnames"
 import axiosInstance, { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
-const BullionmarkHeader = lazy(()=> import("@/components/header/BullionmarkHeader"))
+const BullionmarkHeader = lazy(() => import("@/components/header/BullionmarkHeader"))
 
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 import useragent from 'express-useragent';
@@ -39,7 +39,7 @@ interface ServerData {
     systemName: string;
   };
   productDetailsData: any
-  isMobile:boolean
+  isMobile: boolean
 }
 function ProductDetail({ serverData, params }: { serverData: ServerData, params: any }) {
   // client side render code
@@ -60,7 +60,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
   useEffect(() => {
     dispatch(setProductDetails(serverData?.productDetailsData))
   }, [serverData])
-    console.log("🚀 ~ useEffect ~ serverData?.productDetailsData:", serverData?.productDetailsData)
+  console.log("🚀 ~ useEffect ~ serverData?.productDetailsData:", serverData?.productDetailsData)
   useEffect(() => {
     if (serverData?.productDetailsData?.productId) {
       const res = dispatch(setRecentlyViewedProduct(serverData?.productDetailsData?.productId))
@@ -74,7 +74,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
       })
     }
   }, [serverData?.productDetailsData])
-  const keyWords = serverData?.productDetailsData?.metaKeywords?.value?.split(',')?.length > 0 ? serverData?.productDetailsData?.metaKeywords?.value?.split(',') : []
+  const keyWords = serverData?.productDetailsData?.metaKeywords?.split(',')?.length > 0 ? serverData?.productDetailsData?.metaKeywords?.split(',') : []
   useEffect(() => {
     dispatch(setConfigDetails(serverData?.configDetailsForRedux));
 
@@ -98,7 +98,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
   }, [])
   return (
     <>
-          <Seo
+      <Seo
         title={serverData?.productDetailsData?.metaTitle}
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
         description={serverData?.productDetailsData?.metaDescription}
@@ -106,13 +106,13 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
         isItShopPage={true}
         configDetailsState={serverData?.configDetails}
       />
-       {isRendering && (
-          <>
-            <Skeleton
-              height={"115px"}
-              width={"100%"}
-              style={{ marginBottom: !serverData?.isMobile ? "32px" : "24px", transform: "scale(1)" }}
-            /></>)}
+      {isRendering && (
+        <>
+          <Skeleton
+            height={"115px"}
+            width={"100%"}
+            style={{ marginBottom: !serverData?.isMobile ? "32px" : "24px", transform: "scale(1)" }}
+          /></>)}
       {!isRendering && <Suspense fallback={
         <Skeleton
           height={"115px"}
@@ -127,25 +127,25 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
         <Breadcrumb arr={[{ navigate: '/category/buy', name: 'Buy' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
         <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": THEME_TYPE == '1' })}>
 
-          {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails}/>}
+          {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails} />}
 
           {serverData?.productDetailsData?.relatedProducts?.length > 0 && <Suspense fallback={<></>}><RelatedProduct relatedProductsList={structuredClone(serverData?.productDetailsData?.relatedProducts)} heading={serverData?.configDetails["ProductDetails_RelatedProducts_SectionTitle"]?.value} description={serverData?.configDetails["ProductDetails_RelatedProducts_SectionSubtitle"]?.value} /></Suspense>}
         </Container></>) : <Suspense fallback={<></>}><PageNotFound /></Suspense>}
-        <RenderOnViewportEntry
-          rootMargin="200px"
-          threshold={0.25}
-          minHeight={800}
-        >
-          <LazyBullionmarkFooter />
-        </RenderOnViewportEntry>
+      <RenderOnViewportEntry
+        rootMargin="200px"
+        threshold={0.25}
+        minHeight={800}
+      >
+        <LazyBullionmarkFooter />
+      </RenderOnViewportEntry>
     </>
-      )
+  )
 }
 
 export default ProductDetail
 
 export async function getServerData(context: {
-  headers: any,params: any; 
+  headers: any, params: any;
 }) {
   try {
     const { params } = context;
@@ -166,7 +166,7 @@ export async function getServerData(context: {
 
     return {
       props: {
-        configDetails:configDetails?.reduce((acc: any, curr: any) => {
+        configDetails: configDetails?.reduce((acc: any, curr: any) => {
           acc[curr.key] = curr
           return acc
         }, {}),
