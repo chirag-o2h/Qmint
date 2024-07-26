@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/hooks';
 import { Skeleton, Stack } from '@mui/material'
 import React, { Suspense, lazy, useEffect, useState, useTransition } from 'react'
-import BullionmarkFrontFooter from '../footer/BullionmarkFrontFooter';
+// import BullionmarkFrontFooter from '../footer/BullionmarkFrontFooter';
 import { useLocation } from '@reach/router';
 import { STORE_CODE, THEME_TYPE } from '@/axiosfolder';
 import useAPIoneTime from '@/hooks/useAPIoneTime';
@@ -9,10 +9,10 @@ import { configDetails } from '@/redux/reducers/homepageReducer';
 import { ENDPOINTS } from '@/utils/constants';
 
 // import FrontHeader from '../header/FrontHeader';
-import LazyFrontHeader from "../header/FrontHeader"
+// import LazyFrontHeader from "../header/FrontHeader"
 import RenderOnViewportEntry from './RenderOnViewportEntry';
-// const BullionmarkFrontFooter = lazy(() => import('../footer/BullionmarkFrontFooter'));
-// const LazyFrontHeader = lazy(() => import("../header/FrontHeader"));
+const BullionmarkFrontFooter = lazy(() => import('../footer/BullionmarkFrontFooter'));
+const LazyFrontHeader = lazy(() => import("../header/FrontHeader"));
 const LazyFrontFooter = lazy(() => import('../footer/FrontFooter'));
 
 interface MainLayout {
@@ -33,16 +33,15 @@ const MainLayout = (props: MainLayout) => {
             document.head.appendChild(link);
         }
     }, [configDetailsState])
-    BullionmarkFrontFooter
     const location = useLocation();
     const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
-    useEffect(() => {
+    // useEffect(() => {
 
-        if ( process.env.THEME_TYPE== "1") {
-            setIsBullionmarkHomePage(true)
-        }
-    }, [process.env.THEME_TYPE])
+    //     if ( process.env.THEME_TYPE== "1") {
+    //         setIsBullionmarkHomePage(true)
+    //     }
+    // }, [process.env.THEME_TYPE])
     const [isRendering, setIsRendering] = useState(true);
     const [isPending, startTransition] = useTransition();
     useEffect(() => {
@@ -86,7 +85,9 @@ const MainLayout = (props: MainLayout) => {
                 minHeight={800}
             >
 
-                {isBullionmarkHomePage ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
+                {/* {process.env.THEME_TYPE== "1"?  */}
+                <BullionmarkFrontFooter /> 
+                {/* : <LazyFrontFooter />} */}
             </RenderOnViewportEntry>
         </Stack>
     )
