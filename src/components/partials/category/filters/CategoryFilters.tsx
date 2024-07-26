@@ -8,13 +8,13 @@ import { useAppSelector } from "@/hooks"
 import { getlastPartOfPath } from "@/utils/common"
 import { useLocation } from "@reach/router"
 
-function CategoryFilters({ isPriceChanged, setIsPriceChanged,categoryData:categoryDataFromServer }: { isPriceChanged: boolean, setIsPriceChanged: any,categoryData:any }) {
+function CategoryFilters({ isPriceChanged, setIsPriceChanged, categoryData: categoryDataFromServer, isSmallScreen }: { isPriceChanged: boolean, setIsPriceChanged: any, categoryData: any, isSmallScreen: boolean }) {
   const location = useLocation()
-  const isSmallScreen: boolean = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const pagesSelectedFilters = useAppSelector(state => state.category.pageSelectedFilters)
   const categoryData = useAppSelector(state => state.category)
-  const currentCategoryData = useMemo(()=>{
-    return (!!(categoryData?.items?.length) ? categoryData : categoryDataFromServer)},[categoryData,categoryDataFromServer])
+  const currentCategoryData = useMemo(() => {
+    return (!!(categoryData?.items?.length) ? categoryData : categoryDataFromServer)
+  }, [categoryData, categoryDataFromServer])
   const renderList = useCallback((data: any) => {
     return (
       <>

@@ -8,6 +8,7 @@ import RenderCheckboxField from './RenderCheckboxField'
 import { setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice } from '@/redux/reducers/categoryReducer'
 import { getlastPartOfPath } from '@/utils/common'
 import { categoryData } from '@/types/categoryData'
+import { useLocation } from '@reach/router'
 
 interface props {
     renderList: (data: any) => any
@@ -20,6 +21,7 @@ interface props {
 
 const SmallScreenFilters = ({ renderList, setIsPriceChanged, pagesSelectedFilters, categoryData }: props) => {
     // const categoryData = useAppSelector(state => state.category)
+    const location = useLocation()
     const dispatch = useAppDispatch()
     const [openFilterBy, toggleFilterBy] = useToggle(false)
     const [tabValue, setTabValue] = useState<number>(0)

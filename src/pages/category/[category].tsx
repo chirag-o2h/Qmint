@@ -24,6 +24,7 @@ import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 const BullionmarkHeader = lazy(() => import("@/components/header/BullionmarkHeader"));
 const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
+import useragent from 'express-useragent';
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -48,9 +49,10 @@ interface ServerDataProps {
     price: any;
     specifications: any;
     configDetails: any;
-    configDetailsForRedux:any;
-    categoryData:any;
-    configDetail:any
+    configDetailsForRedux: any;
+    categoryData: any;
+    configDetail: any;
+    isMobile:boolean
 }
 
 interface Props {
@@ -61,7 +63,7 @@ function Category({ serverData, props }: Props) {
     const { isLoggedIn } = useAppSelector((state) => state.homePage)
     const location = useLocation();
     const searchParams = useMemo(() => new URLSearchParams(location?.search), [location]);
-    const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
+    const isSmallScreen = serverData?.isMobile
     const [page, setPage] = useState(searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1);
     const dispatch = useAppDispatch();
 
@@ -182,8 +184,8 @@ function Category({ serverData, props }: Props) {
         }, 0);
     }, [isLoggedIn]);
     useEffect(() => {
-    dispatch(setConfigDetails(serverData?.configDetailsForRedux));
-    console.log("🚀 ~ useEffect ~ serverData?.configDetailsForRedux:", serverData?.configDetailsForRedux)
+        dispatch(setConfigDetails(serverData?.configDetailsForRedux));
+        console.log("🚀 ~ useEffect ~ serverData?.configDetailsForRedux:", serverData?.configDetailsForRedux)
         if (serverData?.configDetail?.Store_FaviconURL?.value) {
             const faviconUrl = serverData?.configDetail?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
             // Update favicon dynamically
@@ -204,7 +206,7 @@ function Category({ serverData, props }: Props) {
             setTimeout(() => setIsRendering(false), 3500);
         });
     }, [])
-    console.log(serverData?.categoryData,"serverData?.categoryData")
+    console.log(serverData?.categoryData, "serverData?.categoryData")
     return (
         <>
             {isRendering && (
@@ -234,12 +236,12 @@ function Category({ serverData, props }: Props) {
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
                         <SortBy />
-                        <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData}/>
+                        <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData} isSmallScreen={isSmallScreen}/>
                     </Stack>
                 ) : null}
                 <Stack className="MainContent">
-                    {!isSmallScreen ? <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData}/> : null}
-                    <ProductList page={page} setPage={setPage} categoryData={serverData?.categoryData}/>
+                    {!isSmallScreen ? <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData} isSmallScreen={isSmallScreen}/> : null}
+                    <ProductList page={page} setPage={setPage} categoryData={serverData?.categoryData} />
                 </Stack>
             </Container>
             <RenderOnViewportEntry
@@ -254,8 +256,10 @@ function Category({ serverData, props }: Props) {
 }
 
 export default Category
-export async function getServerData(context: { params: any, query: any }) {
+export async function getServerData(context: { params: any, query: any, headers: any }) {
     try {
+        const ua = useragent.parse(context.headers.get('user-agent'));
+        const isMobile = ua.isMobile ? true : false;
         const { params, query } = context;
         const { keyword } = query;
         const { 'category': category } = params;
@@ -306,6 +310,7 @@ export async function getServerData(context: { params: any, query: any }) {
         categoryData.categories = filtersData.categories
         return {
             props: {
+                isMobile,
                 configDetails: configDetails?.reduce((acc: any, curr: any) => {
                     acc[curr.key] = curr
                     return acc
