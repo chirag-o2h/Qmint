@@ -96,7 +96,7 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
     setLoadingForNavigate(false)
   }
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
-  if (isBrowser) {
+  useEffect(() => {
     window.handleLinkClick = async () => {
       setLoadingForNavigate(true)
       const email = getValues('email');
@@ -108,7 +108,21 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
         severity: 'success'
       })
     };
-  }
+  }, [])
+  
+  // if (isBrowser) {
+  //   window.handleLinkClick = async () => {
+  //     setLoadingForNavigate(true)
+  //     const email = getValues('email');
+  //     const response = await ConfigServices.sendVerificationEmailAPI(ENDPOINTS.sendVerificationEmail.replace('useEmail', email));
+  //     setLoadingForNavigate(false)
+  //     setLoginError(null)
+  //     showToaster({
+  //       message: response.data.message,
+  //       severity: 'success'
+  //     })
+  //   };
+  // }
   const handleEnterKeyPress = (e: any) => {
     if (e.key === 'Enter') {
       handleSubmit(onSubmit)()
@@ -149,7 +163,7 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
       />
       {openToaster && <Toaster />}
       {checkLoadingStatus || loadingForNavigate && <Loader open={checkLoadingStatus || loadingForNavigate} />}
-      {THEME_TYPE == '1' ? (
+      {process.env.THEME_TYPE == '1' ? (
         <MainLayout blackTheme>
           <Stack id="BmkSignInPage">
             <Box className="LeftPart">
