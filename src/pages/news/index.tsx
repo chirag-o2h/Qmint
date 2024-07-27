@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Box,
   Grid,
@@ -33,6 +33,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import useDebounce from "@/hooks/useDebounce";
 import { navigate } from "gatsby";
 import Loader from "@/components/common/Loader";
+import axiosInstance from "@/axiosfolder";
 
 export const bodyData = {
   "search": "",
@@ -45,18 +46,28 @@ export const bodyData = {
   }
 }
 
-function News() {
+function News({ serverData }: any) {
+  const configDetailsState = serverData?.configDetails
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
-  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-  const { newsList, topThree }: any = useAppSelector((state) => state.newsPage)
+  // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
+  const { newsList: newsListFromTheRedux, topThree: topThreeFromTheRedux }: any = useAppSelector((state) => state.newsPage)
   const [value, setValue] = React.useState<any>('all');
   const [searchValue, setSearchValue] = useState<string>('')
 
-  const [body, setbody] = useState<any>(bodyData)
+  const [body, setbody] = useState<any>()
   const debounce = useDebounce(body, 500)
 
-
-  useAPIoneTime({ service: NewsList, endPoint: ENDPOINTS.BlogList, body: debounce })
+  let newsList = serverData?.newsList
+  let topThree = serverData?.newsList?.items.slice(0, 3)
+  newsList = Object.keys(body ?? {}).length > 0 ? newsListFromTheRedux : newsList
+  topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length ? topThreeFromTheRedux : topThree
+  const conditionalCall = useMemo(() => {
+    return Object.keys(debounce ?? {}).length > 0
+  }, [debounce])
+  useAPIoneTime({
+    service: NewsList, endPoint: ENDPOINTS.NewsList, body: debounce, conditionalCall: conditionalCall,
+    needLoadingorNot: false
+  })
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue as any)
@@ -90,7 +101,7 @@ function News() {
                 {topThree?.[1] ? <PostCard isNews={true} details={topThree?.[1]} navigate={() => navigate(`/news/${topThree?.[1]?.friendlyName}`)} /> : null}
                 {topThree?.[2] ? <PostCard isNews={true} details={topThree?.[2]} navigate={() => navigate(`/news/${topThree?.[2]?.friendlyName}`)} /> : null}
               </Stack>
-            </Box> : <Box className="PostWrapper" sx={{justifyContent:"center"}}><RecordNotFound message="No news to show" isTextAlignCenter={true} /></Box>
+            </Box> : <Box className="PostWrapper" sx={{ justifyContent: "center" }}><RecordNotFound message="No news to show" isTextAlignCenter={true} /></Box>
             }
           </Container>
         </Box>
@@ -173,3 +184,41 @@ function News() {
 }
 
 export default News;
+export async function getServerData(context: any) {
+  try {
+    console.log("before fatching ", Date.now())
+    const [
+      configDetailsResponse,
+      newsListResponse,
+    ] = await Promise.all([
+      axiosInstance.get(ENDPOINTS.getConfigStore),
+      axiosInstance.post(ENDPOINTS.NewsList, bodyData),
+    ]);
+    console.log("after fatching ", Date.now())
+    const configDetails = configDetailsResponse?.data?.data;
+    const newsList = newsListResponse?.data?.data;
+    console.log("🚀 ~ getServerData ~ blogList:", newsListResponse)
+
+    return {
+      props: {
+        configDetails: configDetails?.reduce((acc: any, curr: any) => {
+          acc[curr.key] = curr
+          return acc
+        }, {}),
+        configDetailsForRedux: configDetails,
+        newsList,
+        keywords: configDetails?.reduce((acc: any, curr: any) => {
+          acc[curr.key] = curr;
+          return acc;
+        }, {})?.Store_ShopPage_Meta_Keywords?.value?.split(",") || [],
+      },
+    };
+  } catch (error) {
+    console.log("🚀 ~ getServerData ~ error:", error)
+    return {
+      status: 500,
+      headers: {},
+      props: {}
+    }
+  }
+}
