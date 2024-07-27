@@ -82,10 +82,10 @@ function NewsDetails({serverData,params}:{serverData:IserverData,params:any}) {
   return (
     <>
     <Seo
-    keywords={['Travel', 'Qmit', 'gold', 'metal',...(serverData?.keywords || [])]}
+    keywords={['Travel', 'Qmit', 'gold', 'metal',...(serverData?.newsDetailsData?.metaKeywords?.split(',') || serverData?.keywords || [])]}
     title={serverData?.newsDetailsData?.metaTitle}
     lang="en"
-    description={serverData?.configDetails?.Store_Meta_Description?.value}
+    description={serverData?.newsDetailsData?.metaDescription || serverData?.configDetails?.Store_Meta_Description?.value}
     configDetailsState={serverData?.configDetails}
   />
     <MainLayout blackTheme>

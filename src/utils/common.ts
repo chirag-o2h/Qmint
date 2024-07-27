@@ -276,3 +276,4 @@ export function getCommonShippingMethods(products: any): number[] {
 
   return commonMethods;
 }
+export const DEFAULT_VALUE_FOR_SHIPPING_METHOD = 5

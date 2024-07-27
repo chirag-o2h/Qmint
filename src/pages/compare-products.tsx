@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useTransition, useState } from "react";
 import Seo from "../components/common/Seo";
 import Layout from "@/components/common/Layout";
 import {
@@ -9,7 +9,7 @@ import { Delete1Icon } from '@/assets/icons';
 import { PageTitle } from "@/components/common/Utils";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Link } from "gatsby";
-import { clearCompareList, compareProducts, getCompareProducts, removeProductFromCompare } from "@/redux/reducers/compareProductsReducer";
+import { clearCompareList, getCompareProducts, removeProductFromCompare } from "@/redux/reducers/compareProductsReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import noImage from '../assets/images/noImage.png'
 import useShowToaster from "@/hooks/useShowToaster";
@@ -37,6 +37,14 @@ function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) 
         dispatch(removeProductFromCompare(id))
         showToaster({ message: "Product removed from compare list", severity: 'success' })
     }
+    const [isClient, setIsClient] = useState(false);
+    const [isPending, startTransition] = useTransition();
+    useEffect(() => {
+      startTransition(() => {
+        // Simulating initial data fetch
+        setTimeout(() => setIsClient(true), 500);
+      });
+    }, [])
     return (
         <>
             <Seo keywords={[`Compare-product`, ...(serverData?.keywords || [])]}  lang="en" configDetailsState={serverData?.configDetails} />

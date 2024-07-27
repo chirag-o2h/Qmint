@@ -428,7 +428,6 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
       url: ENDPOINTS.regisrationRecoveryLog.replace('{{previousPath}}', fullUrl)
     }));
   }, []);
-
   return (
     <>
       <Seo

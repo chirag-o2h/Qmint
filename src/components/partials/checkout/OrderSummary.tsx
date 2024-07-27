@@ -12,7 +12,7 @@ import { productImages } from "@/utils/data"
 import { CartCardAbstract } from "@/components/common/Card"
 import { OutlinedCheckIcon } from "@/assets/icons"
 import OTPConfirmation from "./OTPConfirmation"
-import { calculatePrice, checkThePopUpDetails, hasFulfilled, paymentMethodType, roundOfThePrice, shipmentNameEnum, shipmentTypeToEnum } from "@/utils/common"
+import { calculatePrice, checkThePopUpDetails, DEFAULT_VALUE_FOR_SHIPPING_METHOD, hasFulfilled, paymentMethodType, roundOfThePrice, shipmentNameEnum, shipmentTypeToEnum } from "@/utils/common"
 import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { checkValidationOnConfirmOrder, disableOTP, getCraditCardCharges, getInsuranceAndTaxDetailsCalculation, placeOrder, setCheckoutItemWarning } from "@/redux/reducers/checkoutReducer"
 import { ENDPOINTS } from "@/utils/constants"
@@ -150,7 +150,7 @@ function OrderSummary() {
           })
         }),
         "PaymentMethod": paymentMethodEnum[finalDataForTheCheckout?.paymentType],
-        "ShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod ? 4 : shipmentTypeToEnum[finalDataForTheCheckout?.parentDeliveryMethod || 'SecureShipping'],
+        "ShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod ? DEFAULT_VALUE_FOR_SHIPPING_METHOD : shipmentTypeToEnum[finalDataForTheCheckout?.parentDeliveryMethod || 'SecureShipping'],
         "IsDifferentShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod,
         "IsUsedRewardPoints": false,
         "AgentId": localAgentDetails?.agentId ?? null,

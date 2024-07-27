@@ -117,7 +117,7 @@ function Layout(props: any) {
       <RenderOnViewportEntry
         rootMargin="200px"
         threshold={0.25}
-        minHeight={800}
+        minHeight={850}
       >
         {/* {THEME_TYPE === "1" ?  */}
         <LazyBullionmarkFooter /> 
