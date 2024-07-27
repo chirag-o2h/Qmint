@@ -11,8 +11,9 @@ interface SiteMapData {
   [groupTitle: string]: SiteMapItem[];
 }
 function SitemapList(props: any) {
-  const { handlePageChange } = props
-  const { siteMapData } = useAppSelector(state => state.homePage)
+  const { handlePageChange, siteMapDataFromServer } = props
+  const { siteMapData : siteMapDataFromRedux} = useAppSelector(state => state.homePage)
+  const siteMapData = siteMapDataFromRedux || siteMapDataFromServer
   const renderTitleWithList = (title: string, list: any[]) => {
     return (
       <Box className="TitleWithList" key={title}>

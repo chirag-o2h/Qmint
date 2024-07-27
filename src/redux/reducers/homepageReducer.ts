@@ -412,6 +412,9 @@ export const createHomepageSlice = createSlice({
     },
     setBmkShopPageSections:(state, action)=>{
       state.bmkShopPageSections = action.payload
+    },
+    setSiteMapData:(state,action)=>{
+      state.siteMapData = action.payload
     }
   },
 
@@ -645,6 +648,6 @@ export const createHomepageSlice = createSlice({
   },
 })
 
-export const { setCategoryListEmpty, resetWholeHomePageData, setLoadingTrue, setLoadingFalse, setRecentlyViewedProduct, setToasterState, setScrollPosition, serProgressLoaderStatus, setPopUpDetails, setMainHomePageData, setConfigDetails,setBmkShopPageSections } = createHomepageSlice.actions
+export const { setCategoryListEmpty, resetWholeHomePageData, setLoadingTrue, setLoadingFalse, setRecentlyViewedProduct, setToasterState, setScrollPosition, serProgressLoaderStatus, setPopUpDetails, setMainHomePageData, setConfigDetails,setBmkShopPageSections, setSiteMapData } = createHomepageSlice.actions
 
 export default createHomepageSlice.reducer
