@@ -14,8 +14,10 @@ import { useAppSelector } from "@/hooks"
 import { getLastPage } from "@/utils/common"
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import Seo from "@/components/common/Seo"
 
-function Confirmation(props: any) {
+function Confirmation({serverData }: { serverData: IconfigDataFromServer}) {
   const [loading, setLoading] = useState(false)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
@@ -37,6 +39,12 @@ function Confirmation(props: any) {
     }
   }
   return (
+    <>
+    <Seo
+    lang="en"
+    keywords={[`Confirmation Page`, ...(serverData?.keywords || [])]}
+    configDetailsState={serverData?.configDetails}
+  />
     <MainLayout blackTheme>
       {openToaster && <Toaster />}
       {loading && <Loader open={loading} />}
@@ -51,7 +59,10 @@ function Confirmation(props: any) {
         </Box>
       </Container>
     </MainLayout>
+    </>
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData();
+};
 export default Confirmation
