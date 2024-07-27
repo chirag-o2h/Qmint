@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Seo from "../components/common/Seo"
 import Layout from "@/components/common/Layout";
 import { Box, Container, Typography, Stack, Icon, Link } from "@mui/material"
@@ -22,11 +22,13 @@ import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
 function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
-  const configDetails = useAppSelector(state => state.homePage.configDetails)
   // console.log("🚀 ~ ContactUs ~ configDetails:", configDetails)
   useAPIoneTime({ service: getReasonsForContactUs, endPoint: ENDPOINTS.reasonsForContact })
   useAPIoneTime({ service: getConfiguration, endPoint: ENDPOINTS.getContactUsConfiguration })
-
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   return (
     <>
       <Seo
@@ -48,15 +50,15 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
                   <Icon className='OriginalIcon'><AddressIcon /></Icon>
                 </Box>
                 <Typography variant="h4" component="h2" className="Title">Address</Typography>
-                <Typography variant="body1" className="AddressDesription">{configDetails?.Store_Address?.value}</Typography>
+                <Typography variant="body1" className="AddressDesription">{serverData?.configDetails?.Store_Address?.value}</Typography>
               </Box>
               <Box className="CallUsWrapper ContactCard">
                 <Box className="IconWrapper" sx={{ backgroundColor: "primary.main" }}>
                   <Icon className='OriginalIcon'><Calling /></Icon>
                 </Box>
                 <Typography variant="h4" component="h2" className="Title">Call us</Typography>
-                <Link href={`tel:${configDetails?.["StorePhoneNumber_International"]?.value}`} variant="body1" className="CallUsNumber">International: {configDetails?.["StorePhoneNumber_International"]?.value}</Link>
-                <Link href={`tel:${configDetails?.["StorePhoneNumber_AU"]?.value}`} variant="body1" className="CallUsNumber">Australia: {configDetails?.["StorePhoneNumber_AU"]?.value}</Link>
+                <Link href={`tel:${serverData?.configDetails?.["StorePhoneNumber_International"]?.value}`} variant="body1" className="CallUsNumber">International: {serverData?.configDetails?.["StorePhoneNumber_International"]?.value}</Link>
+                <Link href={`tel:${serverData?.configDetails?.["StorePhoneNumber_AU"]?.value}`} variant="body1" className="CallUsNumber">Australia: {serverData?.configDetails?.["StorePhoneNumber_AU"]?.value}</Link>
               </Box>
               {/* <Box className="EmailWrapper ContactCard">
               <Box className="IconWrapper" sx={{backgroundColor: "primary.main"}}>
@@ -68,9 +70,9 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
             </Stack>
             <Box className="GetInTouchWrapper">
               {/* <ContactUsForm /> */}
-              <Map />
+              {isClient && <Map />}
             </Box>
-            <SocialNetwork />
+            {isClient && <SocialNetwork />}
           </Container>
         </Box>
       </MainLayout>
