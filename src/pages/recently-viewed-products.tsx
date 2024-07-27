@@ -78,7 +78,7 @@ function RecentlyViewedProducts({ serverData}: { serverData: IconfigDataFromServ
   )
 }
 export const getServerData = async (context: any) => {
-  return await getConfigData();
+  return await getConfigData(context);
 };
 
 export default RecentlyViewedProducts

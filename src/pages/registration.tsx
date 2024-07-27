@@ -126,7 +126,8 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
 };
 
 function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
-  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
+  const configDetailsState = serverData?.configDetails || {}
+  // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const loading = useAppSelector(state => state.auth.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const dispatch = useAppDispatch();
@@ -150,7 +151,7 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [headerHeight, setHeaderHeight] = useState<number>(0);
   const [sliderImageHeight, setSliderImageHeight] = useState<number>(0);
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+  const isMobile = serverData?.isMobile //useMediaQuery((theme: any) => theme.breakpoints.down('md'))
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: isMobile ? 68 : 50,
@@ -763,7 +764,7 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
   )
 }
 export const getServerData = async (context: any) => {
-  return await getConfigData();
+  return await getConfigData(context);
 };
 
 export default Registration

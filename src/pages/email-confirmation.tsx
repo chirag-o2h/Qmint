@@ -83,6 +83,6 @@ function EmailConfirmation({ params, serverData }: { serverData: IconfigDataFrom
   )
 }
 export const getServerData = async (context: any) => {
-  return await getConfigData();
+  return await getConfigData(context);
 };
 export default EmailConfirmation

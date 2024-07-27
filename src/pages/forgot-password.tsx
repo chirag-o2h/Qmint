@@ -142,6 +142,6 @@ function ForgotPassword({ params, serverData }: { serverData: IconfigDataFromSer
   )
 }
 export const getServerData = async (context: any) => {
-  return await getConfigData();
+  return await getConfigData(context);
 };
 export default ForgotPassword

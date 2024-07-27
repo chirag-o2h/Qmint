@@ -583,6 +583,6 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
     )
 }
 export const getServerData = async (context: any) => {
-    return await getConfigData();
+    return await getConfigData(context);
 };
 export default privateHoldingAdd

@@ -4,9 +4,13 @@ export interface IconfigDataFromServer{
   configDetails:any
   configDetailsForRedux: any
   keywords:any[]
+  isMobile:boolean
 }
-export async function getConfigData() {
+import useragent from 'express-useragent';
+export async function getConfigData(context:any) {
   try {
+    const ua = useragent.parse(context.headers.get('user-agent'));
+    const isMobile = ua.isMobile ? true : false;
     console.log("Fetching config data", Date.now());
     const response = await axiosInstance.get(ENDPOINTS.getConfigStore);
     const configDetails = response.data.data;
@@ -19,6 +23,7 @@ export async function getConfigData() {
         configDetails: modifiedConfigDetails,
         keywords: modifiedConfigDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || [],
         configDetailsForRedux: configDetails,
+        isMobile
       },
     };
   } catch (error) {

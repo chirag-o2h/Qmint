@@ -103,6 +103,6 @@ function privateHolding({ serverData }: { serverData: IconfigDataFromServer }) {
     )
 }
 export const getServerData = async (context: any) => {
-    return await getConfigData();
+    return await getConfigData(context);
 };
 export default privateHolding

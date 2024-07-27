@@ -247,7 +247,7 @@ function orderDetails({ location, serverData }: { location: any, serverData: Ico
     )
 }
 export const getServerData = async (context: any) => {
-    return await getConfigData();
+    return await getConfigData(context);
 };
 
 export default orderDetails

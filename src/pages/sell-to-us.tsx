@@ -34,6 +34,6 @@ function Topics({ serverData, params }: { serverData: IconfigDataFromServer, par
   )
 }
 export const getServerData = async (context: any) => {
-  return await getConfigData();
+  return await getConfigData(context);
 };
 export default Topics

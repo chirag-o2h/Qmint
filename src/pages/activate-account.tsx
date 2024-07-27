@@ -87,6 +87,6 @@ function ActivateAccount({ params, serverData }: { serverData: IconfigDataFromSe
   )
 }
 export const getServerData = async (context: any) => {
-  return await getConfigData();
+  return await getConfigData(context);
 };
 export default ActivateAccount
