@@ -8,7 +8,7 @@ import { THEME_TYPE } from "@/axiosfolder";
 // Components
 import LazyHeader from "../header/index";
 // import BullionmarkHeader from "../header/BullionmarkHeader";
-const BullionmarkHeader =lazy(()=>import("../header/BullionmarkHeader"))
+const BullionmarkHeader = lazy(() => import("../header/BullionmarkHeader"))
 import {
   bodyForGetShoppingCartData,
   convertMinutesToMilliseconds,
@@ -28,9 +28,11 @@ import RenderOnViewportEntry from "./RenderOnViewportEntry";
 import { useLocation } from "@reach/router";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
-function Layout(props: any) {
+function Layout(props: {
+  children: any, isItMainPage?: boolean, renderAfterSomeTime: boolean
+}) {
+  const { children, isItMainPage = false, renderAfterSomeTime = false } = props
   const location = useLocation()
-  const { children, isItMainPage = false } = props
   const removeMinHeight = useUnloadMinHeight()
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
@@ -114,15 +116,26 @@ function Layout(props: any) {
       }>
         {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </Suspense>} */}
-      <RenderOnViewportEntry
+      {renderAfterSomeTime && !isRendering && <RenderOnViewportEntry
         rootMargin="200px"
         threshold={0.25}
         minHeight={850}
       >
         {/* {THEME_TYPE === "1" ?  */}
-        <LazyBullionmarkFooter /> 
+        <LazyBullionmarkFooter />
+        {/* // : <LazyFooter />} */}
+      </RenderOnViewportEntry>}
+      {!renderAfterSomeTime &&
+        <RenderOnViewportEntry
+        rootMargin="200px"
+        threshold={0.25}
+        minHeight={850}
+      >
+        {/* {THEME_TYPE === "1" ?  */}
+        <LazyBullionmarkFooter />
         {/* // : <LazyFooter />} */}
       </RenderOnViewportEntry>
+      }
       {openSessionExpireDialog && (
         <Suspense fallback={<></>}>
           <SessionExpiredDialog

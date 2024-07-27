@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Box, Container } from "@mui/material"
 
 // Componenets
@@ -16,10 +16,11 @@ import Loader from "@/components/common/Loader"
 import Toaster from "@/components/common/Toaster"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 
-function RecentlyViewedProducts({ serverData}: { serverData: IconfigDataFromServer}) {
+function RecentlyViewedProducts({ serverData }: { serverData: IconfigDataFromServer }) {
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const { recentlyViewedProducts } = useAppSelector((state) => state.homePage)
+  console.log("🚀 ~ RecentlyViewedProducts ~ recentlyViewedProducts:", recentlyViewedProducts && recentlyViewedProducts?.length == 0)
   const [productIds, setProductId] = useState<any>(recentlyViewedProducts)
   const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
   const [dataWithId, setdataWithId] = useState<any>({})
@@ -27,8 +28,8 @@ function RecentlyViewedProducts({ serverData}: { serverData: IconfigDataFromServ
     setProductId({ productIds: recentlyViewedProducts })
   }, [recentlyViewedProducts])
 
-  const { data }: any = useApiRequest(ENDPOINTS.recentlyViewdProducts, 'post', productIds);
-  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60);
+  const { data }: any = useApiRequest(ENDPOINTS.recentlyViewdProducts, 'post', productIds, null, productIds?.length > 0);
+  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, 60, productIds?.length > 0);
 
   useEffect(() => {
     if (data?.data?.length > 0) {
@@ -47,33 +48,35 @@ function RecentlyViewedProducts({ serverData}: { serverData: IconfigDataFromServ
       setPriceForEachId(idwithpriceObj)
     }
   }, [priceData])
-
+const condition = useMemo(()=>{
+return recentlyViewedProducts && recentlyViewedProducts.length === 0
+},[recentlyViewedProducts])
   return (
     <>
-    <Seo
-    lang="en"
-    keywords={[`registration`, ...(serverData?.keywords || [])]}
-    configDetailsState={serverData?.configDetails}
-  />
-    <Layout>
-      {openToaster && <Toaster />}
-      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+      <Seo
+        lang="en"
+        keywords={[`recently-viewed-products`, ...(serverData?.keywords || [])]}
+        configDetailsState={serverData?.configDetails}
+      />
+      <Layout renderAfterSomeTime={condition}>
+        {openToaster && <Toaster />}
+        {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
 
-      <PageTitle title="Recently viewed products" />
-      <Container id="PageRecentlyViewedProducts">
-        <Box className="ProductList">
-          {data?.data?.length > 0 && Object.keys(dataWithId)?.length > 0 && recentlyViewedProducts &&
-            recentlyViewedProducts.map((productId: any) => {
-              const product = dataWithId[productId]
-              product.priceWithDetails = priceForEachId ? priceForEachId[productId] : null;
-              return (
-                <ProductCard key={product.productId} product={product} />
-              )
-            })}
-        </Box>
-        {recentlyViewedProducts && recentlyViewedProducts.length === 0 && <RecordNotFound />}
-      </Container>
-    </Layout>
+        <PageTitle title="Recently viewed products" />
+        <Container id="PageRecentlyViewedProducts">
+          <Box className="ProductList">
+            {data?.data?.length > 0 && Object.keys(dataWithId)?.length > 0 && recentlyViewedProducts &&
+              recentlyViewedProducts.map((productId: any) => {
+                const product = dataWithId[productId]
+                product.priceWithDetails = priceForEachId ? priceForEachId[productId] : null;
+                return (
+                  <ProductCard key={product.productId} product={product} />
+                )
+              })}
+          </Box>
+          {recentlyViewedProducts && recentlyViewedProducts.length === 0 && <RecordNotFound />}
+        </Container>
+      </Layout>
     </>
   )
 }
