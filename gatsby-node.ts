@@ -134,7 +134,7 @@ exports.createPages = async ({  actions }:any) => {
       { fromPath: '/privacy-policy', toPath: '/topic/privacy-policy' },
       { fromPath: '/terms-of-service', toPath: '/topic/terms-of-trade' },
       { fromPath: '/delivery', toPath: '/topic/delivery' },
-      { fromPath: '/shipping-calculator', toPath: '/shipping-calculator/' },
+    //   { fromPath: '/shipping-calculator', toPath: '/shipping-calculator/' },
       { fromPath: '/vault-storage-calculator', toPath: '/vault-calculator/' },
     ];
   
