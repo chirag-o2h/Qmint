@@ -126,7 +126,6 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
 };
 
 function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
-  const configDetailsState = serverData?.configDetails || {}
   // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const loading = useAppSelector(state => state.auth.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
@@ -385,17 +384,23 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
       })
     }
   }
-  const [validImageUrls, setValidImageUrls] = useState<any[]>([]);
+  const [validImageUrls, setValidImageUrls] = useState<any[]>([
+    serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_one?.value,
+    serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_two?.value,
+    serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_three?.value,
+    serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_four?.value,
+    serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_five?.value,
+  ]);
 
   useEffect(() => {
     const fetchValidUrls = async () => {
       // if want to any new pic then update here 
       const imageUrls = [
-        configDetailsState?.Registrationpage_Bottom_Leftside_pic_one?.value,
-        configDetailsState?.Registrationpage_Bottom_Leftside_pic_two?.value,
-        configDetailsState?.Registrationpage_Bottom_Leftside_pic_three?.value,
-        configDetailsState?.Registrationpage_Bottom_Leftside_pic_four?.value,
-        configDetailsState?.Registrationpage_Bottom_Leftside_pic_five?.value,
+        serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_one?.value,
+        serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_two?.value,
+        serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_three?.value,
+        serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_four?.value,
+        serverData?.configDetails?.Registrationpage_Bottom_Leftside_pic_five?.value,
       ];
 
       const validUrls: any[] = [];
@@ -411,7 +416,7 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
     };
 
     fetchValidUrls();
-  }, [configDetailsState]);
+  }, [serverData?.configDetails]);
 
   useEffect(() => {
     // setHeaderHeight(document.querySelector("#HeaderWrapper")?.clientHeight ?? 130)
@@ -442,9 +447,9 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
         <Stack id="RegistrationPage">
           <Stack className="LeftPart">
             <Box className="StickyWrapper" sx={{ top: !isMobile ? headerHeight : null }}>
-              <Stack className="ContentWrapper" sx={{ backgroundImage: `url(${configDetailsState?.Registrationpage_Top_Leftside_pic?.value})`, minHeight: !isMobile ? topImageMinHeight : null }}>
+              <Stack className="ContentWrapper" sx={{ backgroundImage: `url(${serverData?.configDetails?.Registrationpage_Top_Leftside_pic?.value})`, minHeight: !isMobile ? topImageMinHeight : null }}>
                 <Box dangerouslySetInnerHTML={{
-                  __html: configDetailsState?.Registrationpage_Top_Leftside_pic_Text?.value
+                  __html: serverData?.configDetails?.Registrationpage_Top_Leftside_pic_Text?.value
                 }}></Box>
               </Stack>
               <Box className="SliderWrapper">
@@ -467,8 +472,8 @@ function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
           <Box className="RightPart">
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <Box className="Header">
-                <Typography className="Title" variant="h4" component="p">{configDetailsState?.Registrationpage_Title?.value}</Typography>
-                <Typography className="Description" variant="body2">{configDetailsState?.Registrationpage_Subtitle?.value}</Typography>
+                <Typography className="Title" variant="h4" component="p">{serverData?.configDetails?.Registrationpage_Title?.value}</Typography>
+                <Typography className="Description" variant="body2">{serverData?.configDetails?.Registrationpage_Subtitle?.value}</Typography>
               </Box>
               <Stack className="AllFields">
                 <Stack className="Column">
