@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import Seo from "../components/common/Seo"
 import { Box, Container, Stack, Typography } from "@mui/material"
 import Layout from "@/components/common/Layout";
@@ -6,7 +6,8 @@ import Layout from "@/components/common/Layout";
 import { PageTitle } from "@/components/common/Utils"
 
 import MetalForm from '@/components/partials/calculator/MetalForm';
-import CalculatorCards from '@/components/partials/calculator/CalculatorCards';
+// import CalculatorCards from '@/components/partials/calculator/CalculatorCards';
+const CalculatorCards = lazy(()=>import('@/components/partials/calculator/CalculatorCards'))
 // import TotalPageFooter from '@/components/partials/calculator/TotalPageFooter';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { resetCalculatorData, saveCalculatorsData } from '@/redux/reducers/calculatorsReducer';
@@ -36,7 +37,7 @@ function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
         <>
             <Seo
                 lang="en"
-                keywords={[`sitemap`, ...(serverData?.keywords || [])]}
+                keywords={[`shipping-calculator`, ...(serverData?.keywords || [])]}
                 configDetailsState={serverData?.configDetails}
             />
             <Layout>
@@ -48,7 +49,7 @@ function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
                     <Container>
                         <Box className='CalculatorPageContent'>
                             <MetalForm CalculatorType={0} />
-                            <CalculatorCards />
+                            <Suspense fallback={<div>....</div>}><CalculatorCards /></Suspense>
                             {/* <TotalPageFooter /> */}
                             <Box className="TotalWrapper TotalValueWrapper">
                                 <Stack

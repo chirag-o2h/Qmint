@@ -74,7 +74,7 @@ function Layout(props: any) {
   useEffect(() => {
     startTransition(() => {
       // Simulating initial data fetch
-      setTimeout(() => setIsRendering(false), 1500);
+      setTimeout(() => setIsRendering(false), 3500);
     });
   }, [])
   return (
@@ -119,7 +119,9 @@ function Layout(props: any) {
         threshold={0.25}
         minHeight={800}
       >
-        {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
+        {/* {THEME_TYPE === "1" ?  */}
+        <LazyBullionmarkFooter /> 
+        {/* // : <LazyFooter />} */}
       </RenderOnViewportEntry>
       {openSessionExpireDialog && (
         <Suspense fallback={<></>}>
