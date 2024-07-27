@@ -47,7 +47,7 @@ const MainLayout = (props: MainLayout) => {
     useEffect(() => {
         startTransition(() => {
             // Simulating initial data fetch
-            setTimeout(() => setIsRendering(false), 500);
+            setTimeout(() => setIsRendering(false), 3500);
         });
     }, [])
     return (
