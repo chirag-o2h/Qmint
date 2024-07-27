@@ -34,6 +34,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { navigate } from "gatsby";
 import Loader from "@/components/common/Loader";
 import axiosInstance from "@/axiosfolder";
+import Seo from "@/components/common/Seo";
 
 export const bodyData = {
   "search": "",
@@ -79,6 +80,8 @@ function News({ serverData }: any) {
   };
 
   return (
+    <>
+    <Seo keywords={[`News`, ...(serverData?.keywords || [])]} lang="en" configDetailsState={serverData?.configDetails} />
     <MainLayout blackTheme>
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Box className="BlogPage">
@@ -180,6 +183,7 @@ function News({ serverData }: any) {
         </Box>
       </Box>
     </MainLayout>
+    </>
   );
 }
 

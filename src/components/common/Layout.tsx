@@ -1,13 +1,14 @@
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState, useTransition } from "react";
 import PropTypes from "prop-types";
-import { Stack, useMediaQuery } from "@mui/material";
+import { Skeleton, Stack, useMediaQuery } from "@mui/material";
 
 // Utils
 import { THEME_TYPE } from "@/axiosfolder";
 
 // Components
 import LazyHeader from "../header/index";
-import BullionmarkHeader from "../header/BullionmarkHeader";
+// import BullionmarkHeader from "../header/BullionmarkHeader";
+const BullionmarkHeader =lazy(()=>import("../header/BullionmarkHeader"))
 import {
   bodyForGetShoppingCartData,
   convertMinutesToMilliseconds,
@@ -29,12 +30,12 @@ const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout(props: any) {
   const location = useLocation()
-  const  { children, isItMainPage=false} = props
-  const removeMinHeight =useUnloadMinHeight()
+  const { children, isItMainPage = false } = props
+  const removeMinHeight = useUnloadMinHeight()
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
   useInactiveLogout(isLoggedIn ? convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_LoggedInUsers?.value) : convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_Guest?.value), toggleSessionExpireDialog);
-  useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore, conditionalCall: !isItMainPage})
+  useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore, conditionalCall: !isItMainPage })
   // useInactiveLogout(2000, toggleSessionExpireDialog);
   // const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
@@ -54,34 +55,54 @@ function Layout(props: any) {
   }, [isLoggedIn]);
   // useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
-useEffect(() => {
-  if (configDetailsState?.Store_FaviconURL?.value) {
-    const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-    // Update favicon dynamically
-    const link: any =
-      document.querySelector("link[rel='icon']") ||
-      document.createElement("link");
-    link.rel = "icon";
-    link.href = faviconUrl;
-    document.head.appendChild(link);
-  }
-}, [configDetailsState])
+  useEffect(() => {
+    if (configDetailsState?.Store_FaviconURL?.value) {
+      const faviconUrl = configDetailsState?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
+      // Update favicon dynamically
+      const link: any =
+        document.querySelector("link[rel='icon']") ||
+        document.createElement("link");
+      link.rel = "icon";
+      link.href = faviconUrl;
+      document.head.appendChild(link);
+    }
+  }, [configDetailsState])
 
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
-
+  const [isRendering, setIsRendering] = useState(true);
+  const [isPending, startTransition] = useTransition();
+  useEffect(() => {
+    startTransition(() => {
+      // Simulating initial data fetch
+      setTimeout(() => setIsRendering(false), 1500);
+    });
+  }, [])
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
       {/* {THEME_TYPE === "1" ?<Suspense fallback={<Skeleton height={isMobile ? "20vh" : "260px"} style={{marginTop: isMobile ? "-40px" : "-60px"}}/>}> 
       <BullionmarkHeader />
       </Suspense> : <LazyHeader />} */}
-      <RenderOnViewportEntry
+      {/* <RenderOnViewportEntry
         rootMargin="200px"
         threshold={0.25}
         minHeight={isMobile ? "20vh" : 260}
       >
         {THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
-      </RenderOnViewportEntry>
+      </RenderOnViewportEntry> */}
+      {!isRendering && <Suspense fallback={
+        <Skeleton
+          height={"124px"}
+          width={"100%"}
+          style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
+        />
+      }><BullionmarkHeader /></Suspense>}
+      {
+        isRendering && <Skeleton
+          height={"124px"}
+          width={"100%"}
+          style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, background: "gray" }}
+        />}
       {/* </Suspense> */}
       <main style={removeMinHeight ? { minHeight: "100vh" } : {}}>
         {/* <Suspense fallback={<Box></Box>}> */}
