@@ -25,7 +25,7 @@ function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
             url: ENDPOINTS.saveCalculators,
             body: {
                 CalculatorType: 0,
-                CalculatorData: calculators.calculators
+                CalculatorData: calculators?.calculators
             }
         }) as any);
         return () => {
@@ -54,17 +54,17 @@ function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
                                 <Stack
                                     className='DataValueWrapper ValueNestedWrapper' style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
                                     <Typography variant="body1" className="">Shipping</Typography>
-                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping)}</Typography>
+                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators?.shipping)}</Typography>
                                 </Stack>
                                 <Stack
                                     className='DataValueWrapper ValueNestedWrapper'>
                                     <Typography variant="body1" className="">Insurance</Typography>
-                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.insurance)}</Typography>
+                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators?.insurance)}</Typography>
                                 </Stack>
                                 <Stack
                                     className='DataValueWrapper TotalValueNestedWrapper' style={{ borderTopLeftRadius: "0px", borderTopRightRadius: "0px" }}>
                                     <Typography variant="body1" className="">Total</Typography>
-                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators.shipping + calculators.insurance)}</Typography>
+                                    <Typography variant="subtitle1" className="">${roundOfThePrice(calculators?.shipping + calculators?.insurance)}</Typography>
                                 </Stack>
                             </Box>
                         </Box>

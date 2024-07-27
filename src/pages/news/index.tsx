@@ -58,7 +58,7 @@ function News({ serverData }: any) {
   const debounce = useDebounce(body, 500)
 
   let newsList = serverData?.newsList
-  let topThree = serverData?.newsList?.items.slice(0, 3)
+  let topThree = serverData?.newsList?.items?.slice(0, 3)
   newsList = Object.keys(body ?? {}).length > 0 ? newsListFromTheRedux : newsList
   topThree = Object.keys(body ?? {}).length > 0 && topThreeFromTheRedux?.length ? topThreeFromTheRedux : topThree
   const conditionalCall = useMemo(() => {

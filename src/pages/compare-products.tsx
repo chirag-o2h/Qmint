@@ -39,7 +39,7 @@ function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) 
     }
     return (
         <>
-            <Seo keywords={[`Compare-product`, ...(serverData?.keywords || [])]} title="Charts" lang="en" configDetailsState={serverData?.configDetails} />
+            <Seo keywords={[`Compare-product`, ...(serverData?.keywords || [])]}  lang="en" configDetailsState={serverData?.configDetails} />
             <Layout>
                 {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
                 {openToaster && <Toaster />}
