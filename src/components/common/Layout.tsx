@@ -29,7 +29,7 @@ import { useLocation } from "@reach/router";
 const LazyFooter = lazy(() => import('../footer/index'));
 const LazyBullionmarkFooter = lazy(() => import('../footer/BullionmarkFooter'));
 function Layout(props: {
-  children: any, isItMainPage?: boolean, renderAfterSomeTime: boolean
+  children: any, isItMainPage?: boolean, renderAfterSomeTime?: boolean
 }) {
   const { children, isItMainPage = false, renderAfterSomeTime = false } = props
   const location = useLocation()

@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useTransition, useState } from "react";
+import React, { useEffect, Fragment, useTransition, useState, useMemo } from "react";
 import Seo from "../components/common/Seo";
 import Layout from "@/components/common/Layout";
 import {
@@ -40,15 +40,18 @@ function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) 
     const [isClient, setIsClient] = useState(false);
     const [isPending, startTransition] = useTransition();
     useEffect(() => {
-      startTransition(() => {
-        // Simulating initial data fetch
-        setTimeout(() => setIsClient(true), 500);
-      });
+        startTransition(() => {
+            // Simulating initial data fetch
+            setTimeout(() => setIsClient(true), 500);
+        });
     }, [])
+    const condition = useMemo(() => {
+        return productIds.length == 0
+    }, [productIds])
     return (
         <>
-            <Seo keywords={[`Compare-product`, ...(serverData?.keywords || [])]}  lang="en" configDetailsState={serverData?.configDetails} />
-            <Layout>
+            <Seo keywords={[`Compare-product`, ...(serverData?.keywords || [])]} lang="en" configDetailsState={serverData?.configDetails} />
+            <Layout renderAfterSomeTime={condition}>
                 {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
                 {openToaster && <Toaster />}
                 <Box id="CompareProductsPage" component="section">
@@ -115,5 +118,5 @@ function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) 
 }
 export const getServerData = async (context: any) => {
     return await getConfigData(context);
-  };
+};
 export default CompareProducts;
