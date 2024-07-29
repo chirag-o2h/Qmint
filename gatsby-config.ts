@@ -32,33 +32,38 @@ module.exports = {
         },
       },
     },
-    
+
     `gatsby-plugin-sass`,
     'gatsby-plugin-react-helmet',
-    {
-      resolve: `gatsby-plugin-sitemap`,
-      options: {
-        output: `/sitemap.xml`,
-        resolveSiteUrl: () => `https://bullionmark.netlify.app`,
-        // excludes: [`/path-to-exclude`],
-        query: `
-          {
-            allSitePage {
-              nodes {
-                path
-              }
-            }
-          }
-        `,
-        serialize: ({ path }:any) => {
-          return {
-            url: path,
-            changefreq: `daily`,
-            priority: 0.7,
-          };
-        },
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-sitemap`,
+    //   options: {
+    //     output: `/sitemap.xml`,
+    //     resolveSiteUrl: () => `https://bullionmark.netlify.app`,
+    //     // excludes: [`/path-to-exclude`],
+    //     query: `
+    //       {
+    //         allSitePage {
+    //           nodes {
+    //             path
+    //           }
+    //         }
+    //       }
+    //     `,
+    //     serialize: ({ path }: any) => {
+    //       return {
+    //         url: path,
+    //         changefreq: `daily`,
+    //         priority: 0.7,
+    //       };
+    //     },
+    //     additionalSitemaps: [
+    //       {
+    //         url: `https://bullionmark.netlify.app/custom-sitemap.xml`,
+    //       },
+    //     ],
+    //   },
+    // },
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {
@@ -68,7 +73,7 @@ module.exports = {
     // `gatsby-plugin-image`,
     // `gatsby-plugin-sharp`,
     // `gatsby-transformer-sharp`,
-        // `gatsby-plugin-preact`,
+    // `gatsby-plugin-preact`,
     // {
     //   resolve: `gatsby-plugin-purgecss`,
     //   options: {
@@ -84,6 +89,33 @@ module.exports = {
     //       "/bootstrap/dist/css/bootstrap.min.css", // Bootstrap CSS file
     //       "src/**/*.scss", // All SCSS files in src directory
     //     ],
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-plugin-advanced-sitemap`,
+    //   options: {
+    //     output: `/sitemap.xml`,
+    //     resolveSiteUrl: () => `https://bullionmark.netlify.app`,
+    //     query: `
+    //         {
+    //           allSitePage {
+    //             nodes {
+    //               path
+    //             }
+    //           }
+    //         }
+    //       `,
+    //     serialize: ({ path }: any) => ({
+    //       url: `https://bullionmark.netlify.app${path}`,
+    //       changefreq: `daily`,
+    //       priority: 0.7,
+    //     }),
+    //     additionalPaths: [
+    //       {
+    //         name: `custom-sitemap`,
+    //         url: `/static/custom-sitemap.xml`,
+    //       },
+    //     ]
     //   },
     // },
   ],
