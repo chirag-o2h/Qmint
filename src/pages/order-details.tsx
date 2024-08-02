@@ -35,7 +35,7 @@ function orderDetails({ location, serverData }: { location: any, serverData: Ico
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
     const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search])
-    useAPIoneTime({ service: getOrderDetailsData, endPoint: ENDPOINTS.getOrderDetailsData + searchParams.get("orderNo") ?? "" });
+    useAPIoneTime({ service: getOrderDetailsData, endPoint: ENDPOINTS.getOrderDetailsData + searchParams.get("orderNo") });
     const orderDetails = useAppSelector(state => state.orderDetails.orderDetailsData)
     const shippingMethods = useAppSelector(state => state.orderDetails.shippingMethods)
     const dispatch = useAppDispatch();

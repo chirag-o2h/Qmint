@@ -36,7 +36,7 @@ function CategoryFilters({ isPriceChanged, setIsPriceChanged, categoryData: cate
 
   return (
     // ensure that filtrs and price are not empty before hiding the all filters section
-    <Fragment>{((currentCategoryData.items && currentCategoryData.items.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
+    <Fragment>{((currentCategoryData?.items && currentCategoryData?.items?.length > 0) || Object.keys(pagesSelectedFilters.specification[getlastPartOfPath(location.pathname)] || {}).length > 0 || isPriceChanged) ? (isSmallScreen ? (
       <SmallScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={currentCategoryData} />
     ) : (
       <LargerScreenFilters renderList={renderList} setIsPriceChanged={setIsPriceChanged} pagesSelectedFilters={pagesSelectedFilters} categoryData={currentCategoryData} isSmallScreen={isSmallScreen}/>

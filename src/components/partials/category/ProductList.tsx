@@ -39,20 +39,20 @@ function ProductList({ page, setPage,categoryData:categoryDataFromServer }: { pa
     const sortByValue = pageSortOrder[getlastPartOfPath(location.pathname)];
     // console.log("🚀 ~ useEffect ~ sortByValue:", sortByValue)
     if (!sortByValue) return;
-    if (!currentCategoryData.items) return;
+    if (!currentCategoryData?.items) return;
     if (sortByValue === SortingOption.Popular) {
-      dispatch(setSortedItems(sortByMostPopular(currentCategoryData.items)));
+      dispatch(setSortedItems(sortByMostPopular(currentCategoryData?.items)));
     }
     else if (sortByValue === SortingOption.PriceHighToLow) {
-      dispatch(setSortedItems(sortByPriceHighToLow(currentCategoryData.items)));
+      dispatch(setSortedItems(sortByPriceHighToLow(currentCategoryData?.items)));
     }
     else if (sortByValue === SortingOption.PriceLowToHigh) {
-      dispatch(setSortedItems(sortByPriceLowToHigh(currentCategoryData.items)));
+      dispatch(setSortedItems(sortByPriceLowToHigh(currentCategoryData?.items)));
     }
   }, [currentCategoryData?.items, pageSortOrder, page, location.pathname]);
 
   useEffect(() => {
-    if (currentCategoryData.items?.length ?? 0 > 0) {
+    if (currentCategoryData?.items?.length ?? 0 > 0) {
       const productIds = currentCategoryData?.items?.map((product: any) => product?.productId);
       setProductIds({ productIds })
     }
@@ -71,8 +71,8 @@ function ProductList({ page, setPage,categoryData:categoryDataFromServer }: { pa
       {openToaster && <Toaster />}
       <Box className="ProductListWrapper">
         {
-          !currentCategoryData.loading ? (
-            currentCategoryData.sortedItems?.map((product: any) => {
+          !currentCategoryData?.loading ? (
+            currentCategoryData?.sortedItems?.map((product: any) => {
               return (
                 process.env.THEME_TYPE == '1' ? 
                <BmkProductCard product={product} key={product.productId}/>: 
@@ -99,7 +99,8 @@ function ProductList({ page, setPage,categoryData:categoryDataFromServer }: { pa
           )
         }
       </Box>
-      {!currentCategoryData.loading && currentCategoryData.items && currentCategoryData.items.length === 0 && <Typography variant="h6" component="p">There are no products in this category or filters you have selected.</Typography>}
+      {/* {!currentCategoryData?.loading && currentCategoryData?.items && currentCategoryData?.items?.length <1 && <Typography variant="h6" component="p">There are no products in this category or filters you have selected.</Typography>} */}
+      {!currentCategoryData?.loading && currentCategoryData?.items && currentCategoryData?.items?.length === 0 && <Typography variant="h6" component="p">There are no products in this category or filters you have selected.</Typography>}
       {currentCategoryData?.count > 0 && <Stack className="Pagination">
         <Pagination count={Math.ceil(currentCategoryData?.count / pageSize)} page={page} shape="rounded" onChange={handlePageChange} />
       </Stack>}

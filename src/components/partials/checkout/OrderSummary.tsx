@@ -1,5 +1,5 @@
 import React, { useCallback, useDeferredValue, useEffect, useMemo, useState } from "react"
-import { Typography, Button, Divider, Stack, Box } from "@mui/material"
+import { Typography, Button, Divider, Stack, Box, FormControlLabel, Checkbox } from "@mui/material"
 
 // Hooks
 import { useAppDispatch, useAppSelector, useToggle } from "@/hooks"
@@ -77,6 +77,8 @@ interface Body {
 }
 
 function OrderSummary() {
+  const [isrewardPointUsed, setIsrewardPointUsed] = useState<boolean>(false)
+  const { checkoutPageData } = useAppSelector((state) => state.checkoutPage)
   const location = useLocation()
   const dispatch = useAppDispatch()
   const { showToaster } = useShowToaster();
@@ -135,36 +137,36 @@ function OrderSummary() {
 
   const searchParams = new URLSearchParams(location.search);
   const placeOrderFun = useCallback(async () => {
-      // call place order API
-      const prepareBodyData: PlaceOrderBody = {
-        "OrderCustomerID": finalDataForTheCheckout?.userAccount?.customerId,
-        "BillingAddressId": finalDataForTheCheckout?.billingAddress?.addressId,
-        "ShippingAddressId": finalDataForTheCheckout?.shippingAddress?.addressId,
-        "OrderItems": finalDataForTheCheckout?.cartItemsWithLivePrice?.map((item: any) => {
-          return ({
-            "ShoppingCartId": item.id,
-            "ProductId": item.productId,
-            "ParentProductId": item?.parentProductId,
-            "Quantity": finalDataForTheCheckout?.quantitiesWithProductId[item.productId],
-            "ShippingMethod": shipmentTypeToEnum[finalDataForTheCheckout?.deliveryMethodsWithProductId[item.productId]]
-          })
-        }),
-        "PaymentMethod": paymentMethodEnum[finalDataForTheCheckout?.paymentType],
-        "ShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod ? DEFAULT_VALUE_FOR_SHIPPING_METHOD : shipmentTypeToEnum[finalDataForTheCheckout?.parentDeliveryMethod || 'SecureShipping'],
-        "IsDifferentShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod,
-        "IsUsedRewardPoints": false,
-        "AgentId": localAgentDetails?.agentId ?? null,
-        "Location": 'lat' + locationInfo?.latitude + ',' + 'long' + locationInfo?.longitude,
-        "Device": deviceInfo?.platform!,
-        "Browser": deviceInfo?.userAgent,
-        "IsInstantBuy": searchParams.has("isInstantBuy") && searchParams.get("isInstantBuy") ? true : false
-      }
-      const data = await dispatch(placeOrder({ url: ENDPOINTS.placeOrder, body: prepareBodyData }) as any);
-      if (hasFulfilled(data?.type)) {
-        const id = data?.payload?.data?.data
-        navigate(`/order-confirmation/?orderNo=${id}`)
-      }
-    }, [finalDataForTheCheckout, deviceInfo, locationInfo,localAgentDetails])
+    // call place order API
+    const prepareBodyData: PlaceOrderBody = {
+      "OrderCustomerID": finalDataForTheCheckout?.userAccount?.customerId,
+      "BillingAddressId": finalDataForTheCheckout?.billingAddress?.addressId,
+      "ShippingAddressId": finalDataForTheCheckout?.shippingAddress?.addressId,
+      "OrderItems": finalDataForTheCheckout?.cartItemsWithLivePrice?.map((item: any) => {
+        return ({
+          "ShoppingCartId": item.id,
+          "ProductId": item.productId,
+          "ParentProductId": item?.parentProductId,
+          "Quantity": finalDataForTheCheckout?.quantitiesWithProductId[item.productId],
+          "ShippingMethod": shipmentTypeToEnum[finalDataForTheCheckout?.deliveryMethodsWithProductId[item.productId]]
+        })
+      }),
+      "PaymentMethod": paymentMethodEnum[finalDataForTheCheckout?.paymentType],
+      "ShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod ? DEFAULT_VALUE_FOR_SHIPPING_METHOD : shipmentTypeToEnum[finalDataForTheCheckout?.parentDeliveryMethod || 'SecureShipping'],
+      "IsDifferentShippingMethod": finalDataForTheCheckout?.IsDifferentShippingMethod,
+      "IsUsedRewardPoints": isrewardPointUsed,
+      "AgentId": localAgentDetails?.agentId ?? null,
+      "Location": 'lat' + locationInfo?.latitude + ',' + 'long' + locationInfo?.longitude,
+      "Device": deviceInfo?.platform!,
+      "Browser": deviceInfo?.userAgent,
+      "IsInstantBuy": searchParams.has("isInstantBuy") && searchParams.get("isInstantBuy") ? true : false
+    }
+    const data = await dispatch(placeOrder({ url: ENDPOINTS.placeOrder, body: prepareBodyData }) as any);
+    if (hasFulfilled(data?.type)) {
+      const id = data?.payload?.data?.data
+      navigate(`/order-confirmation/?orderNo=${id}`)
+    }
+  }, [finalDataForTheCheckout, deviceInfo, locationInfo, localAgentDetails, isrewardPointUsed])
 
   useEffect(() => {
     if (isOTPEnabled || message) {
@@ -227,11 +229,10 @@ function OrderSummary() {
         await dispatch(checkValidationOnConfirmOrder({
           url: ENDPOINTS.checkValidationOnConfirmOrder, body: {
             PaymentMethodEnum: paymentMethodEnum[finalDataForTheCheckout?.paymentType],
-            OrderTotal: Number(insuranceAndTaxCalculation?.secureShippingFeeIncludingTax) + Number(subTotal) + Number(insuranceAndTaxCalculation?.vaultStorageFeeIncludingTax),
-            // static todo
-            IsRewardPointUsed: false,
-            UsedRewardPoints: 0,
-            UsedRewardPointAmount: 0.00
+            OrderTotal: Number(insuranceAndTaxCalculation?.secureShippingFeeIncludingTax) + Number(subTotal) + Number(insuranceAndTaxCalculation?. vaultStorageFeeIncludingTax) - (isrewardPointUsed ? Number(roundOfThePrice(checkoutPageData?.rewardPointAvaibility?.rewardPointAmount)) : 0),
+            IsRewardPointUsed: isrewardPointUsed,
+            UsedRewardPoints: isrewardPointUsed ? checkoutPageData?.rewardPointAvaibility?.availableRewardPoints : 0,
+            UsedRewardPointAmount: isrewardPointUsed ? checkoutPageData?.rewardPointAvaibility?.rewardPointAmount : 0.00
           }
         }))
       }
@@ -254,6 +255,15 @@ function OrderSummary() {
           )
         })}
       </Box>
+      {checkoutPageData?.rewardPointAvaibility?.isApplicableToUseRewardPoints && <FormControlLabel
+        style={{ marginTop: '10px ' }}
+        name="reward points"
+        className="SameAddressCheckbox"
+        control={<Checkbox checked={isrewardPointUsed} onChange={() => {
+          setIsrewardPointUsed((prev) => !prev)
+        }} />}
+        label={`Use my reward points,${checkoutPageData?.rewardPointAvaibility?.availableRewardPoints} reward points(${'$' + checkoutPageData?.rewardPointAvaibility?.rewardPointAmount}) available for this order`}
+      />}
       <Box className="PricingDetails">
         {renderPricingItem("Subtotal", '$' + roundOfThePrice(subTotal as any) as any)}
         <Divider />
@@ -265,9 +275,10 @@ function OrderSummary() {
         {renderPricingItem("GST Included", `$${roundOfThePrice(Number(craditCardCharges?.creditCardTax) + Number(insuranceAndTaxCalculation?.secureShippingTax) + Number(insuranceAndTaxCalculation?.vaultStorageTax) + Number(finalDataForTheCheckout?.cartItemsWithLivePrice?.length > 0 ? finalDataForTheCheckout?.cartItemsWithLivePrice?.reduce((total: number, product: {
           LivePriceDetails: { taxPrice: number }
         }) => total + product?.LivePriceDetails?.taxPrice, 0) : 0))}`)}
+        {isrewardPointUsed && renderPricingItem(`${checkoutPageData?.rewardPointAvaibility?.availableRewardPoints} reward points`, `- ${roundOfThePrice(checkoutPageData?.rewardPointAvaibility?.rewardPointAmount)}`)}
         <Stack className="PricingItem TotalItem">
           <Typography variant="subtitle1">Total</Typography>
-          <Typography variant="subtitle1">${roundOfThePrice(Number(insuranceAndTaxCalculation?.secureShippingFeeIncludingTax) + Number(subTotal) + Number(insuranceAndTaxCalculation?.vaultStorageFeeIncludingTax) + (finalDataForTheCheckout?.paymentType === 'CreditCard' ? Number(craditCardCharges?.creditCardFeeIncludingTax) : 0))}</Typography>
+          <Typography variant="subtitle1">${roundOfThePrice(-(isrewardPointUsed ? (checkoutPageData?.rewardPointAvaibility?.rewardPointAmount ?? 0) : 0) + Number(insuranceAndTaxCalculation?.secureShippingFeeIncludingTax) + Number(subTotal) + Number(insuranceAndTaxCalculation?.vaultStorageFeeIncludingTax) + (finalDataForTheCheckout?.paymentType === 'CreditCard' ? Number(craditCardCharges?.creditCardFeeIncludingTax) : 0))}</Typography>
         </Stack>
         <Stack className="PaymentMethod">
           <OutlinedCheckIcon color="primary" />

@@ -51,7 +51,8 @@ interface ServerDataProps {
     configDetails: any;
     configDetailsForRedux: any;
     categoryData: any;
-    isMobile:boolean
+    isMobile: boolean
+    redirectTo404?: boolean
 }
 
 interface Props {
@@ -203,6 +204,12 @@ function Category({ serverData, props }: Props) {
             setTimeout(() => setIsRendering(false), 3500);
         });
     }, [])
+    useEffect(() => {
+        if (serverData?.redirectTo404) {
+            navigate('/404')
+        }
+    }, [serverData])
+    
     return (
         <>
             {isRendering && (
@@ -221,7 +228,7 @@ function Category({ serverData, props }: Props) {
             </Suspense>}
             {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
             <Seo
-                title={(serverData?.categoryPageMetadata.metaTitle ?? '')}
+                title={(serverData?.categoryPageMetadata?.metaTitle ?? '')}
                 isItShopPage={true}
                 keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
                 description={serverData?.categoryPageMetadata?.metaDescription}
@@ -231,12 +238,12 @@ function Category({ serverData, props }: Props) {
             <Container id="PageCategory" className={classNames({ "BmkCategoryPage": THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
-                        <SortBy isSmallScreen={isSmallScreen}/>
-                        <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData} isSmallScreen={isSmallScreen}/>
+                        <SortBy isSmallScreen={isSmallScreen} />
+                        <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData} isSmallScreen={isSmallScreen} />
                     </Stack>
                 ) : null}
                 <Stack className="MainContent">
-                    {!isSmallScreen ? <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData} isSmallScreen={isSmallScreen}/> : null}
+                    {!isSmallScreen ? <CategoryFilters isPriceChanged={isPriceChanged} setIsPriceChanged={setIsPriceChanged} categoryData={serverData?.categoryData} isSmallScreen={isSmallScreen} /> : null}
                     <ProductList page={page} setPage={setPage} categoryData={serverData?.categoryData} />
                 </Stack>
             </Container>
@@ -328,7 +335,9 @@ export async function getServerData(context: { params: any, query: any, headers:
         return {
             status: 500,
             headers: {},
-            props: {},
+            props: {
+                redirectTo404: true
+            },
         };
     }
 }
