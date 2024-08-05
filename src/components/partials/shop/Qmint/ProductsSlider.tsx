@@ -9,9 +9,7 @@ import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 import { SwiperNavigation } from "@/components/common/Utils"
 import { useAppSelector } from "@/hooks";
 
-function ProductsSlider() {
-    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-    const homePageSectionDetails = useAppSelector(state => state.homePage.sectionDetails)
+function ProductsSlider({homePageSectionDetails,isMobile}:{homePageSectionDetails:any,isMobile:boolean}) {
     const config = {
         slidesPerView: 1.3,
         spaceBetween: 16,

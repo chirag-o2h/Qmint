@@ -5,8 +5,7 @@ import {
 } from "@mui/material"
 import { useAppSelector } from '@/hooks'
 
-function LookingFor() {
-  const sectionDetails = useAppSelector((state) => state.homePage.sectionDetails)
+function LookingFor({sectionDetails}:any) {
   return (
     sectionDetails["shopHomepage_Section_3_Three_pics_in_a_rows"] ?
       <Box id="LookingFor" component="section">

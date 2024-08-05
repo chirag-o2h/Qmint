@@ -65,9 +65,7 @@ export interface IpriceForEachId {
   [key: number]: IproductPrice
 }
 
-function FeaturedProducts() {
-  const { configDetails } = useAppSelector((state) => state.homePage)
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+function FeaturedProducts({configDetails,isMobile}:{configDetails:any,isMobile:boolean}) {
 
   const { data, priceForEachId } = useGetFeaturesProductaData();
 

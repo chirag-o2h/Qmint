@@ -2,8 +2,7 @@ import React from 'react'
 import { Container, Box } from "@mui/material"
 import { useAppSelector } from '@/hooks'
 
-function DiscoverTreasure() {
-  const sectionDetails = useAppSelector((state) => state.homePage.sectionDetails)
+function DiscoverTreasure({sectionDetails}:any) {
   return (
     sectionDetails["shopHomepage_Section_5_One_pic_and_content"] ?
       <Box id="DiscoverTreasure" component="section">

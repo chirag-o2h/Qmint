@@ -29,8 +29,7 @@ function SkeletonPopularProducts({ index }: { index: number | string }) {
     </div>
   </Card>)
 }
-function PopularProducts() {
-  const { configDetails } = useAppSelector((state) => state.homePage)
+function PopularProducts({configDetails}:{configDetails:any}) {
   const { data, priceForEachId, productType, setProductType } = useGetPopulurProductsData()
 
   const handleChange = (event: any, newProductType: any) => {

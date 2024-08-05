@@ -98,7 +98,7 @@ function Layout(props: {
           width={"100%"}
           style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
         />
-      }><BullionmarkHeader /></Suspense>}
+      }>{process.env.THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}</Suspense>}
       {
         isRendering && <Skeleton
           height={"124px"}

@@ -25,10 +25,7 @@ export interface IbannerData {
   cdnUrlSmall: any
 }
 
-function Banner() {
-  const { data }: any = useApiRequest(ENDPOINTS.getSlider.replace('typeEnum', '1'));
-  const isLargeScreen = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'))
+function Banner({bannerData, isMobile}:{bannerData:any, isMobile:any}) {
   const [tempImgHide, setTempImgHide] = useState(true)
   const config = {
     slidesPerView: 1,
@@ -65,10 +62,10 @@ function Banner() {
     <Box id="Banner" component="section" key={'banner'}>
       <Typography variant="h2" className="BannerTitle">Top articles</Typography>
       <Box className="SwiperContainer">
-        {data?.data?.length > 0 ?
+        {bannerData?.data?.length > 0 ?
           <Swiper {...config} >
             {
-              data?.data?.map((item: IbannerData, index: number) => {
+              bannerData?.data?.map((item: IbannerData, index: number) => {
                 return (
                   <SwiperSlide key={`BannerSlider-${index}`}>
                     <Box className="Wrapper" sx={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -85,7 +82,7 @@ function Banner() {
                           className="BannerImage"
                           rel="prefetch"
                           loading="lazy"
-                          src={isLargeScreen ? item.cdnUrlLarge : item.cdnUrlSmall}
+                          src={!isMobile ? item.cdnUrlLarge : item.cdnUrlSmall}
                           alt="background"
                           style={{ visibility: !tempImgHide ? 'visible' : 'hidden' }}
                           onClick={() => {

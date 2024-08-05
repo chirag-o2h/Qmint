@@ -63,17 +63,17 @@ function SkeletonCloserLook({ index }: { index: number | string }) {
     </SwiperSlide>
   )
 }
-function CloserLook() {
-  const { configDetails } = useAppSelector((state) => state.homePage)
+function CloserLook({ configDetails, homePageSectionDetails }: { configDetails: any, homePageSectionDetails: any }) {
+  // const { configDetails } = useAppSelector((state) => state.homePage)
   // const { data }: Idata = useApiRequest(ENDPOINTS.getBlog, 'post', dataforbody);
-  const homePageSectionDetails = useAppSelector(state => state.homePage.sectionDetails)
+  // const homePageSectionDetails = useAppSelector(state => state.homePage.sectionDetails)
   const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000);
-  }, [])
+  // useEffect(() => {
+  //   setLoading(true)
+  //   setTimeout(() => {
+  //     setLoading(false)
+  //   }, 2000);
+  // }, [])
   const config = {
     slidesPerView: 1.4,
     spaceBetween: 20,
@@ -106,8 +106,10 @@ function CloserLook() {
       },
     }
   }
+  console.log(homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length,"homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length")
 
   return (
+    homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length !== 0 ?
     <Box id="CloserLook">
       <Container component="section">
         <SectionHeading
@@ -161,7 +163,7 @@ function CloserLook() {
           }}>Discover More</Button>
         </Stack>
       </Container>
-    </Box>
+    </Box>:null
   )
 }
 
