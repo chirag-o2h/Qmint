@@ -70,7 +70,7 @@ function ActivateAccount({ params, serverData }: { serverData: IconfigDataFromSe
         <Container id="ActivateAccount">
           <Box className="Content">
             <Typography variant="h4" className="Title" component="p">Activate Account</Typography>
-            <Typography className="Description" dangerouslySetInnerHTML={{ __html: data }}>
+            <Typography className="Description" dangerouslySetInnerHTML={{ __html: data! }}>
               {/* An email has been Sent to <Typography variant="inherit" component="span">(info@example.com)</Typography> containing an activation link <br />Please click on the link to activate your account */}
             </Typography>
             <Typography variant="overline" className="HelperText" component="p">Didn't receive an email? Check your span folder!</Typography>

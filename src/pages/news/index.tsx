@@ -35,6 +35,7 @@ import { navigate } from "gatsby";
 import Loader from "@/components/common/Loader";
 import axiosInstance from "@/axiosfolder";
 import Seo from "@/components/common/Seo";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 export const bodyData = {
   "search": "",
@@ -48,7 +49,6 @@ export const bodyData = {
 }
 
 function News({ serverData }: any) {
-  const configDetailsState = serverData?.configDetails
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
   // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const { newsList: newsListFromTheRedux, topThree: topThreeFromTheRedux }: any = useAppSelector((state) => state.newsPage)
@@ -78,7 +78,7 @@ function News({ serverData }: any) {
       }
     }))
   };
-
+  useSetConfigAndFavicon(serverData)
   return (
     <>
     <Seo keywords={[`News`, ...(serverData?.keywords || [])]} lang="en" configDetailsState={serverData?.configDetails} />
@@ -88,13 +88,13 @@ function News({ serverData }: any) {
         <Box className="HeroSection">
           <Container>
             <Typography variant="h2" component="h2">
-              {configDetailsState?.["AllNews_Title"]?.value}
+              {serverData?.configDetails?.["AllNews_Title"]?.value}
             </Typography>
             <Typography
               variant="body1"
               sx={{ mt: 1, color: variable.greyRegent }}
             >
-              {configDetailsState?.["AllNews_Subtitle"]?.value}
+              {serverData?.configDetails?.["AllNews_Subtitle"]?.value}
             </Typography>
             {topThree.length !== 0 ? <Box className="PostWrapper">
               <Stack className="LeftPostWrapper">
@@ -112,13 +112,13 @@ function News({ serverData }: any) {
           <Container>
             <Box className="DiscoverPost__title">
               <Typography variant="h2" component="h2">
-                {configDetailsState?.["AllNews_Featured_Title"]?.value}
+                {serverData?.configDetails?.["AllNews_Featured_Title"]?.value}
               </Typography>
               <Typography
                 variant="body1"
                 sx={{ mt: 1, color: variable.greyRegent }}
               >
-                {configDetailsState?.["AllNews_Featured_Subtitle"]?.value}
+                {serverData?.configDetails?.["AllNews_Featured_Subtitle"]?.value}
               </Typography>
             </Box>
             <Box className="SearchWrapper">

@@ -6,7 +6,6 @@ interface CustomHeaders {
   Storecode: number;
   Validkey: string;
 }
-export const STORE_CODE = 25;
 export const BASE_URL = process.env.BASE_URL;
 export const VALID_KEY = process.env.VALID_KEY;
 export const THEME_TYPE = process.env.THEME_TYPE;
@@ -14,7 +13,7 @@ export const THEME_TYPE = process.env.THEME_TYPE;
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Storecode: 25,
+    Storecode: process.env.STORE_CODE,
     Validkey: VALID_KEY,
   },
   // timeout: 5000, // Timeout in milliseconds

@@ -66,7 +66,6 @@ function SkeletonCloserLook({ index }: { index: number | string }) {
 function CloserLookMain() {
   const { configDetails } = useAppSelector((state) => state.homePage)
   const { mainHomePageData } = useAppSelector((state) => state.homePage)
-  // console.log("🚀 ~ CloserLook ~ mainHomePageData:", mainHomePageData)
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
