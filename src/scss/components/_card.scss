@@ -365,7 +365,7 @@
 
           li {
             padding: 10px 0;
-            border-bottom: 1px solid #0000000a;
+            border-bottom: 1px solid #{$black}0a;
             opacity: 80%;
             font-size: 16px;
 
@@ -383,7 +383,7 @@
       //   .ContentWrapper {
       //     padding: 10px 0;
       //     justify-content: space-between;
-      //     border-bottom: 1px solid #0000000a;
+      //     border-bottom: 1px solid #{$black}0a;
 
       //     .ContentTitle {
       //       opacity: 80%;
@@ -507,7 +507,7 @@
 
 .StatsCard {
   &.MuiCard-root {
-    background-color: #fff;
+    background-color: $white;
     box-shadow: $shadow7;
     border-radius: 15px;
     @include transition;
@@ -531,10 +531,10 @@
         align-items: center;
         height: 41px;
         width: 41px;
-        border: 1px solid #dde7eb;
-        box-shadow: 0px 5px 8.4px 0px rgba(0, 0, 0, 0.11);
+        border: 1px solid  $mercury;
+        box-shadow: 0px 5px 8.4px 0px rgba($black, 0.11);
         border-radius: 10px;
-        background-color: #ffffff;
+        background-color: $white
       }
 
       // svg {
@@ -573,7 +573,7 @@
   &.MuiCard-root {
     border-radius: 15px;
     box-shadow: $shadow10;
-    border: 1px solid #3491fa14;
+    border: 1px solid #{$blueCyan}14;
     @include transition;
 
     &:hover {
@@ -611,7 +611,7 @@
       //   position: absolute;
       //   height: 203px;
       //   width: 203px;
-      //   // background-color: #3491fa14;
+      //  background-color: #{$blueCyan}14;
       //   bottom: -40%;
       //   transform: translateY(40%);
       //   right: -10%;
@@ -688,10 +688,12 @@
           align-items: center;
           height: 41px;
           width: 41px;
-          border: 1px solid #dde7eb;
-          box-shadow: 0px 5px 8.4px 0px rgba(0, 0, 0, 0.11);
+          border-width: 1px;
+          border-style: solid;
+          border-color: $mercury;
+          box-shadow: 0px 5px 8.4px 0px rgba($black, 0.11);
           border-radius: 10px;
-          background-color: #ffffff;
+          background-color: $white;
         }
 
 
@@ -1243,8 +1245,8 @@
         }
 
         &.Available {
-          border: 1px solid #008001;
-          color: #008001;
+          border: 1px solid $success;
+          color: $success;
         }
 
         &.NotAvailable {
@@ -1306,7 +1308,7 @@
         color: $white;
 
         &.Blue {
-          background-color: #3491FA;
+          background-color: $blueCyan;
         }
 
         &.Purple {
@@ -1331,7 +1333,7 @@
         right: 8px;
         border-radius: 50%;
         color: $pumpkinOrange;
-        border: 1px solid #E5E6EB;
+        border: 1px solid $mercury;
 
         &:hover {
           border-color: $pumpkinOrange;

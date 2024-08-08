@@ -34,7 +34,7 @@
 
             .AddressCard {
                 justify-content: center;
-                border: 1px solid #1D21291A;
+                border: 1px solid #{$dark}1A;
                 border-radius: 10px;
                 padding: 30px;
 
@@ -45,7 +45,7 @@
                 .CardHeader {
                     justify-content: space-between;
                     padding-bottom: 10px;
-                    border-bottom: 1px solid #1d21294d;
+                    border-bottom: 1px solid #{$dark}4d;
 
                     .ActionButton {
                         display: flex;

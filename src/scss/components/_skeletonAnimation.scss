@@ -7,7 +7,7 @@
   -webkit-mask-image: -webkit-radial-gradient($white, $black);
   &::after {
     animation: SkeletonAnimation 2s linear 0.5s infinite;
-    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.04), transparent);
+    background: linear-gradient(90deg, transparent, rgba($dark, 0.04), transparent);
     content: '';
     position: absolute;
     transform: translateX(-100%);

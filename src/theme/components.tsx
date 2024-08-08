@@ -54,7 +54,7 @@ const commonComponents: Components = {
   MuiBackdrop: {
     styleOverrides: {
       root: {
-        backgroundColor: "#1D212980",
+        backgroundColor: `${variable.dark}80`,
       },
       invisible: {
         backgroundColor: "transparent",
@@ -158,7 +158,7 @@ const commonComponents: Components = {
     },
     styleOverrides: {
       colorDefault: {
-        backgroundColor: "#FFFFFF",
+        backgroundColor: `${variable.white}`,
       },
     },
   },
@@ -268,7 +268,9 @@ const qmintComponents: Components = {
     styleOverrides: {
       root: {
         borderRadius: 12,
-        border: "1px solid #E5E6EB",
+        borderWidth:"1px",
+        borderStyle:"solid",
+        borderColor:variable.mercury,
         marginTop: "8px !important",
       },
       input: {
@@ -284,7 +286,7 @@ const qmintComponents: Components = {
     },
     styleOverrides: {
       root: {
-        color: "#1D2129",
+        color: `${variable.dark}`,
         fontSize: pxToRem(14),
         lineHeight: pxToRem(20),
         fontWeight: 600,
@@ -292,7 +294,7 @@ const qmintComponents: Components = {
         transform: "none",
       },
       asterisk: {
-        color: "#FF1F1F",
+        color: variable.error,
       },
     },
   },
@@ -310,7 +312,7 @@ const qmintComponents: Components = {
       },
       textPrimary: {
         "&:hover": {
-          color: "#1D2129",
+          color:`${variable.dark}`,
           backgroundColor: "transparent",
         },
       },
@@ -320,7 +322,7 @@ const qmintComponents: Components = {
         fontWeight: 600,
         textDecoration: "underline",
         "&:hover": {
-          color: "#EAA22B",
+          color: `${variable.yellowFuel}`,
           backgroundColor: "transparent",
           textDecoration: "underline",
         },
@@ -373,15 +375,16 @@ const qmintComponents: Components = {
     styleOverrides: {
       root: {
         cursor: "pointer",
-        color: "#1D2129",
+        color: `${variable.dark}`,
         overflowWrap: "anywhere",
         // overflowWrap: anywhere;
         transition: "300ms all ease",
         "&:hover": {
-          color: "#EAA22B",
-        },
+          color: `${variable.yellowFuel}`,
+        }
       },
     },
+    
   },
   MuiDivider: {
     styleOverrides: {
@@ -409,7 +412,9 @@ const qmintComponents: Components = {
   MuiToggleButtonGroup: {
     styleOverrides: {
       root: {
-        border: "1px solid #E5E6EB",
+        borderWidth:"1px",
+        borderStyle:"solid",
+        borderColor:variable.mercury,
         borderRadius: 30,
       },
       grouped: {
@@ -422,11 +427,11 @@ const qmintComponents: Components = {
         "&.Mui-selected": {
           fontWeight: 700,
           fontStyle: "normal",
-          color: "#FFFFFF",
-          backgroundColor: "#EAA22B",
+          color:`${variable.white}`,
+          backgroundColor: `${variable.yellowFuel}`,
           letterSpacing: 1,
           "&:hover": {
-            backgroundColor: "#EAA22B",
+            backgroundColor: `${variable.yellowFuel}`,
           },
           "@media (max-width: 600px)": {
             minWidth: 120,
@@ -457,14 +462,14 @@ const qmintComponents: Components = {
   MuiTooltip: {
     styleOverrides: {
       arrow: {
-        // color: "#FFFFFF",
+        // color: `${variable.white}`,
         fontSize: pxToRem(20),
       },
       tooltip: {
         // padding: 0,
-        // color: "#1D2129",
-        // backgroundColor: "#FFFFFF",
-        // boxShadow: "0px 20px 30px 0px #0000000F",
+        // color: `${variable.dark}`,
+        // backgroundColor:`${variable.white}`,
+        boxShadow: "0px 20px 30px 0px #0000000F",
       },
       popper: {
         "&[data-popper-placement*='bottom']": {
@@ -505,7 +510,7 @@ const qmintComponents: Components = {
         height: 14,
         width: 14,
         border: "2px solid currentColor",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: `${variable.white}`,
         '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
           boxShadow: 'inherit',
         },
@@ -523,11 +528,11 @@ const qmintComponents: Components = {
     styleOverrides: {
       colorPrimary: {
         "&.Mui-disabled": {
-          color: "#EAA22B",
+          color: `${variable.yellowFuel}`,
           opacity: 0.2,
           "svg": {
             "path:first-of-type": {
-              stroke: "#1D2129",
+              stroke: `${variable.dark}`,
             },
           },
         },
@@ -710,7 +715,9 @@ const bmkComponents: Components = {
     styleOverrides: {
       root: {
         borderRadius: 12,
-        border: "1px solid #E5E6EB",
+        borderWidth:"1px",
+        borderStyle:"solid",
+        borderColor:variable.mercury,
         marginTop: "8px !important",
       },
       input: {
@@ -726,7 +733,7 @@ const bmkComponents: Components = {
     },
     styleOverrides: {
       root: {
-        color: "#1D2129",
+        color: `${variable.dark}`,
         fontSize: pxToRem(14),
         lineHeight: pxToRem(20),
         fontWeight: 600,
@@ -753,7 +760,7 @@ const bmkComponents: Components = {
       },
       textPrimary: {
         "&:hover": {
-          color: "#1D2129",
+          color:`${variable.dark}`,
           backgroundColor: "transparent",
         },
       },
@@ -763,7 +770,7 @@ const bmkComponents: Components = {
         fontWeight: 600,
         textDecoration: "underline",
         "&:hover": {
-          color: "#FF681A",
+          color: `${variable.pumpkinOrange}`,
           backgroundColor: "transparent",
           textDecoration: "underline",
         },
@@ -790,7 +797,9 @@ const bmkComponents: Components = {
         fontSize: pxToRem(16),
         lineHeight: pxToRem(20),
         fontWeight: 600,
-        border: "1px solid #FF681A",
+        borderWidth:"1px",
+        borderStyle:"solid",
+        borderColor: variable.$pumpkinOrange,
         padding: "14px 23px",
       },
       containedInfo: {
@@ -821,12 +830,12 @@ const bmkComponents: Components = {
     styleOverrides: {
       root: {
         cursor: "pointer",
-        color: "#1D2129",
+        color: `${variable.dark}`,
         overflowWrap: "anywhere",
         // overflowWrap: anywhere;
         transition: "300ms all ease",
         "&:hover": {
-          color: "#FF681A",
+          color: `${variable.pumpkinOrange}`,
         },
       },
     },
@@ -863,25 +872,27 @@ const bmkComponents: Components = {
         fontSize: "18px",
         lineHeight: "26px",
         fontWeight: "400",
-        color: "#1D2129",
+        color: `${variable.dark}`,
         margin: 0,
         border: "none",
         minWidth: 131,
         paddingTop: 5,
         paddingBottom: 5,
         textTransform: "none",
-        borderBottom: "5px solid #0000001A",
+        borderWidth:"5px",
+        borderStyle:"solid",
+        borderBottomColor:`${variable.black}1A`,
         borderRadius: "inherit",
         "&:hover": {
-          backgroundColor: "rgba(255, 104, 26, 0.12)",
-          color: "#FF681A",
+          backgroundColor:`${variable.pumpkinOrange}1f`,
+          color: `${variable.pumpkinOrange}`,
         },
         "&.Mui-selected": {
-          borderColor: "#FF681A",
-          color: "#1D2129",
+          borderColor: `${variable.pumpkinOrange}`,
+          color: `${variable.dark}`,
           backgroundColor: "transparent",
           "&:hover": {
-            color: "#FF681A",
+            color: `${variable.pumpkinOrange}`,
           },
           "@media (max-width: 600px)": {
             minWidth: 100,
@@ -912,13 +923,13 @@ const bmkComponents: Components = {
   MuiTooltip: {
     styleOverrides: {
       arrow: {
-        // color: "#FFFFFF",
+        // color:`${variable.white}`,
         fontSize: pxToRem(20),
       },
       tooltip: {
         // padding: 0,
-        // color: "#1D2129",
-        // backgroundColor: "#FFFFFF",
+        // color:`${variable.dark}`,
+        // backgroundColor: `${variable.white}`,
         // boxShadow: "0px 20px 30px 0px #0000000F",
       },
       popper: {
@@ -960,7 +971,7 @@ const bmkComponents: Components = {
         height: 14,
         width: 14,
         border: "2px solid currentColor",
-        backgroundColor: "#FFFFFF",
+        backgroundColor:`${variable.white}`,
         '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
           boxShadow: 'inherit',
         },

@@ -5,8 +5,9 @@ import * as  variable from '../scss/settings/variables.module.scss'
 import { THEME_TYPE } from '../axiosfolder';
 
 const themeTypes: any = {
-  0: "#EAA22B",
-  1: "#FF681A",
+  0: variable.yellowFuel,
+  // 0: "#009688",
+  1: variable.pumpkinOrange,
 }
 
 const commonPalette: PaletteOptions = {

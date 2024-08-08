@@ -291,7 +291,7 @@
                 border: 1px solid rgba($dark, 0.2);
                 border-radius: 15px;
                 width: calc(33% - 36px);
-                box-shadow: 6px 6px 27px 0px #0000000D;
+                box-shadow: 6px 6px 27px 0px #{$black}0D;
 
                 @include media($lg) {
                     width: calc(50% - 26px);

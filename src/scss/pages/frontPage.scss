@@ -24,7 +24,7 @@
 
             &:after {
                 position: absolute;
-                background: linear-gradient(287.69deg, rgba(0, 0, 0, 0) 5.28%, rgba(0, 0, 0, 0.58) 95.14%);
+                background: linear-gradient(287.69deg, $black 5.28%, rgba($black, 0.58) 95.14%);
                 z-index: -1;
                 content: "";
                 width: 100%;
@@ -68,7 +68,7 @@
                     font-weight: 700;
                     color: $white;
                     padding: 21px 0;
-                    text-shadow: 0 0px 20px #00000040;
+                    text-shadow: 0 0px 20px #{$black}40;
 
                     @include media($lg) {
                         font-size: 64px;

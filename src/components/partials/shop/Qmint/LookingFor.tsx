@@ -12,7 +12,7 @@ function LookingFor({sectionDetails}:any) {
         <Box className="ck-content">
           <Container className="Container" dangerouslySetInnerHTML={{ __html: sectionDetails["shopHomepage_Section_3_Three_pics_in_a_rows"] }}>
           </Container>
-        </Box>~
+        </Box>
       </Box> : null
   )
 }
