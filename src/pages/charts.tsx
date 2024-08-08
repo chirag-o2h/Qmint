@@ -11,6 +11,8 @@ import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import * as  variable from '../scss/settings/variables.module.scss'
+
 
 const colourForMembership: any = {
   gold: "#FFCC00",
@@ -19,7 +21,7 @@ const colourForMembership: any = {
   palladium: "#CC99CC",
   goldSilverratio: "#ffe478",
   audusDcross: "#33CCCC",
-  default: `${THEME_TYPE == '1' ? '#FF681A' : '#eaa22b'}`,
+  default: THEME_TYPE === '1' ? `${variable.pumpkinOrange}`  : `${variable.yellowFuel}`,
 };
 
 const modifiedName: any = {

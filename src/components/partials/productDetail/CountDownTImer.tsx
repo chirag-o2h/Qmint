@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import * as  variable from '../../../scss/settings/variables.module.scss'
+
 
 const CountDownTimer = () => {
     const [seconds, setSeconds] = useState(60);
@@ -43,7 +45,7 @@ const CountDownTimer = () => {
                 text={''}
                 styles={buildStyles({
                     pathTransition: 'none',
-                    pathColor: THEME_TYPE === '1' ? '#FF681A' : '#EAA22B',
+                    pathColor: THEME_TYPE === '1' ? `${variable.pumpkinOrange}`  : `${variable.yellowFuel}`,
                     trailColor: 'transparent', // Make the background transparent
                     strokeLinecap: 'butt', // Use butt strokeLinecap to fill the entire width
                 })}

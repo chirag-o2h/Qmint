@@ -101,10 +101,10 @@ div {
     --spectrum-global-dimension-size-50: 10px !important;
     --spectrum-alias-border-color: #1d212933 !important;
     --spectrum-alias-icon-color: #0000008a !important;
-    --spectrum-blue-800: #eaa22b !important;
-    --spectrum-blue-900: #eaa22b !important;
+    --spectrum-blue-800: $yellowFuel !important;
+    --spectrum-blue-900: $yellowFuel !important;
     --spectrum-gray-600: #1d21296b !important;
-    --spectrum-alias-highlight-selected: #eaa22b2e !important;
+    --spectrum-alias-highlight-selected: #{$yellowFuel}2e !important;
     --spectrum-accent-background-color-hover: #1d2129 !important;
     --spectrum-red-900: #ff1f1f !important;
     --spectrum-red-1000: #ff1f1f !important;
