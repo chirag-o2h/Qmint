@@ -56,7 +56,7 @@
         .ChartWrapper {
           .Price {
             position: relative;
-            color: #000000;
+            color: $black;
 
             &.High {
               bottom: -4px;
@@ -74,7 +74,7 @@
         }
 
         .PriceSliderWrapper {
-          color: #000000;
+          color: $black;
 
           .PriceWrapper {
             justify-content: space-between;
@@ -139,7 +139,7 @@
           &.NaN {
             background-color: transparent;
             justify-content: space-between;
-            color: #000000;
+            color: $black;
           }
 
         }

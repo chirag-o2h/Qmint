@@ -26,7 +26,7 @@
 
                 &:after {
                     position: absolute;
-                    background: linear-gradient(287.69deg, rgba(0, 0, 0, 0) 5.28%, rgba(0, 0, 0, 0.58) 95.14%);
+                    background: linear-gradient(287.69deg, $black 5.28%, rgba($black, 0.58) 95.14%);
                     z-index: -1;
                     content: "";
                     width: 100%;
@@ -171,7 +171,7 @@
                 .swiper-pagination-bullet {
                     height: 7px;
                     width: 7px;
-                    background-color: #D9D9D9;
+                    background-color: $greyLight;
 
                     &.swiper-pagination-bullet-active {
                         border: 2px solid $pumpkinOrange;
@@ -492,7 +492,7 @@
             .swiper-pagination-bullet {
                 height: 7px;
                 width: 7px;
-                background-color: #D9D9D9;
+                background-color: $greyLight;
 
                 &.swiper-pagination-bullet-active {
                     border: 2px solid $pumpkinOrange;
@@ -632,7 +632,7 @@
                 color: $white;
 
                 @include media($sm) {
-                    color: #000000;
+                    color: $black;
                     padding-top: 10px;
                 }
 

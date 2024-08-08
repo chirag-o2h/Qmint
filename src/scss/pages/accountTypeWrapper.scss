@@ -9,7 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            border: 1px solid #E5E6EB;
+            border: 1px solid $mercury;
             border-radius: 6px;
             margin-top: 14px;
             transition: .2s;
@@ -20,12 +20,12 @@
             }
     
             &.Mui-selected:hover {
-                background-color: rgba(29, 33, 41, 0.04);
+                background-color: #{$dark}0a;
             }
     
             &.Mui-selected {
                 border-color: $dark;
-                background-color: rgba(29, 33, 41, 0.04);
+                background-color: #{$dark}0a;
                 letter-spacing: 0;
             }
     

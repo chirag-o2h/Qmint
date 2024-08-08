@@ -186,7 +186,7 @@
   --ck-powered-by-padding-horizontal: 4px;
   --ck-powered-by-text-color: #4f4f4f;
   --ck-powered-by-border-radius: var(--ck-border-radius);
-  --ck-powered-by-background: #fff;
+  --ck-powered-by-background: $white;
   --ck-powered-by-border-color: var(--ck-color-focus-border);
 }
 
@@ -245,7 +245,7 @@
 
 :root {
   --ck-color-base-foreground: #fafafa;
-  --ck-color-base-background: #fff;
+  --ck-color-base-background: $white;
   --ck-color-base-border: #ccced1;
   --ck-color-base-action: #53a336;
   --ck-color-base-focus: #6cb5f9;
