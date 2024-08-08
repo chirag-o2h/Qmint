@@ -11,7 +11,7 @@ const useShowToaster = () => {
             redirectButtonUrl: '',
         }));
     }
-    const showToaster = async ({ message, buttonText = '', redirectButtonUrl = '', severity = 'info' }: { message: string, buttonText?: string, redirectButtonUrl?: string, severity?: 'info' | 'error' | 'success' | 'warning' }): void => {
+    const showToaster = async ({ message, buttonText = '', redirectButtonUrl = '', severity = 'info' }: { message: string, buttonText?: string, redirectButtonUrl?: string, severity?: 'info' | 'error' | 'success' | 'warning' }): Promise<void> => {
         await hideFirst()
         await dispatch(setToasterState({
             openToaster: true,

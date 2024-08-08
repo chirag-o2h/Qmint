@@ -49,7 +49,6 @@ declare global {
 }
 
 function ForgotPassword({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
-  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const dispatch: Dispatch<any> = useAppDispatch()
   const openToaster = useAppSelector(state => state.homePage.openToaster)
 
@@ -82,7 +81,7 @@ function ForgotPassword({ params, serverData }: { serverData: IconfigDataFromSer
       handleSubmit(onSubmit)()
     }
   }
-
+  console.log(serverData?.configDetails, "serverData?.configDetails")
   return (
     <>
       <Seo
@@ -95,7 +94,7 @@ function ForgotPassword({ params, serverData }: { serverData: IconfigDataFromSer
       <MainLayout blackTheme>
         <Stack id="BmkForgotPassword">
           <Box className="LeftPart">
-            <img className="LoginImage" src={configDetailsState?.Loginpage_Leftside_pic?.value} alt="left-image" />
+            <img className="LoginImage" src={serverData?.configDetails?.Loginpage_Leftside_pic?.value} alt="left-image" />
           </Box>
           <Stack className="RightPart">
             <form id="forgot-password-form" onKeyDown={handleEnterKeyPress}>

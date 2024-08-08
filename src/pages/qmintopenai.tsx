@@ -18,7 +18,7 @@ function Qmintopenai() {
     const checkLoadingStatus = useAppSelector(state => state.calculators.loading);
     const dispatch = useAppDispatch();
     const loading = useAppSelector(state => state.calculators.loading);
-    const getopenai = useAppSelector(state => state.calculators.openai);
+    const getopenai:any[] = useAppSelector(state => state.calculators.openai);
     const headerdata = getopenai.length > 0 ? getopenai[0] : [];
 
     const styles: any = createStyles({
@@ -129,7 +129,7 @@ function Qmintopenai() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    {headerdata?.map((bulkProduct: any, index) => (
+                                    {headerdata?.map((bulkProduct: any) => (
                                         <TableCell align="center" style={{ ...styles.tableCell }}>
                                             <Typography variant="subtitle1">{bulkProduct}</Typography>
                                         </TableCell>
@@ -140,7 +140,7 @@ function Qmintopenai() {
                                 {getopenai.map((bulkProduct: any, mindex) => (
                                     mindex > 0 ?
                                         <TableRow>
-                                            {bulkProduct.map((ans: any, index) => (
+                                            {bulkProduct.map((ans: any) => (
                                                 <TableCell align="center" style={{ ...styles.tableCell }}>
                                                     <Typography>{ans}</Typography>
                                                 </TableCell>

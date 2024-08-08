@@ -3,7 +3,6 @@ import { Skeleton, Stack } from '@mui/material'
 import React, { Suspense, lazy, useEffect, useState, useTransition } from 'react'
 // import BullionmarkFrontFooter from '../footer/BullionmarkFrontFooter';
 import { useLocation } from '@reach/router';
-import { STORE_CODE, THEME_TYPE } from '@/axiosfolder';
 import useAPIoneTime from '@/hooks/useAPIoneTime';
 import { configDetails } from '@/redux/reducers/homepageReducer';
 import { ENDPOINTS } from '@/utils/constants';
@@ -85,9 +84,7 @@ const MainLayout = (props: MainLayout) => {
                 minHeight={800}
             >
 
-                {/* {process.env.THEME_TYPE== "1"?  */}
-                <BullionmarkFrontFooter /> 
-                {/* : <LazyFrontFooter />} */}
+                {process.env.THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
             </RenderOnViewportEntry>
         </Stack>
     )

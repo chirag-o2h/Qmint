@@ -20,7 +20,6 @@ function RecentlyViewedProducts({ serverData }: { serverData: IconfigDataFromSer
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const { recentlyViewedProducts } = useAppSelector((state) => state.homePage)
-  console.log("🚀 ~ RecentlyViewedProducts ~ recentlyViewedProducts:", recentlyViewedProducts && recentlyViewedProducts?.length == 0)
   const [productIds, setProductId] = useState<any>(recentlyViewedProducts)
   const [priceForEachId, setPriceForEachId] = useState<IpriceForEachId | null>(null)
   const [dataWithId, setdataWithId] = useState<any>({})

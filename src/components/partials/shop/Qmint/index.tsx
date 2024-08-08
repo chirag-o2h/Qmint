@@ -1,9 +1,9 @@
-import React, { Suspense, lazy, useEffect, useState, useTransition } from "react"
+import React, { Suspense, lazy, useEffect, useMemo, useState, useTransition } from "react"
 const LookingFor = lazy(() => import("./LookingFor"))
 const PopularProducts = lazy(() => import("./PopularProducts"))
 const DiscoverTreasure = lazy(() => import("./DiscoverTreasure"))
 const CloserLook = lazy(() => import("./CloserLook"))
-const FeaturedProducts = lazy(() => import( "./FeaturedProducts"))
+const FeaturedProducts = lazy(() => import("./FeaturedProducts"))
 import { ENDPOINTS } from "@/utils/constants"
 // import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { configDetails, HomePageSectionDetails, serProgressLoaderStatus, setConfigDetails, setScrollPosition } from "@/redux/reducers/homepageReducer"
@@ -37,7 +37,12 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
     // const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
     const { openToaster } = useAppSelector((state) => state.homePage)
     const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
-    const keyWords = serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',')?.length > 0 ? serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',') : []
+    // const keyWords = serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',')?.length > 0 ? serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',') : []
+    const keyWords = useMemo(() => {
+        return (
+            serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []
+        );
+    }, [serverData?.configDetails]);
 
     // const [body] = useState({
     //     "search": "",

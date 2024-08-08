@@ -35,7 +35,7 @@ export interface FooterSection {
 }
 
 function FrontFooter() {
-    const { configDetails: configDetailsState, categoriesList, mainHomePageData } = useAppSelector((state) => state.homePage)
+    const { configDetails: configDetailsState, mainHomePageData } = useAppSelector((state) => state.homePage)
     // if SSR
     // useAPIoneTime({ service: getMainHomePageData, conditionalCall: location.pathname !== '/' })
     // else CSR
@@ -48,7 +48,7 @@ function FrontFooter() {
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
                         <LogoLink to="/" style={{ cursor: 'pointer' }}>
-                            <img src={configDetailsState?.["Homepage_FooterLogo_URLfooterlogo"]?.value} alt="Footer logo" loading="lazy" />
+                            <img src={configDetailsState?.["Homepage_FooterLogo_URL"]?.value} alt="Footer logo" loading="lazy" />
                         </LogoLink>
                         <Stack className="SocialWrapper">
                             <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? location?.href}><FacebookIcon fontSize="small" /></IconButton>

@@ -7,7 +7,7 @@ import { useAppSelector } from '@/hooks'
 
 function LookingFor({sectionDetails}:any) {
   return (
-    sectionDetails["shopHomepage_Section_3_Three_pics_in_a_rows"] ?
+    sectionDetails?.["shopHomepage_Section_3_Three_pics_in_a_rows"] ?
       <Box id="LookingFor" component="section">
         <Box className="ck-content">
           <Container className="Container" dangerouslySetInnerHTML={{ __html: sectionDetails["shopHomepage_Section_3_Three_pics_in_a_rows"] }}>
@@ -16,4 +16,4 @@ function LookingFor({sectionDetails}:any) {
       </Box> : null
   )
 }
-export default React.memo(LookingFor)
+export default LookingFor

@@ -23,7 +23,7 @@ function EmailConfirmation({ params, serverData }: { serverData: IconfigDataFrom
   const location = useLocation()
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [isTokenVarified, setIsTokenVarified] = useState<boolean>(false)
   const [message, setMessage] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -46,7 +46,7 @@ function EmailConfirmation({ params, serverData }: { serverData: IconfigDataFrom
 
     verifyToken()
     return () => {
-
+      setLoading(() => false)
     };
   }, [])
 
@@ -66,18 +66,19 @@ function EmailConfirmation({ params, serverData }: { serverData: IconfigDataFrom
         configDetailsState={serverData?.configDetails}
       />
       <MainLayout blackTheme>
-        <Container id="EmailConfirmation">
-          <Box className={classNames("Content", { "error": loginError })}>
-            {loginError ? <ContainedCrossIcon className="TickIcon" /> : <TickIcon className="TickIcon" />}
-            <Typography variant="h4" className="Title" component="p">{loginError ? 'Error' : 'Confirmation'}</Typography>
-            <Typography className="Description" dangerouslySetInnerHTML={{
-              __html: loginError ?? message
-            }}>
-              {/* Your email has been successfully verified. Please <Link to={ENDPOINTS.login} className="Link">click here</Link> to login. */}
-            </Typography>
-            <Button variant="contained" size="large" className="ActionButton" onClick={() => navigate(ENDPOINTS.login)}>Sign Me In</Button>
-          </Box>
-        </Container>
+        {!loading ?
+          <Container id="EmailConfirmation">
+            <Box className={classNames("Content", { "error": loginError })}>
+              {loginError ? <ContainedCrossIcon className="TickIcon" /> : <TickIcon className="TickIcon" />}
+              <Typography variant="h4" className="Title" component="p">{loginError ? 'Error' : 'Confirmation'}</Typography>
+              <Typography className="Description" dangerouslySetInnerHTML={{
+                __html: loginError || message!
+              }}>
+                {/* Your email has been successfully verified. Please <Link to={ENDPOINTS.login} className="Link">click here</Link> to login. */}
+              </Typography>
+              <Button variant="contained" size="large" className="ActionButton" onClick={() => navigate(ENDPOINTS.login)}>Sign Me In</Button>
+            </Box>
+          </Container> : null}
       </MainLayout>
     </>
   )

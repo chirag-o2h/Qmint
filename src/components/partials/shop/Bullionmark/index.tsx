@@ -45,6 +45,7 @@ const InspiringStories = lazy(
   () => import("../../landing-page/Bullionmark/InspiringStories")
 );
 import useragent from 'express-useragent';
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 const BullionmarkShop = (props: any) => {
   const { serverData } = props;
   const [isRendering, setIsRendering] = useState(true);
@@ -56,21 +57,7 @@ const BullionmarkShop = (props: any) => {
     bmkShopPageSections,
     isLoggedIn
   } = useAppSelector((state) => state.homePage);
-  useEffect(() => {
-    dispatch(setConfigDetails(serverData?.configDetailsForRedux));
-    dispatch(setBmkShopPageSections(serverData?.bmkShopPageSections));
-
-    if (serverData?.configDetails?.Store_FaviconURL?.value) {
-      const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-      // Update favicon dynamically
-      const link: any =
-        document.querySelector("link[rel='icon']") ||
-        document.createElement("link");
-      link.rel = "icon";
-      link.href = faviconUrl;
-      document.head.appendChild(link);
-    }
-  }, [serverData]);
+  useSetConfigAndFavicon(serverData)
   // }, []);
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
@@ -132,20 +119,20 @@ const BullionmarkShop = (props: any) => {
           <Skeleton
             height={"124px"}
             width={"100%"}
-            style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)",position:"sticky",top:'0px' }}
+            style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
           />
         }><BullionmarkHeader /></Suspense>}
         {
-        isRendering && 
-        (
-          <>
-            <Skeleton
-              height={"124px"}
-              width={"100%"}
-              style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)",zIndex:9999,background:"gray" }}
-            />
+          isRendering &&
+          (
+            <>
+              <Skeleton
+                height={"124px"}
+                width={"100%"}
+                style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, background: "gray" }}
+              />
 
-            {/* {isMobile && (
+              {/* {isMobile && (
               <BestCategorySliderSkeleton
                 pageData={serverData?.bmkShopPageSections}
                 PaddingClass={
@@ -161,11 +148,11 @@ const BullionmarkShop = (props: any) => {
                 }
               />
             )} */}
-          </>
-        )}
+            </>
+          )}
         {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
           <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
-            <BannerSlider isItShopPage={true} bannerSliderData={serverData?.bannerSliderData}/>
+            <BannerSlider isItShopPage={true} bannerSliderData={serverData?.bannerSliderData} />
           </Suspense>
         )}
 
@@ -317,7 +304,7 @@ BullionmarkShop.getServerData = async (context: any) => {
       axiosInstance.get(ENDPOINTS.getConfigStore),
       axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
       axiosInstance.post(ENDPOINTS.getProduct, dataforbody),
-      axiosInstance.get(ENDPOINTS.getSlider.replace('typeEnum',  '1'))
+      axiosInstance.get(ENDPOINTS.getSlider.replace('typeEnum', '1'))
     ]);
 
     const configDetails = configDetailsResponse.data.data;
@@ -349,7 +336,7 @@ BullionmarkShop.getServerData = async (context: any) => {
         configDetailsForRedux: configDetails,
         bmkShopPageSections,
         productData: productData,
-        bannerSliderData:bannerSliderData
+        bannerSliderData: bannerSliderData
         // priceForEachId,
       },
     };
