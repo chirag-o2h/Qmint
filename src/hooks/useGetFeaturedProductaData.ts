@@ -48,7 +48,6 @@ const useGetFeaturesProductaData = (conditionalCall=true,dataWhenConditionCallFa
                     axiosInstance
                         .post(ENDPOINTS.productPrices, { productIds: ids }, { signal: cancellationSource?.signal })
                         .then(response => {
-                            console.log("🚀 ~ timeoutId=setTimeout ~ response?.data?.data:", response?.data?.data)
                             if (response?.data?.data) {
                                 const idwithpriceObj: any = {}
                                 response?.data?.data?.forEach((product: any) => idwithpriceObj[product?.productId] = product)

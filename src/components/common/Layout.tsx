@@ -2,11 +2,8 @@ import React, { Suspense, lazy, useEffect, useState, useTransition } from "react
 import PropTypes from "prop-types";
 import { Skeleton, Stack, useMediaQuery } from "@mui/material";
 
-// Utils
-import { THEME_TYPE } from "@/axiosfolder";
-
-// Components
-import LazyHeader from "../header/index";
+// import LazyHeader from "../header/index";
+const LazyHeader = lazy(()=>import("../header/index"))
 // import BullionmarkHeader from "../header/BullionmarkHeader";
 const BullionmarkHeader = lazy(() => import("../header/BullionmarkHeader"))
 import {
@@ -121,9 +118,7 @@ function Layout(props: {
         threshold={0.25}
         minHeight={850}
       >
-        {/* {THEME_TYPE === "1" ?  */}
-        <LazyBullionmarkFooter />
-        {/* // : <LazyFooter />} */}
+        {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter />: <LazyFooter />}
       </RenderOnViewportEntry>}
       {!renderAfterSomeTime &&
         <RenderOnViewportEntry
@@ -131,9 +126,7 @@ function Layout(props: {
         threshold={0.25}
         minHeight={850}
       >
-        {/* {THEME_TYPE === "1" ?  */}
-        <LazyBullionmarkFooter />
-        {/* // : <LazyFooter />} */}
+        {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter />: <LazyFooter />}
       </RenderOnViewportEntry>
       }
       {openSessionExpireDialog && (

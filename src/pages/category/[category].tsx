@@ -23,8 +23,11 @@ import { useLocation } from "@reach/router"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 const BullionmarkHeader = lazy(() => import("@/components/header/BullionmarkHeader"));
+const LazyHeader = lazy(() => import("@/components/header/index"))
 const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
+const LazyFooter = lazy(() => import('@/components/footer/index'));
 import useragent from 'express-useragent';
+import useRedirectTo404 from "@/hooks/useRedirectTo404"
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -204,12 +207,7 @@ function Category({ serverData, props }: Props) {
             setTimeout(() => setIsRendering(false), 3500);
         });
     }, [])
-    useEffect(() => {
-        if (serverData?.redirectTo404) {
-            navigate('/404')
-        }
-    }, [serverData])
-    
+    useRedirectTo404(serverData)
     return (
         <>
             {isRendering && (
@@ -224,7 +222,7 @@ function Category({ serverData, props }: Props) {
                     height={"124px"}
                     width={"100%"}
                     style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }} />}>
-                <BullionmarkHeader />
+                {process.env.THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
             </Suspense>}
             {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
             <Seo
@@ -252,7 +250,7 @@ function Category({ serverData, props }: Props) {
                 threshold={0.25}
                 minHeight={800}
             >
-                <LazyBullionmarkFooter />
+                {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
             </RenderOnViewportEntry>
         </>
     )

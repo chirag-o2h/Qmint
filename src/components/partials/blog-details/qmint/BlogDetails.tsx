@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Box,
   Grid,
@@ -41,48 +41,52 @@ import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
+import axiosInstance from "@/axiosfolder";
+import { IserverData } from "../bmk/BlogDetails";
 
-function BlogDetails(params: any) {
+function BlogDetails({ serverData, params }: { serverData: IserverData, params: any }) {
   const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
-  const dispatch = useAppDispatch()
-  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-  const { blogDetailsData, blogList }: any = useAppSelector((state) => state.blogPage);
+  // const dispatch = useAppDispatch()
+  // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
+  // const { blogDetailsData, blogList }: any = useAppSelector((state) => state.blogPage);
   // console.log("🚀 ~ BlogDetails ~ blogDetailsData:", blogDetailsData)
   const { email, handleEmailChange, subscribe, loadingForEmailSub } = useSubscription();
-  useEffect(() => {
-    const apiCall = async () => {
-      dispatch(setLoadingTrue())
-      await dispatch(BlogDetailsAPI({ params: { pathName: params?.["blog-details-friendly-name"] } }))
-      setTimeout(() => {
-        dispatch(setLoadingFalse())
-      }, 1500);
-    }
-    apiCall()
-  }, [params?.params?.["blog-details-friendly-name"]])
-  useAPIoneTime({
-    service: BlogList,
-    endPoint: ENDPOINTS.BlogList,
-    body: bodyData,
-    // if ssr then uncommit this below line
-    // conditionalCall: Object.keys(debounce ?? {}).length > 0
-  });
+  // useEffect(() => {
+  //   const apiCall = async () => {
+  //     dispatch(setLoadingTrue())
+  //     await dispatch(BlogDetailsAPI({ params: { pathName: params?.["blog-details-friendly-name"] } }))
+  //     setTimeout(() => {
+  //       dispatch(setLoadingFalse())
+  //     }, 1500);
+  //   }
+  //   apiCall()
+  // }, [params?.params?.["blog-details-friendly-name"]])
+  // useAPIoneTime({
+  //   service: BlogList,
+  //   endPoint: ENDPOINTS.BlogList,
+  //   body: bodyData,
+  //   // if ssr then uncommit this below line
+  //   // conditionalCall: Object.keys(debounce ?? {}).length > 0
+  // });
 
   useEffect(() => {
-    if(!blogDetailsData){
+    if (!serverData?.blogDetailsData) {
       navigate(`/404`)
     }
-  }, [blogDetailsData])
+  }, [serverData?.blogDetailsData])
+  const keyWords = useMemo(() => serverData?.blogDetailsData?.metaKeywords?.split(',')?.length > 0 ? serverData?.blogDetailsData?.metaKeywords?.split(',') : [], [serverData])
 
   return (
     <MainLayout blackTheme>
-      <Seo
-        keywords={['Travel', 'Qmit', 'gold', 'metal']}
-        title={blogDetailsData?.metaTitle}
-        lang="en"
-        description={configDetailsState?.Store_Meta_Description?.value}
-      />
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+      <Seo
+        keywords={['Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
+        title={serverData?.blogDetailsData?.metaTitle}
+        lang="en"
+        description={serverData?.blogDetailsData?.metaDescription}
+        configDetailsState={serverData?.configDetails}
+      />
       <Box className="BlogDetailPage">
         <Box className="PostDescription">
           <Container maxWidth="lg">
@@ -97,7 +101,7 @@ function BlogDetails(params: any) {
               All Posts
             </Button>
             <Typography variant="h2" component="h2" className="BlogTitle">
-              {blogDetailsData?.title}
+              {serverData?.blogDetailsData?.title}
             </Typography>
             <Stack className="PostUploadInfo">
               <Box>
@@ -107,7 +111,7 @@ function BlogDetails(params: any) {
                   variant="titleLarge"
                   component="p"
                 >
-                  {blogDetailsData?.createdBy}
+                  {serverData?.blogDetailsData?.createdBy}
                 </Typography>
               </Box>
               <Box>
@@ -117,24 +121,24 @@ function BlogDetails(params: any) {
                   variant="titleLarge"
                   component="p"
                 >
-                  {formatDate(blogDetailsData?.createdOnUtc)}
+                  {formatDate(serverData?.blogDetailsData?.createdOnUtc)}
                 </Typography>
               </Box>
             </Stack>
             <Box className="ContentWrapper">
               <Box className="PostThumbnail">
                 <img
-                  src={blogDetailsData?.imageUrl}
+                  src={serverData?.blogDetailsData?.imageUrl}
                   alt={noImage}
                 />
               </Box>
               <Box className="PostContent">
                 <Typography variant="subtitle1">
-                  {blogDetailsData?.bodyOverview}
+                  {serverData?.blogDetailsData?.bodyOverview}
                 </Typography>
                 <Typography
                   variant="body1"
-                  dangerouslySetInnerHTML={{ __html: blogDetailsData?.body }}
+                  dangerouslySetInnerHTML={{ __html: serverData?.blogDetailsData?.body }}
                 ></Typography>
               </Box>
               <Stack className="FooterContent">
@@ -159,7 +163,7 @@ function BlogDetails(params: any) {
                   </Stack>
                 </Box>
                 <Box className="Right">
-                  {blogDetailsData?.tags
+                  {serverData?.blogDetailsData?.tags
                     ?.split(",")
                     ?.map((tagName: string) => <Chip label={tagName} />)}
                   {/* <Chip label="Tag one" />
@@ -171,17 +175,17 @@ function BlogDetails(params: any) {
             </Box>
           </Container>
           <Container>
-            {blogList?.items?.length > 0 ? (
+            {serverData?.blogList?.items?.length > 0 ? (
               <Box className="DiscoverPost">
                 <Box className="DiscoverPost__title">
                   <Typography variant="h2" component="h2">
-                    {configDetailsState?.BlogItem_RelatedPost_Title?.value}
+                    {serverData?.configDetails?.BlogItem_RelatedPost_Title?.value}
                   </Typography>
                   <Typography
                     variant="body1"
                     sx={{ mt: 1.875, color: variable.greyRegent }}
                   >
-                    {configDetailsState?.BlogItem_RelatedPost_Subtitle?.value}
+                    {serverData?.configDetails?.BlogItem_RelatedPost_Subtitle?.value}
                   </Typography>
                 </Box>
                 {/* <Box className="DiscoverPost__title">
@@ -218,7 +222,7 @@ function BlogDetails(params: any) {
                     rowSpacing={{ md: 6.25, xs: 4 }}
                     columnSpacing={{ md: 3.75, xs: 2 }}
                   >
-                    {blogList?.items?.map((item: any) => {
+                    {serverData?.blogList?.items?.map((item: any) => {
                       return (
                         <Grid item md={4} sm={6} key={item?.id}>
                           <PostCard
@@ -280,4 +284,44 @@ function BlogDetails(params: any) {
     </MainLayout>
   );
 }
+BlogDetails.getServerData = async (context: any) => {
+  try {
+    const { params } = context;
+    const productFriendlyName = params['blog-details-friendly-name'];
+    console.log("before fatching ", Date.now())
+    const [
+      configDetailsResponse,
+      blogDetailsDataResponse,
+      blogListDataResponse
+    ] = await Promise.all([
+      axiosInstance.get(ENDPOINTS.getConfigStore),
+      axiosInstance.get(ENDPOINTS.BlogDetails + '/' + productFriendlyName),
+      axiosInstance.post(ENDPOINTS.BlogList, bodyData),
+    ]);
+    const configDetails = configDetailsResponse.data.data;
+    const blogDetailsData = blogDetailsDataResponse.data.data;
+    const blogList = blogListDataResponse.data.data;
+    console.log("🚀 ~ getServerData ~ productDetailsData:", blogDetailsData)
+
+    return {
+      props: {
+        configDetails: configDetails?.reduce((acc: any, curr: any) => {
+          acc[curr.key] = curr
+          return acc
+        }, {}),
+        configDetailsForRedux: configDetails,
+        blogDetailsData: blogDetailsData,
+        blogList
+      },
+    };
+  } catch (error) {
+    console.error("🚀 ~ getServerData ~ error:", error);
+    console.log("getServerData -- inside catch block", Date.now());
+    return {
+      status: 500,
+      headers: {},
+      props: {},
+    };
+  }
+};
 export default React.memo(BlogDetails);

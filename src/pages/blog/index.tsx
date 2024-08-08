@@ -51,9 +51,9 @@ import Seo from "@/components/common/Seo";
 import { setConfigDetails } from "@/redux/reducers/homepageReducer";
 import FrontHeader from "@/components/header/FrontHeader";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
-const LazyBullionmarkFooter = lazy(
-  () => import("@/components/footer/BullionmarkFooter")
-);
+// const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
+const BullionmarkFrontFooter = lazy(() => import('@/components/footer/BullionmarkFrontFooter'));
+const LazyFrontFooter = lazy(() => import('@/components/footer/FrontFooter'));
 function Blog({ serverData }: any) {
   const configDetailsState = serverData?.configDetails
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
@@ -264,7 +264,8 @@ function Blog({ serverData }: any) {
         threshold={0.25}
         minHeight={800}
       >
-        <LazyBullionmarkFooter />
+        {/* <LazyBullionmarkFooter /> */}
+        {process.env.THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
       </RenderOnViewportEntry>
     </>
   );
@@ -294,7 +295,7 @@ export async function getServerData(context: any) {
         }, {}),
         configDetailsForRedux: configDetails,
         blogList,
-        keywords: configDetails?.reduce((acc:any, curr:any) => {
+        keywords: configDetails?.reduce((acc: any, curr: any) => {
           acc[curr.key] = curr;
           return acc;
         }, {})?.Store_ShopPage_Meta_Keywords?.value?.split(",") || [],

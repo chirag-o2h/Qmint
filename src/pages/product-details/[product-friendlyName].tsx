@@ -19,14 +19,16 @@ import useShowToaster from "@/hooks/useShowToaster"
 // import PageNotFound from "@/components/partials/productDetail/PageNotFound"
 const PageNotFound = lazy(() => import("@/components/partials/productDetail/PageNotFound"))
 import classNames from "classnames"
-import axiosInstance, { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
+import axiosInstance from "@/axiosfolder"
 const BullionmarkHeader = lazy(() => import("@/components/header/BullionmarkHeader"))
+const LazyHeader = lazy(() => import("@/components/header/index"))
 
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 import useragent from 'express-useragent';
-const LazyBullionmarkFooter = lazy(
-  () => import("@/components/footer/BullionmarkFooter")
-);
+import useRedirectTo404 from "@/hooks/useRedirectTo404"
+import { wrapPromise } from "@/utils/common"
+const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
+const LazyFooter = lazy(() => import('@/components/footer/index'));
 
 interface ServerData {
   configDetails: any;
@@ -60,7 +62,6 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
   useEffect(() => {
     dispatch(setProductDetails(serverData?.productDetailsData))
   }, [serverData])
-  console.log("🚀 ~ useEffect ~ serverData?.productDetailsData:", serverData?.productDetailsData)
   useEffect(() => {
     if (serverData?.productDetailsData?.productId) {
       const res = dispatch(setRecentlyViewedProduct(serverData?.productDetailsData?.productId))
@@ -96,6 +97,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
       setTimeout(() => setIsRendering(false), 3500);
     });
   }, [])
+  // useRedirectTo404(serverData)
   return (
     <>
       <Seo
@@ -118,25 +120,27 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
           height={"115px"}
           width={"100%"}
           style={{ marginBottom: !serverData?.isMobile ? "32px" : "24px", transform: "scale(1)" }} />}>
-        <BullionmarkHeader />
+        {process.env.THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
       </Suspense>}
 
       {checkLoadingStatus || checkLoadingStatusOfTheGetWishlist && <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />}
 
-      {serverData?.productDetailsData && !serverData?.productDetailsData?.errorMessage ? (<>
-        <Breadcrumb arr={[{ navigate: '/category/buy', name: 'Buy' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
-        <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": THEME_TYPE == '1' })}>
+      {serverData?.productDetailsData && !serverData?.productDetailsData?.errorMessage ?
+        (<>
+          <Breadcrumb arr={[{ navigate: '/category/buy', name: 'Buy' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
+          <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": process.env.THEME_TYPE == '1' })}>
 
-          {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails} />}
+            {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails} />}
 
-          {serverData?.productDetailsData?.relatedProducts?.length > 0 && <Suspense fallback={<></>}><RelatedProduct relatedProductsList={structuredClone(serverData?.productDetailsData?.relatedProducts)} heading={serverData?.configDetails["ProductDetails_RelatedProducts_SectionTitle"]?.value} description={serverData?.configDetails["ProductDetails_RelatedProducts_SectionSubtitle"]?.value} /></Suspense>}
-        </Container></>) : <Suspense fallback={<></>}><PageNotFound /></Suspense>}
+            {serverData?.productDetailsData?.relatedProducts?.length > 0 && <Suspense fallback={<></>}><RelatedProduct relatedProductsList={structuredClone(serverData?.productDetailsData?.relatedProducts)} heading={serverData?.configDetails["ProductDetails_RelatedProducts_SectionTitle"]?.value} description={serverData?.configDetails["ProductDetails_RelatedProducts_SectionSubtitle"]?.value} /></Suspense>}
+          </Container></>) :
+        <Suspense fallback={<></>}><PageNotFound /></Suspense>}
       <RenderOnViewportEntry
         rootMargin="200px"
         threshold={0.25}
         minHeight={800}
       >
-        <LazyBullionmarkFooter />
+        {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </RenderOnViewportEntry>
     </>
   )
@@ -153,16 +157,36 @@ export async function getServerData(context: {
     const isMobile = ua.isMobile ? true : false;
     const productFriendlyName = params['product-friendlyName'];
     console.log("before fatching ", Date.now())
-    const [
-      configDetailsResponse,
-      productDetailsDataResponse,
-    ] = await Promise.all([
-      axiosInstance.get(ENDPOINTS.getConfigStore),
-      axiosInstance.get(ENDPOINTS.productDetails.replace('{{product-id}}', productFriendlyName)),
-    ]);
-    const configDetails = configDetailsResponse.data.data;
-    const productDetailsData = productDetailsDataResponse.data.data;
-    console.log("🚀 ~ getServerData ~ productDetailsData:", productDetailsData)
+    // const [
+    //   configDetailsResponse,
+    //   productDetailsDataResponse,
+    // ] = await Promise.all([
+    //   axiosInstance.get(ENDPOINTS.getConfigStore),
+    //   axiosInstance.get(ENDPOINTS.productDetails.replace('{{product-id}}', productFriendlyName)),
+    // ]);
+    // const configDetails = configDetailsResponse.data.data;
+    // const productDetailsData = productDetailsDataResponse.data.data;
+    // console.log("🚀 ~ getServerData ~ productDetailsData:", productDetailsData)
+    // ================================================================================
+    const promises = [
+      wrapPromise(axiosInstance.get<Record<string, any>>(ENDPOINTS.getConfigStore)),
+      wrapPromise(axiosInstance.get<Record<string, any>>(ENDPOINTS.productDetails.replace('{{product-id}}', productFriendlyName))),
+    ];
+
+    // Wait for all promises to settle
+    const results = await Promise.all(promises);
+
+    // Extract the results
+    const configDetailsResult = results[0];
+    const productDetailsDataResult = results[1];
+
+    // Handle results
+    const configDetails = configDetailsResult.status === 'fulfilled' ? configDetailsResult?.value?.data?.data : null;
+    const productDetailsData = productDetailsDataResult.status === 'fulfilled' ? productDetailsDataResult?.value?.data?.data : null;
+    // ================================================================================
+
+
+
 
     return {
       props: {
@@ -181,7 +205,9 @@ export async function getServerData(context: {
     return {
       status: 500,
       headers: {},
-      props: {},
+      props: {
+        redirectTo404: true
+      },
     };
   }
 }

@@ -106,7 +106,6 @@ function CloserLook({ configDetails, homePageSectionDetails }: { configDetails: 
       },
     }
   }
-  console.log(homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length,"homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length")
 
   return (
     homePageSectionDetails?.shopHomepage_Section_6_Three_posts_in_a_row?.length !== 0 ?

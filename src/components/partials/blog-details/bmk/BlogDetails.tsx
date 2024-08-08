@@ -40,7 +40,7 @@ import { bodyData } from "@/pages/blog";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
 import axiosInstance from "@/axiosfolder";
-interface IserverData{
+export interface IserverData{
     configDetails:any
     configDetailsForRedux: any,
     blogDetailsData: any,
@@ -50,7 +50,7 @@ function BmkBlogDetails({serverData,params}:{serverData:IserverData,params:any})
   const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   // const dispatch = useAppDispatch()
-  useAppSelector((state) => state.homePage)
+  // useAppSelector((state) => state.homePage)
   // const { blogDetailsData, blogList }: any = useAppSelector((state) => state.blogPage);
   useSubscription();
   // useEffect(() => {

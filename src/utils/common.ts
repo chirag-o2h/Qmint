@@ -277,3 +277,13 @@ export function getCommonShippingMethods(products: any): number[] {
   return commonMethods;
 }
 export const DEFAULT_VALUE_FOR_SHIPPING_METHOD = 5
+type PromiseResult<T> = 
+  | { status: 'fulfilled'; value: T }
+  | { status: 'rejected'; reason: any };
+
+
+export const wrapPromise = <T>(promise: Promise<T>): Promise<PromiseResult<T>> => {
+  return promise
+      .then(value => ({ status: 'fulfilled' as const, value }))
+      .catch(reason => ({ status: 'rejected' as const, reason }));
+};

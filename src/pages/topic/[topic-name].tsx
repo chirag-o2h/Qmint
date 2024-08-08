@@ -10,11 +10,13 @@ import MainLayout from "@/components/common/MainLayout";
 import axiosInstance from "@/axiosfolder";
 import { time } from "console";
 import { setConfigDetails } from "@/redux/reducers/homepageReducer";
-import FrontHeader from "@/components/header/FrontHeader";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
-const LazyBullionmarkFooter = lazy(
-  () => import("@/components/footer/BullionmarkFooter")
-);
+// import FrontHeader from "@/components/header/FrontHeader";
+const FrontHeader = lazy(() => import("@/components/header/FrontHeader"));
+// const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
+const BullionmarkFrontFooter = lazy(() => import('@/components/footer/BullionmarkFrontFooter'));
+const LazyFrontFooter = lazy(() => import('@/components/footer/FrontFooter'));
+
 interface ServerData {
   configDetails: any;
   configDetailsForRedux: any;
@@ -32,7 +34,6 @@ function Topics({ serverData }: { serverData: ServerData }) {
   const dispatch = useAppDispatch()
   const configDetailsState = serverData?.configDetails
   const topicDetails = serverData?.topicPageData
-  console.log("🚀 ~ Topics ~ serverData:", topicDetails)
   // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   // const { topicDetails, loading } = useAppSelector((state) => state.topic);
   const [isPending, startTransition] = useTransition();
@@ -76,7 +77,9 @@ function Topics({ serverData }: { serverData: ServerData }) {
               width={"100%"}
               style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }}
             />
-          }><FrontHeader blackTheme={true} /></Suspense>}
+          }>
+            <FrontHeader blackTheme={true} />
+          </Suspense>}
           <Seo
             keywords={[
               `topics`,
@@ -112,7 +115,8 @@ function Topics({ serverData }: { serverData: ServerData }) {
             threshold={0.25}
             minHeight={800}
           >
-            <LazyBullionmarkFooter />
+            {/* <LazyBullionmarkFooter /> */}
+            {process.env.THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
           </RenderOnViewportEntry>
         </>
       )}
@@ -124,7 +128,7 @@ export default Topics;
 
 export async function getServerData(context: { params: any; }) {
   try {
-    console.log("before fatching ", Date.now(),"context",context)
+    console.log("before fatching ", Date.now(), "context", context)
     const { params } = context;
     const topicName = params["topic-name"];
     const [
