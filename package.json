@@ -76,8 +76,10 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "predev": "node generate-scss-vars.js development",
+    "prebuild": "node generate-scss-vars.js production",
+    "develop": "npm run predev && gatsby develop",
+    "build": "npm run prebuild && gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",

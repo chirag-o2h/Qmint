@@ -6,7 +6,6 @@ import { THEME_TYPE } from '../axiosfolder';
 
 const themeTypes: any = {
   0: variable.yellowFuel,
-  // 0: "#009688",
   1: variable.pumpkinOrange,
 }
 

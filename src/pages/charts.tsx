@@ -21,7 +21,7 @@ const colourForMembership: any = {
   palladium: "#CC99CC",
   goldSilverratio: "#ffe478",
   audusDcross: "#33CCCC",
-  default: THEME_TYPE === '1' ? `${variable.pumpkinOrange}`  : `${variable.yellowFuel}`,
+  default: THEME_TYPE === '1' ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`,
 };
 
 const modifiedName: any = {
@@ -31,14 +31,14 @@ const modifiedName: any = {
 
 function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
   const chartData = useAppSelector((state) => state.homePage.liveDashboardChartData);
+
   return (
     <>
       <Seo keywords={[`BMk Topics`, ...(serverData?.keywords || [])]} title="Charts" lang="en" configDetailsState={serverData?.configDetails} />
       <Layout>
         <PageTitle title={"Charts"} />
         {Object.entries(chartData).map(([key, value]: any) => {
-          const color =
-            colourForMembership[key] || colourForMembership["default"];
+          const color = colourForMembership[key] || colourForMembership["default"];
           const cardName = modifiedName[key] || key;
           return (
             <Container id="PageTopics">
@@ -76,7 +76,7 @@ function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
                       value.threedayrange[0].linechartdata
                     }
                   />
-                  <MetalCard
+                  {key !== 'audusDcross' ? <MetalCard
                     color={color}
                     headerTitle1={cardName}
                     headerTitle2="DEV-20DMA"
@@ -85,8 +85,8 @@ function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
                       value.trend20dma[0] &&
                       value.trend20dma[0].current
                     }
-                  />
-                  <MetalCard
+                  /> : null}
+                  {key !== 'audusDcross' ? <MetalCard
                     color={color}
                     headerTitle1={cardName}
                     headerTitle2="DEV-200DMA"
@@ -95,8 +95,15 @@ function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
                       value.trend200dma[0] &&
                       value.trend200dma[0].current
                     }
-                  />
-                  <MetalCard
+                  /> : null}
+                  {key === 'goldSilverratio' && <MetalCard
+                    color={color}
+                    headerTitle1={cardName}
+                    headerTitle2="1 YEAR CHART"
+                    lineChartData={value.oneyearchart[0].linechartdata}
+                    spanStyle={{ gridColumn: 'span 2 !important' }}
+                  />}
+                  {key !== 'audusDcross' ? <MetalCard
                     color={color}
                     headerTitle1={cardName}
                     headerTitle2="STRENGTH"
@@ -106,8 +113,9 @@ function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
                       value.strength[0].current
                     }
                     isStrengh={true}
-                  />
-                  <MetalCard
+                    spanStyle={key === 'goldSilverratio' ? { gridColumn: 'span 1 !important',gridColumnStart:'3 !important' } : {}}
+                  /> : null}
+                  {key !== 'audusDcross' && key !== 'goldSilverratio' ? <MetalCard
                     color={color}
                     headerTitle1={cardName}
                     headerTitle2="52 WEEK LOW / HIGH"
@@ -126,14 +134,15 @@ function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
                       value.lowhigh52week[0] &&
                       value.lowhigh52week[0].high
                     }
-                  />
-                  <MetalCard
+                  /> : null}
+                  {key !== 'goldSilverratio' && <MetalCard
                     color={color}
                     headerTitle1={cardName}
                     headerTitle2="1 YEAR CHART"
                     lineChartData={value.oneyearchart[0].linechartdata}
-                  />
-                  <MetalCard
+                    spanStyle={key == 'audusDcross' ? { gridColumn: 'span 2' } :{}}
+                  />}
+                  {key !== 'audusDcross' && key !== 'goldSilverratio' ? <MetalCard
                     color={color}
                     headerTitle1={cardName}
                     headerTitle2="10 DAY VOLATILITY"
@@ -143,7 +152,7 @@ function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
                       value.volatility[0].current
                     }
                     isVolatility={true}
-                  />
+                  /> : null}
                   {key !== 'goldSilverratio' && key !== 'audusDcross' ?
                     <MetalCard
                       color={color}

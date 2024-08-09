@@ -16,9 +16,10 @@ function MetalCard(props: any) {
     high,
     isVolatility,
     isDollarSign,
+    spanStyle
   } = props;
   return (
-    <Box className="MetalCard" color={props.color}>
+    <Box className="MetalCard" color={props.color} sx={{...(spanStyle ? spanStyle: {})}}>
       <MetalCardHeader
         headerTitle1={headerTitle1}
         headerTitle2={headerTitle2}
