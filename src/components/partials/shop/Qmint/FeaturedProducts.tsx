@@ -65,10 +65,12 @@ export interface IpriceForEachId {
   [key: number]: IproductPrice
 }
 
-function FeaturedProducts({configDetails,isMobile}:{configDetails:any,isMobile:boolean}) {
-
-  const { data, priceForEachId } = useGetFeaturesProductaData();
-
+function FeaturedProducts({ configDetails, isMobile, needToCallProductAPI, productData }: { configDetails: any, isMobile: boolean, needToCallProductAPI: boolean, productData: any }) {
+  let data
+  let { priceForEachId } = useGetFeaturesProductaData(needToCallProductAPI, productData);
+  if (!needToCallProductAPI) {
+    data = {data:productData}
+  }
   const config = {
     slidesPerView: 1.3,
     spaceBetween: 16,
@@ -122,7 +124,7 @@ function FeaturedProducts({configDetails,isMobile}:{configDetails:any,isMobile:b
         <Box className="SwiperContainer">
           <Swiper {...config}>
             {
-              data?.data?.items?.length > 0 ? data?.data?.items?.map((product) => {
+              data?.data?.items?.length > 0 ? data?.data?.items?.map((product: IFeaturedProducts) => {
                 product.priceWithDetails = priceForEachId ? priceForEachId[product?.productId] : null;
                 return (<SwiperSlide key={product.productId}>
                   <ProductCard product={product} />
