@@ -241,7 +241,7 @@ export const ProductStockStatus = React.memo(
         {colorClass !== "red-circle" ? (
           <ContainedCheckIcon />
         ) : (
-          <ContainedCrossIcon />
+          <ContainedCrossIcon sx={{fontSize:"14px"}} />
         )}
         <Typography className="Message">
           {availability}

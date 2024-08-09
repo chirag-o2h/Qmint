@@ -96,7 +96,7 @@ function News({ serverData }: any) {
             >
               {serverData?.configDetails?.["AllNews_Subtitle"]?.value}
             </Typography>
-            {topThree.length !== 0 ? <Box className="PostWrapper">
+            {topThree?.length !== 0 ? <Box className="PostWrapper">
               <Stack className="LeftPostWrapper">
                 <PostCard isNews={true} details={topThree?.[0]} navigate={() => navigate(`/news/${topThree?.[0]?.friendlyName}`)} />
               </Stack>
