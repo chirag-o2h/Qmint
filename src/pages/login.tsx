@@ -161,7 +161,7 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
       />
       {openToaster && <Toaster />}
       {checkLoadingStatus || loadingForNavigate && <Loader open={checkLoadingStatus || loadingForNavigate} />}
-      {process.env.THEME_TYPE == '1' ? (
+      {true ? (
         <MainLayout blackTheme>
           <Stack id="BmkSignInPage">
             <Box className="LeftPart">
