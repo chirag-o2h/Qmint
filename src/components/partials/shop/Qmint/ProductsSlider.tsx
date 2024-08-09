@@ -64,7 +64,7 @@ function ProductsSlider({homePageSectionDetails,isMobile}:{homePageSectionDetail
                         {
                             homePageSectionDetails?.quickCategoryLinks?.length > 0 ? [...homePageSectionDetails?.quickCategoryLinks, ...homePageSectionDetails?.quickCategoryLinks]?.map((product: any) => {
                                 return (
-                                    <SwiperSlide>
+                                    <SwiperSlide style={!isMobile ? { width: "auto" }:{}}>
                                         <Link to={product?.linkUrl} className="ProductCardLink">
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">

@@ -194,6 +194,10 @@ function orderDetails({ location, serverData }: { location: any, serverData: Ico
                                             <Typography variant="body1" sx={{ marginBottom: "2px" }}>Credit Card Fee</Typography>
                                             <Typography variant="subtitle1"   >${roundOfThePrice(orderDetails?.paymentMethodFee)}</Typography>
                                         </Box>}
+                                        {orderDetails.rewardPointsUsed > 0 && <Box className="SecureShipping">
+                                            <Typography variant="body1" sx={{ marginBottom: "2px" }}>{orderDetails.rewardPointsUsed} reward points</Typography>
+                                            <Typography variant="subtitle1">-${roundOfThePrice(orderDetails?.rewardPointsUsedAmount)}</Typography>
+                                        </Box>}
                                     </Stack>
                                     <Box className="TotalWrapper">
                                         <Typography variant="body1">Total</Typography>

@@ -76,5 +76,8 @@ export interface OrderDetails {
     sellingTextP1: string | null;
     sellingTextP2: string | null;
     sellingTextP3: string | null;
+    rewardPointsHistoryEntryId: number,
+    rewardPointsUsed: number,
+    rewardPointsUsedAmount: number,
 }
 
