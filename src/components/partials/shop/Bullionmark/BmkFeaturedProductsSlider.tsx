@@ -8,15 +8,16 @@ import BmkProductCard from "./BmkProductCard"
 import classNames from "classnames"
 import useGetFeaturesProductaData from "@/hooks/useGetFeaturedProductaData"
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight"
+import { IFeaturedProducts } from "../Qmint/FeaturedProducts"
 
 function BmkFeaturedProductsSlider(props: any) {
     const removeMinHeight =useUnloadMinHeight()
-    const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
-    let { data, priceForEachId } = useGetFeaturesProductaData() //was passig this two when ssr props?.needToCallProductAPI, props?.productData
-        // if(!props?.needToCallProductAPI){
-        //     // data = {data:props?.productData}
-        //     // priceForEachId = props?.priceForEachId
-        // }
+    const isMobile = props?.isMobile//useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+    let data
+    let {  priceForEachId } = useGetFeaturesProductaData(props?.needToCallProductAPI, props?.productData) //was passig this two when ssr props?.needToCallProductAPI, props?.productData
+        if(!props?.needToCallProductAPI){
+            data = {data:props?.productData}
+        }
     const config = {
         slidesPerView: 1,
         spaceBetween: 16,
@@ -65,7 +66,7 @@ function BmkFeaturedProductsSlider(props: any) {
                     <Box className={classNames("SwiperContainer", [isMobile ? "CircleSwiperPagination" : "LinedSwiperPagination"])}>
                         <Swiper {...config}>
                             {
-                                (data?.data?.items?.length > 0) ? data?.data?.items?.map((product) => {
+                                (data?.data?.items?.length > 0) ? data?.data?.items?.map((product: IFeaturedProducts) => {
                                     product.priceWithDetails = priceForEachId ? priceForEachId[product?.productId] : null;
                                     return (<SwiperSlide key={product.productId}>
                                         <BmkProductCard product={product} />

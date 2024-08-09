@@ -17,11 +17,13 @@ import useAlertPopUp from "@/hooks/useAlertPopUp";
 const SessionExpiredDialog = lazy(() => import("@/components/header/SessionExpiredDialog"));
 const ProductsSlider = lazy(() => import("@/components/partials/shop/Qmint/ProductsSlider"));
 import Seo from "@/components/common/Seo"
-import Banner from "./Banner"
+// import Banner from "./Banner"
+const Banner = lazy(() => import("./Banner"))
 import useragent from 'express-useragent';
 const Header = lazy(() => import("../../../header/index"))
 import axiosInstance from "@/axiosfolder"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 const LazyFooter = lazy(() => import('../../../footer/index'));
 interface IServerData {
     isMobile: boolean,
@@ -76,19 +78,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             dispatch(serProgressLoaderStatus(false))
         }
     }, [])
-    useEffect(() => {
-        dispatch(setConfigDetails(serverData?.configDetailsForRedux));
-        if (serverData?.configDetails?.Store_FaviconURL?.value) {
-            const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-            // Update favicon dynamically
-            const link: any =
-                document.querySelector("link[rel='icon']") ||
-                document.createElement("link");
-            link.rel = "icon";
-            link.href = faviconUrl;
-            document.head.appendChild(link);
-        }
-    }, [serverData]);
+    useSetConfigAndFavicon(serverData)
     useAlertPopUp({ pageName: 'Home', openPopup: toggleSessionExpireDialog })
     return (
         <>
@@ -130,22 +120,24 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             {/* <Layout> */}
             {/* {loading && <Loader open={loading} />} */}
             {openToaster && <Toaster />}
-            <Seo
-                keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`, 'Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
-                lang="en"
-                isItShopPage={true}
-                description={serverData?.configDetails?.Store_ShopPage_Meta_Description?.value} />
             {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
 
             {serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === false || serverData?.isMobile ? null :
-                <Banner bannerData={serverData?.bannerSliderData} isMobile={serverData?.isMobile} />
+                <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
+                    <Banner bannerData={serverData?.bannerSliderData} isMobile={serverData?.isMobile} />
+                </Suspense>
             }
-            <RenderOnViewportEntry rootMargin="200px"
+            {/* <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
-                minHeight={800} fallback={<></>}> <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} /></RenderOnViewportEntry>
-            {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
-                threshold={0.25}
-                minHeight={800}> <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} /></RenderOnViewportEntry>}
+                minHeight={800} >  */}
+            <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
+            {/* </RenderOnViewportEntry> */}
+            {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false &&
+                //  <RenderOnViewportEntry rootMargin="200px"
+                //     threshold={0.25}
+                //     minHeight={800}> 
+                <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData}/>}
+            {/* </RenderOnViewportEntry>} */}
             {serverData?.configDetails?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
                 minHeight={800}> <LookingFor sectionDetails={serverData?.homePageSectionDetails} /></RenderOnViewportEntry>}
@@ -193,18 +185,18 @@ QmintShop.getServerData = async (context: any) => {
         console.log("getServerData -- before fetching data", Date.now());
         const [
             configDetailsResponse,
-            // productResponse,
+            productResponse,
             bannerSliderResponse,
             homePageSectionDetailsResponse
         ] = await Promise.all([
             axiosInstance.get(ENDPOINTS.getConfigStore),
-            // axiosInstance.post(ENDPOINTS.getProduct, dataforbody),
+            axiosInstance.post(ENDPOINTS.getProduct, dataforbody),
             axiosInstance.get(ENDPOINTS.getSlider.replace('typeEnum', '1')),
             axiosInstance.get(ENDPOINTS.homePageSection)
         ]);
 
         const configDetails = configDetailsResponse.data.data;
-        // const productData = productResponse.data.data;
+        const productData = productResponse.data.data;
         const bannerSliderData = bannerSliderResponse?.data
         const homePageSectionDetails = homePageSectionDetailsResponse?.data?.data
         // let priceForEachId = null;
@@ -230,7 +222,7 @@ QmintShop.getServerData = async (context: any) => {
                     return acc
                 }, {}),
                 configDetailsForRedux: configDetails,
-                // productData: productData,
+                productData: productData,
                 bannerSliderData: bannerSliderData,
                 homePageSectionDetails
                 // priceForEachId,
