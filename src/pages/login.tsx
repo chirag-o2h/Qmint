@@ -90,11 +90,13 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
     navigate('/registration');
     setLoadingForNavigate(false)
   }
-  function navigateToRegister() {
-    setLoadingForNavigate(true)
-    navigate(ENDPOINTS.createMyAccount + StoreData.returnUrl);
-    setLoadingForNavigate(false)
-  }
+  //====================== using when we are having only Qmin======================
+  // function navigateToRegister() {
+  //   setLoadingForNavigate(true)
+  //   navigate(ENDPOINTS.createMyAccount + StoreData.returnUrl);
+  //   setLoadingForNavigate(false)
+  // }
+  // ======================
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
   useEffect(() => {
     window.handleLinkClick = async () => {
@@ -109,7 +111,7 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
       })
     };
   }, [])
-  
+
   // if (isBrowser) {
   //   window.handleLinkClick = async () => {
   //     setLoadingForNavigate(true)
@@ -230,8 +232,8 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
                   />
                 </Stack>
                 <Link target="_blank" to={'/forgot-password'}>
-                  <Button name="Forgot Your Password" aria-label="Forgot Your Password" className="ForgotPassword" color="secondary" onClick={() => {
-                  }}>Forgot Password?</Button></Link>
+                  <Button name="Forgot Your Password" aria-label="Forgot Your Password" className="ForgotPassword" color="secondary" onClick={() => { }}>Forgot Password?</Button>
+                </Link>
                 <Stack className="FormAction">
                   <Button name="signIn" aria-label="signIn" onClick={handleSubmit(onSubmit)} variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Sign Me In</Button>
                   <Button onClick={navigateToRegister1} name="Create My Account" aria-label="Create My Account" variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
@@ -302,7 +304,9 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
                     required
                   />
                 </Stack>
-                <Link target='_blank' to={ENDPOINTS.forgotPasswordLink + '/?id=' + StoreData.storeCode}>
+                {/* below line using when there were only Qmint code */}
+                {/* <Link target='_blank' to={ENDPOINTS.forgotPasswordLink + '/?id=' + StoreData.storeCode}> */}
+                <Link target="_blank" to={'/forgot-password'}>
                   <Button name='Forgot Your Password' aria-label='Forgot Your Password' className="ForgotPassword" color="secondary" onClick={() => {
                   }}>Forgot Your Password?</Button></Link>
               </form>
@@ -310,11 +314,11 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
             <DialogActions>
               <Button name='signIn' aria-label='signIn' onClick={handleSubmit(onSubmit)} variant="contained" size="large" fullWidth disabled={loadingForSignIn}>Sign Me In</Button>
               {/* <Link target='_blank' to={ENDPOINTS.createMyAccount + StoreData.returnUrl}> */}
-              <Button onClick={navigateToRegister} name='Create My Account' aria-label='Create My Account' variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
+              <Button onClick={navigateToRegister1} name='Create My Account' aria-label='Create My Account' variant="outlined" size="large" fullWidth disabled={loadingForNavigate}>Create My Account</Button>
               {/* </Link> */}
               <Stack className="SignUpAction">
                 <Typography className="Message" variant="overline">Don't have an account?</Typography>
-                <Button name='Sign Up' aria-label='Sign Up' color="secondary" onClick={navigateToRegister} disabled={loadingForNavigate}>Sign Up</Button>
+                <Button name='Sign Up' aria-label='Sign Up' color="secondary" onClick={navigateToRegister1} disabled={loadingForNavigate}>Sign Up</Button>
               </Stack>
             </DialogActions>
           </Container>
