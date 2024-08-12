@@ -51,3 +51,5 @@ Thumbs.db
 #Custom
 public/
 .vercel
+.env.development
+.env.production
