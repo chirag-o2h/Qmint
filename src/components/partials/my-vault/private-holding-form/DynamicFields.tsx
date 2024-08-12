@@ -49,7 +49,7 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
         existingFields.forEach((field) => {
             const curField = formDropdownsKeys[field.specificationAttributeId.toString()];
             if (!fixedFields.has(curField)) {
-                // console.log("🚀 ~ DynamicFields ~ specificationFields:", curField)
+                console.log("🚀 ~ DynamicFields ~ specificationFields:", curField)
                 currentFields.push({
                     [field.specificationAttributeId]: {
                         specificationName: field.specificationAttributeId.toString(),
@@ -71,6 +71,7 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
         })
         setCustomSpecificationField(currentCustomFields);
     }, [existingFields, formDropdownsKeys, existingCustomFields])
+    console.log("🚀 ~ useEffect ~ existingFields:", existingFields)
 
     // Just an dummy react hook form
     const {
@@ -167,7 +168,7 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
                         return (<MenuItem value={dropdown.specificationAttributeOptionsId}>{dropdown.specificationOption}</MenuItem>)
                     })}
                 </RenderFields>
-                <IconButton className="DeleteButton" onClick={() => handleDeleteSpecificationField(Object.keys(field)[0])}  disabled={existingFields ? true : false}><Delete1Icon /></IconButton>
+                <IconButton className="DeleteButton" onClick={() => handleDeleteSpecificationField(Object.keys(field)[0])} disabled={existingFields ? true : false}><Delete1Icon /></IconButton>
             </Stack>)}
             {customSpecificationFields.map((field, index) => <Stack className="RowWrapper CustomSpecificationWrapper" key={Object.keys(customSpecificationFields)[0]}>
                 <RenderFields

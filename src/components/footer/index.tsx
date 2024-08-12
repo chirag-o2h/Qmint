@@ -41,13 +41,13 @@ function index() {
       <Container className="Container">
         <Stack className="FooterWrapper">
           <Stack className="LogoPart">
-            <NavigationLink style={{ cursor: 'pointer' }} to={'/'}>
+            <Link style={{ cursor: 'pointer' }} href={'/'}>
               <img src={configDetailsState?.BrandLogoURL_Footer?.value} alt="Footer logo" loading="lazy"
               // onClick={()=>{
               //   navigate('/')
               // }}
               />
-            </NavigationLink>
+            </Link>
             <Stack className="AboutWrapper">
               <Stack className="LocationWrapper About">
                 <MapIcon />

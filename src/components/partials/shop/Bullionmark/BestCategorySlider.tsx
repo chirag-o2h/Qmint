@@ -6,10 +6,9 @@ import {
   Container,
   Typography,
   Skeleton,
+  Link,
 } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import { Link } from "gatsby";
 
 import { Navigation, Autoplay, Pagination, A11y } from "swiper/modules";
 
@@ -80,7 +79,7 @@ function BestCategorySlider(props: any) {
                       return (
                         <SwiperSlide key={category.id || category.name} style={!isMobile ? { width: "auto" }:{}}>
                           <Link
-                            to={category.linkUrl}
+                            href={category.linkUrl}
                             className="BmkProductCardLink"
                           >
                             <Card className="BmkProductCard">

@@ -1,6 +1,5 @@
 import { BullionmarkSectionHeading } from '@/components/common/Utils'
-import { Box, Container, Stack, Typography } from '@mui/material'
-import { Link } from "gatsby";
+import { Box, Container, Link, Stack, Typography } from '@mui/material'
 import React, { useRef } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, Pagination, A11y } from 'swiper/modules'
@@ -61,7 +60,7 @@ function BestAdventures() {
                                         <SwiperSlide key={item.id}>
                                             <Box className="AdventureCardWrapper">
                                                 <img src={item.imageUrl} alt="AdventureCardImage" loading='lazy' />
-                                                <Link to={item.friendlyName} className="AdventureCardLink">
+                                                <Link href={item.friendlyName} className="AdventureCardLink">
                                                     <Stack className="BottomWrapper">
                                                         <Stack className="LeftContent">
                                                             <Island />

@@ -8,6 +8,7 @@ import {
   Typography,
   Box,
   useScrollTrigger,
+  Link,
 } from "@mui/material";
 import classNames from "classnames";
 import { useLocation } from "@reach/router";
@@ -24,7 +25,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 
 // Utils
 import { ENDPOINTS } from "../../utils/constants";
-import { Link, navigate } from "gatsby";
+import { navigate } from "gatsby";
 import {
   CategoriesListDetails,
   LogOutUserAPI,
@@ -80,7 +81,7 @@ function FrontMain(props: any) {
       <Container className="MainHeader">
         <Stack className="MainHeader__Wrapper">
           <Stack className="Left">
-            <Link className="Logo" to="/"><img src={configDetailsState?.[isItHomeOrShopPage ? isItHomePage ? (trigger ? 'BrandLogoURL_Header' : 'Brand_Dark_LogoURL') : (trigger ? 'BrandLogoURL_Header' : 'Brand_Dark_LogoURL') : "Brand_Dark_LogoURL"]?.value || configDetailsState?.['BrandLogoURL_Header']?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" fetchPriority="high" /></Link>
+            <Link className="Logo" href="/"><img src={configDetailsState?.[isItHomeOrShopPage ? isItHomePage ? (trigger ? 'BrandLogoURL_Header' : 'Brand_Dark_LogoURL') : (trigger ? 'BrandLogoURL_Header' : 'Brand_Dark_LogoURL') : "Brand_Dark_LogoURL"]?.value || configDetailsState?.['BrandLogoURL_Header']?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint white logo" fetchPriority="high" /></Link>
           </Stack>
           <Stack className="Center">
             {/* // todo when need to conver again from home page to shope page related things */}

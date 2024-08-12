@@ -76,7 +76,7 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
     return (
         <Card className="BmkCommonProductCard">
             <Stack className="ImageWrapper">
-                <ProducLink className="ImageLink" to={`/product-details/${product?.friendlypagename}`}>
+                <Link className="ImageLink" href={`/product-details/${product?.friendlypagename}`}>
                     {/* <img style={removeMinHeight ? {minHeight: isMobile ? '': "250px"}  :{ }} src={product?.imageUrl ?? noImage} alt="Product image" fetchPriority='high'/> */}
                     <LazyImage
                                     key={product.imageUrl}
@@ -86,7 +86,7 @@ function BmkProductCard({ product }: { product: IFeaturedProducts }) {
                                     style={removeMinHeight ? {minHeight: isMobile ? '': "250px"}  :{ }}
                                     className="ProductImage"
                                   />
-                </ProducLink>
+                </Link>
             </Stack>
             <CardContent>
                 {(renderStockStatus) && <BmkProductStockStatus availability={product?.availability} />}

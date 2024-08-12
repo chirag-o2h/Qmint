@@ -1,7 +1,6 @@
 import React, { Fragment, Suspense, lazy, useEffect, useMemo, useState } from "react"
-import { Container, Stack, Divider, Button, Box, Typography, IconButton, useMediaQuery, Theme } from "@mui/material"
+import { Container, Stack, Divider, Button, Box, Typography, IconButton, useMediaQuery, Theme, Link } from "@mui/material"
 import classNames from "classnames"
-import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
 
 // Components
 import { HoverTooltip } from "../common/CustomTooltip"
@@ -17,7 +16,7 @@ import Badge from '@mui/material/Badge';
 
 // Utils
 import { chartMenuData, subMenuItems } from "../../utils/data"
-import { Link, navigate } from "gatsby"
+// import { Link, navigate } from "gatsby"
 import { ProductUpdateCountdown } from "../common/Utils"
 import { updateSubTotal } from "@/redux/reducers/shoppingCartReducer"
 import { ENDPOINTS } from "@/utils/constants"
@@ -96,7 +95,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
     <Box className="NavigationHeader">
       <Container>
         <Stack className="NavigationHeader__Wrapper">
-          {THEME_TYPE === "1" && !showNavigation ? (configDetailsState?.Search_MenuIcon_Enable?.value && <SearchField />) :
+          {process.env.THEME_TYPE === "1" && !showNavigation ? (configDetailsState?.Search_MenuIcon_Enable?.value && <SearchField />) :
            <Stack
             className="LeftPart"
             divider={<Divider orientation="vertical" flexItem />}
@@ -112,7 +111,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                         renderComponent={
                           <Link
                             // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
-                            to={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
+                            href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
                             aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                             className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                           >
@@ -127,7 +126,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                       </Fragment>
                       : <Fragment key={category.name}><Link
                         // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
-                        to={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
+                        href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
                         aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                         className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                       >
@@ -145,7 +144,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
               {needToShowProgressLoader &&
                 <ProductUpdateCountdown needToShowText={false} />
               }
-              {(THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>)}
+              {(process.env.THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>)}
               {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ?
                 <Suspense fallback={<></>}> <ChartMenu /></Suspense>
                 : null}
@@ -155,7 +154,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                     className="CartHoverList"
                     placement="bottom-start"
                     renderComponent={
-                      <Link area-label="shopping-cart-link" to="/shopping-cart">
+                      <Link area-label="shopping-cart-link" href="/shopping-cart">
                         <Badge badgeContent={cartItems?.length?.toString()} color="primary" max={99}>
                           <CartMenu />
                         </Badge>
@@ -173,7 +172,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
           )}
         </Stack>
       </Container>
-      {THEME_TYPE !== "1" && (<ConstantApiLoader />)}
+      {process.env.THEME_TYPE !== "1" && (<ConstantApiLoader />)}
     </Box>
   )
 }
