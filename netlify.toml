@@ -1,0 +1,5 @@
+[build.environment]
+  STORE_CODE = "24"
+  THEME_TYPE = "0"
+  REACT_APP_QMINT_THEME_MAIN_COLOR = "#eaa22b"
+  REACT_APP_BMK_THEME_MAIN_COLOR = "#FF681A"
