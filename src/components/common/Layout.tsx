@@ -100,7 +100,9 @@ function Layout(props: {
         isRendering && <Skeleton
           height={"124px"}
           width={"100%"}
-          style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, background: "gray" }}
+          style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999,
+            //  background: "gray" 
+            }}
         />}
       {/* </Suspense> */}
       <main style={removeMinHeight ? { minHeight: "100vh" } : {}}>

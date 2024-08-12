@@ -3,7 +3,8 @@ const LookingFor = lazy(() => import("./LookingFor"))
 const PopularProducts = lazy(() => import("./PopularProducts"))
 const DiscoverTreasure = lazy(() => import("./DiscoverTreasure"))
 const CloserLook = lazy(() => import("./CloserLook"))
-const FeaturedProducts = lazy(() => import("./FeaturedProducts"))
+// const FeaturedProducts = lazy(() => import("./FeaturedProducts"))
+import FeaturedProducts from "./FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"
 // import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { configDetails, HomePageSectionDetails, serProgressLoaderStatus, setConfigDetails, setScrollPosition } from "@/redux/reducers/homepageReducer"
@@ -15,7 +16,8 @@ import Toaster from "@/components/common/Toaster";
 // import Loader from "@/components/common/Loader";
 import useAlertPopUp from "@/hooks/useAlertPopUp";
 const SessionExpiredDialog = lazy(() => import("@/components/header/SessionExpiredDialog"));
-const ProductsSlider = lazy(() => import("@/components/partials/shop/Qmint/ProductsSlider"));
+// const ProductsSlider = lazy(() => import("@/components/partials/shop/Qmint/ProductsSlider"));
+import ProductsSlider  from "./ProductsSlider"
 import Seo from "@/components/common/Seo"
 // import Banner from "./Banner"
 const Banner = lazy(() => import("./Banner"))
@@ -114,7 +116,9 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                     <Skeleton
                         height={"124px"}
                         width={"100%"}
-                        style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, background: "gray" }}
+                        style={{
+                            marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"
+                        }}
                     />
                 )}
             {/* <Layout> */}
@@ -136,7 +140,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 //  <RenderOnViewportEntry rootMargin="200px"
                 //     threshold={0.25}
                 //     minHeight={800}> 
-                <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData}/>}
+                <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData} />}
             {/* </RenderOnViewportEntry>} */}
             {serverData?.configDetails?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
