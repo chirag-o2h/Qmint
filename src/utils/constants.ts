@@ -155,7 +155,7 @@ export const ENDPOINTS = {
   appointment: "myvault/EcltNnuVgvGSOVkLX6hy5n",
 };
 export const StoreData = {
-    storeCode: 25,
+    storeCode: process.env.STORE_CODE,
     returnUrl: typeof window !== 'undefined' ? window.location.href : null
 }
 

@@ -69,11 +69,9 @@ const BullionmarkShop = (props: any) => {
 
   // useAPIoneTime({ service: getBullionMarkShopPageSections });
   useUserDetailsFromToken();
-  const isMobile = serverData?.isMobile // useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
+  // useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
   const keyWords = useMemo(() => {
-    return (
-      serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []
-    );
+    return (serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []);
   }, [serverData?.configDetails]);
   // useAPIoneTime({
   //   service: configDetails,
@@ -119,7 +117,7 @@ const BullionmarkShop = (props: any) => {
           <Skeleton
             height={"124px"}
             width={"100%"}
-            style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
+            style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
           />
         }><BullionmarkHeader /></Suspense>}
         {
@@ -129,28 +127,13 @@ const BullionmarkShop = (props: any) => {
               <Skeleton
                 height={"124px"}
                 width={"100%"}
-                style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, background: "gray" }}
+                style={{
+                  marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"
+                }}
               />
-
-              {/* {isMobile && (
-              <BestCategorySliderSkeleton
-                pageData={serverData?.bmkShopPageSections}
-                PaddingClass={
-                  !isMobile &&
-                  serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
-                    ? ""
-                    : "TopBannerAbsent"
-                }
-                title={
-                  serverData?.configDetails?.[
-                    "ShopHomepage_Section_1_Featured_Categories_Title"
-                  ]?.value
-                }
-              />
-            )} */}
             </>
           )}
-        {!isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
+        {!serverData?.isMobile && !isRendering && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value == true && (
           <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
             <BannerSlider isItShopPage={true} bannerSliderData={serverData?.bannerSliderData} />
           </Suspense>
@@ -162,21 +145,21 @@ const BullionmarkShop = (props: any) => {
           minHeight={900}
           skeletonMargin={-220}
         >
-        <BestCategorySlider
-          pageData={serverData?.bmkShopPageSections}
-          PaddingClass={
-            !isMobile &&
-              serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
-              ? ""
-              : "TopBannerAbsent"
-          }
-          title={
-            serverData?.configDetails?.[
-              "ShopHomepage_Section_1_Featured_Categories_Title"
-            ]?.value
-          }
-          isMobile={isMobile}
-        />
+          <BestCategorySlider
+            pageData={serverData?.bmkShopPageSections}
+            PaddingClass={
+              !serverData?.isMobile &&
+                serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
+                ? ""
+                : "TopBannerAbsent"
+            }
+            title={
+              serverData?.configDetails?.[
+                "ShopHomepage_Section_1_Featured_Categories_Title"
+              ]?.value
+            }
+            isMobile={serverData?.isMobile}
+          />
         </RenderOnViewportEntry>
         <RenderOnViewportEntry
           rootMargin="200px"
@@ -197,7 +180,7 @@ const BullionmarkShop = (props: any) => {
             }
             needToCallProductAPI={false}
             productData={serverData?.productData}
-            isMobile = {serverData?.isMobile}
+            isMobile={serverData?.isMobile}
           // priceForEachId={serverData?.priceForEachId}
           />
         </RenderOnViewportEntry>
