@@ -2,6 +2,9 @@ import { execSync } from "child_process";
 
 const path = require('path')
 const { copyLibFiles } = require('@builder.io/partytown/utils');
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 exports.onPreBuild = async ({ reporter }: any) => {
     await copyLibFiles(path.join(__dirname, "public/static", "~partytown"));

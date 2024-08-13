@@ -1,6 +1,6 @@
 require('dotenv').config({
     path: `.env.${process.env.NODE_ENV}` // Load the correct .env file based on the NODE_ENV
-  });
+});
 const fs = require('fs');
 const path = require('path');
 const test = process.env.REACT_APP_QMINT_THEME_MAIN_COLOR
@@ -37,7 +37,7 @@ const scssVariables = {
     success10: process.env.REACT_APP_COLOR_SUCCESS10 || '#04ca041a',
     yellowFuel: process.env.REACT_APP_QMINT_THEME_MAIN_COLOR || '#eaa22b',
     yellowFuel05: process.env.REACT_APP_COLOR_YELLOW_FUEL05 || '#eaa22b0d',
-    pumpkinOrange: process.env.REACT_APP_BMK_THEME_MAIN_COLOR || '#FF681A',
+    pumpkinOrange: process.env.GATSBY_REACT_APP_BMK_THEME_MAIN_COLOR || process.env.REACT_APP_BMK_THEME_MAIN_COLOR || '#FF681A',
 
     dark: process.env.REACT_APP_COLOR_DARK || '#1d2129',
     black: process.env.REACT_APP_COLOR_BLACK || '#000000',
