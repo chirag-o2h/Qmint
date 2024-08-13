@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-import { Box, Card, Skeleton, useMediaQuery, Container, Typography, Link, } from "@mui/material"
+import { Box, Card, Typography, Link, } from "@mui/material"
 // import { Link } from "gatsby";
 
 import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 
 import { SwiperNavigation } from "@/components/common/Utils"
-import { useAppSelector } from "@/hooks";
 
 function ProductsSlider({homePageSectionDetails,isMobile}:{homePageSectionDetails:any,isMobile:boolean}) {
     const config = {
