@@ -4,7 +4,7 @@ require('dotenv').config({
 const fs = require('fs');
 const path = require('path');
 const test = process.env.REACT_APP_QMINT_THEME_MAIN_COLOR
-console.log("🚀 ~ test:", test, process.env.NODE_ENV)
+console.log("🚀 ~ test:","process.env.GATSBY_REACT_APP_BMK_THEME_MAIN_COLOR", process.env.GATSBY_REACT_APP_BMK_THEME_MAIN_COLOR,"-->REACT_APP_BMK_THEME_MAIN_COLOR", process.env.REACT_APP_BMK_THEME_MAIN_COLOR,"=>mode", process.env.NODE_ENV)
 // Your scssVariables object
 const scssVariables = {
     // Typography
