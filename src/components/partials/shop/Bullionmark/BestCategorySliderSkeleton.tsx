@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Card, useMediaQuery, Container, Typography } from "@mui/material";
+import { Box, Card, useMediaQuery, Container, Typography, Link } from "@mui/material";
 
-import { Link } from "gatsby";
+// import { Link } from "gatsby";
 
 import { Navigation, Autoplay, Pagination, A11y } from "swiper/modules";
 import { BullionmarkSectionHeading } from "@/components/common/Utils";
@@ -38,7 +38,7 @@ function BestCategorySliderSkeleton(props: any) {
                     }
                     return (
                       <Link
-                        to={category.linkUrl}
+                        href={category.linkUrl}
                         className="BmkProductCardLink"
                       >
                         <Card className="BmkProductCard">
