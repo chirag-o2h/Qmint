@@ -37,7 +37,7 @@ function index() {
   }, [FixWrapperHeight])
   const location = useLocation()
   return (
-    <Box id="MainFooterSection" component="footer" sx={{ paddingBottom: `${fixWrapperHeight}px` }}>
+    <Box id="MainFooterSection" component="footer">
       <Container className="Container">
         <Stack className="FooterWrapper">
           <Stack className="LogoPart">
