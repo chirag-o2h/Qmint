@@ -95,7 +95,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
     <Box className="NavigationHeader">
       <Container>
         <Stack className="NavigationHeader__Wrapper">
-          {process.env.THEME_TYPE === "1" && !showNavigation ? (configDetailsState?.Search_MenuIcon_Enable?.value && <SearchField />) :
+          {process.env.GATSBY_THEME_TYPE === "1" && !showNavigation ? (configDetailsState?.Search_MenuIcon_Enable?.value && <SearchField />) :
            <Stack
             className="LeftPart"
             divider={<Divider orientation="vertical" flexItem />}
@@ -144,7 +144,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
               {needToShowProgressLoader &&
                 <ProductUpdateCountdown needToShowText={false} />
               }
-              {(process.env.THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>)}
+              {(process.env.GATSBY_THEME_TYPE === "1" && !isMobile) && (<IconButton color="secondary" title='Call us' className={classNames("MenuButton", { "Active": false })} href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value}><Call /></IconButton>)}
               {configDetailsState?.Chart_MenuIcon_Enable?.value && (configDetailsState.Chart_MenuIcon_Enable_Guests.value || isLoggedIn) ?
                 <Suspense fallback={<></>}> <ChartMenu /></Suspense>
                 : null}
@@ -172,7 +172,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
           )}
         </Stack>
       </Container>
-      {process.env.THEME_TYPE !== "1" && (<ConstantApiLoader />)}
+      {process.env.GATSBY_THEME_TYPE !== "1" && (<ConstantApiLoader />)}
     </Box>
   )
 }

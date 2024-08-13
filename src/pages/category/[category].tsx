@@ -222,7 +222,7 @@ function Category({ serverData, props }: Props) {
                     height={"124px"}
                     width={"100%"}
                     style={{ marginBottom: !isMobile ? "32px" : "24px", transform: "scale(1)" }} />}>
-                {process.env.THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
+                {process.env.GATSBY_THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
             </Suspense>}
             {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
             <Seo
@@ -250,7 +250,7 @@ function Category({ serverData, props }: Props) {
                 threshold={0.25}
                 minHeight={800}
             >
-                {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
+                {process.env.GATSBY_THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
             </RenderOnViewportEntry>
         </>
     )

@@ -95,7 +95,7 @@ function Layout(props: {
           width={"100%"}
           style={{ marginBottom: !isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
         />
-      }>{process.env.THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}</Suspense>}
+      }>{process.env.GATSBY_THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}</Suspense>}
       {
         isRendering && <Skeleton
           height={"124px"}
@@ -120,7 +120,7 @@ function Layout(props: {
         threshold={0.25}
         minHeight={850}
       >
-        {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter />: <LazyFooter />}
+        {process.env.GATSBY_THEME_TYPE === "1" ? <LazyBullionmarkFooter />: <LazyFooter />}
       </RenderOnViewportEntry>}
       {!renderAfterSomeTime &&
         <RenderOnViewportEntry
@@ -128,7 +128,7 @@ function Layout(props: {
         threshold={0.25}
         minHeight={850}
       >
-        {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter />: <LazyFooter />}
+        {process.env.GATSBY_THEME_TYPE === "1" ? <LazyBullionmarkFooter />: <LazyFooter />}
       </RenderOnViewportEntry>
       }
       {openSessionExpireDialog && (

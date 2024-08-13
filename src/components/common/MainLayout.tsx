@@ -84,7 +84,7 @@ const MainLayout = (props: MainLayout) => {
                 minHeight={800}
             >
 
-                {process.env.THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
+                {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
             </RenderOnViewportEntry>
         </Stack>
     )

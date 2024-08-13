@@ -55,7 +55,7 @@ function Sitemap({ serverData }: {
         <PageTitle title="Sitemap" />
         <Container id="PageSitemap">
           <SitemapList handlePageChange={handlePageChange} siteMapDataFromServer={serverData?.siteMapData}/>
-          {process.env.THEME_TYPE !== "1" && <Services />}
+          {process.env.GATSBY_THEME_TYPE !== "1" && <Services />}
         </Container>
       </Layout>
     </>

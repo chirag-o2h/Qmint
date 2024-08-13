@@ -155,11 +155,11 @@ export const ENDPOINTS = {
   appointment: "myvault/EcltNnuVgvGSOVkLX6hy5n",
 };
 export const StoreData = {
-    storeCode: process.env.STORE_CODE,
+    storeCode: process.env.GATSBY_STORE_CODE,
     returnUrl: typeof window !== 'undefined' ? window.location.href : null
 }
 
-export const changePasswordURL = "https://register.qmint.com/passwordrecovery?id=" + process.env.STORE_CODE
+export const changePasswordURL = "https://register.qmint.com/passwordrecovery?id=" + process.env.GATSBY_STORE_CODE
 export const forbiddenKeywords = [
   "post",
   "p . o .",
