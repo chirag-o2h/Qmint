@@ -120,7 +120,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
           height={"115px"}
           width={"100%"}
           style={{ marginBottom: !serverData?.isMobile ? "32px" : "24px", transform: "scale(1)" }} />}>
-        {process.env.THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
+        {process.env.GATSBY_THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
       </Suspense>}
 
       {checkLoadingStatus || checkLoadingStatusOfTheGetWishlist && <Loader open={checkLoadingStatus || checkLoadingStatusOfTheGetWishlist} />}
@@ -128,7 +128,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
       {serverData?.productDetailsData && !serverData?.productDetailsData?.errorMessage ?
         (<>
           <Breadcrumb arr={[{ navigate: '/category/buy', name: 'Buy' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
-          <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": process.env.THEME_TYPE == '1' })}>
+          <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": process.env.GATSBY_THEME_TYPE == '1' })}>
 
             {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails} />}
 
@@ -140,7 +140,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
         threshold={0.25}
         minHeight={800}
       >
-        {process.env.THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
+        {process.env.GATSBY_THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </RenderOnViewportEntry>
     </>
   )

@@ -5,8 +5,7 @@ import React from "react";
 
 // Create a wrapper component to handle conditional rendering
 const ShopWrapper = (props: any) => {
-  console.log(process.env.THEME_TYPE == '1' ? "it is 1":"false and it wiill be 0")
-  if (process.env.THEME_TYPE == '1') {
+  if (process.env.GATSBY_THEME_TYPE == '1') {
     return <BullionmarkShop {...props} />;
   } else {
     return <QmintShop {...props} />;
@@ -15,7 +14,7 @@ const ShopWrapper = (props: any) => {
 
 // Export getServerData from the component that will be used
 export const getServerData = async (context: any) => {
-  return process.env.THEME_TYPE == '1' ? BullionmarkShop.getServerData(context) : QmintShop.getServerData(context)
+  return process.env.GATSBY_THEME_TYPE == '1' ? BullionmarkShop.getServerData(context) : QmintShop.getServerData(context)
 };
 export const Head = () => (
   <>

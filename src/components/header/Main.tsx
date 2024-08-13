@@ -30,7 +30,7 @@ function Main(props: any) {
       return
     }
   }
-  const trigger = process.env.THEME_TYPE == "1" ? useImageInView() : useScrollTrigger({
+  const trigger = process.env.GATSBY_THEME_TYPE == "1" ? useImageInView() : useScrollTrigger({
     disableHysteresis: true,
     threshold: mobile ? 68 : 50,
   })

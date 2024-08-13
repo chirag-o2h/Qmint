@@ -265,7 +265,7 @@ function Blog({ serverData }: any) {
         minHeight={800}
       >
         {/* <LazyBullionmarkFooter /> */}
-        {process.env.THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
+        {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
       </RenderOnViewportEntry>
     </>
   );

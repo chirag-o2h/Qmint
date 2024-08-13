@@ -74,7 +74,7 @@ function ProductList({ page, setPage,categoryData:categoryDataFromServer }: { pa
           !currentCategoryData?.loading ? (
             currentCategoryData?.sortedItems?.map((product: any) => {
               return (
-                process.env.THEME_TYPE == '1' ? 
+                process.env.GATSBY_THEME_TYPE == '1' ? 
                <BmkProductCard product={product} key={product.productId}/>: 
                <ProductCard key={product.productId} product={product} stickyProduct={false} />
               );

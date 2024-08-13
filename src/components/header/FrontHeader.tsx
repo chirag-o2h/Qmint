@@ -7,7 +7,7 @@ const FrontPricing = lazy(() => import('./FrontPricing'))
 const FrontMain = lazy(() => import('./FrontMain'))
 import { PageLoader } from './Loader'
 import { useAppSelector } from "@/hooks"
-import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
+import { THEME_TYPE } from "@/axiosfolder"
 import useImageInView from "@/hooks/useImageInView"
 import { useLocation } from "@reach/router"
 const MobileMenu = lazy(() => import('./MobileMenu'))
