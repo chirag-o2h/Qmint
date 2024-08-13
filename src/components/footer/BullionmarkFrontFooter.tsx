@@ -24,9 +24,9 @@ function BullionmarkFrontFooter() {
             <Container className="Container">
                 <Stack className="FooterWrapper">
                     <Stack className="LogoPart">
-                        <GatsbyLink to="/" style={{ cursor: 'pointer' }}>
+                        <Link href="/" style={{ cursor: 'pointer' }}>
                             <img src={configDetailsState?.Homepage_FooterLogo_URL?.value} alt="Bullionmark Footer logo" loading="lazy" />
-                        </GatsbyLink>
+                        </Link>
                         <Typography className='FooterTagLine'>{configDetailsState?.Homepage_Footer_Text_below_logo?.value}</Typography>
                     </Stack>
                     <Box className="MenuWrapper QuickLink">

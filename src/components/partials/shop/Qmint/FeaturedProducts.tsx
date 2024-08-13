@@ -126,7 +126,7 @@ function FeaturedProducts({ configDetails, isMobile, needToCallProductAPI, produ
             {
               data?.data?.items?.length > 0 ? data?.data?.items?.map((product: IFeaturedProducts) => {
                 product.priceWithDetails = priceForEachId ? priceForEachId[product?.productId] : null;
-                return (<SwiperSlide key={product.productId}>
+                return (<SwiperSlide key={product.productId} style={!isMobile ? { width: "auto" }:{}}>
                   <ProductCard product={product} />
                 </SwiperSlide>)
               })

@@ -119,6 +119,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
 
     // dynamic fields state
     const [dynamicSpecificationFields, setDynamicSpecificationFields] = useState<ISpecificationField[] | null>(null);
+    console.log("🚀 ~ privateHoldingAdd ~ dynamicSpecificationFields:", dynamicSpecificationFields)
     const [dynamicCustomSpecificationFields, setDynamicCustomSpecificationFields] = useState<ISpecificationField[] | null>(null);
 
     const {
@@ -232,7 +233,8 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
             return {
                 "SpecificationAttributeOptionId": Number(field[Object.keys(field)[0]].value),
                 "SpecificationAttributeId": Number(field[Object.keys(field)[0]].specificationName),
-                "SpecificationAttributeOptionOther": ""
+                "SpecificationAttributeOptionOther": "",
+                "x": "testing"
             }
         })
         const prepareDynamicCustomeSpecificationFields = dynamicCustomSpecificationFields?.filter(field => field[Object.keys(field)[0]].specificationName !== "" && field[Object.keys(field)[0]].value !== "").map(field => {
@@ -353,7 +355,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             setValue={setValue}
                                             variant='outlined'
                                             clearErrors={clearErrors}
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             margin='none'
                                             className='SelectAccount'
                                             required
@@ -368,7 +370,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             error={errors.ProductName}
                                             name="ProductName"
                                             label="Product Name:"
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             placeholder="Enter your product name."
                                             variant='outlined'
                                             margin='none'
@@ -384,7 +386,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             control={control}
                                             variant='outlined'
                                             setValue={setValue}
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             getValues={getValues}
                                             clearErrors={clearErrors}
                                             margin='none'
@@ -406,7 +408,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             value={dropdownState.Metal}
                                             control={control}
                                             setValue={setValue}
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             clearErrors={clearErrors}
                                             variant='outlined'
                                             margin='none'
@@ -425,7 +427,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             setValue={setValue}
                                             getValues={getValues}
                                             label="Type"
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             value={dropdownState.Type}
                                             control={control}
                                             variant='outlined'
@@ -451,7 +453,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             control={control}
                                             setValue={setValue}
                                             clearErrors={clearErrors}
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             variant='outlined'
                                             margin='none'
                                             className='SelectSeries'
@@ -469,7 +471,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             label="Purity"
                                             getValues={getValues}
                                             setValue={setValue}
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             value={dropdownState.Purity}
                                             control={control}
                                             clearErrors={clearErrors}
@@ -490,7 +492,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             name="Weight"
                                             label="Weight"
                                             type="number"
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             placeholder="Enter Weight"
                                             control={control}
                                             variant='outlined'
@@ -508,7 +510,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             clearErrors={clearErrors}
                                             value={dropdownState.WeightType}
                                             label="Weight Type"
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             getValues={getValues}
                                             control={control}
                                             variant='outlined'
@@ -532,7 +534,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             error={errors.PurchasePrice}
                                             name="PurchasePrice"
                                             label="Purchase price (per unit):"
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             placeholder="Enter Purchase price"
                                             variant='outlined'
                                             margin='none'
@@ -549,14 +551,14 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             label="Purchase From: "
                                             variant='outlined'
                                             margin='none'
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             required
                                         />
                                         <RenderFields
                                             type="number"
                                             register={register}
                                             error={errors.Qty}
-                                            disabled={searchParams.has("holdingId")}
+                                            // disabled={searchParams.has("holdingId")}
                                             control={control}
                                             name="Qty"
                                             placeholder="Enter available quantity"

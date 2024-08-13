@@ -2,13 +2,14 @@ import React, { useEffect, Fragment, useTransition, useState, useMemo } from "re
 import Seo from "../components/common/Seo";
 import Layout from "@/components/common/Layout";
 import {
-    Box, Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button
+    Box, Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Button,
+    Link
 } from "@mui/material";
 import { Delete1Icon } from '@/assets/icons';
 
 import { PageTitle } from "@/components/common/Utils";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { Link } from "gatsby";
+// import { Link } from "gatsby";
 import { clearCompareList, getCompareProducts, removeProductFromCompare } from "@/redux/reducers/compareProductsReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import noImage from '../assets/images/noImage.png'
@@ -74,7 +75,7 @@ function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) 
                                                     <TableCell className="StickyCell" style={{ minWidth: 200 }}>Name</TableCell>
                                                     {comparedProducts.map((product, index) => (
                                                         <TableCell sx={{ minWidth: { lg: "459px", xs: "400px" } }} key={product.productId} align="center">
-                                                            <Link to={`/product-details/${product.friendlypagename}`} className="ProductName">{product.productName}</Link>
+                                                            <Link href={`/product-details/${product.friendlypagename}`} className="ProductName">{product.productName}</Link>
                                                         </TableCell>
                                                     ))}
                                                 </TableRow>
@@ -86,7 +87,7 @@ function CompareProducts({ serverData }: { serverData: IconfigDataFromServer }) 
                                                         {comparedProducts.map((product, index) => (
                                                             <TableCell align="center" key={product.productId} className={attribute === 'ProductName' ? 'ProductName' : ''}>
                                                                 {attribute === 'ProductName' ? (
-                                                                    <Link to={`/product-details/${product.friendlypagename}`} className="productNameLink">{product.productName}</Link>
+                                                                    <Link href={`/product-details/${product.friendlypagename}`} className="productNameLink">{product.productName}</Link>
                                                                 ) : attribute === 'Picture' ? (
                                                                     <img src={product.imageUrl ?? noImage} className="ProductImage" alt={product.productName} />
                                                                 ) : (

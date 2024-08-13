@@ -1,6 +1,6 @@
 import React from "react"
-import { Box, Stack, Typography } from "@mui/material"
-import { Link } from "gatsby"
+import { Box, Link, Stack, Typography } from "@mui/material"
+// import { Link } from "gatsby"
 
 // Assets
 import { LockIcon, Map3Icon, Shield1Icon } from "@/assets/icons/index"
@@ -14,7 +14,7 @@ function Services() {
         <Box className="Content">
           <Typography variant="titleLarge" component="p" className="Title">{title}</Typography>
           <Typography variant="caption" component="p" className="Description">
-            {description} <Link to={url}>Learn more</Link>
+            {description} <Link href={url}>Learn more</Link>
           </Typography>
         </Box>
       </Stack>

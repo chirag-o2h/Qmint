@@ -7,7 +7,7 @@ import useApiRequest from "@/hooks/useAPIRequest"
 import { ENDPOINTS } from "@/utils/constants"
 import { useAppSelector } from "@/hooks"
 import DraggableMarquee from "./DraggableMarquee";
-import { STORE_CODE, THEME_TYPE } from "@/axiosfolder"
+import { THEME_TYPE } from "@/axiosfolder"
 
 interface ItickerData {
     data: Array<{

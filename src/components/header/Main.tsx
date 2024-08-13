@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box, useScrollTrigger } from "@mui/material"
+import { useMediaQuery, Container, Stack, Button, Link as LinkM, IconButton, Typography, Box, useScrollTrigger, Link } from "@mui/material"
 
 // Components
 import SearchField from "./SearchField"
@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks"
 
 // Utils
 import { ENDPOINTS } from "../../utils/constants"
-import { Link, navigate } from "gatsby"
+import { navigate } from "gatsby"
 import { LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 import { THEME_TYPE } from "@/axiosfolder"
 import useImageInView from "@/hooks/useImageInView"
@@ -30,7 +30,7 @@ function Main(props: any) {
       return
     }
   }
-  const trigger = process.env.THEME_TYPE == "1" ? useImageInView() : useScrollTrigger({
+  const trigger = process.env.GATSBY_THEME_TYPE == "1" ? useImageInView() : useScrollTrigger({
     disableHysteresis: true,
     threshold: mobile ? 68 : 50,
   })
@@ -38,7 +38,7 @@ function Main(props: any) {
     <Container className="MainHeader">
       <Stack className="MainHeader__Wrapper">
         <Stack className="Left">
-          <Link className="Logo" to="/"><img src={configDetailsState?.[trigger && configDetailsState?.["Brand_Dark_LogoURL"]?.value ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint logo" loading="lazy" /></Link>
+          <Link className="Logo" href="/"><img src={configDetailsState?.[trigger && configDetailsState?.["Brand_Dark_LogoURL"]?.value ? "Brand_Dark_LogoURL" : "BrandLogoURL_Header"]?.value} width={mobile ? 190 : 246} height={mobile ? 30 : 40} alt="QMint logo" loading="lazy" /></Link>
         </Stack>
         <Stack className="Right">
           {!mobile && <Box className="Marketingoffer" dangerouslySetInnerHTML={{ __html: configDetailsState?.["ShopHomepage_Header_Marketing_Image"]?.value }}></Box>}

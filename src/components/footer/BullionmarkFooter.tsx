@@ -30,14 +30,14 @@ function BullionmarkFooter() {
       <Container className="Container">
         <Stack className="FooterWrapper">
           <Stack className="LogoPart">
-            <GatsbyLink to="/" style={{ cursor: "pointer" }}>
+            <Link href="/" style={{ cursor: "pointer" }}>
               <img
                 src={configDetailsState?.BrandLogoURL_Footer?.value}
                 alt="Bullionmark Footer logo"
                 loading="lazy"
                 fetchPriority='high'
               />
-            </GatsbyLink>
+            </Link>
             <Box className="MenuWrapper ContactUs">
               <Stack className="ItemWrapper">
                 <Stack className="Item">

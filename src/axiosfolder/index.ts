@@ -6,15 +6,15 @@ interface CustomHeaders {
   Storecode: number;
   Validkey: string;
 }
-export const BASE_URL = process.env.BASE_URL;
-export const VALID_KEY = process.env.VALID_KEY;
-export const THEME_TYPE = process.env.THEME_TYPE;
+export const BASE_URL = process.env.GATSBY_BASE_URL;
+export const VALID_KEY = process.env.GATSBY_VALID_KEY;
+export const THEME_TYPE = process.env.GATSBY_THEME_TYPE;
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: process.env.GATSBY_BASE_URL,
   headers: {
-    Storecode: process.env.STORE_CODE,
-    Validkey: VALID_KEY,
+    Storecode: process.env.GATSBY_STORE_CODE,
+    Validkey: process.env.GATSBY_VALID_KEY,
   },
   // timeout: 5000, // Timeout in milliseconds
 });

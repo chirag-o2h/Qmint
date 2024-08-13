@@ -131,11 +131,11 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
   return (
     <Card className={classNames("ProductCard", { "Sticky": stickyProduct })} key={product.productId}>
       <Stack className="ImageWrapper">
-        <NavigationLink className="ImageLink" to={`/product-details/${product?.friendlypagename}`} style={{ ...((!renderStockStatus) && { paddingBottom: '18px' }) }}>
+        <Link className="ImageLink" href={`/product-details/${product?.friendlypagename}`} style={{ ...((!renderStockStatus) && { paddingBottom: '18px' }) }}>
           <img src={product?.imageUrl ?? noImage} alt="Product image" 
           // loading="lazy"
            />
-        </NavigationLink>
+        </Link>
         {(renderStockStatus) && <ProductStockStatus
           availability={product.availability}
           colorClass={product.colorClass}
@@ -632,7 +632,7 @@ export const BmkPostCard = (props: IBmkPostCard) => {
   const { details, navigate, isNews = false } = props
   // console.log("🚀 ~ BmkPostCard ~ details:", details)
   return (
-    <GatsbyLink to={navigate ?? "#"} className="BmkPostCard">
+    <Link href={navigate ?? "#"} className="BmkPostCard">
       <Box className="Content" color="text.primary">
         <img src={details?.imageUrl} className="ThumbnailImage" alt="Post thumbnail image" />
         <Typography variant="h4" component="p" className="Title" onClick={() => {
@@ -653,7 +653,7 @@ export const BmkPostCard = (props: IBmkPostCard) => {
             }
           }}>{formatDate(details?.createdOnUtc)}</Typography>
       </Box>
-    </GatsbyLink>
+    </Link>
   )
 }
 

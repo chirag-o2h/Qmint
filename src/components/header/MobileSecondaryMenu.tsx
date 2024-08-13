@@ -14,7 +14,7 @@ import ActionMenu from "./ActionMenu"
 import SearchField from "./SearchField"
 import { useAppSelector } from "@/hooks"
 import { navigate } from "gatsby"
-import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
+import { THEME_TYPE } from "@/axiosfolder";
 
 function MobileSecondaryMenu() {
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)

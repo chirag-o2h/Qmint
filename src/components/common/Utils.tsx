@@ -31,7 +31,7 @@ import useRemainingTime from "@/hooks/useRemainingTime";
 import { navigate } from "gatsby";
 import CountDownTimer from "../partials/productDetail/CountDownTImer";
 import { roundOfThePrice } from "@/utils/common";
-import { STORE_CODE, THEME_TYPE } from "@/axiosfolder";
+import { THEME_TYPE } from "@/axiosfolder";
 interface Iprops {
   name: string;
   value: number;

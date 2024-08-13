@@ -1,6 +1,6 @@
 import React from "react"
-import { Box, Stack, Typography, Pagination } from "@mui/material"
-import { Link } from "gatsby"
+import { Box, Stack, Typography, Pagination, Link } from "@mui/material"
+// import { Link } from "gatsby"
 import { useAppSelector } from "@/hooks"
 interface SiteMapItem {
   linkUrl: string;
@@ -20,7 +20,7 @@ function SitemapList(props: any) {
         <Typography variant="subtitle2">{title}</Typography>
         <Box className="List">
           {list.map((item) => (
-            <Link key={item.linkUrl} to={item.linkUrl}>{item?.name}</Link>
+            <Link key={item.linkUrl} href={item.linkUrl}>{item?.name}</Link>
           ))}
         </Box>
       </Box>

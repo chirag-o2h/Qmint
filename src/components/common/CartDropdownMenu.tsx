@@ -2,8 +2,8 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import useApiRequest from '@/hooks/useAPIRequest';
 import { CartItem } from '@/types/shoppingCart';
 import { ENDPOINTS } from '@/utils/constants';
-import { Box, Button, Divider, Stack, Typography } from '@mui/material'
-import { navigate, Link } from 'gatsby'
+import { Box, Button, Divider, Link, Stack, Typography } from '@mui/material'
+import { navigate } from 'gatsby'
 import React, { useEffect, useState } from 'react'
 import { CartItemsWithLivePriceDetails } from '../partials/shopping-cart/CartDetails';
 import useShowToaster from '@/hooks/useShowToaster';
@@ -54,7 +54,7 @@ function CartDropdownMenu({ cartItemsWithLivePrice, howManyProductToShow }: any)
         <>
             <Box className="CartDropdownMenuWrapper">
                 <Box className="CartDropdownMenuHeader">
-                    <Typography variant="titleLarge">There are <Link area-label="shopping-cart-link" to="/shopping-cart">{itemCountWithWord}</Link> in cart
+                    <Typography variant="titleLarge">There are <Link area-label="shopping-cart-link" href="/shopping-cart">{itemCountWithWord}</Link> in cart
                     </Typography>
                 </Box>
                 {isThereItems && <Divider />}
