@@ -117,7 +117,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             />
             {!isRendering && <Suspense fallback={
                 <Skeleton
-                    height={"120px"}
+                    height={serverData?.isMobile ? "120px" : "20vh"}
                     width={"100%"}
                     style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
                 />
@@ -126,7 +126,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 isRendering &&
                 (
                     <Skeleton
-                        height={"120px"}
+                        height={serverData?.isMobile ? "120px" : "20vh"}
                         width={"100%"}
                         style={{
                             marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"

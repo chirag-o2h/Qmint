@@ -57,10 +57,10 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
     }
     const removeMinHeight = useUnloadMinHeight()
     return (
-        <Box id="ProductsSlider" component="section" style={removeMinHeight ? { maxHeight: isMobile ? 720 : 700 } : {}}>
+        <Box id="ProductsSlider" component="section" style={removeMinHeight ? { maxHeight: isMobile ? '66vh' : '66vh' } : {}}>
             <Box className="ProductsSliderWrapper">
                 <Box className="SwiperContainer">
-                    <Swiper  {...config} style={removeMinHeight ? { maxHeight: isMobile ? '' : "360px" } : {}}>
+                    <Swiper  {...config} style={removeMinHeight ? { maxHeight: isMobile ? '60vh' : "60vh" } : {}}>
                         {
                             homePageSectionDetails?.quickCategoryLinks?.length > 0 ? (isMobile ? homePageSectionDetails?.quickCategoryLinks : [...homePageSectionDetails?.quickCategoryLinks, ...homePageSectionDetails?.quickCategoryLinks])?.map((product: any) => {
                                 return (
@@ -69,7 +69,7 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">
                                                     <img
-                                                        style={removeMinHeight ? { minHeight: isMobile ? "300px" : "290px" } : {}}
+                                                        style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
                                                         className="ProductImage"
                                                         loading="eager"
                                                         fetchPriority="high"
