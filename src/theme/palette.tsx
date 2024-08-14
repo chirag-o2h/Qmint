@@ -2,7 +2,6 @@ import { PaletteOptions } from "@mui/material/styles"
 
 // Utils
 import * as  variable from '../scss/settings/variables.module.scss'
-import { THEME_TYPE } from '../axiosfolder';
 
 const themeTypes: any = {
   0: variable.yellowFuel,
@@ -16,7 +15,7 @@ const commonPalette: PaletteOptions = {
 const qmintPalette: PaletteOptions = {
   ...commonPalette,
   primary: {
-    main: themeTypes[THEME_TYPE ?? 0],
+    main: themeTypes[process.env.GATSBY_THEME_TYPE ?? 0],
     contrastText: variable.white,
   },
   secondary: {
@@ -38,7 +37,7 @@ const qmintPalette: PaletteOptions = {
 const bmkPalette: PaletteOptions = {
   ...commonPalette,
   primary: {
-    main: themeTypes[THEME_TYPE ?? 0],
+    main: themeTypes[process.env.GATSBY_THEME_TYPE ?? 0],
     contrastText: variable.white,
   },
   secondary: {

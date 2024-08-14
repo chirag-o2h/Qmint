@@ -57,8 +57,7 @@ const config = {
   },
 };
 
-function BmkPopularProductSlider(props: any) {
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
+function BmkPopularProductSlider(props: {title:any,description:any,isMobile:boolean}) {
   const { data, priceForEachId, productType, setProductType } =
     useGetPopulurProductsData();
 
@@ -97,7 +96,7 @@ function BmkPopularProductSlider(props: any) {
         <Box className="BmkProductsWrapper">
           <Box
             className={classNames("SwiperContainer", [
-              isMobile ? "CircleSwiperPagination" : "LinedSwiperPagination",
+              props?.isMobile ? "CircleSwiperPagination" : "LinedSwiperPagination",
             ])}
           >
             <Swiper {...config}>

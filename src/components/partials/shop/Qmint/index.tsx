@@ -16,8 +16,8 @@ import Toaster from "@/components/common/Toaster";
 // import Loader from "@/components/common/Loader";
 import useAlertPopUp from "@/hooks/useAlertPopUp";
 const SessionExpiredDialog = lazy(() => import("@/components/header/SessionExpiredDialog"));
-const ProductsSlider = lazy(() => import("@/components/partials/shop/Qmint/ProductsSlider"));
-// import ProductsSlider  from "./ProductsSlider"
+// const ProductsSlider = lazy(() => import("@/components/partials/shop/Qmint/ProductsSlider"));
+import ProductsSlider  from "./ProductsSlider"
 import Seo from "@/components/common/Seo"
 // import Banner from "./Banner"
 const Banner = lazy(() => import("./Banner"))
@@ -105,7 +105,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             />
             {!isRendering && <Suspense fallback={
                 <Skeleton
-                    height={"124px"}
+                    height={"120px"}
                     width={"100%"}
                     style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
                 />
@@ -114,7 +114,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 isRendering &&
                 (
                     <Skeleton
-                        height={"135px"}
+                        height={"120px"}
                         width={"100%"}
                         style={{
                             marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"
@@ -131,17 +131,19 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                     <Banner bannerData={serverData?.bannerSliderData} isMobile={serverData?.isMobile} />
                 </Suspense>
             }
-            <RenderOnViewportEntry rootMargin="200px"
+            {/* <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
-                minHeight={800} > 
-            <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
-            </RenderOnViewportEntry>
+                minHeight={600}
+                // skeletonMargin={-180}
+            > */}
+                <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
+            {/* </RenderOnViewportEntry> */}
             {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false &&
-                 <RenderOnViewportEntry rootMargin="200px"
+                <RenderOnViewportEntry rootMargin="200px"
                     threshold={0.25}
-                    minHeight={800}> 
-                <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData} />
-            </RenderOnViewportEntry>}
+                    minHeight={800}>
+                    <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData} />
+                </RenderOnViewportEntry>}
             {serverData?.configDetails?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
                 minHeight={800}> <LookingFor sectionDetails={serverData?.homePageSectionDetails} /></RenderOnViewportEntry>}
@@ -154,10 +156,10 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             {serverData?.configDetails?.["ShopHomepage_Section_6_Three_posts_in_a_row_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
                 minHeight={800}><CloserLook configDetails={serverData?.configDetails} homePageSectionDetails={serverData?.homePageSectionDetails} /></RenderOnViewportEntry>}
-            {openSessionExpireDialog && <SessionExpiredDialog
+            {openSessionExpireDialog && <Suspense fallback={<></>}><SessionExpiredDialog
                 open={openSessionExpireDialog}
                 onClose={toggleSessionExpireDialog}
-            />}
+            /></Suspense>}
             {/* </Layout> */}
             <RenderOnViewportEntry
                 rootMargin="200px"

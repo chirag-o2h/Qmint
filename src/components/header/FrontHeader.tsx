@@ -7,7 +7,6 @@ const FrontPricing = lazy(() => import('./FrontPricing'))
 const FrontMain = lazy(() => import('./FrontMain'))
 import { PageLoader } from './Loader'
 import { useAppSelector } from "@/hooks"
-import { THEME_TYPE } from "@/axiosfolder"
 import useImageInView from "@/hooks/useImageInView"
 import { useLocation } from "@reach/router"
 const MobileMenu = lazy(() => import('./MobileMenu'))
@@ -27,7 +26,7 @@ const FrontHeader = (props: FrontHeader) => {
     //     disableHysteresis: true,
     //     threshold: isMobile ? 68 : 50,
     // })
-    const trigger = THEME_TYPE == "1" ? useImageInView() :  useScrollTrigger({
+    const trigger = process.env.GATSBY_THEME_TYPE == "1" ? useImageInView() :  useScrollTrigger({
             disableHysteresis: true,
             threshold: isMobile ? 68 : 50,
         })
@@ -46,7 +45,7 @@ const FrontHeader = (props: FrontHeader) => {
         threshold: isMobile ? 68 : 50,
       })
     return (
-        <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": THEME_TYPE == '1' })}>
+        <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": process.env.GATSBY_THEME_TYPE == '1' })}>
             {((!isMobile && configDetailsState?.["Store_HomePage_Ticker_Enable"]?.value) ) && <>
                 <Suspense fallback={
                     <Skeleton style={{ minHeight: '60px' }} />
@@ -57,13 +56,13 @@ const FrontHeader = (props: FrontHeader) => {
             </>}
             <AppBar position={(showTransprant && !trigger) ? "fixed" : "static"}>
                 {loading && <PageLoader />}
-                <Suspense fallback={<><Skeleton style={{ minHeight: '80px' }} /></>}>
+                <Suspense fallback={<Skeleton style={{ minHeight: '80px' }} />}>
                     <FrontMain toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} trigger={trigger} isFrontHeader={isFrontHeader}/>
                 </Suspense>
             </AppBar>
-            <Suspense fallback={<></>}>
-                {isMobile && openMobileMenu && <MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} isFrontPage={isFrontPage} />}
-            </Suspense >
+            {isMobile && openMobileMenu && <Suspense fallback={<></>}>
+                <MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} isFrontPage={isFrontPage} />
+            </Suspense >}
         </Box >
     )
 }

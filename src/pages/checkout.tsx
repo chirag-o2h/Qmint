@@ -24,7 +24,6 @@ import SessionExpiredDialog from "@/components/header/SessionExpiredDialog"
 import useRequireLogin from "@/hooks/useRequireLogin"
 import RecordNotFound from "@/components/common/RecordNotFound"
 import classNames from "classnames"
-import { THEME_TYPE } from "@/axiosfolder"
 import { useLocation } from "@reach/router"
 import { navigate } from "gatsby"
 
@@ -75,7 +74,7 @@ function Checkout() {
       />
       {openToaster && <Toaster />}
       <PageTitle title="Checkout" />
-      <Container id="PageCheckout" className={classNames({ "BmkCheckoutPage": THEME_TYPE == '1' })}>
+      <Container id="PageCheckout" className={classNames({ "BmkCheckoutPage": process.env.GATSBY_THEME_TYPE == '1' })}>
         {(checkoutPageData?.shoppingCartItems?.length && checkoutPageData?.shoppingCartItems?.length > 0) ?
           (<>
             <Stack className="AllSteps">

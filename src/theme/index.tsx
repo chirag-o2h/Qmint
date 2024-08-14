@@ -3,14 +3,13 @@ import createTheme from "@mui/material/styles/createTheme";
 
 // Utils
 import { pxToRem } from '../utils/helper';
-import { THEME_TYPE } from '../axiosfolder';
 
 // Components
 import components from "./components"
 import palette from "./palette"
 
 const theme: Theme = createTheme({
-  palette: {...palette(THEME_TYPE)},
+  palette: {...palette(process.env.GATSBY_THEME_TYPE)},
   typography: {
     fontFamily: "'Open Sans', sans-serif",
     button: {
@@ -113,9 +112,9 @@ const theme: Theme = createTheme({
       xl: 1580,
     },
   },
-  components: { ...components(THEME_TYPE) },
+  components: { ...components(process.env.GATSBY_THEME_TYPE) },
   shape: {
-    borderRadius: THEME_TYPE === "1" ? 0 : 8,
+    borderRadius: process.env.GATSBY_THEME_TYPE === "1" ? 0 : 8,
   },
   zIndex: {
     mobileStepper: 1000,

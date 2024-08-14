@@ -16,7 +16,6 @@ import { useAppSelector } from "@/hooks";
 // Components
 import FrontMain from "./FrontMain";
 import useImageInView from "@/hooks/useImageInView";
-import { THEME_TYPE } from "@/axiosfolder";
 import useDebounce from "@/hooks/useDebounce";
 import Pricing from "./Pricing";
 import MobileSecondaryMenu from "./MobileSecondaryMenu";
@@ -42,7 +41,7 @@ const BullionmarkHeader = () => {
   // })
   // const trigger = useImageInView()
   const trigger =
-    THEME_TYPE == "1"
+    process.env.GATSBY_THEME_TYPE == "1"
       ? useImageInView()
       : useScrollTrigger({
           disableHysteresis: true,

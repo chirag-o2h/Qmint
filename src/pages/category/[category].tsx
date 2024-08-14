@@ -18,7 +18,7 @@ import { bodyForGetShoppingCartData, getlastPartOfPath } from "@/utils/common"
 import useDebounce from "@/hooks/useDebounce"
 import { navigate } from "gatsby"
 import classNames from "classnames"
-import axiosInstance, { THEME_TYPE } from "@/axiosfolder"
+import axiosInstance from "@/axiosfolder"
 import { useLocation } from "@reach/router"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
@@ -233,7 +233,7 @@ function Category({ serverData, props }: Props) {
                 lang="en"
                 configDetailsState={serverData?.configDetails}
             />
-            <Container id="PageCategory" className={classNames({ "BmkCategoryPage": THEME_TYPE === "1" },)}>
+            <Container id="PageCategory" className={classNames({ "BmkCategoryPage": process.env.GATSBY_THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
                         <SortBy isSmallScreen={isSmallScreen} />

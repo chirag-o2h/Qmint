@@ -13,8 +13,8 @@ import PageNotFoundText from "../PageNotFoundText"
 // Components
 // import Layout from "../components/common/Layout"
 // import Seo from "../components/common/Seo"
-const Layout = lazy(() => import("../../common/Layout"))
-const Seo = lazy(() => import("../../common/Seo"))
+// const Layout = lazy(() => import("../../common/Layout"))
+// const Seo = lazy(() => import("../../common/Seo"))
 
 const defaultData = {
   "search": "",

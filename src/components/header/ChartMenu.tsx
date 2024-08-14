@@ -13,7 +13,6 @@ import ChartMenuChart from "./ChartMenuChart"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { metalColors } from "@/utils/common"
 import { navigate } from "gatsby"
-import { THEME_TYPE } from "@/axiosfolder"
 import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer"
 import { ENDPOINTS } from "@/utils/constants"
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService"
@@ -90,7 +89,7 @@ function ChartMenu() {
           }
           return null;
         })}
-        <Button color={THEME_TYPE === "1" ? "primary" : "secondary"} variant="contained" fullWidth onClick={() => {
+        <Button color={process.env.GATSBY_THEME_TYPE === "1" ? "primary" : "secondary"} variant="contained" fullWidth onClick={() => {
           navigate("/charts")
         }}>See More</Button>
       </Stack>

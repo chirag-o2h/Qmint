@@ -31,7 +31,6 @@ import useRemainingTime from "@/hooks/useRemainingTime";
 import { navigate } from "gatsby";
 import CountDownTimer from "../partials/productDetail/CountDownTImer";
 import { roundOfThePrice } from "@/utils/common";
-import { THEME_TYPE } from "@/axiosfolder";
 interface Iprops {
   name: string;
   value: number;
@@ -192,7 +191,7 @@ export const PageTitle = React.memo(({ title, backToDashboard, maxWidth, redirec
 });
 export const Breadcrumb = React.memo(({ arr }: any) => {
   return (
-    <Box className={classNames("Breadcrumb", { "BmkBreadcrumb": THEME_TYPE === "1" })}>
+    <Box className={classNames("Breadcrumb", { "BmkBreadcrumb": process.env.GATSBY_THEME_TYPE === "1" })}>
       <Container>
         <Breadcrumbs aria-label="breadcrumb" separator={<ChevronRight />}>
           <Link color="inherit" variant="body2" href="/shop" 

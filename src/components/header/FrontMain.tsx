@@ -31,7 +31,6 @@ import {
   LogOutUserAPI,
 } from "@/redux/reducers/homepageReducer";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
-import { THEME_TYPE } from "@/axiosfolder";
 import {
   isItNewsOrBlogPage,
   pagesOnWhichNeedToCallTopCategoriesAPi,
@@ -43,7 +42,7 @@ function FrontMain(props: any) {
   const dispatch = useAppDispatch();
   const mobile = useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const trigger =
-    THEME_TYPE == "1"
+    process.env.GATSBY_THEME_TYPE == "1"
       ? useImageInView()
       : useScrollTrigger({
         disableHysteresis: true,
@@ -70,7 +69,7 @@ function FrontMain(props: any) {
 
   const [isBullionmarkHomePage, setIsBullionmarkHomePage] = useState<boolean>(false)
   useEffect(() => {
-    if (THEME_TYPE === "1") {
+    if (process.env.GATSBY_THEME_TYPE === "1") {
       setIsBullionmarkHomePage(true)
     }
   }, [])
@@ -92,7 +91,7 @@ function FrontMain(props: any) {
           </Stack>
           <Stack className="Right">
             {/* <Link to={ENDPOINTS.login}> */}
-            <Button name='signIn' aria-label='signIn' onClick={handleAuth} className={classNames("SignInButton ActionButton")} variant={THEME_TYPE === "1" ? "contained" : "outlined"} startIcon={!isLoggedIn ? (isBullionmarkHomePage ? <BullionmarkSignInIcon /> : <SignInIcon />) : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
+            <Button name='signIn' aria-label='signIn' onClick={handleAuth} className={classNames("SignInButton ActionButton")} variant={process.env.GATSBY_THEME_TYPE === "1" ? "contained" : "outlined"} startIcon={!isLoggedIn ? (isBullionmarkHomePage ? <BullionmarkSignInIcon /> : <SignInIcon />) : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Sign In' : 'Sign Out'}</Typography></Button>
             {/* <Button name='Contact us' aria-label='Contact us' onClick={() => { 
                             navigate('/contactus')
                         }} variant="outlined" className="ActionButton">Contact Us</Button> */}

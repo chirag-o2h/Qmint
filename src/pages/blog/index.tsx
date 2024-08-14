@@ -51,7 +51,6 @@ import Seo from "@/components/common/Seo";
 import { setConfigDetails } from "@/redux/reducers/homepageReducer";
 import FrontHeader from "@/components/header/FrontHeader";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
-// const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
 const BullionmarkFrontFooter = lazy(() => import('@/components/footer/BullionmarkFrontFooter'));
 const LazyFrontFooter = lazy(() => import('@/components/footer/FrontFooter'));
 function Blog({ serverData }: any) {

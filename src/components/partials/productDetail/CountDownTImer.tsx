@@ -1,4 +1,3 @@
-import { THEME_TYPE } from '@/axiosfolder';
 import classNames from 'classnames';
 import React, { useState, useEffect } from 'react';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -39,13 +38,13 @@ const CountDownTimer = () => {
     };
 
     return (
-        <div className={classNames("progress-bar", { "bmk-progress-bar": THEME_TYPE === '1' })}>
+        <div className={classNames("progress-bar", { "bmk-progress-bar": process.env.GATSBY_THEME_TYPE === '1' })}>
             <CircularProgressbar
                 value={(seconds / 60) * 100}
                 text={''}
                 styles={buildStyles({
                     pathTransition: 'none',
-                    pathColor: THEME_TYPE === '1' ? `${variable.pumpkinOrange}`  : `${variable.yellowFuel}`,
+                    pathColor: process.env.GATSBY_THEME_TYPE === '1' ? `${variable.pumpkinOrange}`  : `${variable.yellowFuel}`,
                     trailColor: 'transparent', // Make the background transparent
                     strokeLinecap: 'butt', // Use butt strokeLinecap to fill the entire width
                 })}

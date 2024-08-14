@@ -23,7 +23,6 @@ import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import { formatCategoryUrl, isItNewsOrBlogPage } from "@/utils/common";
-import { THEME_TYPE } from "@/axiosfolder";
 import MobileRecursiveMenu from "./MobileRecursiveMenu";
 import { LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 
@@ -73,14 +72,14 @@ function FrontMobileMenu(props: any) {
         ScrollActive: trigger,
         isHomePage: isHomePage,
         FrontPageMenu: isFrontPage,
-        BmkCommonMobileClass:THEME_TYPE === "1",
+        BmkCommonMobileClass:process.env.GATSBY_THEME_TYPE === "1",
         BmkMobileMenu:
-          THEME_TYPE === "1" && isHomePage &&
+          process.env.GATSBY_THEME_TYPE === "1" && isHomePage &&
           trigger &&
           !isItNewsOrBlogPage.some((page) =>
             location.pathname.includes(page)
           ),
-        BmkMobileMenuWithoutAnygap: THEME_TYPE === "1",
+        BmkMobileMenuWithoutAnygap: process.env.GATSBY_THEME_TYPE === "1",
       })}
       open={open}
       variant="temporary"
@@ -90,7 +89,7 @@ function FrontMobileMenu(props: any) {
     >
       <Container className="HeaderContainer">
         <List component="nav">
-        {THEME_TYPE === "1" && 
+        {process.env.GATSBY_THEME_TYPE === "1" && 
                      <Button name='signIn' aria-label='signIn' className={classNames("SignInButton ActionButton")} onClick={handleAuth} variant="contained" startIcon={!isLoggedIn ? <BullionmarkSignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Login/Register' : 'Logout'}</Typography></Button>
                     }
           {categoriesList?.items?.length > 0

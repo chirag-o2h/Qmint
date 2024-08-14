@@ -36,7 +36,6 @@ import { resetProductDetails } from "@/redux/reducers/categoryReducer"
 import noImage from '../../../assets/images/noImage.png'
 import useShowToaster from "@/hooks/useShowToaster"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
-import { THEME_TYPE } from "@/axiosfolder"
 import { useLocation } from "@reach/router"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 
@@ -511,7 +510,7 @@ function AboutProduct({ productId, productDetailsData, configDetailsState }: any
                           handleQuentityUpdate('plus')
                         }}><PlusIcon /></IconButton>
                       </Stack>
-                        <Button color={THEME_TYPE === '1' ? 'primary' : 'success'} variant="contained" endIcon={<AddToCartIcon />} onClick={async () => {
+                        <Button color={process.env.GATSBY_THEME_TYPE === '1' ? 'primary' : 'success'} variant="contained" endIcon={<AddToCartIcon />} onClick={async () => {
                           await addToCartFunction(false)
                           // navigate('/shopping-cart')
                         }} disabled={loadingForAddToCart}>Add to cart</Button>

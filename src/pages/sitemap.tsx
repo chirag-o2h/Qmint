@@ -15,7 +15,7 @@ import Seo from "@/components/common/Seo"
 import { PageTitle } from "@/components/common/Utils"
 import SitemapList from "@/components/partials/sitemap/SitemapList"
 import Services from "@/components/partials/sitemap/Services"
-import axiosInstance, { THEME_TYPE } from "@/axiosfolder"
+import axiosInstance from "@/axiosfolder"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 import { ENDPOINTS } from "@/utils/constants"
 const bodyForSiteMap = {

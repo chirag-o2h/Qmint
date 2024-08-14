@@ -37,10 +37,10 @@ const MainLayout = (props: MainLayout) => {
     useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore })
     // useEffect(() => {
 
-    //     if ( process.env.THEME_TYPE== "1") {
+    //     if ( process.env.GATSBY_THEME_TYPE== "1") {
     //         setIsBullionmarkHomePage(true)
     //     }
-    // }, [process.env.THEME_TYPE])
+    // }, [process.env.GATSBY_THEME_TYPE])
     const [isRendering, setIsRendering] = useState(true);
     const [isPending, startTransition] = useTransition();
     useEffect(() => {

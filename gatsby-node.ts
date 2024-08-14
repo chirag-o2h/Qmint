@@ -40,41 +40,41 @@ exports.onCreateWebpackConfig = ({ stage, actions }: any) => {
             console.log('Failed to generate SCSS variables', error);
         }
     }
-    if (stage === "build-javascript" || stage === "develop") {
-        webpackConfig.optimization = {
-            splitChunks: {
-                chunks: 'all',
-                // minSize: 10000,  // Minimum size for splitting chunks
-                // minChunks: 10,    // Minimum number of chunks that must share a module before splitting
-                // maxAsyncRequests: 10,  // Maximum number of parallel requests for chunks on initial load
-            },
-        };
-    }
     // if (stage === "build-javascript" || stage === "develop") {
     //     webpackConfig.optimization = {
     //         splitChunks: {
-    //             chunks: 'all',  // This applies the optimization to both initial and async chunks
-    //             minSize: 20000,  // Minimum size, in bytes, for a chunk to be generated (adjusted to a more typical threshold)
-    //             minRemainingSize: 0,  // Minimum size of the chunk which remains after splitting
-    //             minChunks: 1,  // Minimum number of chunks that must share a module before splitting (lowered to ensure more splitting)
-    //             maxAsyncRequests: 30,  // Maximum number of parallel requests when loading on demand (increased for better async loading)
-    //             maxInitialRequests: 30,  // Maximum number of parallel requests at an entry point (increased to allow more initial requests)
-    //             enforceSizeThreshold: 50000,  // Force split for modules larger than this size (in bytes)
-    //             cacheGroups: {
-    //                 defaultVendors: {
-    //                     test: /[\\/]node_modules[\\/]/,
-    //                     priority: -10,
-    //                     reuseExistingChunk: true,
-    //                 },
-    //                 default: {
-    //                     minChunks: 2,
-    //                     priority: -20,
-    //                     reuseExistingChunk: true,
-    //                 },
-    //             },
+    //             chunks: 'all',
+    //             // minSize: 10000,  // Minimum size for splitting chunks
+    //             // minChunks: 10,    // Minimum number of chunks that must share a module before splitting
+    //             // maxAsyncRequests: 10,  // Maximum number of parallel requests for chunks on initial load
     //         },
     //     };
     // }
+    if (stage === "build-javascript" || stage === "develop") {
+        webpackConfig.optimization = {
+            splitChunks: {
+                chunks: 'all',  // This applies the optimization to both initial and async chunks
+                minSize: 20000,  // Minimum size, in bytes, for a chunk to be generated (adjusted to a more typical threshold)
+                minRemainingSize: 0,  // Minimum size of the chunk which remains after splitting
+                minChunks: 1,  // Minimum number of chunks that must share a module before splitting (lowered to ensure more splitting)
+                maxAsyncRequests: 30,  // Maximum number of parallel requests when loading on demand (increased for better async loading)
+                maxInitialRequests: 30,  // Maximum number of parallel requests at an entry point (increased to allow more initial requests)
+                enforceSizeThreshold: 50000,  // Force split for modules larger than this size (in bytes)
+                cacheGroups: {
+                    defaultVendors: {
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: -10,
+                        reuseExistingChunk: true,
+                    },
+                    default: {
+                        minChunks: 2,
+                        priority: -20,
+                        reuseExistingChunk: true,
+                    },
+                },
+            },
+        };
+    }
     actions.setWebpackConfig(webpackConfig);
 };
 exports.onCreateBabelConfig = ({ actions }: any) => {

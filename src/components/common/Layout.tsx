@@ -79,7 +79,7 @@ function Layout(props: {
   return (
     <Stack id="PageLayout">
       {/* <Suspense fallback={<Box id="HeaderWrapper"></Box>}> */}
-      {/* {THEME_TYPE === "1" ?<Suspense fallback={<Skeleton height={isMobile ? "20vh" : "260px"} style={{marginTop: isMobile ? "-40px" : "-60px"}}/>}> 
+      {/* {process.env.GATSBY_THEME_TYPE === "1" ?<Suspense fallback={<Skeleton height={isMobile ? "20vh" : "260px"} style={{marginTop: isMobile ? "-40px" : "-60px"}}/>}> 
       <BullionmarkHeader />
       </Suspense> : <LazyHeader />} */}
       {/* <RenderOnViewportEntry
@@ -87,7 +87,7 @@ function Layout(props: {
         threshold={0.25}
         minHeight={isMobile ? "20vh" : 260}
       >
-        {THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
+        {process.env.GATSBY_THEME_TYPE === "1" ? <BullionmarkHeader /> : <LazyHeader />}
       </RenderOnViewportEntry> */}
       {!isRendering && <Suspense fallback={
         <Skeleton
@@ -113,7 +113,7 @@ function Layout(props: {
       {/* {laodFooter && <Suspense fallback={
         <Skeleton height='30vh'></Skeleton>
       }>
-        {THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
+        {process.env.GATSBY_THEME_TYPE === "1" ? <LazyBullionmarkFooter /> : <LazyFooter />}
       </Suspense>} */}
       {renderAfterSomeTime && !isRendering && <RenderOnViewportEntry
         rootMargin="200px"

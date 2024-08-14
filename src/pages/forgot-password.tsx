@@ -5,7 +5,6 @@ import { Button, Container, Box, DialogActions, DialogContent, DialogTitle, Inpu
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { useForm } from "react-hook-form";
 import { LoginUserAPI, configDetails } from '@/redux/reducers/homepageReducer';
-import { THEME_TYPE } from "@/axiosfolder"
 import { ENDPOINTS, StoreData } from '@/utils/constants';
 import { Dispatch } from '@reduxjs/toolkit';
 import { isActionRejected } from '@/components/common/Utils';

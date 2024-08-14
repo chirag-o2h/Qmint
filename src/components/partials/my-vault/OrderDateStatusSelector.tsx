@@ -14,7 +14,6 @@ import useShowToaster from '@/hooks/useShowToaster'
 import { Provider, lightTheme } from "@adobe/react-spectrum";
 import { DateRangePicker } from '@adobe/react-spectrum'
 import { FieldError, FieldErrors, UseFormRegister } from "react-hook-form";
-import { THEME_TYPE } from '@/axiosfolder'
 import { SelectDropdown } from '@/assets/icons'
 import { getCheckoutPageData } from '@/redux/reducers/checkoutReducer'
 import useAPIoneTime from '@/hooks/useAPIoneTime'
@@ -108,7 +107,7 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
         <form onSubmit={handleSubmit(onSubmit)} id="OrderDateStatusSelector" className='OrderDateStatusSelector'>
             <Stack className='OrderDateStatusSelectorWrapper'>
                 <Stack className='OrderDateStatusWrapper'>
-                    {THEME_TYPE === "1" &&
+                    {process.env.GATSBY_THEME_TYPE === "1" &&
                         <Box className="SelectAccountWrapper">
                             {checkoutPageData?.customers && checkoutPageData?.customers?.length > 0 && selectAccount && <Select
                                 className='AccountSelect'

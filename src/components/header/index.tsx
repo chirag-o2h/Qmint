@@ -1,13 +1,17 @@
 import React, { Suspense, lazy, useCallback, useState } from "react"
 import { useMediaQuery, useScrollTrigger, AppBar, Box, Divider, Skeleton } from "@mui/material"
 const MobileSecondaryMenu = lazy(() => import('./MobileSecondaryMenu'));
+const MobileMenu = lazy(() => import('./MobileMenu'))
 
 
 // Components
-const Pricing = lazy(() => import('./Pricing'))
-const Main = lazy(() => import('./Main'))
+// const Pricing = lazy(() => import('./Pricing'))
+import Pricing from './Pricing'
+// const Main = lazy(() => import('./Main'))
+import Main from './Main'
 import { PageLoader } from './Loader'
-const Navigation = lazy(() => import('./Navigation'))
+// const Navigation = lazy(() => import('./Navigation'))
+import Navigation from './Navigation'
 import { useAppSelector, useToggle } from "@/hooks"
 import SessionExpiredDialog from "./SessionExpiredDialog";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
@@ -15,7 +19,6 @@ import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import { pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
 import { useLocation } from "@reach/router";
-const MobileMenu = lazy(() => import('./MobileMenu'))
 
 const Index = () => {
   const location = useLocation()
@@ -39,34 +42,18 @@ const Index = () => {
   return (
     <>
       {!isMobile && configDetailsState?.Store_ShopeHomePage_Ticker_Enable?.value && <>
-        <Suspense fallback={
-          <></>
-          // <Skeleton style={{ minHeight: '60px' }} />
-        }
-        >
           <Pricing />
-        </Suspense>
         <Divider />
       </>}
       <Box id="HeaderWrapper">
         <AppBar position="static">
           {loading && <PageLoader />}
-          <Suspense fallback={
-            <></>
-            // <Skeleton style={{ minHeight: '80px' }} />
-          }>
             <Main toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} />
-          </Suspense>
           <Divider />
-          <Suspense fallback={
-            <></>
-            // <Skeleton style={{ minHeight: '53px' }} />
-          }>
             <Navigation />
-          </Suspense>
         </AppBar>
         <Suspense fallback={<></>}>
-          {isMobile && openMobileMenu && <MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} />}
+          {isMobile && openMobileMenu && <Suspense fallback={<></>}><MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} /></Suspense>}
         </Suspense >
         {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>}
       </Box >

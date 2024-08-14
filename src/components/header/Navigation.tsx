@@ -59,7 +59,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
   const [productIds, setProductIds] = useState({})
   const [cartItemsWithLivePrice, setCartItemsWithLivePrice] = useState<CartItemsWithLivePriceDetails[]>([]);
   const pathName = useMemo(() => location.pathname.replace(/\//g, ''), [location])
-  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, (pathName.includes('shopping-cart') || pathName.includes('checkout')) ? null : 60,!showNavigation);
+  const { data: priceData, loading: priceLoading } = useApiRequest(ENDPOINTS.productPrices, 'post', productIds, (pathName.includes('shopping-cart') || pathName.includes('checkout')) ? null : 60, !showNavigation);
   useEffect(() => {
     if (priceData?.data?.length > 0) {
       const idwithpriceObj: any = {}
@@ -96,47 +96,47 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
       <Container>
         <Stack className="NavigationHeader__Wrapper">
           {process.env.GATSBY_THEME_TYPE === "1" && !showNavigation ? (configDetailsState?.Search_MenuIcon_Enable?.value && <SearchField />) :
-           <Stack
-            className="LeftPart"
-            divider={<Divider orientation="vertical" flexItem />}
-          >
-            {
-              categoriesList?.items?.length > 0 ?
-                categoriesList?.items?.map((category: Icategory) => {
-                  return (
-                    category?.subCategories?.length > 0 ?
-                      <Fragment key={category.name}><HoverTooltip
-                        className="PopoverMegaMenu"
-                        placement="bottom-start"
-                        renderComponent={
-                          <Link
-                            // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
-                            href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
-                            aria-label={category?.searchEngineFriendlyPageName ?? category.name}
-                            className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
-                          >
-                            {category.name}
-                          </Link>
-                        }
-                        disablePortal
-                        lightTheme
-                      >
-                        <MegaMenu subCategorys={category.subCategories} category={category} />
-                      </HoverTooltip>
-                      </Fragment>
-                      : <Fragment key={category.name}><Link
-                        // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
-                        href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
-                        aria-label={category?.searchEngineFriendlyPageName ?? category.name}
-                        className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
-                      >
-                        {category.name}
-                      </Link></Fragment>
-                  )
-                })
-                : null
-            }
-          </Stack>
+            <Stack
+              className="LeftPart"
+              divider={<Divider orientation="vertical" flexItem />}
+            >
+              {
+                categoriesList?.items?.length > 0 ?
+                  categoriesList?.items?.map((category: Icategory) => {
+                    return (
+                      category?.subCategories?.length > 0 ?
+                        <Fragment key={category.name}><HoverTooltip
+                          className="PopoverMegaMenu"
+                          placement="bottom-start"
+                          renderComponent={
+                            <Link
+                              // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                              href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
+                              aria-label={category?.searchEngineFriendlyPageName ?? category.name}
+                              className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
+                            >
+                              {category.name}
+                            </Link>
+                          }
+                          disablePortal
+                          lightTheme
+                        >
+                          <MegaMenu subCategorys={category.subCategories} category={category} />
+                        </HoverTooltip>
+                        </Fragment>
+                        : <Fragment key={category.name}><Link
+                          // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
+                          href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
+                          aria-label={category?.searchEngineFriendlyPageName ?? category.name}
+                          className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
+                        >
+                          {category.name}
+                        </Link></Fragment>
+                    )
+                  })
+                  : null
+              }
+            </Stack>
           }
 
           {!frontPage && !showNavigation && (
@@ -156,14 +156,14 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                     renderComponent={
                       <Link area-label="shopping-cart-link" href="/shopping-cart">
                         <Badge badgeContent={cartItems?.length?.toString()} color="primary" max={99}>
-                          <CartMenu />
+                          <Suspense fallback={<></>}> <CartMenu /></Suspense>
                         </Badge>
                       </Link>
                     }
                     disablePortal
                     lightTheme
                   >
-                    {configDetailsState?.Cart_Popup_Enable?.value !== false && <CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.Cart_Popup_MaxProducts?.value ?? 3} />}
+                    {configDetailsState?.Cart_Popup_Enable?.value !== false && <Suspense fallback={<></>}><CartDropdownMenu cartItemsWithLivePrice={cartItemsWithLivePrice} howManyProductToShow={configDetailsState?.Cart_Popup_MaxProducts?.value ?? 3} /></Suspense>}
                   </HoverTooltip>
                 </Suspense>
                 : null}

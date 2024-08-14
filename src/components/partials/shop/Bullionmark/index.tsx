@@ -16,9 +16,9 @@ import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 // const Layout = lazy(() => import("@/components/common/Layout"));
 // const Loader = lazy(() => import("@/components/common/Loader"));
 const Toaster = lazy(() => import("@/components/common/Toaster"));
-const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
+// const BestCategorySlider = lazy(() => import("./BestCategorySlider"));
 const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider"));
-// import BestCategorySlider from "./BestCategorySlider"
+import BestCategorySlider from "./BestCategorySlider"
 // import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
 import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
@@ -139,12 +139,12 @@ const BullionmarkShop = (props: any) => {
           </Suspense>
         )}
 
-        <RenderOnViewportEntry
+        {/* <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
           minHeight={900}
           skeletonMargin={-220}
-        >
+        > */}
           <BestCategorySlider
             pageData={serverData?.bmkShopPageSections}
             PaddingClass={
@@ -160,7 +160,7 @@ const BullionmarkShop = (props: any) => {
             }
             isMobile={serverData?.isMobile}
           />
-        </RenderOnViewportEntry>
+        {/* </RenderOnViewportEntry> */}
         <RenderOnViewportEntry
           rootMargin="200px"
           threshold={0.25}
@@ -214,6 +214,7 @@ const BullionmarkShop = (props: any) => {
                 "ShopHomepage_Section_5_Popular_Products_Subtitle"
               ]?.value
             }
+            isMobile={serverData?.isMobile}
           />
         </RenderOnViewportEntry>
         <RenderOnViewportEntry

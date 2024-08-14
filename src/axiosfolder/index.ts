@@ -8,7 +8,6 @@ interface CustomHeaders {
 }
 export const BASE_URL = process.env.GATSBY_BASE_URL;
 export const VALID_KEY = process.env.GATSBY_VALID_KEY;
-export const THEME_TYPE = process.env.GATSBY_THEME_TYPE;
 
 const axiosInstance = axios.create({
   baseURL: process.env.GATSBY_BASE_URL,

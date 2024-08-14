@@ -7,6 +7,7 @@ import { Box, Card, Typography, Link, } from "@mui/material"
 import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 
 import { SwiperNavigation } from "@/components/common/Utils"
+import useUnloadMinHeight from "@/hooks/useUnloadMinHeight"
 
 function ProductsSlider({homePageSectionDetails,isMobile}:{homePageSectionDetails:any,isMobile:boolean}) {
     const config = {
@@ -54,16 +55,16 @@ function ProductsSlider({homePageSectionDetails,isMobile}:{homePageSectionDetail
             },
         },
     }
-
+    const removeMinHeight = useUnloadMinHeight()
     return (
-        <Box id="ProductsSlider" component="section">
+        <Box id="ProductsSlider" component="section" style={removeMinHeight ? { maxHeight: isMobile ? 720 : 650 } : {}}>
             <Box className="ProductsSliderWrapper">
                 <Box className="SwiperContainer">
-                    <Swiper  {...config}>
+                    <Swiper  {...config} style={removeMinHeight ? { maxHeight: isMobile ? '' : "360px" } : {}}>
                         {
-                            homePageSectionDetails?.quickCategoryLinks?.length > 0 ? [...homePageSectionDetails?.quickCategoryLinks, ...homePageSectionDetails?.quickCategoryLinks]?.map((product: any) => {
+                            homePageSectionDetails?.quickCategoryLinks?.length > 0 ? (isMobile ? homePageSectionDetails?.quickCategoryLinks :[...homePageSectionDetails?.quickCategoryLinks, ...homePageSectionDetails?.quickCategoryLinks])?.map((product: any) => {
                                 return (
-                                    <SwiperSlide style={!isMobile ? { width: "auto" }:{}}>
+                                    <SwiperSlide key={product.id || product.name} style={!isMobile ? { width: "auto" }:{}}>
                                         <Link href={product?.linkUrl} className="ProductCardLink">
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">

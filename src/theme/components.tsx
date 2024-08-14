@@ -8,8 +8,6 @@ import * as  variable from '../scss/settings/variables.module.scss'
 // Utils
 import { pxToRem } from '../utils/helper';
 
-import { THEME_TYPE } from "@/axiosfolder"
-
 const commonComponents: Components = {
   MuiCssBaseline: {
     styleOverrides: {
@@ -46,7 +44,7 @@ const commonComponents: Components = {
         flexDirection: "column",
       },
       a: {
-        color: THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`,
+        color: process.env.GATSBY_THEME_TYPE === "1" ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`,
         textDecoration: "none",
       }
     },

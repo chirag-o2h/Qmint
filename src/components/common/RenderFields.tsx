@@ -21,7 +21,6 @@ import {
 import { clear } from 'console'
 import { DateRangePicker } from '@adobe/react-spectrum'
 import { CalendarDate } from '@internationalized/date'
-import { THEME_TYPE } from '@/axiosfolder'
 
 interface RenderFieldProps {
   type?: RenderFieldType
@@ -143,14 +142,14 @@ const RenderFields: React.FC<RenderFieldProps> = ({
   useEffect(() => {
     // Find the react-tel-input div and add the class conditionally
     const telInput = document.querySelector('.react-tel-input');
-    if (telInput && THEME_TYPE === "1") {
+    if (telInput && process.env.GATSBY_THEME_TYPE === "1") {
       telInput.classList.add('BmkPhoneInput');
     }
   }, []);
   useEffect(() => {
     // Find the react-tel-input div and add the class conditionally
     const telInput = document.querySelector('.react-tel-input');
-    if (telInput && THEME_TYPE === "0") {
+    if (telInput && process.env.GATSBY_THEME_TYPE === "0") {
       telInput.classList.add('QmintPhoneInput');
     }
   }, []);
@@ -280,7 +279,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                   }
                   label={checkboxOption.label}
                   disabled={checkboxOption.disabled}
-                  slotProps={{ typography: { variant: THEME_TYPE === "1" ? "body1" : "body2" } }}
+                  slotProps={{ typography: { variant: process.env.GATSBY_THEME_TYPE === "1" ? "body1" : "body2" } }}
                 />
               ))
             ) : (
@@ -322,7 +321,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
                     }
                     label={checkboxOption.label}
                     disabled={checkboxOption.disabled}
-                    slotProps={{ typography: { variant: THEME_TYPE === "1" ? "body1" : "body2" } }}
+                    slotProps={{ typography: { variant: process.env.GATSBY_THEME_TYPE === "1" ? "body1" : "body2" } }}
                   />
                 ))
               ) : (

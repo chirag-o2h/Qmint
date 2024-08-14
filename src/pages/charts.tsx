@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import Layout from "@/components/common/Layout";
 import MetalChartsTitle from "@/components/partials/charts/MetalChartsTitle";
 import MetalCard from "@/components/partials/charts/MetalCard";
-import { THEME_TYPE } from "@/axiosfolder";
 import { getLiveDashboardChartData } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService";
@@ -21,7 +20,7 @@ const colourForMembership: any = {
   palladium: "#CC99CC",
   goldSilverratio: "#ffe478",
   audusDcross: "#33CCCC",
-  default: THEME_TYPE === '1' ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`,
+  default: process.env.GATSBY_THEME_TYPE === '1' ? `${variable.pumpkinOrange}` : `${variable.yellowFuel}`,
 };
 
 const modifiedName: any = {
