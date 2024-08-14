@@ -877,9 +877,9 @@ const bmkComponents: Components = {
         paddingTop: 5,
         paddingBottom: 5,
         textTransform: "none",
-        borderWidth:"5px",
-        borderStyle:"solid",
-        borderBottomColor:`${variable.black}1A`,
+        borderBottomWidth:"5px",
+        borderBottomStyle:"solid",
+        borderBottomColor:"#0000001A",
         borderRadius: "inherit",
         "&:hover": {
           backgroundColor:`${variable.pumpkinOrange}1f`,
