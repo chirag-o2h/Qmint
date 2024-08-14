@@ -96,7 +96,7 @@ function BestCategorySlider(props: any) {
                                   alt="Product Image"
                                 /> */}
                                 <img
-                                  style={removeMinHeight ? { minHeight: isMobile ? "300px" : "270px" } : {}}
+                                  style={removeMinHeight ? { minHeight: isMobile ? "300px" : "290px" } : {}}
                                   loading="eager"
                                   fetchPriority="high"
                                   className="ProductImage"

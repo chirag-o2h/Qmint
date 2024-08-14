@@ -15,6 +15,7 @@ import {
   ListItemText,
   ListItemButton,
   Tooltip,
+  useMediaQuery,
 } from "@mui/material";
 import classNames from "classnames";
 import { Account } from "@/types/myVault"
@@ -60,6 +61,8 @@ import { Address } from "@/types/myVault";
 import UpdateAddress from "../partials/checkout/UpdateAddress";
 import AddAccount from "../partials/my-vault/AddAccount";
 import { parsePhoneNumber } from "libphonenumber-js";
+import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
+import LazyImage from "@/hooks/LazyImage";
 
 interface Iproduct {
   product: IFeaturedProducts;
@@ -74,6 +77,8 @@ interface IBmkPostCard {
 
 export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Iproduct) => {
   const dispatch = useAppDispatch()
+  const removeMinHeight = useUnloadMinHeight()
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
   const { loading: loadingForAddToCart, error: errorForAddToCart, apiCallFunction } = useCallAPI()
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
   const [open, setOpen] = useState(false)
@@ -132,9 +137,14 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
     <Card className={classNames("ProductCard", { "Sticky": stickyProduct })} key={product.productId}>
       <Stack className="ImageWrapper">
         <Link className="ImageLink" href={`/product-details/${product?.friendlypagename}`} style={{ ...((!renderStockStatus) && { paddingBottom: '18px' }) }}>
-          <img src={product?.imageUrl ?? noImage} alt="Product image" 
-          // loading="lazy"
-           />
+          <LazyImage
+            key={product.imageUrl}
+            src={product?.imageUrl ?? noImage}
+            placeholder={noImage}
+            alt="Product image"
+            style={removeMinHeight ? { minHeight: isMobile ? '' : "250px" } : {}}
+            className="ProductImage"
+          />
         </Link>
         {(renderStockStatus) && <ProductStockStatus
           availability={product.availability}
@@ -144,7 +154,7 @@ export const ProductCard: React.FC<Iproduct> = ({ product, stickyProduct }: Ipro
       </Stack>
       <CardContent>
         <Link className="ProductName" href={`/product-details/${product?.friendlypagename}`} //friendlypagename
-          >
+        >
           <Typography component="h3">{product.productName}</Typography>
         </Link>
         {(isLoggedIn || configDetailsState?.ProductPricing_Guests_Enable?.value) && <Stack className="ContentWrapper">
@@ -380,11 +390,11 @@ export const UserStatsCard = (props: any) => {
       >
         <Box className="TopWrapper">
           <Box
-            className={`Return ${parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) < 0 
-              ? "Loss" 
-              : parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) > 0 
-              ? "Profit" 
-              : "Neutral"}`
+            className={`Return ${parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) < 0
+              ? "Loss"
+              : parseFloat(roundOfThePrice(movevalue)) || parseFloat(roundOfThePrice(movePercentage)) > 0
+                ? "Profit"
+                : "Neutral"}`
             }
           >
             {/* pass Profit and Loss class */}
@@ -555,7 +565,7 @@ export const CartCard = ({ cartItem, hideDeliveryMethod, hideRightSide, quantity
             <Typography className="LivePrice" variant="body2">Live Price</Typography>
             <Typography variant="body2">Qty.</Typography>
             <Typography variant="body2"></Typography>
-            <Typography variant="subtitle1">${roundOfThePrice(calculatePrice(cartItem?.LivePriceDetails,quantity))}</Typography>
+            <Typography variant="subtitle1">${roundOfThePrice(calculatePrice(cartItem?.LivePriceDetails, quantity))}</Typography>
             <Stack className="Quantity">
               <IconButton className="Minus" onClick={() => decreaseQuantity(cartItem.id)} disabled={quantity === 1}><MinusIcon /></IconButton>
               <TextField value={quantity} type="number" onChange={(event) => {
@@ -619,7 +629,7 @@ export const CartCardAbstract = ({ product, quantity, deliveryMethod }: any) => 
             <Typography className="Name" variant="titleLarge" component="p">{product?.productName}</Typography>
             <Typography>Qty: {quantity}</Typography>
           </Box>
-          <Typography variant="subtitle1">${roundOfThePrice(calculatePrice(product?.LivePriceDetails,quantity) * (quantity))}</Typography>
+          <Typography variant="subtitle1">${roundOfThePrice(calculatePrice(product?.LivePriceDetails, quantity) * (quantity))}</Typography>
         </Stack>
       </CardContent>
       <Divider />
@@ -641,17 +651,17 @@ export const BmkPostCard = (props: IBmkPostCard) => {
           }
         }}>{details?.title}</Typography>
         <Typography variant="subtitle1" component="p" className="Description" dangerouslySetInnerHTML={{
-          __html:isNews ? details?.shortDescription : details?.bodyOverview
+          __html: isNews ? details?.shortDescription : details?.bodyOverview
         }} onClick={() => {
           if (navigate) {
             navigate()
           }
         }}></Typography>
         <Typography variant="body2" color="primary.main" className="Date" onClick={() => {
-            if (navigate) {
-              navigate()
-            }
-          }}>{formatDate(details?.createdOnUtc)}</Typography>
+          if (navigate) {
+            navigate()
+          }
+        }}>{formatDate(details?.createdOnUtc)}</Typography>
       </Box>
     </Link>
   )

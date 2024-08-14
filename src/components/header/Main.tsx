@@ -9,7 +9,7 @@ import { Call, SignInIcon, SignOutIcon, HamburgerIcon, CrossIcon } from "../../a
 import { useAppDispatch, useAppSelector } from "@/hooks"
 
 // Utils
-import { ENDPOINTS } from "../../utils/constants"
+// import { ENDPOINTS } from "../../utils/constants"
 import { navigate } from "gatsby"
 import { LogOutUserAPI } from "@/redux/reducers/homepageReducer"
 import useImageInView from "@/hooks/useImageInView"
