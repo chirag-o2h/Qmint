@@ -66,7 +66,6 @@ function ChartMenu() {
       </Box>
     )
   }
-  const dispatch = useAppDispatch()
   useAPIRequestWithService({service: getLiveDashboardChartData, endPoint: ENDPOINTS.getLiveDashboardChartData, pollInterval: 60,conditionalCall:(open || location.pathname.includes("charts")) })
 
   return (

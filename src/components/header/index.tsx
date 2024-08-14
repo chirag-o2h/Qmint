@@ -12,8 +12,7 @@ import Main from './Main'
 import { PageLoader } from './Loader'
 // const Navigation = lazy(() => import('./Navigation'))
 import Navigation from './Navigation'
-import { useAppSelector, useToggle } from "@/hooks"
-import SessionExpiredDialog from "./SessionExpiredDialog";
+import { useAppSelector } from "@/hooks"
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
@@ -52,9 +51,9 @@ const Index = () => {
           <Divider />
             <Navigation />
         </AppBar>
-        <Suspense fallback={<></>}>
-          {isMobile && openMobileMenu && <Suspense fallback={<></>}><MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} /></Suspense>}
-        </Suspense >
+        {isMobile && openMobileMenu &&  <Suspense fallback={<></>}>
+          <MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} />
+        </Suspense >}
         {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>}
       </Box >
     </>

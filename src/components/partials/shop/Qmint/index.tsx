@@ -3,8 +3,8 @@ const LookingFor = lazy(() => import("./LookingFor"))
 const PopularProducts = lazy(() => import("./PopularProducts"))
 const DiscoverTreasure = lazy(() => import("./DiscoverTreasure"))
 const CloserLook = lazy(() => import("./CloserLook"))
-const FeaturedProducts = lazy(() => import("./FeaturedProducts"))
-// import FeaturedProducts from "./FeaturedProducts"
+// const FeaturedProducts = lazy(() => import("./FeaturedProducts"))
+import FeaturedProducts from "./FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"
 // import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { configDetails, HomePageSectionDetails, serProgressLoaderStatus, setConfigDetails, setScrollPosition } from "@/redux/reducers/homepageReducer"
@@ -26,6 +26,8 @@ const Header = lazy(() => import("../../../header/index"))
 import axiosInstance from "@/axiosfolder"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
+import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
+import { bodyForGetShoppingCartData } from "@/utils/common"
 const LazyFooter = lazy(() => import('../../../footer/index'));
 interface IServerData {
     isMobile: boolean,
@@ -39,7 +41,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
     const dispatch = useAppDispatch()
     const [isRendering, setIsRendering] = useState(true);
     // const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
-    const { openToaster } = useAppSelector((state) => state.homePage)
+    const { openToaster,isLoggedIn} = useAppSelector((state) => state.homePage)
     const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
     // const keyWords = serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',')?.length > 0 ? serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',') : []
     const keyWords = useMemo(() => {
@@ -60,12 +62,16 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
     // })
     const [isPending, startTransition] = useTransition();
     useEffect(() => {
+        dispatch(serProgressLoaderStatus(true))
+
         startTransition(() => {
             // Simulating initial data fetch
             setTimeout(() => setIsRendering(false), 3500);
         });
         return () => {
             dispatch(setScrollPosition(window.scrollY));
+            dispatch(serProgressLoaderStatus(false))
+
         }
     }, [])
     // this is called on the server side
@@ -73,15 +79,21 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
     // this was not calling perviously too need to check the below api use case 
     // useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, body })
     useUserDetailsFromToken()
-    useEffect(() => {
-        dispatch(serProgressLoaderStatus(true))
-
-        return () => {
-            dispatch(serProgressLoaderStatus(false))
-        }
-    }, [])
     useSetConfigAndFavicon(serverData)
     useAlertPopUp({ pageName: 'Home', openPopup: toggleSessionExpireDialog })
+    useEffect(() => {
+        const x = setTimeout(() => {
+          dispatch(
+            getShoppingCartData({
+              url: ENDPOINTS.getShoppingCartData,
+              body: bodyForGetShoppingCartData,
+            })
+          );
+        }, 3000);
+        return () => {
+          clearTimeout(x)
+        }
+      }, [isLoggedIn]);
     return (
         <>
             <Seo
@@ -105,7 +117,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             />
             {!isRendering && <Suspense fallback={
                 <Skeleton
-                    height={"120px"}
+                    height={serverData?.isMobile ? "120px" : "20vh"}
                     width={"100%"}
                     style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
                 />
@@ -114,7 +126,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 isRendering &&
                 (
                     <Skeleton
-                        height={"120px"}
+                        height={serverData?.isMobile ? "120px" : "20vh"}
                         width={"100%"}
                         style={{
                             marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"
@@ -138,12 +150,12 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             > */}
                 <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
             {/* </RenderOnViewportEntry> */}
-            {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false &&
+            {/* {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false &&
                 <RenderOnViewportEntry rootMargin="200px"
                     threshold={0.25}
-                    minHeight={800}>
+                    minHeight={800}> */}
                     <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData} />
-                </RenderOnViewportEntry>}
+                {/* </RenderOnViewportEntry>} */}
             {serverData?.configDetails?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
                 minHeight={800}> <LookingFor sectionDetails={serverData?.homePageSectionDetails} /></RenderOnViewportEntry>}

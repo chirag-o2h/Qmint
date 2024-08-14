@@ -9,7 +9,7 @@ import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 import { SwiperNavigation } from "@/components/common/Utils"
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight"
 
-function ProductsSlider({homePageSectionDetails,isMobile}:{homePageSectionDetails:any,isMobile:boolean}) {
+function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionDetails: any, isMobile: boolean }) {
     const config = {
         slidesPerView: 1.3,
         spaceBetween: 16,
@@ -57,18 +57,24 @@ function ProductsSlider({homePageSectionDetails,isMobile}:{homePageSectionDetail
     }
     const removeMinHeight = useUnloadMinHeight()
     return (
-        <Box id="ProductsSlider" component="section" style={removeMinHeight ? { maxHeight: isMobile ? 720 : 650 } : {}}>
+        <Box id="ProductsSlider" component="section" style={removeMinHeight ? { maxHeight: isMobile ? '66vh' : '66vh' } : {}}>
             <Box className="ProductsSliderWrapper">
                 <Box className="SwiperContainer">
-                    <Swiper  {...config} style={removeMinHeight ? { maxHeight: isMobile ? '' : "360px" } : {}}>
+                    <Swiper  {...config} style={removeMinHeight ? { maxHeight: isMobile ? '60vh' : "60vh" } : {}}>
                         {
-                            homePageSectionDetails?.quickCategoryLinks?.length > 0 ? (isMobile ? homePageSectionDetails?.quickCategoryLinks :[...homePageSectionDetails?.quickCategoryLinks, ...homePageSectionDetails?.quickCategoryLinks])?.map((product: any) => {
+                            homePageSectionDetails?.quickCategoryLinks?.length > 0 ? (isMobile ? homePageSectionDetails?.quickCategoryLinks : [...homePageSectionDetails?.quickCategoryLinks, ...homePageSectionDetails?.quickCategoryLinks])?.map((product: any) => {
                                 return (
-                                    <SwiperSlide key={product.id || product.name} style={!isMobile ? { width: "auto" }:{}}>
+                                    <SwiperSlide key={product.id || product.name} style={!isMobile ? { width: "auto" } : {}}>
                                         <Link href={product?.linkUrl} className="ProductCardLink">
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">
-                                                    <img className="ProductImage" src={product?.imageUrl} alt="product-image" />
+                                                    <img
+                                                        style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
+                                                        className="ProductImage"
+                                                        loading="eager"
+                                                        fetchPriority="high"
+                                                        src={product?.imageUrl}
+                                                        alt="product-image" />
                                                 </Box>
                                                 <Box className="ProductTitle">
                                                     <Typography variant="h4">{product?.name}</Typography>
