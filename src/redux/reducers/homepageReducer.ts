@@ -191,8 +191,8 @@ const initialState: CreateGuidelineState = {
   sectionDetails: isBrowser && JSON.parse(localStorageGetItem('sectionDetails') ?? JSON.stringify({ 1: {}, 2: {} })),
   categoriesList: {},
   footerSections: null,
-  userDetails: isBrowser && JSON.parse(sessionStorageGetItem('userDetails') || JSON.stringify({})),
-  isLoggedIn: isBrowser && JSON.parse(sessionStorageGetItem('isLoggedIn') || JSON.stringify(false)),
+  userDetails: isBrowser && JSON.parse(localStorageGetItem('userDetails') || JSON.stringify({})),
+  isLoggedIn: isBrowser && JSON.parse(localStorageGetItem('isLoggedIn') || JSON.stringify(false)),
   loadingForSignIn: false,
   mebershipPlanDetailsData: isBrowser && JSON.parse(localStorageGetItem('mebershipPlanDetailsData') ?? JSON.stringify({})),
   // recentlyViewedProducts: isBrowser && JSON.parse(localStorageGetItem('recentlyViewedProducts') ?? JSON.stringify([])),
@@ -491,10 +491,10 @@ export const createHomepageSlice = createSlice({
     })
     builder.addCase(LoginUserAPI.fulfilled, (state, action) => {
       state.userDetails = action.payload.data.data
-      sessionStorageSetItem('userDetails', JSON.stringify(action.payload.data.data))
+      localStorageSetItem('userDetails', JSON.stringify(action.payload.data.data))
       state.loadingForSignIn = false
       state.isLoggedIn = true
-      sessionStorageSetItem('isLoggedIn', JSON.stringify(true))
+      localStorageSetItem('isLoggedIn', JSON.stringify(true))
     })
     builder.addCase(LoginUserAPI.rejected, (state, action) => {
       state.loadingForSignIn = false
@@ -507,15 +507,15 @@ export const createHomepageSlice = createSlice({
       state.userDetails = null
       state.loading = false
       state.isLoggedIn = false
-      sessionStorageSetItem('userDetails', '')
-      sessionStorageSetItem('isLoggedIn', JSON.stringify(false))
+      localStorageSetItem('userDetails', '')
+      localStorageSetItem('isLoggedIn', JSON.stringify(false))
     })
     builder.addCase(LogOutUserAPI.rejected, (state, action: any) => {
       if (action?.payload?.response?.status == 401) {
         state.userDetails = null
         state.isLoggedIn = false
-        sessionStorageSetItem('userDetails', '')
-        sessionStorageSetItem('isLoggedIn', JSON.stringify(false))
+        localStorageSetItem('userDetails', '')
+        localStorageSetItem('isLoggedIn', JSON.stringify(false))
       }
       state.loading = false
     })
@@ -525,10 +525,10 @@ export const createHomepageSlice = createSlice({
     })
     builder.addCase(ImpersonateSignInAPI.fulfilled, (state, action) => {
       state.userDetails = action.payload.data.data
-      sessionStorageSetItem('userDetails', JSON.stringify(action.payload.data.data))
+      localStorageSetItem('userDetails', JSON.stringify(action.payload.data.data))
       state.loading = false
       state.isLoggedIn = true
-      sessionStorageSetItem('isLoggedIn', JSON.stringify(true))
+      localStorageSetItem('isLoggedIn', JSON.stringify(true))
     })
     builder.addCase(ImpersonateSignInAPI.rejected, (state, action) => {
       state.loading = false
