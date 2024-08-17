@@ -234,13 +234,14 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                 "SpecificationAttributeOptionId": Number(field[Object.keys(field)[0]].value),
                 "SpecificationAttributeId": Number(field[Object.keys(field)[0]].specificationName),
                 "SpecificationAttributeOptionOther": "",
-                "x": "testing"
+                "Id": field[Object.keys(field)[0]].id
             }
         })
         const prepareDynamicCustomeSpecificationFields = dynamicCustomSpecificationFields?.filter(field => field[Object.keys(field)[0]].specificationName !== "" && field[Object.keys(field)[0]].value !== "").map(field => {
             return {
                 key: field[Object.keys(field)[0]].specificationName,
-                value: field[Object.keys(field)[0]].value
+                value: field[Object.keys(field)[0]].value,
+                Id: field[Object.keys(field)[0]].id,
             }
         })
 

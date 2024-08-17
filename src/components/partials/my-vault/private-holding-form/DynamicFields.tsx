@@ -12,7 +12,7 @@ import { set, useForm } from 'react-hook-form';
 const fixedFields = new Set<string>(["Mint", "Metal", "Type", "Series", "Purity"]);
 
 export interface ISpecificationField {
-    [key: string]: { specificationName: string, value: string }
+    [key: string]: { specificationName: string, value: string, id?:any }
 }
 
 const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecificationFields, setDynamicCustomSpecificationFields }: {
@@ -20,10 +20,12 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
         specificationAttributeId: number;
         specificationAttributeOptionId: number;
         specificationAttributeOptionOther: string | null;
+        id?: string | number
     }[] | null,
     existingCustomFields: {
         key: string;
         value: string;
+        id?: string | number
     }[] | null,
     setDynamicSpecificationFields: React.Dispatch<React.SetStateAction<ISpecificationField[] | null>>,
     setDynamicCustomSpecificationFields: React.Dispatch<React.SetStateAction<ISpecificationField[] | null>>,
@@ -53,7 +55,8 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
                 currentFields.push({
                     [field.specificationAttributeId]: {
                         specificationName: field.specificationAttributeId.toString(),
-                        value: field.specificationAttributeOptionId.toString()
+                        value: field.specificationAttributeOptionId.toString(),
+                        id: field.id || null
                     }
                 })
             }
@@ -65,13 +68,13 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
             currentCustomFields.push({
                 [field.key]: {
                     specificationName: field.key,
-                    value: field.value
+                    value: field.value,
+                    id: field.id
                 }
             })
         })
         setCustomSpecificationField(currentCustomFields);
     }, [existingFields, formDropdownsKeys, existingCustomFields])
-    console.log("🚀 ~ useEffect ~ existingFields:", existingFields)
 
     // Just an dummy react hook form
     const {
@@ -137,7 +140,7 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
                     variant='outlined'
                     defaultValue="none"
                     margin='none'
-                    disabled={existingFields ? true : false}
+                    // disabled={existingFields ? true : false}
                     clearErrors={clearErrors}
                     className='SelectSpecification'
                 >
@@ -156,7 +159,7 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
                         setSpecificationField(newFields);
                     }}
                     label="Value"
-                    disabled={existingFields ? true : false}
+                    // disabled={existingFields ? true : false}
                     control={control}
                     clearErrors={clearErrors}
                     variant='outlined'
@@ -168,7 +171,9 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
                         return (<MenuItem value={dropdown.specificationAttributeOptionsId}>{dropdown.specificationOption}</MenuItem>)
                     })}
                 </RenderFields>
-                <IconButton className="DeleteButton" onClick={() => handleDeleteSpecificationField(Object.keys(field)[0])} disabled={existingFields ? true : false}><Delete1Icon /></IconButton>
+                <IconButton className="DeleteButton" onClick={() => handleDeleteSpecificationField(Object.keys(field)[0])}
+                //  disabled={existingFields ? true : false}
+                 ><Delete1Icon /></IconButton>
             </Stack>)}
             {customSpecificationFields.map((field, index) => <Stack className="RowWrapper CustomSpecificationWrapper" key={Object.keys(customSpecificationFields)[0]}>
                 <RenderFields
@@ -181,7 +186,7 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
                         newFields[index][Object.keys(field)[0]].specificationName = e.target.value;
                         setCustomSpecificationField(newFields);
                     }}
-                    disabled={existingCustomFields ? true : false}
+                    // disabled={existingCustomFields ? true : false}
                     variant='outlined'
                     margin='none'
                 />
@@ -197,13 +202,19 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
                     }}
                     variant='outlined'
                     margin='none'
-                    disabled={existingCustomFields ? true : false}
+                    // disabled={existingCustomFields ? true : false}
                 />
-                <IconButton className="DeleteButton" onClick={() => handleDeleteCustomeSpecificationField(Object.keys(field)[0])} disabled={existingCustomFields ? true : false} ><Delete1Icon /></IconButton>
+                <IconButton className="DeleteButton" onClick={() => handleDeleteCustomeSpecificationField(Object.keys(field)[0])} 
+                // disabled={existingCustomFields ? true : false} 
+                ><Delete1Icon /></IconButton>
             </Stack>)}
             <Stack className='RowWrapper ButtonsWrapper'>
-                <Button variant="contained" size="large" onClick={handleAddSpecificationField} disabled={existingFields ? true : false}>Add Specification</Button>
-                <Button variant="contained" size="large" onClick={handleAddCustomSpecificationField} disabled={existingCustomFields ? true : false}>Add Custom Specification</Button>
+                <Button variant="contained" size="large" onClick={handleAddSpecificationField} 
+                // disabled={existingFields ? true : false}
+                >Add Specification</Button>
+                <Button variant="contained" size="large" onClick={handleAddCustomSpecificationField}
+                //  disabled={existingCustomFields ? true : false}
+                 >Add Custom Specification</Button>
             </Stack>
         </>
     )
