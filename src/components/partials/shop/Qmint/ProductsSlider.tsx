@@ -8,6 +8,8 @@ import { Navigation, Autoplay, Pagination, A11y } from 'swiper/modules'
 
 import { SwiperNavigation } from "@/components/common/Utils"
 import useUnloadMinHeight from "@/hooks/useUnloadMinHeight"
+import LazyImage from "@/hooks/LazyImage"
+import noImage from "../../../../assets/images/noImage.png"
 
 function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionDetails: any, isMobile: boolean }) {
     const config = {
@@ -68,13 +70,15 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                         <Link href={product?.linkUrl} className="ProductCardLink">
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">
-                                                    <img
+                                                    <LazyImage
                                                         style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
                                                         className="ProductImage"
+                                                        placeholder={noImage}
                                                         loading="eager"
                                                         fetchPriority="high"
                                                         src={product?.imageUrl}
-                                                        alt="product-image" />
+                                                        alt="product-image"
+                                                    />
                                                 </Box>
                                                 <Box className="ProductTitle">
                                                     <Typography variant="h4">{product?.name}</Typography>

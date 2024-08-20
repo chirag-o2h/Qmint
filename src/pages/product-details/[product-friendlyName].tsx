@@ -127,7 +127,7 @@ function ProductDetail({ serverData, params }: { serverData: ServerData, params:
 
       {serverData?.productDetailsData && !serverData?.productDetailsData?.errorMessage ?
         (<>
-          <Breadcrumb arr={[{ navigate: '/category/buy', name: 'Buy' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
+          <Breadcrumb arr={[{ navigate: (process.env.GATSBY_THEME_TYPE == '1' && process.env.GATSBY_STORE_CODE == '25' ? '/category/buy' : '/category/shop'), name: process.env.GATSBY_THEME_TYPE == '1' && process.env.GATSBY_STORE_CODE == '25' ? 'Buy' : 'Shop' }, { navigate: '/product-details/' + params?.["product-friendlyName"], name: serverData?.productDetailsData?.name }]} />
           <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": process.env.GATSBY_THEME_TYPE == '1' })}>
 
             {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails} />}
