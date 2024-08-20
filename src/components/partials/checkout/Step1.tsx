@@ -24,6 +24,7 @@ import { ENDPOINTS } from "@/utils/constants"
 import { AddressType } from "@/types/enums"
 import RenderFields from "@/components/common/RenderFields"
 import AgentContent from "./AgentContent"
+import classNames from "classnames"
 
 function Step1() {
   const dispatch = useAppDispatch()
@@ -63,7 +64,11 @@ function Step1() {
     if (isBillingAndShipingAddressSame) {
       setShippingAddress(billingAddress)
       dispatch(updateFinalDataForTheCheckout({ shippingAddress: billingAddress }))
-    }
+    } 
+    // else {
+    //   setShippingAddress(checkoutPageData?.shippingAddressDetails?.[0])
+    //   dispatch(updateFinalDataForTheCheckout({ shippingAddress: checkoutPageData?.shippingAddressDetails?.[0] }))
+    // }
   }, [isBillingAndShipingAddressSame, shippingAddress, billingAddress])
 
   const handleTooltipClose = (event: any) => {
@@ -144,7 +149,7 @@ function Step1() {
       </Box>
       <Box className="FieldWrapper">
         <Typography className="Label" variant="subtitle1">Billing Address</Typography>
-        <Stack className="Field" sx={{ borderColor: "primary.main" }}>
+        {billingAddress ? <Stack className="Field" sx={{ borderColor: "primary.main" }}>
           <Box className="Value">
             <Typography className="Name" variant="titleLarge">{billingAddress?.firstName} {billingAddress?.lastName}</Typography>
             <Typography className="Address" variant="body2">{billingAddress?.addressLine1}, {billingAddress?.addressLine2}, {billingAddress?.city}, {billingAddress?.postcode} {billingAddress?.countryName}</Typography>
@@ -188,9 +193,11 @@ function Step1() {
               </ListItem>
             </List>
           </ClickTooltip>
-        </Stack>
+        </Stack> :
+          <Button name='signIn' aria-label='signIn' onClick={() => { setIsBillingAddress(() => true); handleUpdateAddress("Add") }} className={classNames("SignInButton ActionButton mt-2")} variant={process.env.GATSBY_THEME_TYPE === "1" ? "contained" : "outlined"}><Typography variant="inherit">{'Add billing address'}</Typography></Button>
+        }
       </Box>
-      {configDetailsState?.Checkout_SameAddress_Enable?.value && <FormControlLabel
+      {billingAddress && configDetailsState?.Checkout_SameAddress_Enable?.value && <FormControlLabel
         name="SameAddress"
         className="SameAddressCheckbox"
         control={<Checkbox checked={isBillingAndShipingAddressSame} onChange={() => {
@@ -200,7 +207,7 @@ function Step1() {
       />}
       <Box className="FieldWrapper">
         <Typography className="Label" variant="subtitle1">Shipping address</Typography>
-        <Stack className="Field" sx={{ borderColor: "primary.main" }}>
+        {shippingAddress ? <Stack className="Field" sx={{ borderColor: "primary.main" }}>
           <Box className="Value">
             <Typography className="Name" variant="titleLarge">{shippingAddress?.firstName} {shippingAddress?.lastName}</Typography>
             <Typography className="Address" variant="body2">{shippingAddress?.addressLine1}, {shippingAddress?.addressLine2}, {shippingAddress?.city}, {shippingAddress?.postcode} {shippingAddress?.countryName}</Typography>
@@ -244,11 +251,13 @@ function Step1() {
               </ListItem>
             </List>
           </ClickTooltip>
-        </Stack>
+        </Stack> :
+          <Button name='signIn' aria-label='signIn' onClick={() => { setIsBillingAddress(() => false); handleUpdateAddress("Add") }} className={classNames("SignInButton ActionButton mt-2")} variant={process.env.GATSBY_THEME_TYPE === "1" ? "contained" : "outlined"}><Typography variant="inherit">{'Add shipping address'}</Typography></Button>
+        }
       </Box>
       <AgentContent />
 
-      {openUpdateAddress && <UpdateAddress open={openUpdateAddress} dialogTitle="Update Address" onClose={toggleUpdateAddress} existingAddress={isBillingAddress ? {...billingAddress,phoneNumber:billingAddress.phone1} : {...shippingAddress,phoneNumber:shippingAddress.phone1}} />}
+      {openUpdateAddress && <UpdateAddress open={openUpdateAddress} dialogTitle="Update Address" onClose={toggleUpdateAddress} existingAddress={isBillingAddress ? { ...billingAddress, phoneNumber: billingAddress.phone1 } : { ...shippingAddress, phoneNumber: shippingAddress.phone1 }} />}
       <AddAddress open={openAddAddress} dialogTitle="Add Address" onClose={toggleAddAddress} addressTypeId={isBillingAddress ? AddressType.Billing : AddressType.Shipping} handleAddressUpdate={handleAddressUpdate} />
       <AlertDialog open={openAlertDialog} onClose={toggleAlertDialog} />
       {openSelectAddress && <SelectAddress isbillingAddress={isBillingAddress} open={openSelectAddress} onClose={toggleSelectAddress} listOfAddress={isBillingAddress ? checkoutPageData?.billingAddressDetails : checkoutPageData?.shippingAddressDetails} handleAddressUpdate={handleAddressUpdate} defaultSelectedAddress={isBillingAddress ? billingAddress : shippingAddress} />}

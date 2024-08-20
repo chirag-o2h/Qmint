@@ -288,7 +288,7 @@ function OrderSummary() {
         <Stack className="ActionWrapper">
           <Button color="secondary" onClick={() => navigate("/")}>Continue Shopping</Button>
           {/* <Button variant="contained" onClick={toggleOTPConfirmation} disabled={!finalDataForTheCheckout?.termAndServiceIsRead}>Confirm Order</Button> */}
-          <Button variant="contained" onClick={() => { onConfirmOrderHandler() }} disabled={!finalDataForTheCheckout?.termAndServiceIsRead || loading || finalDataForTheCheckout?.cartItemsWithLivePrice?.length < 1}>Confirm Order</Button>
+          <Button variant="contained" onClick={() => { onConfirmOrderHandler() }} disabled={!finalDataForTheCheckout?.termAndServiceIsRead || loading || finalDataForTheCheckout?.cartItemsWithLivePrice?.length < 1 || !finalDataForTheCheckout?.billingAddress || !finalDataForTheCheckout?.shippingAddress}>Confirm Order</Button>
         </Stack>
       </Box>
       {openOTPConfirmation && <OTPConfirmation open={openOTPConfirmation} onClose={toggleOTPConfirmation} message={message} placeOrderFun={placeOrderFun} />}
