@@ -5,6 +5,7 @@ export interface AddressComponents {
     city: string;
     address2: string;
     place_id?: string
+    stateFullName?: string | null
 }
 
 import { GOOGLE_MAPS_API_KEY } from '@/components/common/GoogleMaps';
