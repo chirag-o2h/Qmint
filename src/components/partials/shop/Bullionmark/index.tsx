@@ -24,7 +24,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import axiosInstance from "@/axiosfolder";
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import { bodyForGetShoppingCartData } from "@/utils/common";
-import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
+// import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
 // import BullionmarkHeader from "@/components/header/BullionmarkHeader";
 // import Layout from "@/components/common/Layout";
 

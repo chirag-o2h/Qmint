@@ -6,3 +6,6 @@ $secondary: $dark;
 $border-radius: 10px;
 
 @import "~bootstrap/scss/bootstrap";
+body{
+    font-family: $fontFamily;
+}
