@@ -80,9 +80,9 @@ function PopularProducts({configDetails}:{configDetails:any}) {
           }
         </Box>
         <Stack className="Action">
-          <Button className="DiscoverMore" name='DiscoverMore' aria-label="DiscoverMore" variant="contained" onClick={() => {
-            navigate('/shop')
-          }}>Discover More</Button>
+          {/* <Button className="DiscoverMore" name='DiscoverMore' aria-label="DiscoverMore" variant="contained" onClick={() => {
+             navigate('/shop', { replace: true })
+          }}>Discover More</Button> */}
         </Stack>
       </Box>
     </Container>

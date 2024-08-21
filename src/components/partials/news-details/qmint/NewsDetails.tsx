@@ -43,39 +43,54 @@ import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import Loader from "@/components/common/Loader";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
-
-function NewsDetails(params: any) {
+import axiosInstance from "@/axiosfolder";
+import { ENDPOINTS } from "@/utils/constants";
+import { bodyData } from "@/pages/news";
+interface IserverData {
+  configDetails: any
+  configDetailsForRedux: any,
+  newsDetailsData: any,
+  newsList: any,
+  keywords: any
+}
+function NewsDetails({ serverData, params }: { serverData: IserverData, params: any }) {
   const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
-  const dispatch = useAppDispatch()
-  const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
-  const { newsDetailsData, newsList }: any = useAppSelector((state) => state.newsPage)
-  const { email, handleEmailChange, subscribe, loadingForEmailSub } = useSubscription()
+  // const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
+  // const dispatch = useAppDispatch()
+  // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
+  // const { newsDetailsData, newsList }: any = useAppSelector((state) => state.newsPage)
+  // const { email, handleEmailChange, subscribe, loadingForEmailSub } = useSubscription()
+  // useEffect(() => {
+  //   const apiCall = async () => {
+  //     dispatch(setLoadingTrue())
+  //     await dispatch(NewsDetailsAPI({ params: { pathName: params?.["news-details-friendly-name"] } }))
+  //     setTimeout(() => {
+  //       dispatch(setLoadingFalse())
+  //     }, 1500);
+  //   }
+  //   apiCall()
+  // }, [params?.params?.["news-details-friendly-name"]])
+
+  // useEffect(() => {
+  //   if(!newsDetailsData){
+  //     navigate(`/404`)
+  //   }
+  // }, [newsDetailsData])
   useEffect(() => {
-    const apiCall = async () => {
-      dispatch(setLoadingTrue())
-      await dispatch(NewsDetailsAPI({ params: { pathName: params?.["news-details-friendly-name"] } }))
-      setTimeout(() => {
-        dispatch(setLoadingFalse())
-      }, 1500);
-    }
-    apiCall()
-  }, [params?.params?.["news-details-friendly-name"]])
-  
-  useEffect(() => {
-    if(!newsDetailsData){
+    if (!serverData?.newsDetailsData) {
       navigate(`/404`)
     }
-  }, [newsDetailsData])
-
+  }, [serverData?.newsDetailsData])
   return (
     <MainLayout blackTheme>
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
-        keywords={['Travel', 'Qmit', 'gold', 'metal']}
-        title={newsDetailsData?.metaTitle}
+        keywords={['Travel', 'Qmit', 'gold', 'metal', ...(serverData?.newsDetailsData?.metaKeywords?.split(',') || serverData?.keywords || [])]}
+        title={serverData?.newsDetailsData?.metaTitle}
         lang="en"
-        description={configDetailsState?.Store_Meta_Description?.value}
+        description={serverData?.newsDetailsData?.metaDescription || serverData?.configDetails?.Store_Meta_Description?.value}
+        configDetailsState={serverData?.configDetails}
       />
       <Box className="BlogDetailPage">
         <Box className="PostDescription">
@@ -91,7 +106,7 @@ function NewsDetails(params: any) {
               All Posts
             </Button>
             <Typography variant="h2" component="h2" className="BlogTitle">
-              {newsDetailsData?.title}
+              {serverData?.newsDetailsData?.title}
             </Typography>
             <Stack className="PostUploadInfo">
               <Box>
@@ -101,7 +116,7 @@ function NewsDetails(params: any) {
                   variant="titleLarge"
                   component="p"
                 >
-                  {newsDetailsData?.createdBy}
+                  {serverData?.newsDetailsData?.createdBy}
                 </Typography>
               </Box>
               <Box>
@@ -111,22 +126,22 @@ function NewsDetails(params: any) {
                   variant="titleLarge"
                   component="p"
                 >
-                  {formatDate(new Date(newsDetailsData?.createdDate))}
+                  {formatDate(new Date(serverData?.newsDetailsData?.createdDate))}
                 </Typography>
               </Box>
             </Stack>
             <Box className="ContentWrapper">
               <Box className="PostThumbnail">
                 <img
-                  src={newsDetailsData?.imageUrl ?? noImage}
+                  src={serverData?.newsDetailsData?.imageUrl ?? noImage}
                   alt={"no image"}
                 />
               </Box>
               <Box className="PostContent">
                 <Typography variant="subtitle1">
-                  {newsDetailsData?.shortDescription}
+                  {serverData?.newsDetailsData?.shortDescription}
                 </Typography>
-                <Typography variant="body1" dangerouslySetInnerHTML={{ __html: newsDetailsData?.fullDescription }}>
+                <Typography variant="body1" dangerouslySetInnerHTML={{ __html: serverData?.newsDetailsData?.fullDescription }}>
                 </Typography>
               </Box>
               <Stack className="FooterContent">
@@ -154,7 +169,7 @@ function NewsDetails(params: any) {
                   </Stack>
                 </Box>
                 <Box className="Right">
-                  {newsDetailsData?.tags?.split(',')?.map((tagName: string) => <Chip label={tagName} />)}
+                  {serverData?.newsDetailsData?.tags?.split(',')?.map((tagName: string) => <Chip label={tagName} />)}
                   {/* <Chip label="Tag one" />
                   <Chip label="Tag two" />
                   <Chip label="Tag three" />
@@ -164,16 +179,16 @@ function NewsDetails(params: any) {
             </Box>
           </Container>
           <Container>
-            {newsList?.items?.length > 0 ? <Box className="DiscoverPost">
+            {serverData?.newsList?.items?.length > 0 ? <Box className="DiscoverPost">
               <Box className="DiscoverPost__title">
                 <Typography variant="h2" component="h2">
-                  {configDetailsState?.NewsItem_RelatedPosts_Title?.value}
+                  {serverData?.configDetails?.NewsItem_RelatedPosts_Title?.value}
                 </Typography>
                 <Typography
                   variant="body1"
                   sx={{ mt: 1.875, color: variable.greyRegent }}
                 >
-                  {configDetailsState?.NewsItem_RelatedPosts_Subtitle?.value}
+                  {serverData?.configDetails?.NewsItem_RelatedPosts_Subtitle?.value}
                 </Typography>
               </Box>
               <Box className="RecentPosts">
@@ -182,7 +197,7 @@ function NewsDetails(params: any) {
                   rowSpacing={{ md: 6.25, xs: 4 }}
                   columnSpacing={{ md: 3.75, xs: 2 }}
                 >
-                  {newsList?.items?.map((item: any) => {
+                  {serverData?.newsList?.items?.map((item: any) => {
                     return (
                       <Grid item md={4} sm={6} key={item?.id}>
                         <PostCard isNews={true} details={item} navigate={() => navigate(`/news/${item?.friendlyName}`)} />
@@ -232,4 +247,45 @@ function NewsDetails(params: any) {
     </MainLayout>
   );
 }
+NewsDetails.getServerData = async (context: any) => {
+  try {
+    const { params } = context;
+    const newsDetailsFriendlyName = params['news-details-friendly-name'];
+    console.log("before fatching ", Date.now())
+    const [
+      configDetailsResponse,
+      newsDetailsDataResponse,
+      newsListDataResponse
+    ] = await Promise.all([
+      axiosInstance.get(ENDPOINTS.getConfigStore),
+      axiosInstance.get(ENDPOINTS.NewsDetails + '/' + newsDetailsFriendlyName),
+      axiosInstance.post(ENDPOINTS.NewsList, bodyData),
+    ]);
+    const configDetails = configDetailsResponse.data.data;
+    const newsDetailsData = newsDetailsDataResponse.data.data;
+    const newsList = newsListDataResponse.data.data;
+    console.log("🚀 ~ getServerData ~ productDetailsData:", newsDetailsData)
+    const modifiedConfigDetails = configDetails?.reduce((acc: any, curr: any) => {
+      acc[curr.key] = curr;
+      return acc;
+    }, {})
+    return {
+      props: {
+        configDetails: modifiedConfigDetails,
+        configDetailsForRedux: configDetails,
+        newsDetailsData: newsDetailsData,
+        newsList,
+        keywords: modifiedConfigDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || [],
+      },
+    };
+  } catch (error) {
+    console.error("🚀 ~ getServerData ~ error:", error);
+    console.log("getServerData -- inside catch block", Date.now());
+    return {
+      status: 500,
+      headers: {},
+      props: {},
+    };
+  }
+};
 export default NewsDetails;

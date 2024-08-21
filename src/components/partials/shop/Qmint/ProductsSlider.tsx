@@ -70,7 +70,7 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                         <Link href={product?.linkUrl} className="ProductCardLink">
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">
-                                                    <LazyImage
+                                                    {isMobile ? <LazyImage
                                                         style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
                                                         className="ProductImage"
                                                         placeholder={noImage}
@@ -78,7 +78,14 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                                         fetchPriority="high"
                                                         src={product?.imageUrl}
                                                         alt="product-image"
-                                                    />
+                                                    /> :
+                                                        <img
+                                                            style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
+                                                            className="ProductImage"
+                                                            loading="eager"
+                                                            fetchPriority="high"
+                                                            src={product?.imageUrl}
+                                                            alt="product-image" />}
                                                 </Box>
                                                 <Box className="ProductTitle">
                                                     <Typography variant="h4">{product?.name}</Typography>

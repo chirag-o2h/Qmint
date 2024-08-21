@@ -46,7 +46,7 @@ export interface IserverData{
     blogDetailsData: any,
     blogList: any
 }
-function BmkBlogDetails({serverData,params}:{serverData:IserverData,params:any}) {
+function BmkBlogDetails({serverData}:{serverData:IserverData}) {
   const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   // const dispatch = useAppDispatch()

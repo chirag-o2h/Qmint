@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react"
 import Seo from "../components/common/Seo"
 import Layout from "@/components/common/Layout";
-import { Box, Stack, Container, Typography, Icon, Button, TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Divider } from "@mui/material"
+import { Box, Stack, Container, Typography, Icon, Button, TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Divider, Link } from "@mui/material"
 import GreenConfirmationIcon from "@/assets/icons/GreenConfirmationIcon";
 import LogoGoldCoin from "@/assets/logos/LogoGoldCoin.png";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
@@ -16,8 +16,10 @@ import noImage from '../assets/images/noImage.png'
 import useDownloadInvoiceHandler from "@/hooks/useDownloadInvoiceHandler";
 import { useLocation } from "@reach/router";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 function OrderConfirmation({ serverData }: { serverData: IconfigDataFromServer }) {
+    useSetConfigAndFavicon(serverData)
     const location = useLocation()
     const loading = useAppSelector(state => state.orderConfirmationDetails.loading)
     const isOrderFound = useAppSelector(state => state.orderConfirmationDetails.isOrderFound)
@@ -47,7 +49,7 @@ function OrderConfirmation({ serverData }: { serverData: IconfigDataFromServer }
             await downloadInvoiceHandler(orderConfirmationDetailsData?.orderNumber)
             setLoadingForNavigate(false)
         };
-    }, [])
+    }, [orderConfirmationDetailsData])
 
     useLayoutEffect(() => {
         if (!isLoggedIn) {
@@ -172,9 +174,9 @@ function OrderConfirmation({ serverData }: { serverData: IconfigDataFromServer }
                             </Box>
                         </Box>
                         <Stack className="ActionWrapper">
-                            <Button className='ContinueBtn' size='large' variant="contained" onClick={() => {
-                                navigate("/");
-                            }}>Continue</Button>
+                            <Link href="/">
+                            <Button className='ContinueBtn' size='large' variant="contained">Continue</Button>
+                            </Link>
                         </Stack>
                     </Container>}
                 </Box>

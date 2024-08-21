@@ -11,7 +11,7 @@ import Loader from "@/components/common/Loader"
 import RewardsPointsTable from "@/components/common/RewardsPointsTable"
 
 
-function Topics(paramsData: any) {
+function History(paramsData: any) {
     const { loading } = useAppSelector(state => state.topic)
     const rewardPointsData = useAppSelector(state => state.myVault.rewardPointsHistory);
     useAPIoneTime({ service: getTopicDetails, endPoint: ENDPOINTS.topicDetail?.replace('{{topic-name}}', paramsData?.params?.['topic-name']) })
@@ -42,4 +42,4 @@ function Topics(paramsData: any) {
     )
 }
 
-export default Topics
+export default History

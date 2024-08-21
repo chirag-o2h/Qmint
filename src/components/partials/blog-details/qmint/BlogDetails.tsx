@@ -44,7 +44,7 @@ import { useLocation } from "@reach/router";
 import axiosInstance from "@/axiosfolder";
 import { IserverData } from "../bmk/BlogDetails";
 
-function BlogDetails({ serverData, params }: { serverData: IserverData, params: any }) {
+function BlogDetails({ serverData }: { serverData: IserverData }) {
   const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   // const dispatch = useAppDispatch()
