@@ -81,13 +81,11 @@ export default function GoogleMaps({ setParsedAddress }: { setParsedAddress: any
   React.useEffect(() => {
     const fetchParsedAddress = async () => {
       if (value) {
-        console.log("🚀 ~ fetchParsedAddress ~ value:", value)
         let parsedAddress = await parseAddressComponents(value);
 
         const apiCalling = async () => {
           const getPostalCode = async () => {
             const response = await apiCallFunction(`https://maps.googleapis.com/maps/api/geocode/json?place_id=${parsedAddress?.place_id}&key=${GOOGLE_MAPS_API_KEY}`, 'GET', null, null, true);
-            console.log("🚀 ~ getPostalCode ~ response:", response)
             if (response?.results && response?.results?.length > 0) {
               // Find the 'administrative_area_level_1' component
               const stateComponent = response?.results?.[0]?.address_components?.find((component: { types: string | string[]; }) =>
@@ -97,7 +95,6 @@ export default function GoogleMaps({ setParsedAddress }: { setParsedAddress: any
               // Get the full name of the state
               const stateFullName = stateComponent ? stateComponent.long_name : parsedAddress.state;
               parsedAddress.stateFullName = stateFullName;
-              console.log("🚀 ~ parseAddressComponents ~ stateFullName:", stateFullName);
             } else {
               // Fallback to the original state abbreviation if no results are found
               parsedAddress.stateFullName = parsedAddress.state;
