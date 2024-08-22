@@ -72,12 +72,12 @@ function FeaturedProducts({ configDetails, isMobile, needToCallProductAPI, produ
     data = {data:productData}
   }
   const config = {
-    slidesPerView: 1.3,
+    slidesPerView: isMobile ? 1 : 5,
     spaceBetween: 16,
     pagination: {
       clickable: true,
     },
-    centeredSlides: isMobile,
+    // centeredSlides: isMobile,
     loop: true,
     speed: 500,
     modules: [Autoplay, Pagination, A11y],
@@ -90,7 +90,7 @@ function FeaturedProducts({ configDetails, isMobile, needToCallProductAPI, produ
     },
     breakpoints: {
       475: {
-        slidesPerView: 1.5,
+        slidesPerView: 1,
         spaceBetween: 20,
       },
       600: {

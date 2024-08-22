@@ -78,6 +78,9 @@
       max-width: 320px;
       margin: auto;
     }
+    @include media($xs) {
+      max-width: 280px;
+    }
 
     $horizontalSpacing: 16px;
     $verticalSpacing: 40px;
@@ -91,10 +94,13 @@
         align-items: center;
         flex-grow: 1;
         padding: $verticalSpacing $horizontalSpacing $verticalSpacing;
-        height: 280px;
+        height: 250px;
 
         @include media-min($sm) {
           height: 300px;
+        }
+        @include media($xs) {
+          height: 200px;
         }
 
         img {
@@ -169,6 +175,12 @@
         .Bottom {
           justify-content: space-between;
           align-items: center;
+
+          @include media($sm){
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;        
+          }
 
           .PriceMessage {
             color: rgba($dark, 0.5);

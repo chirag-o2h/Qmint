@@ -264,11 +264,15 @@
         }
 
         @include media($sm) {
-          grid-template-columns: repeat(1, 1fr);
+          grid-template-columns: repeat(2, 1fr);
         }
 
         @include media-between($md, $mmd) {
           gap: 20px;
+        }
+
+        @include media($xs) {
+          gap: 10px;
         }
 
         .ProductCard {
@@ -277,14 +281,22 @@
             grid-column-end: 1;
           }
 
-          @include media-between($md, $mmd) {
-            .MuiCardActions-root {
+          .MuiCardActions-root {
+
+            @include media-between($md, $mmd) {
               .PrimaryAction {
                 letter-spacing: normal;
               }
             }
+            @include media($sm){
+              flex-direction: column;
+              gap: 10px;
+            }
+
           }
+
         }
+
       }
 
       .Pagination {
@@ -298,14 +310,6 @@
     .MainContent {
       .ProductList {
         .ProductListWrapper {
-          @include media($sm) {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          @include media($xs) {
-            gap: 10px;
-          }
-
 
           .BmkCommonProductCard {
             .ImageWrapper {

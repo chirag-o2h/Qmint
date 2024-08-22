@@ -13,7 +13,7 @@ import noImage from "../../../../assets/images/noImage.png"
 
 function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionDetails: any, isMobile: boolean }) {
     const config = {
-        slidesPerView: 1.3,
+        slidesPerView: isMobile ? 1 : 5,
         spaceBetween: 16,
         navigation: {
             nextEl: ".ProductNext",
@@ -23,7 +23,7 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
         pagination: {
             clickable: true,
         },
-        centeredSlides: isMobile,
+        // centeredSlides: isMobile,
         loop: true,
         speed: 500,
         modules: [Navigation, Autoplay, Pagination, A11y],
@@ -36,7 +36,7 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
         },
         breakpoints: {
             475: {
-                slidesPerView: 1.5,
+                slidesPerView: 1,
                 spaceBetween: 20,
             },
             600: {

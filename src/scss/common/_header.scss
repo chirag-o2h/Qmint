@@ -1200,7 +1200,15 @@
   width: 100%;
 
   &.MuiDrawer-root {
-    top: calc(67px + 50px + 1px);
+    // top: calc(67px + 50px + 1px);
+    top: 125px;
+
+    @include media($sm){
+      top: 123px;
+    }
+    @include media($xs){
+      top: 112px;
+    }
 
     &.FrontPageMenu {
       top: 70px;
