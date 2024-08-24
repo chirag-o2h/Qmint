@@ -4,19 +4,32 @@ import { Backdrop, Stack } from "@mui/material"
 // Assets
 import LogoSmall from "@/assets/logos/logo-small.svg"
 import BmkLogo from "@/assets/logos/bmk-spinning-Logo.svg"
+import Birsbullion from "@/assets/logos/birsbullion.svg"
 interface LoaderProps {
   open: boolean
 }
-
+function givemethelogoasperStorecode(code: string) {
+  switch (code) {
+    case "8":
+      return Birsbullion;
+    case "25":
+      return BmkLogo;
+    case "24":
+      return LogoSmall;
+    default:
+      return LogoSmall; // fallback to a default logo if code doesn't match
+  }
+}
 const Loader = (props: LoaderProps) => {
   const { open } = props
+  const logo = givemethelogoasperStorecode(process.env.GATSBY_STORE_CODE!);
   return (
     <Backdrop open={open} id="Loader">
       <Stack className="Wrapper">
-        <img src={process.env.GATSBY_THEME_TYPE === "1" ? BmkLogo: LogoSmall} />
+        <img src={logo} alt="***"/>
       </Stack>
     </Backdrop>
   )
 }
 
-export default Loader
+export default React.memo(Loader)
