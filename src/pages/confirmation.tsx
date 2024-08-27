@@ -16,8 +16,10 @@ import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 import Seo from "@/components/common/Seo"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function Confirmation({serverData }: { serverData: IconfigDataFromServer}) {
+  useSetConfigAndFavicon(serverData)
   const [loading, setLoading] = useState(false)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)

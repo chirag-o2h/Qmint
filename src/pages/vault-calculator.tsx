@@ -7,7 +7,7 @@ import { PageTitle } from "@/components/common/Utils"
 
 import MetalForm from '@/components/partials/calculator/MetalForm';
 // import CalculatorCards from '@/components/partials/calculator/CalculatorCards';
-const CalculatorCards = lazy(()=>import("@/components/partials/calculator/CalculatorCards"))
+const CalculatorCards = lazy(() => import("@/components/partials/calculator/CalculatorCards"))
 // import TotalPageFooter from '@/components/partials/calculator/TotalPageFooter';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { resetCalculatorData, saveCalculatorsData } from '@/redux/reducers/calculatorsReducer';
@@ -15,8 +15,10 @@ import { ENDPOINTS } from '@/utils/constants';
 import Loader from '@/components/common/Loader';
 import { roundOfThePrice } from '@/utils/common';
 import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
+import useSetConfigAndFavicon from '@/hooks/useSetConfigAndFavicon';
 
 function Calculator({ serverData }: { serverData: IconfigDataFromServer }) {
+    useSetConfigAndFavicon(serverData)
     const dispatch = useAppDispatch();
     const calculators = useAppSelector(state => state.calculators.calculators)
     const vaultStorage = useAppSelector(state => state.calculators.vaultStorage)

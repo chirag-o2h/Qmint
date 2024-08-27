@@ -17,8 +17,10 @@ import { navigate } from "gatsby";
 import Toaster from "@/components/common/Toaster";
 import useRequireLogin from "@/hooks/useRequireLogin";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 function OrderHistory({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const { loadingForCheckingLogin } = useRequireLogin()
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const loading = useAppSelector(state => state.myVault.loading)

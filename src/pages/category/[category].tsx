@@ -28,6 +28,7 @@ const LazyBullionmarkFooter = lazy(() => import("@/components/footer/Bullionmark
 const LazyFooter = lazy(() => import('@/components/footer/index'));
 import useragent from 'express-useragent';
 import useRedirectTo404 from "@/hooks/useRedirectTo404"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -185,19 +186,7 @@ function Category({ serverData, props }: Props) {
             );
         }, 0);
     }, [isLoggedIn]);
-    useEffect(() => {
-        dispatch(setConfigDetails(serverData?.configDetailsForRedux));
-        if (serverData?.configDetails?.Store_FaviconURL?.value) {
-            const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-            // Update favicon dynamically
-            const link: any =
-                document.querySelector("link[rel='icon']") ||
-                document.createElement("link");
-            link.rel = "icon";
-            link.href = faviconUrl;
-            document.head.appendChild(link);
-        }
-    }, [serverData])
+    useSetConfigAndFavicon(serverData)
     const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
     const [isPending, startTransition] = useTransition();
     const [isRendering, setIsRendering] = useState(true);

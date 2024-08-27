@@ -11,6 +11,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 import * as  variable from '../scss/settings/variables.module.scss'
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 
 const colourForMembership: any = {
@@ -29,6 +30,7 @@ const modifiedName: any = {
 };
 
 function ChartPage({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const chartData = useAppSelector((state) => state.homePage.liveDashboardChartData);
 
   return (

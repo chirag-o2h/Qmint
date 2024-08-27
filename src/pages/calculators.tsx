@@ -8,8 +8,10 @@ import { PageTitle } from "@/components/common/Utils"
 import { useAppSelector } from "@/hooks";
 import Loader from "@/components/common/Loader";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 const Calculators = ({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) => {
+    useSetConfigAndFavicon(serverData)
     const checkLoadingStatus = useAppSelector(state => state.calculators.loading);
     return (
         <>
@@ -43,5 +45,5 @@ const Calculators = ({ params, serverData }: { serverData: IconfigDataFromServer
 }
 export const getServerData = async (context: any) => {
     return await getConfigData(context);
-  };
+};
 export default Calculators;

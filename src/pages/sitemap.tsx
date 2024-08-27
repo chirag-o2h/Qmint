@@ -18,6 +18,7 @@ import Services from "@/components/partials/sitemap/Services"
 import axiosInstance from "@/axiosfolder"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 import { ENDPOINTS } from "@/utils/constants"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 const bodyForSiteMap = {
   "search": "",
   "pageNo": 0,
@@ -34,6 +35,7 @@ function Sitemap({ serverData }: {
     siteMapData: any
   },
 }) {
+  useSetConfigAndFavicon(serverData)
   const dispatch = useAppDispatch()
   const [state, setState] = useState({ service: getSiteMapData, body: bodyForSiteMap, conditionalCall: false })
   useAPIoneTime(state)

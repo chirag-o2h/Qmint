@@ -16,8 +16,10 @@ import useRequireLogin from "@/hooks/useRequireLogin"
 import { IPrivateHolding, IPrivateHoldingLivePrice } from "@/types/myVault"
 import useAPIRequestWithService from "@/hooks/useAPIRequestWithService"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function privateHolding({ serverData }: { serverData: IconfigDataFromServer }) {
+    useSetConfigAndFavicon(serverData)
     const { loadingForCheckingLogin } = useRequireLogin()
     const loading = useAppSelector(state => state.myVault.loading)
     const [privateHoldingsData, setPrivateHoldingsData] = useState<(IPrivateHolding & IPrivateHoldingLivePrice)[]>([]);

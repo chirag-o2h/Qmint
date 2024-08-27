@@ -40,6 +40,7 @@ import MainLayout from "@/components/common/MainLayout";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
 import axiosInstance from "@/axiosfolder";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 interface IserverData{
   configDetails:any
   configDetailsForRedux: any,
@@ -49,6 +50,7 @@ interface IserverData{
 }
 function NewsDetails({serverData,params}:{serverData:IserverData,params:any}) {
   const location = useLocation()
+  useSetConfigAndFavicon(serverData)
   // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const checkLoadingStatus = useAppSelector(state => state.newsPage.loading);
   // const dispatch = useAppDispatch()

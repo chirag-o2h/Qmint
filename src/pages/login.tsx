@@ -20,6 +20,7 @@ import Toaster from '@/components/common/Toaster';
 import MainLayout from '@/components/common/MainLayout';
 import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
 import Seo from '@/components/common/Seo';
+import useSetConfigAndFavicon from '@/hooks/useSetConfigAndFavicon';
 export interface IdispatchType {
   type: string,
   meta: {
@@ -48,6 +49,7 @@ declare global {
 }
 
 function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const { loadingForSignIn } = useAppSelector((state) => state.homePage)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loadingForSignIn);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)

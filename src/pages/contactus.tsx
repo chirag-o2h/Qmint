@@ -18,8 +18,10 @@ import Loader from '@/components/common/Loader';
 import Toaster from '@/components/common/Toaster';
 import MainLayout from '@/components/common/MainLayout';
 import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
+import useSetConfigAndFavicon from '@/hooks/useSetConfigAndFavicon';
 
 function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
+  useSetConfigAndFavicon(serverData)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
   // console.log("🚀 ~ ContactUs ~ configDetails:", configDetails)

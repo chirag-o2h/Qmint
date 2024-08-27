@@ -9,8 +9,10 @@ import { useAppSelector } from "@/hooks"
 import Layout from "@/components/common/Layout"
 import Loader from "@/components/common/Loader";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function Topics({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
+  useSetConfigAndFavicon(serverData)
   const checkLoadingStatus = useAppSelector(state => state.topic.loading);
   const { topicDetails, loading } = useAppSelector(state => state.topic)
   useAPIoneTime({ service: getTopicDetails, endPoint: ENDPOINTS.topicDetail?.replace('{{topic-name}}', params?.['topic-name']) })

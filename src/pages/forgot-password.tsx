@@ -20,6 +20,7 @@ import MainLayout from '@/components/common/MainLayout';
 import { passwordRecoveryEmail } from '@/redux/reducers/authReducer';
 import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
 import Seo from '@/components/common/Seo';
+import useSetConfigAndFavicon from '@/hooks/useSetConfigAndFavicon';
 export interface IdispatchType {
   type: string,
   meta: {
@@ -48,6 +49,7 @@ declare global {
 }
 
 function ForgotPassword({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
+  useSetConfigAndFavicon(serverData)
   const dispatch: Dispatch<any> = useAppDispatch()
   const openToaster = useAppSelector(state => state.homePage.openToaster)
 

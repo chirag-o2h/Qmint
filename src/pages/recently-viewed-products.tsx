@@ -15,8 +15,10 @@ import { IpriceForEachId } from "@/components/partials/shop/Qmint/FeaturedProduc
 import Loader from "@/components/common/Loader"
 import Toaster from "@/components/common/Toaster"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function RecentlyViewedProducts({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const { recentlyViewedProducts } = useAppSelector((state) => state.homePage)

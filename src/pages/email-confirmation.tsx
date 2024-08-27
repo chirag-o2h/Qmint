@@ -18,8 +18,10 @@ import classNames from "classnames"
 import { useLocation } from "@reach/router"
 import Seo from "@/components/common/Seo"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function EmailConfirmation({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
+  useSetConfigAndFavicon(serverData)
   const location = useLocation()
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const isLoggedIn = useAppSelector(state => state.homePage.isLoggedIn)

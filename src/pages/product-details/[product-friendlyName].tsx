@@ -27,6 +27,7 @@ import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 import useragent from 'express-useragent';
 import useRedirectTo404 from "@/hooks/useRedirectTo404"
 import { wrapPromise } from "@/utils/common"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
 const LazyFooter = lazy(() => import('@/components/footer/index'));
 
@@ -77,20 +78,7 @@ function ProductDetail({ serverData }: { serverData: ServerData }) {
     }
   }, [serverData?.productDetailsData])
   const keyWords = serverData?.productDetailsData?.metaKeywords?.split(',')?.length > 0 ? serverData?.productDetailsData?.metaKeywords?.split(',') : []
-  useEffect(() => {
-    dispatch(setConfigDetails(serverData?.configDetailsForRedux));
-
-    if (serverData?.configDetails?.Store_FaviconURL?.value) {
-      const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-      // Update favicon dynamically
-      const link: any =
-        document.querySelector("link[rel='icon']") ||
-        document.createElement("link");
-      link.rel = "icon";
-      link.href = faviconUrl;
-      document.head.appendChild(link);
-    }
-  }, [serverData]);
+  useSetConfigAndFavicon(serverData)
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
     startTransition(() => {

@@ -36,6 +36,7 @@ import { AxiosError } from "axios"
 import { IGetRegistrationOTPPayload, IRegistrationPayload } from "@/apis/services/authServices"
 import Seo from "@/components/common/Seo"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 interface Inputs {
   FirstName: string,
@@ -126,6 +127,7 @@ const createSchema = (includeAgentCode: boolean, phoneNumberValue: { value: stri
 };
 
 function Registration({ serverData}: { serverData: IconfigDataFromServer,}) {
+  useSetConfigAndFavicon(serverData)
   // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const loading = useAppSelector(state => state.auth.loading)
   const openToaster = useAppSelector(state => state.homePage.openToaster)

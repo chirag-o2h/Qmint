@@ -19,8 +19,10 @@ import { getStateAndCountryLists } from "@/redux/reducers/checkoutReducer"
 import { navigate } from "gatsby"
 import useRequireLogin from "@/hooks/useRequireLogin"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function Addresses({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const { loadingForCheckingLogin } = useRequireLogin()
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const loading = useAppSelector(state => state.myVault.loading)

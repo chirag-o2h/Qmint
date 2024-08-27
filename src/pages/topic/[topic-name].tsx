@@ -11,6 +11,7 @@ import axiosInstance from "@/axiosfolder";
 import { time } from "console";
 import { setConfigDetails } from "@/redux/reducers/homepageReducer";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 // import FrontHeader from "@/components/header/FrontHeader";
 const FrontHeader = lazy(() => import("@/components/header/FrontHeader"));
 // const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
@@ -29,6 +30,7 @@ interface ServerData {
   };
 }
 function Topics({ serverData }: { serverData: ServerData }) {
+  useSetConfigAndFavicon(serverData)
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
   const [isRendering, setIsRendering] = useState(true);
   const dispatch = useAppDispatch()

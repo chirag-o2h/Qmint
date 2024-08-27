@@ -35,6 +35,7 @@ import { PrivateHoldingDocumentTypeEnum, PrivateHoldingDocumentTypeReverseEnum, 
 import { navigate } from "gatsby";
 import RecordNotFound from "@/components/common/RecordNotFound";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 const schema = yup.object().shape({
     Account: yup.string().notOneOf(["none"], "Account is required field"),
@@ -91,6 +92,7 @@ export interface IFile {
 }
 
 function privateHoldingAdd({ location, serverData }: { location: any, serverData: IconfigDataFromServer }) {
+    useSetConfigAndFavicon(serverData)
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const { loadingForCheckingLogin } = useRequireLogin()
     const loading = useAppSelector(state => state.myVault.loading);

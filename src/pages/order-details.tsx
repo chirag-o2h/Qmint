@@ -21,6 +21,7 @@ import { AxiosError } from "axios";
 import Loader from "@/components/common/Loader";
 import useDownloadInvoiceHandler from "@/hooks/useDownloadInvoiceHandler";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 export function createData(
     Name: string,
@@ -32,6 +33,7 @@ export function createData(
 }
 
 function orderDetails({ location, serverData }: { location: any, serverData: IconfigDataFromServer }) {
+    useSetConfigAndFavicon(serverData)
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
     const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search])

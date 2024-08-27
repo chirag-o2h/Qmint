@@ -16,8 +16,10 @@ import { isActionRejected } from "@/components/common/Utils"
 import useShowToaster from "@/hooks/useShowToaster"
 import Seo from "@/components/common/Seo"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function ActivateAccount({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
+  useSetConfigAndFavicon(serverData)
   const [loading, setLoading] = useState(false)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const dispatch = useAppDispatch()

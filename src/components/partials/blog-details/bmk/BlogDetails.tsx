@@ -40,6 +40,7 @@ import { bodyData } from "@/pages/blog";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
 import axiosInstance from "@/axiosfolder";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 export interface IserverData{
     configDetails:any
     configDetailsForRedux: any,
@@ -70,7 +71,7 @@ function BmkBlogDetails({serverData}:{serverData:IserverData}) {
   //   // if ssr then uncommit this below line
   //   conditionalCall:false
   // });
-
+  useSetConfigAndFavicon(serverData)
   useEffect(() => {
     if(!serverData?.blogDetailsData){
       navigate(`/404`)

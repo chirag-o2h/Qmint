@@ -14,8 +14,10 @@ const WISHLIST_URL = "http://queenslandmint.com/wishlist/5b455134-e44c-492a-a79b
 import Toaster from "@/components/common/Toaster";
 import { useAppSelector, useToggle } from "@/hooks";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 function Wishlist({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const [openEmailFriend, toggleEmailFriend] = useToggle(false);
   const openToaster = useAppSelector(state => state.homePage.openToaster);
   // const [snackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar

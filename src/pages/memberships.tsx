@@ -17,6 +17,7 @@ import ConfigServices from "@/apis/services/ConfigServices";
 import useShowToaster from "@/hooks/useShowToaster";
 import Toaster from "@/components/common/Toaster";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 
 const colourForMembership: any = {
@@ -34,6 +35,7 @@ export const MembershipPlanEnum = {
     palladium: { displayName: "Palladium", value: 4 },
 };
 function Memberships({ serverData }: { serverData: IconfigDataFromServer }) {
+    useSetConfigAndFavicon(serverData)
     const openToaster = useAppSelector(state => state.homePage.openToaster)
     const { mebershipPlanDetailsData, loading } = useAppSelector((state) => state.homePage)
     const { showToaster } = useShowToaster();
@@ -42,7 +44,7 @@ function Memberships({ serverData }: { serverData: IconfigDataFromServer }) {
     const dispatch = useAppDispatch()
 
     const handleUpgradPlan = async (title: keyof typeof MembershipPlanEnum) => {
-        const res:any = await dispatch(upgradePlaneOfMembership({ FkqHBCX: MembershipPlanEnum?.[title].value }))
+        const res: any = await dispatch(upgradePlaneOfMembership({ FkqHBCX: MembershipPlanEnum?.[title].value }))
         showToaster({
             message: res?.payload?.data?.message,
             severity: 'success'

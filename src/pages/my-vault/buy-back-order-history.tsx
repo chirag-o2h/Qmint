@@ -15,6 +15,7 @@ import { navigate } from "gatsby"
 import Toaster from "@/components/common/Toaster"
 import useRequireLogin from "@/hooks/useRequireLogin"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 export const requestBodyOrderHistory = {
     ...requestBodyDefault, filters: {
@@ -27,6 +28,7 @@ export const requestBodyOrderHistory = {
 }
 
 function BuyBackOrderHistory({ serverData }: { serverData: IconfigDataFromServer }) {
+    useSetConfigAndFavicon(serverData)
     const { loadingForCheckingLogin } = useRequireLogin()
     const orderBuypackHistoryDetails = useAppSelector(state => state.myVault.buyBackOrderHistory)
     const loading = useAppSelector(state => state.myVault.loading)

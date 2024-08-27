@@ -51,6 +51,7 @@ import Seo from "@/components/common/Seo";
 import { setConfigDetails } from "@/redux/reducers/homepageReducer";
 import FrontHeader from "@/components/header/FrontHeader";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 const BullionmarkFrontFooter = lazy(() => import('@/components/footer/BullionmarkFrontFooter'));
 const LazyFrontFooter = lazy(() => import('@/components/footer/FrontFooter'));
 function Blog({ serverData }: any) {
@@ -93,21 +94,7 @@ function Blog({ serverData }: any) {
       },
     }));
   };
-
-  useEffect(() => {
-    dispatch(setConfigDetails(serverData?.configDetailsForRedux));
-
-    if (serverData?.configDetails?.Store_FaviconURL?.value) {
-      const faviconUrl = serverData?.configDetails?.Store_FaviconURL?.value; // Assuming API response contains favicon URL
-      // Update favicon dynamically
-      const link: any =
-        document.querySelector("link[rel='icon']") ||
-        document.createElement("link");
-      link.rel = "icon";
-      link.href = faviconUrl;
-      document.head.appendChild(link);
-    }
-  }, [serverData]);
+  useSetConfigAndFavicon(serverData)
   const [isRendering, setIsRendering] = useState(true);
   const [isPending, startTransition] = useTransition();
   useEffect(() => {

@@ -260,7 +260,6 @@ export function getCommonShippingMethods(products: any): number[] {
 
   // Initialize commonMethods with the allowed shipping methods of the first product
   let commonMethods = products[0].allowedShippingMethods;
-  console.log("🚀 ~ getCommonShippingMethods ~ commonMethods:", commonMethods)
 
   // Iterate through the rest of the products to find common shipping methods
   for (const product of products) {

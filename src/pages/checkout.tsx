@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Box, Container, Stack } from "@mui/material"
 
 // Componenets
@@ -16,7 +16,6 @@ import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { getCheckoutPageData, updateFinalDataForTheCheckout } from "@/redux/reducers/checkoutReducer"
 import { ENDPOINTS } from "@/utils/constants"
 import { useAppDispatch, useAppSelector, useToggle } from "@/hooks"
-import useDeviceDetails from "@/hooks/useDeviceDetails"
 import Toaster from "@/components/common/Toaster"
 import Loader from "@/components/common/Loader"
 import useAlertPopUp from "@/hooks/useAlertPopUp"
@@ -26,18 +25,24 @@ import RecordNotFound from "@/components/common/RecordNotFound"
 import classNames from "classnames"
 import { useLocation } from "@reach/router"
 import { navigate } from "gatsby"
+import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
-function Checkout() {
+function Checkout({ serverData }: { serverData: IconfigDataFromServer }) {
+  const configDetailsState = useMemo(() => {
+    return serverData.configDetails
+  }, [serverData])
   const location = useLocation()
   const { loadingForCheckingLogin } = useRequireLogin()
   const dispatch = useAppDispatch()
   const checkLoadingStatus = useAppSelector(state => state.checkoutPage.loading);
   const { checkoutPageData, isApiCalled } = useAppSelector((state) => state.checkoutPage)
   const cartItems = useAppSelector(state => state.shoppingCart.cartItems);
-  const { configDetails: configDetailsState, openToaster, } = useAppSelector((state) => state.homePage)
+  const { openToaster, } = useAppSelector((state) => state.homePage)
   // console.log("🚀 ~ Checkout ~ configDetailsState:", configDetailsState)
   const [state, setState] = useState({ service: getCheckoutPageData, endPoint: ENDPOINTS.checkoutDetails })
   const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
+  useSetConfigAndFavicon(serverData)
   useEffect(() => {
     if (configDetailsState?.Checkout_TermsOfService_Enable?.value == false) {
       dispatch(updateFinalDataForTheCheckout({ termAndServiceIsRead: true }))
@@ -55,12 +60,29 @@ function Checkout() {
       navigate('/shop')
     }
   }, [configDetailsState?.Checkout_Enable?.value])
+  const keyWords = useMemo(() => {
+    return (serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []);
+  }, [serverData?.configDetails]);
   if (loadingForCheckingLogin) {
-    return(
+    return (
       <Seo
-        keywords={[`QMint categories`]}
-        title="Category"
+        keywords={[
+          "gatsby",
+          "tailwind",
+          "react",
+          "tailwindcss",
+          "Travel",
+          "Qmit",
+          "gold",
+          "metal",
+          ...keyWords,
+        ]}
         lang="en"
+        isItShopPage={false}
+        description={
+          serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
+        }
+        configDetailsState={serverData?.configDetails}
       />
     )
   }
@@ -68,9 +90,23 @@ function Checkout() {
     <Layout>
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
-        keywords={[`QMint categories`]}
-        title="Category"
+        isItShopPage={false}
+        keywords={[
+          "gatsby",
+          "tailwind",
+          "react",
+          "tailwindcss",
+          "Travel",
+          "Qmit",
+          "gold",
+          "metal",
+          ...keyWords,
+        ]}
         lang="en"
+        description={
+          serverData?.configDetails?.Store_ShopPage_Meta_Description?.value
+        }
+        configDetailsState={serverData?.configDetails}
       />
       {openToaster && <Toaster />}
       <PageTitle title="Checkout" />
@@ -96,5 +132,7 @@ function Checkout() {
     </Layout >
   )
 }
-
+export const getServerData = async (context: any) => {
+  return await getConfigData(context);
+};
 export default Checkout

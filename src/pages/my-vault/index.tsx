@@ -49,6 +49,7 @@ import useShowToaster from "@/hooks/useShowToaster";
 import { openNewTab } from "@/utils/common";
 import Seo from "@/components/common/Seo";
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 interface VaultProps {
   id: number;
@@ -63,6 +64,7 @@ interface VaultProps {
 }
 
 function Vault({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const { showToaster } = useShowToaster()
   const { loadingForCheckingLogin } = useRequireLogin()

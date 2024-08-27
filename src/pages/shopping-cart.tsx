@@ -10,8 +10,10 @@ import ShoppingCartComponent from '@/components/partials/shopping-cart/ShoppingC
 import Loader from '@/components/common/Loader';
 import { useAppSelector } from '@/hooks';
 import { getConfigData, IconfigDataFromServer } from '@/utils/getConfigData';
+import useSetConfigAndFavicon from '@/hooks/useSetConfigAndFavicon';
 
 function ShoppingCart({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
     const checkLoadingStatus = useAppSelector(state => state.shoppingCart.loading);
     const [body] = useState({
         "search": "",

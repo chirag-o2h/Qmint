@@ -51,8 +51,10 @@ import { IrecoveryPasswordSave } from '@/apis/services/authServices';
 import { useLocation } from '@reach/router';
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData";
 import Seo from "@/components/common/Seo";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 function ResetPassword({ serverData }: { serverData: IconfigDataFromServer }) {
+  useSetConfigAndFavicon(serverData)
   const location = useLocation()
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const [isTokenVarified, setIsTokenVarified] = useState<boolean>(false)

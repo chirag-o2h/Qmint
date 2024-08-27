@@ -43,6 +43,7 @@ import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
 import axiosInstance from "@/axiosfolder";
 import { IserverData } from "../bmk/BlogDetails";
+import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
 function BlogDetails({ serverData }: { serverData: IserverData }) {
   const location = useLocation()
@@ -76,7 +77,7 @@ function BlogDetails({ serverData }: { serverData: IserverData }) {
     }
   }, [serverData?.blogDetailsData])
   const keyWords = useMemo(() => serverData?.blogDetailsData?.metaKeywords?.split(',')?.length > 0 ? serverData?.blogDetailsData?.metaKeywords?.split(',') : [], [serverData])
-
+  useSetConfigAndFavicon(serverData)
   return (
     <MainLayout blackTheme>
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
