@@ -30,7 +30,7 @@ import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 
 function Checkout({ serverData }: { serverData: IconfigDataFromServer }) {
   const configDetailsState = useMemo(() => {
-    return serverData.configDetails
+    return serverData?.configDetails
   }, [serverData])
   const location = useLocation()
   const { loadingForCheckingLogin } = useRequireLogin()
