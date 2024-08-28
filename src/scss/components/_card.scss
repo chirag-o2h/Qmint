@@ -94,19 +94,19 @@
         align-items: center;
         flex-grow: 1;
         padding: $verticalSpacing $horizontalSpacing $verticalSpacing;
-        height: 250px;
+        height: 230px;
 
         @include media-min($sm) {
-          height: 300px;
+          height: 420px;
         }
         @include media($xs) {
-          height: 200px;
+          height: 190px;
         }
 
         img {
           object-fit: contain;
           height: 100%;
-          width: 75%;
+          width: 70%;
         }
       }
 
@@ -252,6 +252,11 @@
           margin-right: 15px;
           @include padding-horizontal(8, 10);
 
+          @include media($sm){
+            width: 100%;
+            margin-right: 0;
+          }
+
           &:hover {
             border-color: $yellowFuel;
           }
@@ -283,6 +288,9 @@
             grid-template-columns: auto auto;
             gap: 0 16px;
             padding: 15px;
+            @include media($sm){
+              grid-template-columns: 1fr;
+            }
 
             .ItemPrice {
               font-weight: 700;
@@ -329,6 +337,12 @@
 
       .PrimaryAction {
         letter-spacing: 1px;
+        @include media($md){
+          padding: 9px 8px;
+        }
+        @include media($xs){
+          font-size: 10px;
+        }
       }
     }
   }
