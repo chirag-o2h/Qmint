@@ -42,16 +42,6 @@ function Layout(props: {
   useEffect(() => {
     storeLastPage(window.location.pathname);
   }, []);
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(
-        getShoppingCartData({
-          url: ENDPOINTS.getShoppingCartData,
-          body: bodyForGetShoppingCartData,
-        })
-      );
-    }, 0);
-  }, [isLoggedIn]);
   // useAPIoneTime({ service: getFooterLinks, endPoint: ENDPOINTS.getFooterLink })
   // const { data }: { data: { data: FooterSection[] } } = useApiRequest(ENDPOINTS.getFooterLink);
   useEffect(() => {

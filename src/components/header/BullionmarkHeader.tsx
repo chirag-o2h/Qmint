@@ -11,7 +11,7 @@ import {
 import classNames from "classnames";
 
 // Hooks
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 // Components
 import FrontMain from "./FrontMain";
@@ -22,6 +22,7 @@ import MobileSecondaryMenu from "./MobileSecondaryMenu";
 import Navigation from "./Navigation";
 import MobileMenu from "./MobileMenu";
 import { useLocation } from "@reach/router";
+import useShoppingCartData from "@/hooks/useShoppingCartData";
 
 // const frontHeaderList = ["/shop/"]
 
@@ -70,6 +71,7 @@ const BullionmarkHeader = () => {
     threshold: isMobile ? 68 : 50,
   });
   const trigerMemo = useDebounce(trigger, 300);
+  useShoppingCartData()
   return (
     <>
       <Box

@@ -18,6 +18,7 @@ import { CategoriesListDetails } from "@/redux/reducers/homepageReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import { pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
 import { useLocation } from "@reach/router";
+import useShoppingCartData from "@/hooks/useShoppingCartData";
 
 const Index = () => {
   const location = useLocation()
@@ -29,7 +30,7 @@ const Index = () => {
   const [params] = useState({ page: pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page) && location.pathname.split('/').filter((item) => item).some((name) => name === page)) ? 0 : 1 })
   // const [params] = useState({ page: location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page)) ? 0 : 1 })
   useAPIoneTime({ service: CategoriesListDetails, endPoint: ENDPOINTS.topCategoriesListWithSubCategories, params })
-
+  useShoppingCartData()
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: isMobile ? 68 : 50,

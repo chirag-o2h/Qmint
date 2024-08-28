@@ -9,6 +9,7 @@ import { PageLoader } from './Loader'
 import { useAppSelector } from "@/hooks"
 import useImageInView from "@/hooks/useImageInView"
 import { useLocation } from "@reach/router"
+import useShoppingCartData from "@/hooks/useShoppingCartData"
 const MobileMenu = lazy(() => import('./MobileMenu'))
 
 interface FrontHeader {
@@ -44,6 +45,7 @@ const FrontHeader = (props: FrontHeader) => {
         disableHysteresis: true,
         threshold: isMobile ? 68 : 50,
       })
+      useShoppingCartData()
     return (
         <Box id="HeaderWrapper" className={classNames("FrontHeader", { "Black": blackTheme }, { "BmkFrontHeader": process.env.GATSBY_THEME_TYPE == '1' })}>
             {((!isMobile && configDetailsState?.["Store_HomePage_Ticker_Enable"]?.value) ) && <>
