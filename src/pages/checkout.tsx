@@ -56,10 +56,14 @@ function Checkout({ serverData }: { serverData: IconfigDataFromServer }) {
   useAPIoneTime(state)
   useAlertPopUp({ pageName: 'Checkout', openPopup: toggleSessionExpireDialog })
   useEffect(() => {
-    if (configDetailsState?.Checkout_Enable?.value !== true) {
-      navigate('/shop')
+    if (!loadingForCheckingLogin) {
+      console.log("🚀 ~ useEffect ~ configDetailsState?.Checkout_Enable?.value:", configDetailsState?.Checkout_Enable?.value)
+      if (configDetailsState?.Checkout_Enable?.value == false) {
+        navigate('/')
+        // navigate('/shop')
+      }
     }
-  }, [configDetailsState?.Checkout_Enable?.value])
+  }, [configDetailsState?.Checkout_Enable?.value, loadingForCheckingLogin])
   const keyWords = useMemo(() => {
     return (serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(",") || []);
   }, [serverData?.configDetails]);
