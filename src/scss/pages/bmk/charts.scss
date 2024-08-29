@@ -23,7 +23,7 @@
     }
 
     .MetalCard {
-      background: #FFFFFF;
+      background-color:$dark;
       box-shadow: 6px 6px 27px 0px rgba(0, 0, 0, 0.0509803922);
       border-radius: 10px;
       min-height: 166px;
@@ -44,7 +44,6 @@
         .MetalCardContent {
           padding: 10px;
           text-align: center;
-          color: #777777;
         }
 
         .ChartWrapper,
@@ -56,13 +55,12 @@
         .ChartWrapper {
           .Price {
             position: relative;
-            color: $black;
+            color: $white;
 
             &.High {
               bottom: -4px;
               // color: $success;
               border-bottom: 1px solid $pumpkinOrange;
-
             }
 
             &.Low {
@@ -88,11 +86,13 @@
 
           .PriceWrapper {
             justify-content: space-between;
+            color: $white;
           }
 
           .SliderWrapper {
             align-items: baseline;
             gap: 5px;
+            color: $white;
 
             .Slider {
               color: $blueCyan;
