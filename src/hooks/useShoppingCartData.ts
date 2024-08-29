@@ -11,12 +11,14 @@ const useShoppingCartData = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
         setTimeout(() => {
-            dispatch(
+            console.log("inside the useeffect data before ")
+            const data =  dispatch(
                 getShoppingCartData({
                     url: ENDPOINTS.getShoppingCartData,
                     body: bodyForGetShoppingCartData,
                 })
             );
+            console.log(data,"inside the useeffect data after with data")
         }, 0);
     }, [isLoggedIn]);
 }
