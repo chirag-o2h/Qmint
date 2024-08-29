@@ -1,5 +1,5 @@
 import React from "react";
-import { LineChart, Line, ResponsiveContainer, YAxis } from "recharts";
+import { LineChart, Line,Tooltip, ResponsiveContainer, YAxis } from "recharts";
 
 interface ChartMenuChart {
   data: any
@@ -15,6 +15,7 @@ function ChartMenuChart(props: ChartMenuChart) {
       <LineChart data={data.map((item: number) => ({ amt: item }))}>
         <Line type="linear" dataKey="amt" stroke={color} strokeWidth={1} dot={false}/>
         <YAxis domain={[min, max]} hide={true}/>
+        <Tooltip />
       </LineChart>
     </ResponsiveContainer>
   );

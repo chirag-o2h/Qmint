@@ -71,6 +71,16 @@
               border-top: 1px solid $pumpkinOrange;
             }
           }
+          .recharts-responsive-container{
+            .recharts-wrapper{
+              .recharts-default-tooltip{
+                box-shadow: 0 20px 30.6px 0 rgba(0, 0, 0, .06);
+                border: none !important;
+                border-radius: 8px;
+                padding: 6px !important;
+              }
+            }
+          }
         }
 
         .PriceSliderWrapper {
