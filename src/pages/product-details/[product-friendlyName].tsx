@@ -46,6 +46,7 @@ interface ServerData {
   productFriendlyName: string
 }
 function ProductDetail({ serverData }: { serverData: ServerData }) {
+  console.log("🚀 ~ ProductDetail ~ serverData:", serverData?.productDetailsData?.categoryProductBreadcrumb)
   // client side render code
   // const serverData?.configDetails = useAppSelector(state => state.homePage.serverData?.configDetails)
   // const { serverData?.productDetailsData } = useAppSelector((state) => state.category)
@@ -116,7 +117,16 @@ function ProductDetail({ serverData }: { serverData: ServerData }) {
 
       {serverData?.productDetailsData && !serverData?.productDetailsData?.errorMessage ?
         (<>
-          <Breadcrumb arr={[{ navigate: (process.env.GATSBY_THEME_TYPE == '1' && process.env.GATSBY_STORE_CODE == '25' ? '/category/buy' : '/category/shop'), name: process.env.GATSBY_THEME_TYPE == '1' && process.env.GATSBY_STORE_CODE == '25' ? 'Buy' : 'Shop' }, { navigate: '/product-details/' + serverData?.productFriendlyName, name: serverData?.productDetailsData?.name }]} />
+          {/* <Breadcrumb arr={[{ navigate: (process.env.GATSBY_THEME_TYPE == '1' && process.env.GATSBY_STORE_CODE == '25' ? '/category/buy' : '/category/shop'), name: process.env.GATSBY_THEME_TYPE == '1' && process.env.GATSBY_STORE_CODE == '25' ? 'Buy' : 'Shop' },
+          { navigate: '/product-details/' + serverData?.productFriendlyName, name: serverData?.productDetailsData?.name }]} /> */}
+          <Breadcrumb needToAddHome={false} arr={Object.entries(serverData?.productDetailsData?.categoryProductBreadcrumb).map(([key, value], index) => {
+            return (
+              {
+                navigate: index === Object.entries(serverData?.productDetailsData?.categoryProductBreadcrumb)?.length - 1 ? value : '/category/' + value,
+                name: key
+              }
+            )
+          })} />
           <Container id="PageProductDetail" className={classNames({ "BmkPageProductDetail": process.env.GATSBY_THEME_TYPE == '1' })}>
 
             {serverData?.productDetailsData?.productId && <AboutProduct productId={serverData?.productDetailsData?.productId} productDetailsData={serverData?.productDetailsData} configDetailsState={serverData?.configDetails} />}

@@ -189,16 +189,16 @@ export const PageTitle = React.memo(({ title, backToDashboard, maxWidth, redirec
     </Box>
   );
 });
-export const Breadcrumb = React.memo(({ arr }: any) => {
+export const Breadcrumb = React.memo(({ arr,needToAddHome=true }: any) => {
   return (
     <Box className={classNames("Breadcrumb", { "BmkBreadcrumb": process.env.GATSBY_THEME_TYPE === "1" })}>
       <Container>
         <Breadcrumbs aria-label="breadcrumb" separator={<ChevronRight />}>
-          <Link color="inherit" variant="body2" href="/shop" 
+          {needToAddHome && <Link color="inherit" variant="body2" href="/shop" 
           // onClick={() => { navigate('/shop', { replace: true }) }}
           >
             Home
-          </Link>
+          </Link>}
           {arr.map((item: any, index: any) => <Link key={index} color={true ? variable.dark : "inherit"} variant="body2" className={classNames({ "Active": arr.length === (index + 1) })} href={item.navigate}>
             {item.name}
           </Link>)

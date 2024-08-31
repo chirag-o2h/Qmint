@@ -22,7 +22,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import RenderFields from "@/components/common/RenderFields"
 import { Delete1Icon } from "@/assets/icons"
 import BasicDatePicker from "@/components/partials/my-vault/BasicDatePicker"
-import { IPrivateHoldingAddInputs, IPrivateHoldingAddorEditQuery } from "@/types/myVault";
+import { IPrivateHoldingAddInputs, IPrivateHoldingAddorEditQuery, ISpecificPrivateHolding } from "@/types/myVault";
 import { addOrEditPrivateHolding, clearPrivateHoldingCurrentData, getConfigDropdowns, getPrivateHoldingFormDropdowns, getPrivateHoldingWithId } from "@/redux/reducers/myVaultReducer";
 import DynamicFields, { ISpecificationField } from "@/components/partials/my-vault/private-holding-form/DynamicFields";
 import ProvenanceDocuments from "@/components/partials/my-vault/private-holding-form/ProvenanceDocuments";
@@ -218,18 +218,25 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
     })
 
     if (loadingForCheckingLogin) {
-        return(
+        return (
             <Seo
-            keywords={[`Private Holdings`, ...(serverData?.keywords || [])]}
-            lang="en"
-            configDetailsState={serverData?.configDetails}
-        />
+                keywords={[`Private Holdings`, ...(serverData?.keywords || [])]}
+                lang="en"
+                configDetailsState={serverData?.configDetails}
+            />
         )
     }
 
     const onSubmit = async (data: IPrivateHoldingAddInputs) => {
+        console.log("🚀 ~ onSubmit ~ data:", data,currentPrivateHolding)
         if (!formDropdownsKeys) return;
-
+        const hashOfTheProductAttribute:any = {};
+        (currentPrivateHolding as ISpecificPrivateHolding)?.productattribute.forEach((item:any)=>{
+            return(
+                hashOfTheProductAttribute[item.specificationAttributeId]=item.id
+            )
+        })
+        console.log("🚀 ~ onSubmit ~ hashOfTheProductAttribute:", hashOfTheProductAttribute)
         setPreparingDataLoading(() => true)
         const prepareDynamicSpecificationFields = dynamicSpecificationFields?.filter(field => field[Object.keys(field)[0]].specificationName !== "none" && field[Object.keys(field)[0]].value !== "none").map((field) => {
             return {
@@ -243,12 +250,11 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
             return {
                 key: field[Object.keys(field)[0]].specificationName,
                 value: field[Object.keys(field)[0]].value,
-                Id: field[Object.keys(field)[0]].id,
+                Id: field[Object.keys(field)[0]].id ?? 0,
             }
         })
-
         let prepareData: IPrivateHoldingAddorEditQuery = {
-            // "Id": 0,
+            // "Id": 0,m
             CustomerID: Number(data.Account),
             SubCustomerID: Number(data.Account),
             // "ProductId": 0,
@@ -264,27 +270,32 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                 {
                     "SpecificationAttributeOptionId": Number(data.MintOrBrand),
                     "SpecificationAttributeId": Number(formDropdownsReverseKeys ? formDropdownsReverseKeys["Mint"] : "0"),
-                    "SpecificationAttributeOptionOther": ""
+                    "SpecificationAttributeOptionOther": "",
+                    "Id": hashOfTheProductAttribute[Number(formDropdownsReverseKeys?.["Mint"])] ?? 0
                 },
                 {
                     "SpecificationAttributeOptionId": Number(data.Metal),
                     "SpecificationAttributeId": Number(formDropdownsReverseKeys ? formDropdownsReverseKeys["Metal"] : "0"),
-                    "SpecificationAttributeOptionOther": ""
+                    "SpecificationAttributeOptionOther": "",
+                    "Id": hashOfTheProductAttribute[Number(formDropdownsReverseKeys?.["Metal"]) ?? 0]
                 },
                 {
                     "SpecificationAttributeOptionId": Number(data.Series),
                     "SpecificationAttributeId": Number(formDropdownsReverseKeys ? formDropdownsReverseKeys["Series"] : "0"),
-                    "SpecificationAttributeOptionOther": ""
+                    "SpecificationAttributeOptionOther": "",
+                    "Id": hashOfTheProductAttribute[Number(formDropdownsReverseKeys?.["Series"] ?? 0)]
                 },
                 {
                     "SpecificationAttributeOptionId": Number(data.Type),
                     "SpecificationAttributeId": Number(formDropdownsReverseKeys ? formDropdownsReverseKeys["Type"] : "0"),
-                    "SpecificationAttributeOptionOther": ""
+                    "SpecificationAttributeOptionOther": "",
+                    "Id": hashOfTheProductAttribute[Number(formDropdownsReverseKeys?.["Type"])] ?? 0
                 },
                 {
                     "SpecificationAttributeOptionId": Number(data.Purity),
                     "SpecificationAttributeId": Number(formDropdownsReverseKeys ? formDropdownsReverseKeys["Purity"] : "0"),
-                    "SpecificationAttributeOptionOther": ""
+                    "SpecificationAttributeOptionOther": "",
+                    "Id": hashOfTheProductAttribute[Number(formDropdownsReverseKeys?.["Purity"] ?? 0)]
                 },
                 // add specification attribute
             ].concat(prepareDynamicSpecificationFields ? prepareDynamicSpecificationFields : []),
@@ -297,12 +308,13 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                     "FileByte": fileByteAsString === "" ? undefined : fileByteAsString,
                     "Filepath": file.filePath,
                     "ProvenanceDocType": file.documentType ? Number(file.documentType) : undefined,
-                    "ProvenanceOtherDocType": ""
+                    "ProvenanceOtherDocType": "",
+                    "Id": Number(file.id ?? 0),
                 }
             }).concat(productPhotos.map((file) => {
                 const fileByteAsString = arrayBufferToBase64(file.fileByte);
-
                 return {
+                    "Id": Number(file.id ?? 0),
                     "FileName": file.fileName,
                     "Type": 1,
                     "FileByte": fileByteAsString === "" ? undefined : fileByteAsString,

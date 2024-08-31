@@ -309,6 +309,7 @@ export interface ISpecificPrivateHolding {
     weight: number;
     weightType: string;
     productattribute: {
+        id?: number
         specificationAttributeId: number;
         specificationAttributeOptionId: number;
         specificationAttributeOptionOther: null | string;
