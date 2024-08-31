@@ -13,7 +13,7 @@ function ChartMenuChart(props: ChartMenuChart) {
   return (
     <ResponsiveContainer width="100%" height={60}>
       <LineChart data={data.map((item: number) => ({ price: item }))}>
-        <Line type="linear" dataKey="price" stroke={color} strokeWidth={1} dot={false} />
+        <Line type="linear" dataKey="price" stroke={color} strokeWidth={3} dot={false} />
         <YAxis domain={[min, max]} hide={true} />
         <Tooltip labelFormatter={value => {
           return ``;
