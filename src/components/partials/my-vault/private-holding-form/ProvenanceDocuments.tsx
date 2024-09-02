@@ -33,7 +33,7 @@ const ProvenanceDocuments = ({ register, errors, control, setValue, getValues, c
                 const fileData = event?.target?.result;
 
                 setProvenanceDocuments([...provenanceDocuments, {
-                    id: new Date().getTime().toString(),
+                    id: 0,//new Date().getTime().toString(),
                     fileName: selectedFile.name,
                     type: getValues("DocumentType"),
                     filePath: "",
