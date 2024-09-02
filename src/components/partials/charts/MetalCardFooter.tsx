@@ -13,12 +13,19 @@ const MetalCardFooter = ({
   isStrengh,
   isVolatility,
 }: any) => {
-  const getTrendClass = () => {
-    if (isStrengh) return "Neutral";
-    if (currentPrice > 0 || percentage > 0) return "UpTrend";
-    if (currentPrice < 0 || percentage < 0) return "DownTrend";
-    return "Neutral";
-  };
+    const getTrendClass = () => {
+      if (isStrengh) return "Neutral";
+    
+      if (typeof percentage !== 'undefined') {
+        if (percentage > 0) return "UpTrend";
+        if (percentage < 0) return "DownTrend";
+      } else {
+        if (currentPrice > 0) return "UpTrend";
+        if (currentPrice < 0) return "DownTrend";
+      }
+    
+      return "Neutral";
+    };
 
   const trendClass = getTrendClass();
 

@@ -272,7 +272,7 @@ function OrderSummary() {
         <Divider />
         {finalDataForTheCheckout?.paymentType === 'CreditCard' && renderPricingItem("Credit Card Fees", `$${roundOfThePrice(Number(craditCardCharges?.creditCardFeeIncludingTax))}`)}
         {finalDataForTheCheckout?.paymentType === 'CreditCard' && < Divider />}
-        {renderPricingItem("GST Included", `$${roundOfThePrice(Number(craditCardCharges?.creditCardTax) + Number(insuranceAndTaxCalculation?.secureShippingTax) + Number(insuranceAndTaxCalculation?.vaultStorageTax) + Number(finalDataForTheCheckout?.cartItemsWithLivePrice?.length > 0 ? finalDataForTheCheckout?.cartItemsWithLivePrice?.reduce((total: number, product: {
+        {renderPricingItem("GST Included", `$${roundOfThePrice(Number(finalDataForTheCheckout?.paymentType === 'CreditCard' ? craditCardCharges?.creditCardTax : 0) + Number(insuranceAndTaxCalculation?.secureShippingTax) + Number(insuranceAndTaxCalculation?.vaultStorageTax) + Number(finalDataForTheCheckout?.cartItemsWithLivePrice?.length > 0 ? finalDataForTheCheckout?.cartItemsWithLivePrice?.reduce((total: number, product: {
           LivePriceDetails: { taxPrice: number }
         }) => total + product?.LivePriceDetails?.taxPrice, 0) : 0))}`)}
         {isrewardPointUsed && renderPricingItem(`${checkoutPageData?.rewardPointAvaibility?.availableRewardPoints} reward points`, `- ${roundOfThePrice(checkoutPageData?.rewardPointAvaibility?.rewardPointAmount)}`)}
