@@ -789,7 +789,7 @@
             padding-right: 0;
           }
           .NavigationHeader {
-            padding: 0;
+            // padding: 0;
           }
 
           .MenuLink {
@@ -891,7 +891,7 @@
 
         .LeftPart {
           @include media($xl + 1) {
-            gap: 30px;
+            gap: 20px;
           }
 
           .MuiDivider-root {
