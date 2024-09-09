@@ -30,7 +30,7 @@ const ProductPhotos = ({ register, errors, control, setValue, getValues, clearEr
                 const fileData = event?.target?.result;
 
                 setProductPhotos([...productPhotos, {
-                    id: new Date().getTime().toString(),
+                    id: 0,//new Date().getTime().toString(),
                     fileName: selectedImage.name,
                     type: getValues("DocumentType"),
                     fileByte: fileData

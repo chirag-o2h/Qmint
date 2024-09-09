@@ -1,3 +1,18 @@
+
+## Environment Setup
+
+Before running the project, you need to set up your environment variables.
+
+1. Copy the `.env.example` file to create `.env.development` and `.env.production` files:
+   ```bash
+   cp .env.example .env.development
+   cp .env.example .env.production
+   ```
+
+2. Update the values in `.env.development` and `.env.production` with your actual API keys, URLs, and other configuration details.
+
+3. You can now run the project using `gatsby develop` or `gatsby build`.
+<!-- ===================================================================== -->
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.org">

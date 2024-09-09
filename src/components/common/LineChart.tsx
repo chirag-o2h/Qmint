@@ -32,7 +32,10 @@ const data = [
   },
 ];
 
-export default function LineBarChart({value}:{value: any[]}) {
+export default function LineBarChart({ value }: { value: any[] }) {
+  // Calculate the minimum and maximum values for the yAxis domain
+  const minValue = value?.length ? Math.min(...value?.map((v) => v.uv)) : 0;
+  const maxValue = value?.length ? Math.max(...value?.map((v) => v.uv)) : 0;
   return (
     <ResponsiveContainer width="100%" height={108}>
       <AreaChart data={value}>
@@ -44,6 +47,16 @@ export default function LineBarChart({value}:{value: any[]}) {
             {/* change stopColor to red #FF1F1F00 */}
           </linearGradient>
         </defs>
+        {/* <XAxis dataKey="name" /> */}
+        <YAxis hide domain={[minValue, maxValue]} />
+        <Tooltip labelFormatter={value => {
+          return ``;
+        }}
+          formatter={(value) => {
+            return [`${value}`]
+          }} // Show only the value
+        />
+        {/* <CartesianGrid strokeDasharray="3 3" /> */}
         <Area
           type="monotone"
           dataKey="uv"
