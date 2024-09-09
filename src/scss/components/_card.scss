@@ -105,9 +105,9 @@
         @include media-between($sm,$llg) {
           height: 320px;
         }
-        @include media($xs) {
-          height: 190px;
-        }
+        // @include media($xs) {
+        //   height: 190px;
+        // }
 
         img {
           object-fit: contain;
@@ -132,6 +132,9 @@
         right: 0;
         background-color: $white;
         margin-right: 6px;
+        @include media($xs){
+          bottom: -10px;
+        }
       }
     }
 

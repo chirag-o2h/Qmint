@@ -17,6 +17,7 @@ import { FieldError, FieldErrors, UseFormRegister } from "react-hook-form";
 import { SelectDropdown } from '@/assets/icons'
 import { getCheckoutPageData } from '@/redux/reducers/checkoutReducer'
 import useAPIoneTime from '@/hooks/useAPIoneTime'
+import classNames from 'classnames'
 export interface OrderDateInputs {
     OrderStatus: string,
     DateRange: {
@@ -120,7 +121,7 @@ const OrderDateStatusSelector = ({ orderHistoryType }: { orderHistoryType: "buy-
                             </Select>}
                         </Box>
                     }
-                    <Box className="DateCalenderWrapper">
+                    <Box className={classNames("DateCalenderWrapper", { "BmkDateCalenderWrapper": process.env.GATSBY_THEME_TYPE === "1" })}>
                         {/* <DateRangePicker dateRangeValue={dateRangeValue} setDateRangeValue={setDateRangeValue} register={register} errors={errors} /> */}
                         <Box className="DateRangePickerWrapper">
                             <Provider theme={lightTheme} height="100%" colorScheme="light">
