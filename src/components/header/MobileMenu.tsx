@@ -113,7 +113,7 @@ function FrontMobileMenu(props: any) {
                           category?.type == 2 ?
                             formatCategoryUrl(category.searchEngineFriendlyPageName)
                             : category?.type == 1 ?
-                              '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) :
+                              (category.name == "Shop" ? '/' : '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName)) :
                               category?.isurl && category?.url
                           // !isFrontPage
                           //   ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
@@ -131,7 +131,7 @@ function FrontMobileMenu(props: any) {
                           category?.type == 2 ?
                             formatCategoryUrl(category.searchEngineFriendlyPageName)
                             : category?.type == 1 ?
-                              '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) :
+                              (category.name == "Shop" ? '/' : '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName)) :
                               category?.isurl && category?.url
                           // !isFrontPage
                           //   ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`

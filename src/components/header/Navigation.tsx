@@ -111,7 +111,9 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                           renderComponent={
                             <Link
                               // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
-                              href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
+                              href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ?
+                                (category.name == "Shop" ? '/' : '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName))
+                                : category?.isurl && category?.url}
                               aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                               className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                             >
@@ -126,7 +128,7 @@ function Navigation({ frontPage = false, showNavigation = false }: { frontPage?:
                         </Fragment>
                         : <Fragment key={category.name}><Link
                           // to={frontPage ? `${formatCategoryUrl(category.searchEngineFriendlyPageName == "shop" ?'/category/shop' :category.searchEngineFriendlyPageName)}` : `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`}
-                          href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.isurl && category?.url}
+                          href={category?.type == 2 ? formatCategoryUrl(category.searchEngineFriendlyPageName) : category?.type == 1 ? (category.name == "Shop" ? '/' : '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName)) : category?.isurl && category?.url}
                           aria-label={category?.searchEngineFriendlyPageName ?? category.name}
                           className={classNames("MenuLink", { "Active": getlastPartOfPath(category?.searchEngineFriendlyPageName?.toLocaleLowerCase())?.replace(/[\s/]/g, '') === currententlySelected && isThisInsideCategory })}
                         >
