@@ -4,14 +4,24 @@ import "./src/scss/style.scss";
 import { Provider } from 'react-redux';
 import { store } from "@/redux/store";
 import theme from '@/theme';
+import axiosInstance from "@/axiosfolder";
+import { ENDPOINTS } from "@/utils/constants";
+import { getDeviceType } from "@/utils/common";
 
 let inactivityTimeout: string | number | NodeJS.Timeout | undefined;
 let isActive = false; // Track the user's active/inactive state
-const inactivityTimeLimit = 5000; // 1 minute of inactivity threshold
+const inactivityTimeLimit:number = Number(process.env.GATSBY_USER_ACTIVITY_TRACK_TIMIOUT || 10*60*1000);  // 1 minute of inactivity threshold
 
 // Function to track user activity/inactivity status
-const trackUserStatus = (status: string) => {
-  console.log("🚀 ~ trackUserStatus ~ status:", status)
+const trackUserStatus = async (status: 'active' | 'inactive') => {
+  // console.log("🚀 ~ trackUserStatus ~ status:", status)
+  const body = {
+    "Url": window.location.href,
+    "Device": getDeviceType(),
+    "IsActive": status == 'active'
+  }
+  // console.log("track user body", body)
+  await axiosInstance.post(ENDPOINTS.realTimeTrackUsers, body)
   // fetch('/your-api-endpoint', {
   //   method: 'POST',
   //   headers: {
@@ -27,7 +37,7 @@ const trackUserStatus = (status: string) => {
 
 // Reset inactivity timer when user performs any action
 const resetInactivityTimer = () => {
-  console.log("🚀 ~ resetInactivityTimer ~ resetInactivityTimer:", resetInactivityTimer)
+  // console.log("🚀 ~ resetInactivityTimer ~ resetInactivityTimer:", resetInactivityTimer)
   clearTimeout(inactivityTimeout);
 
   if (!isActive) {
@@ -45,7 +55,7 @@ const resetInactivityTimer = () => {
 
 // Set up event listeners for user activity
 const setupEventListeners = () => {
-  console.log("🚀 ~ setupEventListeners ~ setupEventListeners:", setupEventListeners)
+  // console.log("🚀 ~ setupEventListeners ~ setupEventListeners:", setupEventListeners)
   window.addEventListener('mousemove', resetInactivityTimer);
   window.addEventListener('mousedown', resetInactivityTimer);
   window.addEventListener('keydown', resetInactivityTimer);
@@ -68,6 +78,10 @@ export const onClientEntry = () => {
 // Gatsby onRouteUpdate to reset activity timer when navigating pages
 export const onRouteUpdate = () => {
   resetInactivityTimer(); // Reset inactivity timer when the user navigates to a new page
+  // Call the API to notify the backend of the user's current URL and status
+  trackUserStatus('active');
+
+  // console.log(`Navigated to new page: ${location.pathname}`);
 };
 
 // Existing wrapRootElement for Redux and ThemeProvider
