@@ -14,7 +14,7 @@ import classNames from "classnames";
 import { useLocation } from "@reach/router";
 
 // Assets
-import { ArrowDown, ArrowUp,BullionmarkSignInIcon,SignOutIcon } from "../../assets/icons/index";
+import { ArrowDown, ArrowUp, BullionmarkSignInIcon, SignOutIcon } from "../../assets/icons/index";
 
 // Utils
 import { useAppDispatch, useAppSelector } from "@/hooks";
@@ -38,14 +38,14 @@ function FrontMobileMenu(props: any) {
   const dispatch = useAppDispatch()
 
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
-    const handleAuth = () => {
-        if (!isLoggedIn) {
-            navigate('/login')
-        } else {
-            dispatch(LogOutUserAPI() as any)
-            navigate('/')
-        }
+  const handleAuth = () => {
+    if (!isLoggedIn) {
+      navigate('/login')
+    } else {
+      dispatch(LogOutUserAPI() as any)
+      navigate('/')
     }
+  }
 
 
 
@@ -72,7 +72,7 @@ function FrontMobileMenu(props: any) {
         ScrollActive: trigger,
         isHomePage: isHomePage,
         FrontPageMenu: isFrontPage,
-        BmkCommonMobileClass:process.env.GATSBY_THEME_TYPE === "1",
+        BmkCommonMobileClass: process.env.GATSBY_THEME_TYPE === "1",
         BmkMobileMenu:
           process.env.GATSBY_THEME_TYPE === "1" && isHomePage &&
           trigger &&
@@ -89,65 +89,75 @@ function FrontMobileMenu(props: any) {
     >
       <Container className="HeaderContainer">
         <List component="nav">
-        {process.env.GATSBY_THEME_TYPE === "1" && 
-                     <Button name='signIn' aria-label='signIn' className={classNames("SignInButton ActionButton")} onClick={handleAuth} variant="contained" startIcon={!isLoggedIn ? <BullionmarkSignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Login/Register' : 'Logout'}</Typography></Button>
-                    }
+          {process.env.GATSBY_THEME_TYPE === "1" &&
+            <Button name='signIn' aria-label='signIn' className={classNames("SignInButton ActionButton")} onClick={handleAuth} variant="contained" startIcon={!isLoggedIn ? <BullionmarkSignInIcon /> : <SignOutIcon />}><Typography variant="inherit">{!isLoggedIn ? 'Login/Register' : 'Logout'}</Typography></Button>
+          }
           {categoriesList?.items?.length > 0
             ? categoriesList?.items?.map((category: any) => {
-                let hasSubcategory = category?.subCategories?.length > 0;
-                return (
-                  <Fragment key={category.categoryId}>
-                    <ListItemButton
-                      key={`ListItemButton-${category.categoryId}`}
-                      className={classNames([
-                        openMenu[category.categoryId]
-                          ? "ExpandedMenu"
-                          : "CollapsedMenu",
-                      ])}
-                      selected={category.categoryId === 0}
+              let hasSubcategory = category?.subCategories?.length > 0;
+              return (
+                <Fragment key={category.categoryId}>
+                  <ListItemButton
+                    key={`ListItemButton-${category.categoryId}`}
+                    className={classNames([
+                      openMenu[category.categoryId]
+                        ? "ExpandedMenu"
+                        : "CollapsedMenu",
+                    ])}
+                    selected={category.categoryId === 0}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleClickMainMenu(category.categoryId);
+                      if (!hasSubcategory) {
+                        handleNavigate(
+                          category?.type == 2 ?
+                            formatCategoryUrl(category.searchEngineFriendlyPageName)
+                            : category?.type == 1 ?
+                              (category.name == "Shop" ? '/' : '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName)) :
+                              category?.isurl && category?.url
+                          // !isFrontPage
+                          //   ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
+                          //   : `${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
+                        );
+                      }
+                    }}
+                  >
+                    <ListItemText
+                      primary={category.name}
+                      primaryTypographyProps={{ variant: "body2" }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleClickMainMenu(category.categoryId);
-                        if (!hasSubcategory) {
-                          handleNavigate(
-                            !isFrontPage
-                              ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
-                              : `${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
-                          );
-                        }
+                        handleNavigate(
+                          category?.type == 2 ?
+                            formatCategoryUrl(category.searchEngineFriendlyPageName)
+                            : category?.type == 1 ?
+                              (category.name == "Shop" ? '/' : '/category' + formatCategoryUrl(category.searchEngineFriendlyPageName)) :
+                              category?.isurl && category?.url
+                          // !isFrontPage
+                          //   ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
+                          //   : `${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
+                        );
                       }}
-                    >
-                      <ListItemText
-                        primary={category.name}
-                        primaryTypographyProps={{ variant: "body2" }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleNavigate(
-                            !isFrontPage
-                              ? `/category${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
-                              : `${formatCategoryUrl(category.searchEngineFriendlyPageName)}`
-                          );
-                        }}
-                      />
-                      {hasSubcategory ? (
-                        openMenu[category.categoryId] ? (
-                          <ArrowUp />
-                        ) : (
-                          <ArrowDown />
-                        )
-                      ) : null}
-                    </ListItemButton>
-                    <MobileRecursiveMenu
-                      hasRecursivecategory={hasSubcategory}
-                      recursiveCategory={category}
-                      toggleMobileMenu={toggleMobileMenu}
-                      isFrontPage={isFrontPage}
-                      openMenu={openMenu}
                     />
-                    <Divider key={`Divider-${category.categoryId}`} />
-                  </Fragment>
-                );
-              })
+                    {hasSubcategory ? (
+                      openMenu[category.categoryId] ? (
+                        <ArrowUp />
+                      ) : (
+                        <ArrowDown />
+                      )
+                    ) : null}
+                  </ListItemButton>
+                  <MobileRecursiveMenu
+                    hasRecursivecategory={hasSubcategory}
+                    recursiveCategory={category}
+                    toggleMobileMenu={toggleMobileMenu}
+                    isFrontPage={isFrontPage}
+                    openMenu={openMenu}
+                  />
+                  <Divider key={`Divider-${category.categoryId}`} />
+                </Fragment>
+              );
+            })
             : null}
         </List>
       </Container>

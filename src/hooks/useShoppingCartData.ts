@@ -18,7 +18,7 @@ const useShoppingCartData = () => {
                     body: bodyForGetShoppingCartData,
                 })
             );
-            console.log(data,"inside the useeffect data after with data")
+            // console.log(data,"inside the useeffect data after with data")
         }, 0);
     }, [isLoggedIn]);
 }

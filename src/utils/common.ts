@@ -286,3 +286,16 @@ export const wrapPromise = <T>(promise: Promise<T>): Promise<PromiseResult<T>> =
       .then(value => ({ status: 'fulfilled' as const, value }))
       .catch(reason => ({ status: 'rejected' as const, reason }));
 };
+export const getDeviceType = () => {
+  const userAgent = navigator.userAgent.toLowerCase();
+
+  if (/mobile/i.test(userAgent)) {
+    return "Mobile";
+  }
+
+  if (/tablet/i.test(userAgent) || /ipad|playbook/i.test(userAgent) || (navigator.userAgent.toLowerCase().includes("android") && !userAgent.includes("mobile"))) {
+    return "Tablet";
+  }
+
+  return "Desktop";
+};

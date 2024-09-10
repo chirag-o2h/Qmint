@@ -153,10 +153,12 @@ export const ENDPOINTS = {
   resendRegstrationEmail: "account/PAROuJVRYNTk7p/{{email}}",
   // appointment API
   appointment: "myvault/EcltNnuVgvGSOVkLX6hy5n",
+  // real time track users
+  realTimeTrackUsers: "utility/CuzCig2GuIz61bD94Klxn"
 };
 export const StoreData = {
-    storeCode: process.env.GATSBY_STORE_CODE,
-    returnUrl: typeof window !== 'undefined' ? window.location.href : null
+  storeCode: process.env.GATSBY_STORE_CODE,
+  returnUrl: typeof window !== 'undefined' ? window.location.href : null
 }
 
 export const changePasswordURL = "https://register.qmint.com/passwordrecovery?id=" + process.env.GATSBY_STORE_CODE

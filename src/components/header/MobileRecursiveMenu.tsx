@@ -49,9 +49,14 @@ function MobileRecursiveMenu(props: any) {
                       primaryTypographyProps={{ variant: "body2" }}
                       onClick={() =>
                         handleNavigate(
-                          !isFrontPage
-                            ? `/category${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}`
-                            : `${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}`
+                          menu?.type == 2 ?
+                            formatCategoryUrl(menu.searchEngineFriendlyPageName)
+                            : menu?.type == 1 ?
+                              '/category' + formatCategoryUrl(menu.searchEngineFriendlyPageName)
+                              : menu?.isurl && menu?.url
+                          // !isFrontPage
+                          //   ? `/category${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}`
+                          //   : `${formatCategoryUrl(menu?.searchEngineFriendlyPageName)}`
                         )
                       }
                     />
