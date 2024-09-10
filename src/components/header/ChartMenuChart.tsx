@@ -11,7 +11,7 @@ interface ChartMenuChart {
 function ChartMenuChart(props: ChartMenuChart) {
   const { data, color, max, min } = props
   return (
-    <ResponsiveContainer width="100%" height={60}>
+    <ResponsiveContainer width="100%" height={60} className="DarkTooltip">
       <LineChart data={data.map((item: number) => ({ price: item }))}>
         <Line 
         // type="linear"

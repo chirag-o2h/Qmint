@@ -78,6 +78,15 @@
                 padding: 6px !important;
               }
             }
+            &.DarkTooltip{
+              .recharts-wrapper{
+                .recharts-tooltip-wrapper{
+                  .recharts-default-tooltip{
+                    background-color: $black!important;
+                  }
+                }
+              }
+            }
           }
         }
 

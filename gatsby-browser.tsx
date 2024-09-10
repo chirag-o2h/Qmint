@@ -10,7 +10,37 @@ import { getDeviceType } from "@/utils/common";
 
 let inactivityTimeout: string | number | NodeJS.Timeout | undefined;
 let isActive = false; // Track the user's active/inactive state
-const inactivityTimeLimit:number = Number(process.env.GATSBY_USER_ACTIVITY_TRACK_TIMIOUT || 10*60*1000);  // 1 minute of inactivity threshold
+// const configData = await axiosInstance.get(ENDPOINTS.getConfigStore);
+// const finalRequiredData = configData.data.data.find((item: { key: string; })=>item.key === "Real_Time_Online_User_Idle_Timeout")
+// console.log("🚀 ~ trackUserStatus ~ configData:", finalRequiredData)
+// Immediately invoked function to set inactivityTimeLimit
+// Function to fetch the config data, either from sessionStorage or API
+const getConfigData = async () => {
+  // Check if the config data exists in sessionStorage
+  const storedConfig = sessionStorage.getItem("configData");
+  if (storedConfig) {
+    // If exists, return the parsed stored data
+    return JSON.parse(storedConfig);
+  } else {
+    // Fetch the config from the API
+    const configData = await axiosInstance.get(ENDPOINTS.getConfigStore);
+    const finalRequiredData = configData.data.data.find(
+      (item: { key: string }) => item.key === "Real_Time_Online_User_Idle_Timeout"
+    );
+
+    // Store the fetched config in sessionStorage
+    sessionStorage.setItem("configData", JSON.stringify(finalRequiredData));
+    return finalRequiredData;
+  }
+};
+let inactivityTimeLimit: number //= Number(process.env.GATSBY_USER_ACTIVITY_TRACK_TIMIOUT || 1*60*1000);  // 1 minute of inactivity threshold
+(async () => {
+  const finalRequiredData = await getConfigData();
+  console.log("🚀 ~ trackUserStatus ~ finalRequiredData:", finalRequiredData);
+
+  // Set inactivityTimeLimit from the fetched data or default to 1 minute
+  inactivityTimeLimit = Number((Number(finalRequiredData?.value) * 60 * 1000) || 1 * 60 * 1000);
+})();
 
 // Function to track user activity/inactivity status
 const trackUserStatus = async (status: 'active' | 'inactive') => {
