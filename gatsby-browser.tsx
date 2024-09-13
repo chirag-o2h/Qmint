@@ -7,6 +7,7 @@ import theme from '@/theme';
 import axiosInstance from "@/axiosfolder";
 import { ENDPOINTS } from "@/utils/constants";
 import { getDeviceType } from "@/utils/common";
+import SessionManager from "@/components/common/SessionManager";
 
 let inactivityTimeout: string | number | NodeJS.Timeout | undefined;
 let isActive = false; // Track the user's active/inactive state
@@ -108,7 +109,9 @@ export const wrapRootElement = ({ element }: any) => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <SessionManager>
       {element}
+      </SessionManager>
     </ThemeProvider>
   </Provider>
 );

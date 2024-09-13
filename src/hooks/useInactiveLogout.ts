@@ -78,11 +78,12 @@ const useInactiveLogout = (logoutTimeout = 300000, toggleSessionExpireDialog: an
       interval = setInterval(() => {
         setUserInactiveTime(prevTime => prevTime + 10000); // Increment the inactive time by 1 second
 
+        // console.log("🚀 ~ interval=setInterval ~ userInactiveTime:", userInactiveTime)
         // Check if the user has been inactive for the logout timeout duration
         if (userInactiveTime >= logoutTimeout) {
           handleLogout(); // Call the logout function
         }
-      }, 1000); // Check every 1 second for user inactivity
+      }, 10000); // Check every 1 second for user inactivity
     }
     // Cleanup function to remove event listeners and clear interval
     return () => {

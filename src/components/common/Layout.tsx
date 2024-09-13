@@ -32,8 +32,8 @@ function Layout(props: {
   const location = useLocation()
   const removeMinHeight = useUnloadMinHeight()
   const { configDetails: configDetailsState, isLoggedIn } = useAppSelector((state) => state.homePage)
-  const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
-  useInactiveLogout(isLoggedIn ? convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_LoggedInUsers?.value) : convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_Guest?.value), toggleSessionExpireDialog);
+  // const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
+  // useInactiveLogout(isLoggedIn ? convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_LoggedInUsers?.value) : convertMinutesToMilliseconds(configDetailsState?.SessionTimeoutMins_Guest?.value), toggleSessionExpireDialog);
   useAPIoneTime({ service: configDetails, endPoint: ENDPOINTS.getConfigStore, conditionalCall: !isItMainPage })
   // useInactiveLogout(2000, toggleSessionExpireDialog);
   // const [loading, setLoading] = useState(true);
@@ -121,14 +121,14 @@ function Layout(props: {
         {process.env.GATSBY_THEME_TYPE === "1" ? <LazyBullionmarkFooter />: <LazyFooter />}
       </RenderOnViewportEntry>
       }
-      {openSessionExpireDialog && (
+      {/* {openSessionExpireDialog && (
         <Suspense fallback={<></>}>
           <SessionExpiredDialog
             open={openSessionExpireDialog}
             onClose={toggleSessionExpireDialog}
           />
         </Suspense>
-      )}
+      )} */}
     </Stack>
   );
 }
