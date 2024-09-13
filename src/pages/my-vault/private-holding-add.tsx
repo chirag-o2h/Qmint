@@ -90,6 +90,11 @@ export interface IFile {
     filePath?: string,
     documentType?: string
 }
+export const weightTypeToNumber:any={
+    kilograms:2,
+    grams: 1,
+    ounces: 0
+}
 
 function privateHoldingAdd({ location, serverData }: { location: any, serverData: IconfigDataFromServer }) {
     useSetConfigAndFavicon(serverData)
@@ -208,7 +213,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
             nextType: nextType ? nextType["specificationAttributeOptionId"] : "0",
             nextSeries: nextSeries ? nextSeries["specificationAttributeOptionId"] : "0",
             nextPurity: nextPurity ? nextPurity["specificationAttributeOptionId"] : "0",
-            nextWeightType: "0"
+            nextWeightType: weightTypeToNumber[currentPrivateHolding?.weightType?.toLocaleLowerCase()]?.toString()
         })
     }, [currentPrivateHolding, formDropdownsKeys])
 

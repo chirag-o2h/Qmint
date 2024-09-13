@@ -17,7 +17,7 @@ import Toaster from "@/components/common/Toaster";
 import useAlertPopUp from "@/hooks/useAlertPopUp";
 const SessionExpiredDialog = lazy(() => import("@/components/header/SessionExpiredDialog"));
 // const ProductsSlider = lazy(() => import("@/components/partials/shop/Qmint/ProductsSlider"));
-import ProductsSlider  from "./ProductsSlider"
+import ProductsSlider from "./ProductsSlider"
 import Seo from "@/components/common/Seo"
 // import Banner from "./Banner"
 const Banner = lazy(() => import("./Banner"))
@@ -41,7 +41,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
     const dispatch = useAppDispatch()
     const [isRendering, setIsRendering] = useState(true);
     // const { configDetails: configDetailsState, openToaster, loading } = useAppSelector((state) => state.homePage)
-    const { openToaster,isLoggedIn} = useAppSelector((state) => state.homePage)
+    const { openToaster, isLoggedIn } = useAppSelector((state) => state.homePage)
     const [openSessionExpireDialog, toggleSessionExpireDialog] = useToggle(false)
     // const keyWords = serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',')?.length > 0 ? serverData?.configDetails?.Store_ShopPage_Meta_Keywords?.value?.split(',') : []
     const keyWords = useMemo(() => {
@@ -83,17 +83,17 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
     useAlertPopUp({ pageName: 'Home', openPopup: toggleSessionExpireDialog })
     useEffect(() => {
         const x = setTimeout(() => {
-          dispatch(
-            getShoppingCartData({
-              url: ENDPOINTS.getShoppingCartData,
-              body: bodyForGetShoppingCartData,
-            })
-          );
+            dispatch(
+                getShoppingCartData({
+                    url: ENDPOINTS.getShoppingCartData,
+                    body: bodyForGetShoppingCartData,
+                })
+            );
         }, 3000);
         return () => {
-          clearTimeout(x)
+            clearTimeout(x)
         }
-      }, [isLoggedIn]);
+    }, [isLoggedIn]);
     return (
         <>
             <Seo
@@ -148,14 +148,14 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 minHeight={600}
                 // skeletonMargin={-180}
             > */}
-                <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
+            <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
             {/* </RenderOnViewportEntry> */}
             {/* {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false &&
                 <RenderOnViewportEntry rootMargin="200px"
                     threshold={0.25}
                     minHeight={800}> */}
-                    <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData} />
-                {/* </RenderOnViewportEntry>} */}
+            <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData} />
+            {/* </RenderOnViewportEntry>} */}
             {serverData?.configDetails?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
                 minHeight={800}> <LookingFor sectionDetails={serverData?.homePageSectionDetails} /></RenderOnViewportEntry>}
@@ -186,6 +186,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
 // Implement getServerData for QmintShop
 QmintShop.getServerData = async (context: any) => {
     try {
+        console.log("getServerData -- starting", context.headers.get('user-agent'), Date.now());
         // Parse the user-agent from the context
         const ua = useragent.parse(context.headers.get('user-agent'));
         const isMobile = ua.isMobile ? true : false;

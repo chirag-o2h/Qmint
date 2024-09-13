@@ -39,7 +39,7 @@ let inactivityTimeLimit: number //= Number(process.env.GATSBY_USER_ACTIVITY_TRAC
   console.log("🚀 ~ trackUserStatus ~ finalRequiredData:", finalRequiredData);
 
   // Set inactivityTimeLimit from the fetched data or default to 1 minute
-  inactivityTimeLimit = Number((Number(finalRequiredData?.value) * 60 * 1000) || 1 * 60 * 1000);
+  inactivityTimeLimit = Number((Number(finalRequiredData?.value ?? 1) * 60 * 1000) || 1 * 60 * 1000);
 })();
 
 // Function to track user activity/inactivity status
@@ -52,22 +52,11 @@ const trackUserStatus = async (status: 'active' | 'inactive') => {
   }
   // console.log("track user body", body)
   await axiosInstance.post(ENDPOINTS.realTimeTrackUsers, body)
-  // fetch('/your-api-endpoint', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     userId: 'unique-user-id', // Replace with dynamic user ID
-  //     status: status, // 'active' or 'inactive'
-  //     timestamp: new Date().toISOString(),
-  //   }),
-  // }).catch((err) => console.error('Failed to send user tracking data', err));
 };
 
 // Reset inactivity timer when user performs any action
 const resetInactivityTimer = () => {
-  // console.log("🚀 ~ resetInactivityTimer ~ resetInactivityTimer:", resetInactivityTimer)
+  // console.log("🚀 ~ resetInactivityTimer ~ resetInactivityTimer:", inactivityTimeout,":---",resetInactivityTimer)
   clearTimeout(inactivityTimeout);
 
   if (!isActive) {
