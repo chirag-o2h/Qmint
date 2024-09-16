@@ -117,9 +117,11 @@ function SessionExpiredDialog(props: SessionExpiredDialog) {
   window.handleRefresh = async () => {
     // console.log("here", "handleRefresh")
     location.reload()
+    onClose(false)
   };
   window.handleLogin = async () => {
     navigate('/login')
+    onClose(false)
   };
   window.handleYes = async () => {
     savePopUpDataFunctinon(true)

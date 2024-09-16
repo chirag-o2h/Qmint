@@ -58,7 +58,6 @@ const ProductPhotos = ({ register, errors, control, setValue, getValues, clearEr
                 margin='none'
                 setSelectedFile={setSelectedImage}
                 uploadFileHandler={uploadHandler}
-                required
             >
             </RenderFields>
             <Box className="CommonTableWrapper">

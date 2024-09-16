@@ -63,7 +63,6 @@ const ProvenanceDocuments = ({ register, errors, control, setValue, getValues, c
                 setSelectedFile={setSelectedFile}
                 uploadFileHandler={uploadHandler}
                 margin='none'
-                required
             >
             </RenderFields>
             <RenderFields

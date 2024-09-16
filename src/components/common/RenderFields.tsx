@@ -214,7 +214,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
       if (!options) return null
       fieldType = (
         <FormControl margin={margin} fullWidth={fullWidth}>
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && <FormLabel htmlFor={name}>{label}{required && " *"}</FormLabel>}
           <Controller
             name={name}
             control={control}
@@ -255,7 +255,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
     case 'checkbox':
       fieldType = (
         <FormControl margin={margin} {...(error ? { error: true } : {})}>
-          {(label && options) && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {(label && options) && <FormLabel htmlFor={name}>{label}{required && " *"}</FormLabel>}
           <FormGroup row={row}>
             {options ? (
               options.map((checkboxOption) => (
@@ -356,7 +356,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
           margin={margin}
           {...(error ? { error: true } : {})}
         >
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && <FormLabel htmlFor={name}>{label}{required && " *"}</FormLabel>}
           <TextField
             id={name}
             fullWidth={fullWidth}
@@ -397,7 +397,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
           margin={margin}
           {...(error ? { error: true } : {})}
         >
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && <FormLabel htmlFor={name}>{label}{required && " *"}</FormLabel>}
           <Controller
             name={name}
             control={control}
@@ -436,7 +436,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
           margin={margin}
           {...(error ? { error: true } : {})}
         >
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && <FormLabel htmlFor={name}>{label}{required && " *"}</FormLabel>}
           <Controller
             name={name}
             control={control}
@@ -536,7 +536,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
           margin={margin}
           {...(error ? { error: true } : {})}
         >
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && <FormLabel htmlFor={name}>{label}{required && " *"}</FormLabel>}
           <Controller
             name={name}
             control={control}
@@ -587,7 +587,7 @@ const RenderFields: React.FC<RenderFieldProps> = ({
           margin={margin}
           {...(error ? { error: true } : {})}
         >
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && <FormLabel htmlFor={name}>{label}{required && " *"}</FormLabel>}
           <DateRangePicker
             label="Date range"
             value={dateRangeValue}

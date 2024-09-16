@@ -90,8 +90,8 @@ export interface IFile {
     filePath?: string,
     documentType?: string
 }
-export const weightTypeToNumber:any={
-    kilograms:2,
+export const weightTypeToNumber: any = {
+    kilograms: 2,
     grams: 1,
     ounces: 0
 }
@@ -168,11 +168,11 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
     // set intial form values if user wants to edit
     useEffect(() => {
         if (!currentPrivateHolding || currentPrivateHolding === "rejected") return;
-
-        setValue("ProductName", currentPrivateHolding.productName)
-        setValue("PurchaseFrom", currentPrivateHolding.purchasedFrom);
-        setValue("Weight", currentPrivateHolding.weight);
-        setValue("Qty", currentPrivateHolding.qty.toString());
+        // may be this none and ?? need to remove in future
+        setValue("ProductName", currentPrivateHolding.productName ?? "none")
+        setValue("PurchaseFrom", currentPrivateHolding.purchasedFrom ?? "none");
+        setValue("Weight", currentPrivateHolding.weight ?? "none");
+        setValue("Qty", currentPrivateHolding.qty.toString() || "none");
         setValue("PurchasePrice", +currentPrivateHolding.price as any)
         setProvenanceDocuments(currentPrivateHolding.attachments.filter(doc => doc.type !== "ProductPhotos").map((doc: any) => {
             return {
@@ -206,14 +206,14 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
 
         dropdownDispatch({
             type: "APPLY_VALUES",
-            nextAccount: currentPrivateHolding?.subCustomerId,
+            nextAccount: currentPrivateHolding?.subCustomerId ?? "none",
             // NOTE : static
-            nextMint: nextMint ? nextMint["specificationAttributeOptionId"] : "0",
-            nextMetal: nextMetal ? nextMetal["specificationAttributeOptionId"] : "0",
-            nextType: nextType ? nextType["specificationAttributeOptionId"] : "0",
-            nextSeries: nextSeries ? nextSeries["specificationAttributeOptionId"] : "0",
-            nextPurity: nextPurity ? nextPurity["specificationAttributeOptionId"] : "0",
-            nextWeightType: weightTypeToNumber[currentPrivateHolding?.weightType?.toLocaleLowerCase()]?.toString()
+            nextMint: nextMint ? nextMint["specificationAttributeOptionId"] : "none",
+            nextMetal: nextMetal ? nextMetal["specificationAttributeOptionId"] : "none",
+            nextType: nextType ? nextType["specificationAttributeOptionId"] : "none",
+            nextSeries: nextSeries ? nextSeries["specificationAttributeOptionId"] : "none",
+            nextPurity: nextPurity ? nextPurity["specificationAttributeOptionId"] : "none",
+            nextWeightType: weightTypeToNumber[currentPrivateHolding?.weightType?.toLocaleLowerCase()]?.toString() ?? "none"
         })
     }, [currentPrivateHolding, formDropdownsKeys])
 
@@ -233,12 +233,12 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
     }
 
     const onSubmit = async (data: IPrivateHoldingAddInputs) => {
-        console.log("🚀 ~ onSubmit ~ data:", data,currentPrivateHolding)
+        // console.log("🚀 ~ onSubmit ~ data:", data, currentPrivateHolding)
         if (!formDropdownsKeys) return;
-        const hashOfTheProductAttribute:any = {};
-        (currentPrivateHolding as ISpecificPrivateHolding)?.productattribute.forEach((item:any)=>{
-            return(
-                hashOfTheProductAttribute[item.specificationAttributeId]=item.id
+        const hashOfTheProductAttribute: any = {};
+        (currentPrivateHolding as ISpecificPrivateHolding)?.productattribute.forEach((item: any) => {
+            return (
+                hashOfTheProductAttribute[item.specificationAttributeId] = item.id
             )
         })
         console.log("🚀 ~ onSubmit ~ hashOfTheProductAttribute:", hashOfTheProductAttribute)
@@ -259,10 +259,10 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
             }
         })
         let prepareData: IPrivateHoldingAddorEditQuery = {
-            // "Id": 0,m
+            // "Id": 0, setting this below 
             CustomerID: Number(data.Account),
             SubCustomerID: Number(data.Account),
-            // "ProductId": 0,
+            // "ProductId": 0, setting this below 
             ProductName: data.ProductName,
             PurchaseDate: data.Date,
             Price: Number(data.PurchasePrice),
@@ -331,7 +331,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
         }
 
         if (currentPrivateHolding && currentPrivateHolding !== "rejected") {
-            prepareData = { ...prepareData, Id: currentPrivateHolding.id };
+            prepareData = { ...prepareData, Id: currentPrivateHolding.id ?? 0, ProductId:  currentPrivateHolding?.productId ?? 0};
         }
         // console.log("🚀 ~ onSubmit ~ prepareData:", prepareData)
         setPreparingDataLoading(() => false)
@@ -477,7 +477,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             variant='outlined'
                                             margin='none'
                                             className='SelectSeries'
-                                        // required
+                                            required
                                         >
                                             <MenuItem value="none">Select Series</MenuItem>
                                             {/* {formDropdowns && <RenderDropdownItems dropdowns={formDropdowns["Series"]} />} */}
@@ -521,6 +521,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             setValue={setValue}
                                             alloweTheDotIntertion={true}
                                             inputProps={{ step: "0.01" }}
+                                            required
                                         />
                                         <RenderFields
                                             type="select"
@@ -547,13 +548,13 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                     </Stack>
                                     <DynamicFields existingFields={currentPrivateHolding && currentPrivateHolding !== "rejected" ? currentPrivateHolding.productattribute : null} setDynamicSpecificationFields={setDynamicSpecificationFields} setDynamicCustomSpecificationFields={setDynamicCustomSpecificationFields} existingCustomFields={currentPrivateHolding && currentPrivateHolding !== "rejected" ? currentPrivateHolding.customeAttribute : null} />
                                     <Stack className="RowWrapper">
-                                        <BasicDatePicker name="Date" label="Purchase Date" setValue={setValue} existingDate={currentPrivateHolding && currentPrivateHolding !== "rejected" ? currentPrivateHolding?.purchaseDate : null} error={errors.Date} clearErrors={clearErrors} />
+                                        <BasicDatePicker name="Date" required label="Purchase Date" setValue={setValue} existingDate={currentPrivateHolding && currentPrivateHolding !== "rejected" ? currentPrivateHolding?.purchaseDate : null} error={errors.Date} clearErrors={clearErrors} />
                                         <RenderFields
                                             register={register}
                                             control={control}
                                             error={errors.PurchasePrice}
                                             name="PurchasePrice"
-                                            label="Purchase price (per unit):"
+                                            label="Purchase price (per unit)"
                                             // disabled={searchParams.has("holdingId")}
                                             placeholder="Enter Purchase price"
                                             variant='outlined'
@@ -568,7 +569,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                                             error={errors.PurchaseFrom}
                                             name="PurchaseFrom"
                                             placeholder="Enter Purchase from"
-                                            label="Purchase From: "
+                                            label="Purchase From"
                                             variant='outlined'
                                             margin='none'
                                             // disabled={searchParams.has("holdingId")}
