@@ -57,7 +57,7 @@ function Checkout({ serverData }: { serverData: IconfigDataFromServer }) {
   useAlertPopUp({ pageName: 'Checkout', openPopup: toggleSessionExpireDialog })
   useEffect(() => {
     if (!loadingForCheckingLogin) {
-      console.log("🚀 ~ useEffect ~ configDetailsState?.Checkout_Enable?.value:", configDetailsState?.Checkout_Enable?.value)
+      // console.log("🚀 ~ useEffect ~ configDetailsState?.Checkout_Enable?.value:", configDetailsState?.Checkout_Enable?.value)
       if (configDetailsState?.Checkout_Enable?.value == false) {
         navigate('/')
         // navigate('/shop')

@@ -46,7 +46,7 @@ interface ServerData {
   productFriendlyName: string
 }
 function ProductDetail({ serverData }: { serverData: ServerData }) {
-  console.log("🚀 ~ ProductDetail ~ serverData:", serverData?.productDetailsData?.categoryProductBreadcrumb)
+  console.log("🚀 ~ ProductDetail ~ serverData:")
   // client side render code
   // const serverData?.configDetails = useAppSelector(state => state.homePage.serverData?.configDetails)
   // const { serverData?.productDetailsData } = useAppSelector((state) => state.category)
@@ -152,8 +152,9 @@ export async function getServerData(context: {
 }) {
   try {
     const { params } = context;
-    const ua = useragent.parse(context.headers.get('user-agent'));
-    const isMobile = ua.isMobile ? true : false;
+    const userAgentHeader = context.headers.get('user-agent');
+const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+    const isMobile = ua?.isMobile ? true : false;
     const productFriendlyName = params['product-friendlyName'];
     console.log("before fatching ", Date.now())
     // const [

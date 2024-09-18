@@ -264,10 +264,11 @@ const BullionmarkShop = (props: any) => {
 // Implement getServerData for BullionmarkShop
 BullionmarkShop.getServerData = async (context: any) => {
   try {
-    console.log("getServerData -- starting", context.headers.get('user-agent'), Date.now());
+    console.log("getServerData -- starting", Date.now());
     // Parse the user-agent from the context
-    const ua = useragent.parse(context.headers.get('user-agent'));
-    const isMobile = ua.isMobile ? true : false;
+    const userAgentHeader = context.headers.get('user-agent');
+const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+    const isMobile = ua?.isMobile ? true : false;
     const dataforbody = {
       search: "",
       pageNo: 0,

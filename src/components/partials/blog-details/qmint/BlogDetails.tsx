@@ -302,7 +302,6 @@ BlogDetails.getServerData = async (context: any) => {
     const configDetails = configDetailsResponse.data.data;
     const blogDetailsData = blogDetailsDataResponse.data.data;
     const blogList = blogListDataResponse.data.data;
-    console.log("🚀 ~ getServerData ~ productDetailsData:", blogDetailsData)
 
     return {
       props: {

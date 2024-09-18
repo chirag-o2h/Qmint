@@ -271,7 +271,6 @@ export async function getServerData(context: any) {
     console.log("after fatching ", Date.now())
     const configDetails = configDetailsResponse?.data?.data;
     const blogList = blogListResponse?.data?.data;
-    console.log("🚀 ~ getServerData ~ blogList:", blogListResponse)
 
     return {
       props: {

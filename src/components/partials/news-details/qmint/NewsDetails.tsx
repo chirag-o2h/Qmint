@@ -266,7 +266,6 @@ NewsDetails.getServerData = async (context: any) => {
     const configDetails = configDetailsResponse.data.data;
     const newsDetailsData = newsDetailsDataResponse.data.data;
     const newsList = newsListDataResponse.data.data;
-    console.log("🚀 ~ getServerData ~ productDetailsData:", newsDetailsData)
     const modifiedConfigDetails = configDetails?.reduce((acc: any, curr: any) => {
       acc[curr.key] = curr;
       return acc;

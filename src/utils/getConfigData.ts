@@ -1,20 +1,21 @@
 import axiosInstance from "@/axiosfolder";
 import { ENDPOINTS } from "./constants";
-export interface IconfigDataFromServer{
-  configDetails:any
+export interface IconfigDataFromServer {
+  configDetails: any
   configDetailsForRedux: any
-  keywords:any[]
-  isMobile:boolean
+  keywords: any[]
+  isMobile: boolean
 }
 import useragent from 'express-useragent';
-export async function getConfigData(context:any) {
+export async function getConfigData(context: any) {
   try {
-    const ua = useragent.parse(context.headers.get('user-agent'));
-    const isMobile = ua.isMobile ? true : false;
+    const userAgentHeader = context.headers.get('user-agent');
+    const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+    const isMobile = ua?.isMobile ? true : false;
     console.log("Fetching config data", Date.now());
     const response = await axiosInstance.get(ENDPOINTS.getConfigStore);
     const configDetails = response.data.data;
-    const modifiedConfigDetails = configDetails?.reduce((acc:any, curr:any) => {
+    const modifiedConfigDetails = configDetails?.reduce((acc: any, curr: any) => {
       acc[curr.key] = curr;
       return acc;
     }, {})

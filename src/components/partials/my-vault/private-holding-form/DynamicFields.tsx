@@ -51,7 +51,6 @@ const DynamicFields = ({ existingFields, existingCustomFields, setDynamicSpecifi
         existingFields.forEach((field) => {
             const curField = formDropdownsKeys[field.specificationAttributeId.toString()];
             if (!fixedFields.has(curField)) {
-                console.log("🚀 ~ DynamicFields ~ specificationFields:", curField)
                 currentFields.push({
                     [field.specificationAttributeId]: {
                         specificationName: field.specificationAttributeId.toString(),

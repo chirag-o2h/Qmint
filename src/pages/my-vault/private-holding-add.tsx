@@ -126,7 +126,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
 
     // dynamic fields state
     const [dynamicSpecificationFields, setDynamicSpecificationFields] = useState<ISpecificationField[] | null>(null);
-    console.log("🚀 ~ privateHoldingAdd ~ dynamicSpecificationFields:", dynamicSpecificationFields)
+    // console.log("🚀 ~ privateHoldingAdd ~ dynamicSpecificationFields:", dynamicSpecificationFields)
     const [dynamicCustomSpecificationFields, setDynamicCustomSpecificationFields] = useState<ISpecificationField[] | null>(null);
 
     const {
@@ -241,7 +241,7 @@ function privateHoldingAdd({ location, serverData }: { location: any, serverData
                 hashOfTheProductAttribute[item.specificationAttributeId] = item.id
             )
         })
-        console.log("🚀 ~ onSubmit ~ hashOfTheProductAttribute:", hashOfTheProductAttribute)
+        // console.log("🚀 ~ onSubmit ~ hashOfTheProductAttribute:", hashOfTheProductAttribute)
         setPreparingDataLoading(() => true)
         const prepareDynamicSpecificationFields = dynamicSpecificationFields?.filter(field => field[Object.keys(field)[0]].specificationName !== "none" && field[Object.keys(field)[0]].value !== "none").map((field) => {
             return {

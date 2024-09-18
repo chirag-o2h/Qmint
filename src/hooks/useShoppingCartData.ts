@@ -11,7 +11,7 @@ const useShoppingCartData = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
         setTimeout(() => {
-            console.log("inside the useeffect data before ")
+            // console.log("inside the useeffect data before ")
             const data =  dispatch(
                 getShoppingCartData({
                     url: ENDPOINTS.getShoppingCartData,

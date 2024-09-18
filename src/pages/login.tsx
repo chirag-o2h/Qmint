@@ -139,7 +139,7 @@ function SignInPage({ serverData }: { serverData: IconfigDataFromServer }) {
   }, [])
 
   if (isLoggedIn) {
-    console.log("inside the islogged in ")
+    // console.log("inside the islogged in ")
     // console.log("🚀 ~ onSubmit ~ lastPage:", "isLoggedIn")
     const lastPage = getLastPage();
     // console.log("🚀 ~ onSubmit ~ lastPage:", lastPage)

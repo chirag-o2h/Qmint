@@ -248,8 +248,9 @@ function Category({ serverData, props }: Props) {
 export default Category
 export async function getServerData(context: { params: any, query: any, headers: any }) {
     try {
-        const ua = useragent.parse(context.headers.get('user-agent'));
-        const isMobile = ua.isMobile ? true : false;
+        const userAgentHeader = context.headers.get('user-agent');
+const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+        const isMobile = ua?.isMobile ? true : false;
         const { params, query } = context;
         const { keyword } = query;
         const { 'category': category } = params;

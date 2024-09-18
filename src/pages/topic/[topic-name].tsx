@@ -130,7 +130,7 @@ export default Topics;
 
 export async function getServerData(context: { params: any; }) {
   try {
-    console.log("before fatching ", Date.now(), "context", context)
+    console.log("before fatching ", Date.now())
     const { params } = context;
     const topicName = params["topic-name"];
     const [
@@ -140,8 +140,7 @@ export async function getServerData(context: { params: any; }) {
       axiosInstance.get(ENDPOINTS.getConfigStore),
       axiosInstance.post(ENDPOINTS.topicDetail.replace("{{topic-name}}", topicName)),
     ]);
-    console.log("after fatching ", Date.now(), configDetailsResponse,
-      topicPageDataResponse,)
+    console.log("after fatching ", Date.now())
 
     const configDetails = configDetailsResponse.data.data;
     const topicPageData = topicPageDataResponse.data;

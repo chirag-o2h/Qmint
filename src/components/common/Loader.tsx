@@ -23,7 +23,7 @@ function givemethelogoasperStorecode(code: string) {
 }
 const Loader = (props: LoaderProps) => {
   const configDetails = useAppSelector((state) => state.homePage.configDetails)
-  console.log("🚀 ~ Loader ~ configDetails:", configDetails)
+  // console.log("🚀 ~ Loader ~ configDetails:", configDetails)
   const { open } = props
   const logo = givemethelogoasperStorecode(process.env.GATSBY_STORE_CODE!);
   return (
