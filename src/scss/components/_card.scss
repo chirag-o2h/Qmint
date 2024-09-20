@@ -112,16 +112,19 @@
         img {
           object-fit: contain;
           height: 100%;
+          width:75%;
 
           @include media-min($llg) {
             width: 80%;
           }
-          @include media-between($ssm,$md) {
-            width: 70%;
-          }
           @include media-between($md,$llg) {
             width: 60%;
           }
+          @include media-between($ssm,$md) {
+            width: 70%;
+          }
+
+         
         }
       }
 
