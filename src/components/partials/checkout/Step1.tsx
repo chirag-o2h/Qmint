@@ -64,7 +64,7 @@ function Step1() {
     if (isBillingAndShipingAddressSame) {
       setShippingAddress(billingAddress)
       dispatch(updateFinalDataForTheCheckout({ shippingAddress: billingAddress }))
-    } 
+    }
     // else {
     //   setShippingAddress(checkoutPageData?.shippingAddressDetails?.[0])
     //   dispatch(updateFinalDataForTheCheckout({ shippingAddress: checkoutPageData?.shippingAddressDetails?.[0] }))
@@ -113,11 +113,11 @@ function Step1() {
   const handleAddressUpdate = useCallback((addressData: any, isbilling: any) => {
     if (isbilling) {
       setBillingAddress(addressData)
-      dispatch(updateFinalDataForTheCheckout({ billingAddress }))
+      dispatch(updateFinalDataForTheCheckout({ billingAddress: addressData }))
     }
     if (!isbilling) {
       setShippingAddress(addressData)
-      dispatch(updateFinalDataForTheCheckout({ shippingAddress }))
+      dispatch(updateFinalDataForTheCheckout({ shippingAddress: addressData }))
     }
   }, [openBillingAddreddOptions, openShipingAddreddOptions])
 
