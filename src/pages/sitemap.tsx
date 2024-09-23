@@ -19,7 +19,7 @@ import axiosInstance from "@/axiosfolder"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 import { ENDPOINTS } from "@/utils/constants"
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
-const bodyForSiteMap = {
+export const bodyForSiteMap = {
   "search": "",
   "pageNo": 0,
   "pageSize": 50,
