@@ -12,7 +12,14 @@ const bodyForSiteMap = {
   "sortOrder": "",
   "filters": {}
 };
-
+const escapeXml = (str) => {
+  return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
+};
 // Function to generate XML from the API response
 const generateXml = async () => {
   const axiosInstance = axios.create({
@@ -30,9 +37,9 @@ const generateXml = async () => {
 
   // Generate the XML structure
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-
+  console.log("🚀 ~ generateXml ~ urls:", urls)
   urls.forEach(url => {
-    xml += `  <url>\n    <loc>${baseUrl}${url.linkUrl}</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
+    xml += `  <url>\n    <loc>${escapeXml(baseUrl)}${escapeXml(url.linkUrl)}</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
   });
 
   xml += `</urlset>`;
