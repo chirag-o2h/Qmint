@@ -37,3 +37,7 @@ export const prefixZeroIfOneDigitNumber = (number: number) => {
     return number
   }
 }
+export const convertDate = (utcDate: string | number | Date) => {
+  const date = new Date(utcDate);
+  return date.toLocaleDateString('en-GB'); // en-GB is for dd/mm/yyyy format
+};

@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import useAPIoneTime from "@/hooks/useAPIoneTime";
 import { getRewardPointsHistory } from "@/redux/reducers/myVaultReducer";
 import { requestBodyDefault } from "@/pages/category/[category]";
+import { convertDate } from "@/utils/helper";
 
 function createData(
     date: string,
@@ -59,7 +60,7 @@ function RewardsPointsTable() {
                                     key={item.id}
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                                 >
-                                    <TableCell component="th" scope="row">{item.createdOnUtc}</TableCell>
+                                    <TableCell component="th" scope="row">{convertDate(item.createdOnUtc as any)}</TableCell>
                                     <TableCell>{item.points}</TableCell>
                                     <TableCell>{item.pointsBalance}</TableCell>
                                     <TableCell>{item.message}</TableCell>
