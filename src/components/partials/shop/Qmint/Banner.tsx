@@ -48,6 +48,7 @@ function Banner({bannerData, isMobile}:{bannerData:any, isMobile:any}) {
     autoplay: {
       delay: 8000,
     },
+    autoHeight:true
   }
   useEffect(() => {
     const x = setTimeout(() => {
