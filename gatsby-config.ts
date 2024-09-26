@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   flags: {
     DEV_SSR: true
@@ -21,7 +25,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         trackingIds: [
-          "G-J4PT6SWF19", // Google Analytics / GA
+          process.env.GATSBY_GA_TRACKING_ID
         ],
         // This object is used for configuration specific to this plugin
         pluginConfig: {

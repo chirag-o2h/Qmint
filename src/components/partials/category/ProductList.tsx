@@ -21,7 +21,7 @@ function ProductList({ page, setPage,categoryData:categoryDataFromServer }: { pa
   const categoryData = useAppSelector((state) => state.category);
   const currentCategoryData = useMemo(()=>{
     return ((categoryData?.items?.length) ? categoryData : categoryDataFromServer)},[categoryData,categoryDataFromServer])
-  const location = useLocation()
+    const location = useLocation()
   const pageSortOrder = useAppSelector((state) => state.category.pageSortOrder);
   const dispatch = useAppDispatch();
   const [productIds, setProductIds] = useState({})
