@@ -67,6 +67,14 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        policy: [
+          { userAgent: '*', disallow: [`${process.env.GATSBY_STORE_URL}/category`] }, // Add paths to disallow here
+        ],
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {
