@@ -33,7 +33,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import useDebounce from "@/hooks/useDebounce";
 import { navigate } from "gatsby";
 import Loader from "@/components/common/Loader";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import Seo from "@/components/common/Seo";
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
@@ -81,68 +81,68 @@ function News({ serverData }: any) {
   useSetConfigAndFavicon(serverData)
   return (
     <>
-    <Seo keywords={[`News`, ...(serverData?.keywords || [])]} lang="en" configDetailsState={serverData?.configDetails} />
-    <MainLayout blackTheme>
-      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
-      <Box className="BlogPage">
-        <Box className="HeroSection">
-          <Container>
-            <Typography variant="h2" component="h2">
-              {serverData?.configDetails?.["AllNews_Title"]?.value}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ mt: 1, color: variable.greyRegent }}
-            >
-              {serverData?.configDetails?.["AllNews_Subtitle"]?.value}
-            </Typography>
-            {topThree?.length !== 0 ? <Box className="PostWrapper">
-              <Stack className="LeftPostWrapper">
-                <PostCard isNews={true} details={topThree?.[0]} navigate={() => navigate(`/news/${topThree?.[0]?.friendlyName}`)} />
-              </Stack>
-              <Stack className="RightPostWrapper">
-                {topThree?.[1] ? <PostCard isNews={true} details={topThree?.[1]} navigate={() => navigate(`/news/${topThree?.[1]?.friendlyName}`)} /> : null}
-                {topThree?.[2] ? <PostCard isNews={true} details={topThree?.[2]} navigate={() => navigate(`/news/${topThree?.[2]?.friendlyName}`)} /> : null}
-              </Stack>
-            </Box> : <Box className="PostWrapper" sx={{ justifyContent: "center" }}><RecordNotFound message="No news to show" isTextAlignCenter={true} /></Box>
-            }
-          </Container>
-        </Box>
-        <Box className="DiscoverPost">
-          <Container>
-            <Box className="DiscoverPost__title">
+      <Seo keywords={[`News`, ...(serverData?.keywords || [])]} lang="en" configDetailsState={serverData?.configDetails} />
+      <MainLayout blackTheme>
+        {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+        <Box className="BlogPage">
+          <Box className="HeroSection">
+            <Container>
               <Typography variant="h2" component="h2">
-                {serverData?.configDetails?.["AllNews_Featured_Title"]?.value}
+                {serverData?.configDetails?.["AllNews_Title"]?.value}
               </Typography>
               <Typography
                 variant="body1"
                 sx={{ mt: 1, color: variable.greyRegent }}
               >
-                {serverData?.configDetails?.["AllNews_Featured_Subtitle"]?.value}
+                {serverData?.configDetails?.["AllNews_Subtitle"]?.value}
               </Typography>
-            </Box>
-            <Box className="SearchWrapper">
-              <TextField
-                type="search"
-                id="Search-News"
-                placeholder="Search News"
-                variant="outlined"
-                value={searchValue}
-                onChange={(e) => {
-                  setSearchValue(e.target.value)
-                  setbody((prev: any) => ({ ...prev, "search": e.target.value, }))
-                }}
-              />
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<SearchButtonIcon />}
-              >
-                Search
-              </Button>
-            </Box>
-            <Box className="PostFilter">
-              {/* <Tabs
+              {topThree?.length !== 0 ? <Box className="PostWrapper">
+                <Stack className="LeftPostWrapper">
+                  <PostCard isNews={true} details={topThree?.[0]} navigate={() => navigate(`/news/${topThree?.[0]?.friendlyName}`)} />
+                </Stack>
+                <Stack className="RightPostWrapper">
+                  {topThree?.[1] ? <PostCard isNews={true} details={topThree?.[1]} navigate={() => navigate(`/news/${topThree?.[1]?.friendlyName}`)} /> : null}
+                  {topThree?.[2] ? <PostCard isNews={true} details={topThree?.[2]} navigate={() => navigate(`/news/${topThree?.[2]?.friendlyName}`)} /> : null}
+                </Stack>
+              </Box> : <Box className="PostWrapper" sx={{ justifyContent: "center" }}><RecordNotFound message="No news to show" isTextAlignCenter={true} /></Box>
+              }
+            </Container>
+          </Box>
+          <Box className="DiscoverPost">
+            <Container>
+              <Box className="DiscoverPost__title">
+                <Typography variant="h2" component="h2">
+                  {serverData?.configDetails?.["AllNews_Featured_Title"]?.value}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ mt: 1, color: variable.greyRegent }}
+                >
+                  {serverData?.configDetails?.["AllNews_Featured_Subtitle"]?.value}
+                </Typography>
+              </Box>
+              <Box className="SearchWrapper">
+                <TextField
+                  type="search"
+                  id="Search-News"
+                  placeholder="Search News"
+                  variant="outlined"
+                  value={searchValue}
+                  onChange={(e) => {
+                    setSearchValue(e.target.value)
+                    setbody((prev: any) => ({ ...prev, "search": e.target.value, }))
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  size="large"
+                  startIcon={<SearchButtonIcon />}
+                >
+                  Search
+                </Button>
+              </Box>
+              <Box className="PostFilter">
+                {/* <Tabs
                 value={value}
                 onChange={handleChange}
                 aria-label="News Category list"
@@ -160,29 +160,29 @@ function News({ serverData }: any) {
                 <Tab label="Resources" value={'resources'} />
               </Tabs> */}
 
-              <TabPanel index={value as any} value={value}>
-                {newsList?.items?.length > 0 && (
-                  <Grid
-                    container
-                    rowSpacing={{ md: 6.25, xs: 4 }}
-                    columnSpacing={{ md: 3.75, xs: 2 }}
-                  >
-                    {newsList?.items?.map((item: any) => {
-                      return (
-                        <Grid item xs={12} md={4} sm={6} key={item?.id}>
-                          <PostCard isNews={true} details={item} navigate={() => navigate(`/news/${item?.friendlyName}`)} />
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                )}
-                {newsList?.items?.length === 0 && <RecordNotFound message="No news to show" isTextAlignCenter={true} />}
-              </TabPanel>
-            </Box>
-          </Container>
+                <TabPanel index={value as any} value={value}>
+                  {newsList?.items?.length > 0 && (
+                    <Grid
+                      container
+                      rowSpacing={{ md: 6.25, xs: 4 }}
+                      columnSpacing={{ md: 3.75, xs: 2 }}
+                    >
+                      {newsList?.items?.map((item: any) => {
+                        return (
+                          <Grid item xs={12} md={4} sm={6} key={item?.id}>
+                            <PostCard isNews={true} details={item} navigate={() => navigate(`/news/${item?.friendlyName}`)} />
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
+                  )}
+                  {newsList?.items?.length === 0 && <RecordNotFound message="No news to show" isTextAlignCenter={true} />}
+                </TabPanel>
+              </Box>
+            </Container>
+          </Box>
         </Box>
-      </Box>
-    </MainLayout>
+      </MainLayout>
     </>
   );
 }
@@ -191,6 +191,7 @@ export default News;
 export async function getServerData(context: any) {
   try {
     console.log("before fatching ", Date.now())
+    const axiosInstance = axiosWithContext(context);
     const [
       configDetailsResponse,
       newsListResponse,

@@ -41,7 +41,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import { IserverData } from "../bmk/BlogDetails";
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
 
@@ -290,6 +290,8 @@ BlogDetails.getServerData = async (context: any) => {
     const { params } = context;
     const productFriendlyName = params['blog-details-friendly-name'];
     console.log("before fatching ", Date.now())
+    const axiosInstance = axiosWithContext(context);
+
     const [
       configDetailsResponse,
       blogDetailsDataResponse,

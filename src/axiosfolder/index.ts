@@ -1,4 +1,4 @@
-import { generateGUID } from "@/components/common/Utils";
+import { generateGUID, parseCookies } from "@/components/common/Utils";
 import { store } from "@/redux/store";
 import axios, { AxiosResponse, AxiosError } from "axios";
 
@@ -17,6 +17,14 @@ const axiosInstance = axios.create({
   },
   // timeout: 5000, // Timeout in milliseconds
 });
+export const axiosWithContext = (context: any) => {
+  return {
+    get: (url: string, config = {}) => axiosInstance.get(url, { ...config, context } as any),
+    post: (url: string, data: any, config = {}) => axiosInstance.post(url, data, { ...config, context } as any),
+    put: (url: string, data: any, config = {}) => axiosInstance.put(url, data, { ...config, context } as any),
+    delete: (url: string, config = {}) => axiosInstance.delete(url, { ...config, context } as any),
+  };
+};
 // const axiosInstance = axios.create({
 //     baseURL: "https://qmapistaging.qmint.com/api/v1/",
 //     headers: {
@@ -26,23 +34,56 @@ const axiosInstance = axios.create({
 //     // timeout: 5000, // Timeout in milliseconds
 // });
 // Request interceptor
+// Request interceptor
 axiosInstance.interceptors.request.use(
-  (config) => {
-    const { isLoggedIn, userDetails } = store.getState().homePage;
-    if (isLoggedIn) {
-      config.headers.Authorization = `Bearer ${userDetails?.token}`;
-      config.headers["LogInUser"] = "true";
-      config.headers["SessionId"] = userDetails?.customerGuid;
-    } else {
-      config.headers["LogInUser"] = "false";
-      config.headers["SessionId"] = generateGUID();
+  (config: any) => {
+    const { isLoggedIn: isLoggedInFromStore, userDetails } = store.getState().homePage;
+    let uniqueSessionId: string;
+    let isLoggedIn: boolean;
+    let cookieString: string = "";
+    let cookies: any = {};
+
+    // Check if request is server-side or client-side
+    if (config.context) {
+      // Server-side: Retrieve cookies from the request headers
+      cookieString = config.context?.headers?.get('cookie') || '';
+    } else if (typeof window !== 'undefined') {
+      // Client-side: Retrieve cookies from document.cookie
+      cookieString = document.cookie || '';
     }
+
+    // Parse the cookie string into an object
+    cookies = parseCookies(cookieString);
+    console.log("🚀 ~ cookies:", cookies);
+    // Determine login state based on cookies
+    isLoggedIn = cookies.isLoggedIn === 'true'; // Adjust based on how 'isLoggedIn' is stored
+    console.log("🚀 ~ isLoggedIn:", isLoggedIn)
+
+    if (isLoggedInFromStore) {
+      isLoggedIn = isLoggedInFromStore
+    }
+
+    // Retrieve existing sessionId from cookies
+    uniqueSessionId = cookies.uniqueSessionId; // No need to generate a new ID here
+
+    // If no sessionId exists, handle this on the client-side (set cookie)
+    console.log("🚀 ~ sessionId: generated", uniqueSessionId)
+    if (typeof window !== 'undefined' && !uniqueSessionId) {
+      uniqueSessionId = generateGUID(); // Generate only on the client-side if it doesn't exist
+      document.cookie = `uniqueSessionId=${uniqueSessionId}; path=/; max-age=${7 * 24 * 60 * 60}`; // Set the cookie for 7 days
+    }
+
+    // Add session details to request headers
+    config.headers["LogInUser"] = isLoggedIn ? "true" : "false";
+    config.headers["SessionId"] = uniqueSessionId;
+
     return config;
   },
   (error: AxiosError) => {
     return Promise.reject(error);
   }
 );
+
 
 // Response interceptor
 axiosInstance.interceptors.response.use(

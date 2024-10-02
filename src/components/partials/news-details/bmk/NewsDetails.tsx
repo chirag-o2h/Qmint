@@ -39,16 +39,16 @@ import { bodyData } from "@/pages/news";
 import MainLayout from "@/components/common/MainLayout";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
-interface IserverData{
-  configDetails:any
+interface IserverData {
+  configDetails: any
   configDetailsForRedux: any,
   newsDetailsData: any,
   newsList: any,
-  keywords:any
+  keywords: any
 }
-function NewsDetails({serverData,params}:{serverData:IserverData,params:any}) {
+function NewsDetails({ serverData, params }: { serverData: IserverData, params: any }) {
   const location = useLocation()
   useSetConfigAndFavicon(serverData)
   // const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
@@ -76,133 +76,133 @@ function NewsDetails({serverData,params}:{serverData:IserverData,params:any}) {
   // });
 
   useEffect(() => {
-    if(!serverData?.newsDetailsData){
+    if (!serverData?.newsDetailsData) {
       navigate(`/404`)
     }
   }, [serverData?.newsDetailsData])
 
   return (
     <>
-    <Seo
-    keywords={['Travel', 'Qmit', 'gold', 'metal',...(serverData?.newsDetailsData?.metaKeywords?.split(',') || serverData?.keywords || [])]}
-    title={serverData?.newsDetailsData?.metaTitle}
-    lang="en"
-    description={serverData?.newsDetailsData?.metaDescription || serverData?.configDetails?.Store_Meta_Description?.value}
-    configDetailsState={serverData?.configDetails}
-  />
-    <MainLayout blackTheme>
-      {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
-      <Box className="BmkPostDetailPage">
-        <Breadcrumb arr={[{ navigate: '/news', name: 'news' }]} />
-        <Container className="PostContainer">
-          <Box className="PostDetail">
-            <Stack className="Header">
-              <Typography variant="subtitle1" className="PostSubtitle">
-                {serverData?.newsDetailsData?.shortDescription}
-              </Typography>
-              <Typography variant="h2" component="h2" className="PostTitle">
-                {serverData?.newsDetailsData?.title}
-              </Typography>
-            </Stack>
-            <Box className="PostThumbnail">
-              <img
-                src={serverData?.newsDetailsData?.imageUrl ?? noImage}
-                alt={"no image"}
-              />
-            </Box>
-            <Stack className="AboutWrapper">
-              <Stack className="PostUploadInfo">
-                <Stack className="InfoWrapper Profile">
-                  <Box className="Left"><Avatar /></Box>
-                  <Box className="Right">
-                    <Typography className="Title" variant="body1">Written by</Typography>
-                    <Typography
-                      className="Value"
-                      variant="titleLarge"
-                      component="p"
-                    >
-                      {serverData?.newsDetailsData?.createdBy}
-                    </Typography>
-                  </Box>
+      <Seo
+        keywords={['Travel', 'Qmit', 'gold', 'metal', ...(serverData?.newsDetailsData?.metaKeywords?.split(',') || serverData?.keywords || [])]}
+        title={serverData?.newsDetailsData?.metaTitle}
+        lang="en"
+        description={serverData?.newsDetailsData?.metaDescription || serverData?.configDetails?.Store_Meta_Description?.value}
+        configDetailsState={serverData?.configDetails}
+      />
+      <MainLayout blackTheme>
+        {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
+        <Box className="BmkPostDetailPage">
+          <Breadcrumb arr={[{ navigate: '/news', name: 'news' }]} />
+          <Container className="PostContainer">
+            <Box className="PostDetail">
+              <Stack className="Header">
+                <Typography variant="subtitle1" className="PostSubtitle">
+                  {serverData?.newsDetailsData?.shortDescription}
+                </Typography>
+                <Typography variant="h2" component="h2" className="PostTitle">
+                  {serverData?.newsDetailsData?.title}
+                </Typography>
+              </Stack>
+              <Box className="PostThumbnail">
+                <img
+                  src={serverData?.newsDetailsData?.imageUrl ?? noImage}
+                  alt={"no image"}
+                />
+              </Box>
+              <Stack className="AboutWrapper">
+                <Stack className="PostUploadInfo">
+                  <Stack className="InfoWrapper Profile">
+                    <Box className="Left"><Avatar /></Box>
+                    <Box className="Right">
+                      <Typography className="Title" variant="body1">Written by</Typography>
+                      <Typography
+                        className="Value"
+                        variant="titleLarge"
+                        component="p"
+                      >
+                        {serverData?.newsDetailsData?.createdBy}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                  <Stack className="InfoWrapper Publish">
+                    <Box className="Left">
+                      <IconButton className="CircleButton SocialIcon" aria-label="Calender Icon" >
+                        <CalenderIcon />
+                      </IconButton>
+                    </Box>
+                    <Box className="Right">
+                      <Typography className="Title" variant="body1">Published on</Typography>
+                      <Typography
+                        className="Value"
+                        variant="titleLarge"
+                        component="p"
+                      >
+                        {formatDate(serverData?.newsDetailsData?.createdDate)}
+                      </Typography>
+                    </Box>
+                  </Stack>
                 </Stack>
-                <Stack className="InfoWrapper Publish">
-                  <Box className="Left">
-                    <IconButton className="CircleButton SocialIcon" aria-label="Calender Icon" >
-                      <CalenderIcon />
-                    </IconButton>
-                  </Box>
-                  <Box className="Right">
-                    <Typography className="Title" variant="body1">Published on</Typography>
-                    <Typography
-                      className="Value"
-                      variant="titleLarge"
-                      component="p"
-                    >
-                      {formatDate(serverData?.newsDetailsData?.createdDate)}
-                    </Typography>
-                  </Box>
+                <Stack className="SocialMedia">
+                  <Typography className="Title">Share this post</Typography>
+                  <Stack className="SocialIconWrapper">
+                    <WhatsappShareButton url={location.href} title="Bullionmark news">
+                      <IconButton className="CircleButton SocialIcon" aria-label="Whatsapp Icon">
+                        <WhatsappIcon />
+                      </IconButton>
+                    </WhatsappShareButton>
+                    <FacebookShareButton url={location.href} hashtag="bmk" title="Bullionmark news">
+                      <IconButton className="CircleButton SocialIcon" aria-label="Facebook Icon" >
+                        <FacebookIcon />
+                      </IconButton>
+                    </FacebookShareButton>
+                    <TwitterShareButton url={location.href} title="Bullionmark news" hashtags={["bmk", "news"]}>
+                      <IconButton className="CircleButton SocialIcon" aria-label="Twitter Icon">
+                        <TwitterIcon />
+                      </IconButton>
+                    </TwitterShareButton>
+                  </Stack>
                 </Stack>
               </Stack>
-              <Stack className="SocialMedia">
-                <Typography className="Title">Share this post</Typography>
-                <Stack className="SocialIconWrapper">
-                  <WhatsappShareButton url={location.href} title="Bullionmark news">
-                    <IconButton className="CircleButton SocialIcon" aria-label="Whatsapp Icon">
-                      <WhatsappIcon />
-                    </IconButton>
-                  </WhatsappShareButton>
-                  <FacebookShareButton url={location.href} hashtag="bmk" title="Bullionmark news">
-                    <IconButton className="CircleButton SocialIcon" aria-label="Facebook Icon" >
-                      <FacebookIcon />
-                    </IconButton>
-                  </FacebookShareButton>
-                  <TwitterShareButton url={location.href} title="Bullionmark news" hashtags={["bmk", "news"]}>
-                    <IconButton className="CircleButton SocialIcon" aria-label="Twitter Icon">
-                      <TwitterIcon />
-                    </IconButton>
-                  </TwitterShareButton>
-                </Stack>
-              </Stack>
-            </Stack>
-            <Box className="ContentWrapper">
-              <Box className="ck-content">
-                <Typography
-                  variant="body1"
-                  dangerouslySetInnerHTML={{ __html: serverData?.newsDetailsData?.fullDescription }}
-                ></Typography>
+              <Box className="ContentWrapper">
+                <Box className="ck-content">
+                  <Typography
+                    variant="body1"
+                    dangerouslySetInnerHTML={{ __html: serverData?.newsDetailsData?.fullDescription }}
+                  ></Typography>
+                </Box>
               </Box>
             </Box>
-          </Box>
-          {serverData?.newsList?.items?.length > 0 ? (
-            <Box className="RecentPost">
-              <Box className="RecentPost-Header">
-                <Typography variant="h2" component="h2">
-                  {serverData?.configDetails?.NewsItem_RelatedPosts_Title?.value}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{ mt: 1.875, color: variable.greyRegent }}
-                >
-                  {serverData?.configDetails?.NewsItem_RelatedPosts_Subtitle?.value}
-                </Typography>
+            {serverData?.newsList?.items?.length > 0 ? (
+              <Box className="RecentPost">
+                <Box className="RecentPost-Header">
+                  <Typography variant="h2" component="h2">
+                    {serverData?.configDetails?.NewsItem_RelatedPosts_Title?.value}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{ mt: 1.875, color: variable.greyRegent }}
+                  >
+                    {serverData?.configDetails?.NewsItem_RelatedPosts_Subtitle?.value}
+                  </Typography>
+                </Box>
+                <Box className="PostsWrapper">
+                  {serverData?.newsList?.items?.slice(0, 2).map((item: any) => {
+                    return (
+                      <BmkPostCard details={item} navigate={() => {
+                        navigate(`/news/${item?.friendlyName}`, { replace: true })
+                      }
+                      }
+                        isNews={true}
+                      />
+                    );
+                  })}
+                </Box>
               </Box>
-              <Box className="PostsWrapper">
-                {serverData?.newsList?.items?.slice(0, 2).map((item: any) => {
-                  return (
-                    <BmkPostCard details={item} navigate={() => {
-                      navigate(`/news/${item?.friendlyName}`, { replace: true })
-                    }
-                    }
-                      isNews={true}
-                    />
-                  );
-                })}
-              </Box>
-            </Box>
-          ) : null}
-        </Container>
-      </Box>
-    </MainLayout>
+            ) : null}
+          </Container>
+        </Box>
+      </MainLayout>
     </>
   );
 }
@@ -211,6 +211,7 @@ NewsDetails.getServerData = async (context: any) => {
     const { params } = context;
     const newsDetailsFriendlyName = params['news-details-friendly-name'];
     console.log("before fatching ", Date.now())
+    const axiosInstance = axiosWithContext(context);
     const [
       configDetailsResponse,
       newsDetailsDataResponse,
@@ -223,13 +224,13 @@ NewsDetails.getServerData = async (context: any) => {
     const configDetails = configDetailsResponse.data.data;
     const newsDetailsData = newsDetailsDataResponse.data.data;
     const newsList = newsListDataResponse.data.data;
-    const modifiedConfigDetails = configDetails?.reduce((acc:any, curr:any) => {
+    const modifiedConfigDetails = configDetails?.reduce((acc: any, curr: any) => {
       acc[curr.key] = curr;
       return acc;
     }, {})
     return {
       props: {
-        configDetails:modifiedConfigDetails,
+        configDetails: modifiedConfigDetails,
         configDetailsForRedux: configDetails,
         newsDetailsData: newsDetailsData,
         newsList,
