@@ -22,6 +22,8 @@ import useSetConfigAndFavicon from '@/hooks/useSetConfigAndFavicon';
 
 function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   useSetConfigAndFavicon(serverData)
+  const contactUsConfiguration = useAppSelector(state => state.contactUs.html);
+  console.log("🚀 ~ ContactUs ~ contactUsConfiguration:", contactUsConfiguration,contactUsConfiguration?.["evacontactmanagersettings.OrganizationNameHtml"]?.value)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
   // console.log("🚀 ~ ContactUs ~ configDetails:", configDetails)
@@ -31,6 +33,10 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
   useEffect(() => {
     setIsClient(true)
   }, [])
+  const [organizationHtml,setOrganizationHtml] = useState()
+   useEffect(()=>{
+    setOrganizationHtml(contactUsConfiguration?.["evacontactmanagersettings.OrganizationNameHtml"]?.value as any)
+  },[contactUsConfiguration])
   return (
     <>
       <Seo
@@ -70,6 +76,15 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
               <Link href={`mailto: ${configDetails?.storecontactemail?.value}`} variant="body1" className="EmailAddress">{configDetails?.storecontactemail?.value}</Link>
             </Box> */}
             </Stack>
+            <Box 
+            style={{
+              marginTop: '66px',
+              textAlign: "center"
+            }}
+            dangerouslySetInnerHTML={{
+              __html: contactUsConfiguration?.["evacontactmanagersettings.OrganizationNameHtml"]?.value ?? ''
+            }}>
+            </Box>
             <Box className="GetInTouchWrapper">
               {/* <ContactUsForm /> */}
               {isClient && <Map />}
