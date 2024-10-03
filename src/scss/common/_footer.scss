@@ -209,7 +209,7 @@
     .BottomWrapper{
       @include padding-vertical(32);
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       gap:30px;
       @include media($md) {
         flex-direction: column;
@@ -221,6 +221,7 @@
         justify-content: center;
         align-items: center;
         gap: 16px;
+        margin: auto;
   
         .CopyRightText {
           @include media($sm) {
@@ -243,6 +244,7 @@
         flex-shrink: 0;
         max-width: 322px;
         color: $white;
+        margin-left: auto;
   
         @include media($md) {
           align-items: center;
@@ -256,9 +258,9 @@
           align-self: flex-start;
         }
   
-        @include media-min($xl) {
-          padding-right: 7px;
-        }
+        // @include media-min($xl) {
+        //   padding-right: 7px;
+        // }
   
         .MenuTitle {
           margin-bottom: 12px;

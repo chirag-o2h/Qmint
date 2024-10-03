@@ -7,7 +7,7 @@ import classNames from 'classnames'
 const CopyRight = lazy(() => import('./CopyRight'))
 
 // Assets
-import { MapIcon, MailIcon, FacebookIcon, YoutubeIcon, TwitterIcon, FeedIcon, ChevronRight, InstagramIcon1 } from "../../assets/icons/index"
+import { MapIcon, MailIcon, FacebookIcon, YoutubeIcon,PhoneCall, TwitterIcon, FeedIcon, ChevronRight, InstagramIcon1 } from "../../assets/icons/index"
 
 // Utils
 import useApiRequest from '@/hooks/useAPIRequest'
@@ -52,6 +52,10 @@ function index() {
               <Stack className="LocationWrapper About">
                 <MapIcon />
                 <Typography className="Location" variant="body2" component="address">{configDetailsState?.Store_Address?.value}</Typography>
+              </Stack>
+              <Stack className="MailWrapper About">
+                <PhoneCall fontSize='large' />
+                <Link href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value} variant="body2" className="Mail">{configDetailsState?.["StorePhoneNumber_AU"]?.value}</Link>
               </Stack>
               {/* <Stack className="MailWrapper About">
                 <MailIcon />
