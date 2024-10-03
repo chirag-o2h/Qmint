@@ -25,6 +25,10 @@ import { AddressType } from "@/types/enums"
 import RenderFields from "@/components/common/RenderFields"
 import AgentContent from "./AgentContent"
 import classNames from "classnames"
+import BasicDatePicker from "../my-vault/BasicDatePicker"
+import { useForm } from "react-hook-form"
+import { IPrivateHoldingAddInputs } from "@/types/myVault"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 function Step1() {
   const dispatch = useAppDispatch()
@@ -44,7 +48,15 @@ function Step1() {
   const tooltipRef: any = useRef(null)
   const shipingtooltipRef: any = useRef(null)
   useAPIoneTime({ service: getStateAndCountryLists, endPoint: ENDPOINTS.getStateAndCountryLists });
-
+  const {
+    register,
+    control,
+    clearErrors,
+    getValues,
+    setValue,
+    formState: { errors },
+} = useForm<IPrivateHoldingAddInputs>({
+})
   useEffect(() => {
     if (checkoutPageData?.customers?.[0]) {
       setSelectAccount(checkoutPageData?.customers?.[0]!)
@@ -207,6 +219,15 @@ function Step1() {
       />}
       <Box className="FieldWrapper">
         <Typography className="Label" variant="subtitle1">Shipping address</Typography>
+        <Box className="GiftWrapper">
+          <FormControlLabel
+            name="GiftCard"
+            className=""
+            control={<Checkbox/>}
+            label="This order is a Gift"
+          />
+          <BasicDatePicker name="Date" label="" setValue={setValue} existingDate={null} error={errors.Date} clearErrors={clearErrors} />
+        </Box>
         {shippingAddress ? <Stack className="Field" sx={{ borderColor: "primary.main" }}>
           <Box className="Value">
             <Typography className="Name" variant="titleLarge">{shippingAddress?.firstName} {shippingAddress?.lastName}</Typography>

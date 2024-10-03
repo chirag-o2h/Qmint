@@ -193,6 +193,16 @@
 
 
         }
+        .GiftWrapper{
+          .InputRow{
+            width: fit-content;
+            .DatePicker{
+              .MuiOutlinedInput-notchedOutline{
+                border-color: $yellowFuel;
+              }
+            }
+          }
+        }
       }
 
       .SameAddressCheckbox {
