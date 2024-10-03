@@ -785,18 +785,66 @@
       border-color: rgba(255, 255, 255, 0.1);
     }
 
-    .CopyRightContent {
+    .BottomWrapper{
       padding: 12px 0 19px;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
+      gap:30px;
+      @include media($md) {
+        flex-direction: column;
+      }
 
-      .MuiTypography-root {
-        font-weight: 400;
-        color: rgba(134, 144, 156, 1);
+      .CopyRightContent {
+        justify-content: center;
+        margin: auto;
 
-        @include media($mmd) {
-          text-align: center;
-          font-size: 13px;
-          line-height: 24px;
+        .MuiTypography-root {
+          font-weight: 400;
+          color: rgba(134, 144, 156, 1);
+
+          @include media($mmd) {
+            text-align: center;
+            font-size: 13px;
+            line-height: 24px;
+          }
+        }
+      }
+      .MenuWrapper {
+        margin-left: auto;
+        @include media($ssm) {
+          text-align: left;
+          width: 100%;
+        }
+
+        .MenuTitle {
+          font-size: 16px;
+          line-height: 22px;
+          font-weight: 700;
+          color: $pumpkinOrange;
+          margin-bottom: 15px;
+          text-transform: uppercase;
+        }
+        &.Social {
+          .SocialMedia {
+            align-items: center;
+            gap: 20px;
+            @include media($ssm) {
+             justify-content: center;
+            }
+
+            .MuiIconButton-root {
+              color: $white;
+              border-radius: 50%;
+              width: 34px;
+              height: 34px;
+              background-color: rgba($white, 0.19);
+              @include transition;
+
+              &:hover {
+                border: 1px solid currentColor;
+              }
+            }
+          }
         }
       }
     }
