@@ -39,15 +39,15 @@ import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/blog";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
-export interface IserverData{
-    configDetails:any
-    configDetailsForRedux: any,
-    blogDetailsData: any,
-    blogList: any
+export interface IserverData {
+  configDetails: any
+  configDetailsForRedux: any,
+  blogDetailsData: any,
+  blogList: any
 }
-function BmkBlogDetails({serverData}:{serverData:IserverData}) {
+function BmkBlogDetails({ serverData }: { serverData: IserverData }) {
   const location = useLocation()
   const checkLoadingStatus = useAppSelector(state => state.blogPage.loading);
   // const dispatch = useAppDispatch()
@@ -73,7 +73,7 @@ function BmkBlogDetails({serverData}:{serverData:IserverData}) {
   // });
   useSetConfigAndFavicon(serverData)
   useEffect(() => {
-    if(!serverData?.blogDetailsData){
+    if (!serverData?.blogDetailsData) {
       navigate(`/404`)
     }
   }, [serverData?.blogDetailsData])
@@ -82,7 +82,7 @@ function BmkBlogDetails({serverData}:{serverData:IserverData}) {
     <MainLayout blackTheme>
       {checkLoadingStatus && <Loader open={checkLoadingStatus} />}
       <Seo
-        keywords={['Travel', 'Qmit', 'gold', 'metal',...keyWords]}
+        keywords={['Travel', 'Qmit', 'gold', 'metal', ...keyWords]}
         title={serverData?.blogDetailsData?.metaTitle}
         lang="en"
         description={serverData?.blogDetailsData?.metaDescription}
@@ -176,11 +176,11 @@ function BmkBlogDetails({serverData}:{serverData:IserverData}) {
                   {serverData?.configDetails?.BlogItem_RelatedPost_Title?.value}
                 </Typography>
                 <Typography
-                    variant="body1"
-                    sx={{ mt: 1.875, color: variable.greyRegent }}
-                  >
-                    {serverData?.configDetails?.BlogItem_RelatedPost_Subtitle?.value}
-                  </Typography>
+                  variant="body1"
+                  sx={{ mt: 1.875, color: variable.greyRegent }}
+                >
+                  {serverData?.configDetails?.BlogItem_RelatedPost_Subtitle?.value}
+                </Typography>
               </Box>
               <Box className="PostsWrapper">
                 {serverData?.blogList?.items?.slice(0, 2).map((item: any) => {
@@ -201,6 +201,7 @@ function BmkBlogDetails({serverData}:{serverData:IserverData}) {
 }
 BmkBlogDetails.getServerData = async (context: any) => {
   try {
+    const axiosInstance = axiosWithContext(context);
     const { params } = context;
     const productFriendlyName = params['blog-details-friendly-name'];
     console.log("before fatching ", Date.now())
@@ -219,7 +220,7 @@ BmkBlogDetails.getServerData = async (context: any) => {
 
     return {
       props: {
-        configDetails:configDetails?.reduce((acc: any, curr: any) => {
+        configDetails: configDetails?.reduce((acc: any, curr: any) => {
           acc[curr.key] = curr
           return acc
         }, {}),

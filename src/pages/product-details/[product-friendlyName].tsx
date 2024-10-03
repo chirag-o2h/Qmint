@@ -19,7 +19,7 @@ import useShowToaster from "@/hooks/useShowToaster"
 // import PageNotFound from "@/components/partials/productDetail/PageNotFound"
 const PageNotFound = lazy(() => import("@/components/partials/productDetail/PageNotFound"))
 import classNames from "classnames"
-import axiosInstance from "@/axiosfolder"
+import axiosInstance, { axiosWithContext } from "@/axiosfolder"
 const BullionmarkHeader = lazy(() => import("@/components/header/BullionmarkHeader"))
 const LazyHeader = lazy(() => import("@/components/header/index"))
 
@@ -152,8 +152,9 @@ export async function getServerData(context: {
 }) {
   try {
     const { params } = context;
+    const axiosInstance = axiosWithContext(context);
     const userAgentHeader = context.headers.get('user-agent');
-const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+    const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
     const isMobile = ua?.isMobile ? true : false;
     const productFriendlyName = params['product-friendlyName'];
     console.log("before fatching ", Date.now())
@@ -169,8 +170,8 @@ const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
     // console.log("🚀 ~ getServerData ~ productDetailsData:", productDetailsData)
     // ================================================================================
     const promises = [
-      wrapPromise(axiosInstance.get<Record<string, any>>(ENDPOINTS.getConfigStore)),
-      wrapPromise(axiosInstance.get<Record<string, any>>(ENDPOINTS.productDetails.replace('{{product-id}}', productFriendlyName))),
+      wrapPromise(axiosInstance.get(ENDPOINTS.getConfigStore)),
+      wrapPromise(axiosInstance.get(ENDPOINTS.productDetails.replace('{{product-id}}', productFriendlyName))),
     ];
 
     // Wait for all promises to settle

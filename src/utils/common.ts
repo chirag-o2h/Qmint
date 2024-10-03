@@ -60,7 +60,16 @@ export function localStorageGetItem(key: any) {
 }
 
 export function localStorageSetItem(key: any, value: any) {
-  isBrowser && localStorage?.setItem(key, typeof value !== 'string' ? JSON.stringify(value) : value)
+  if (isBrowser) {
+    value = (typeof value !== 'string') ? JSON.stringify(value) : value
+    localStorage?.setItem(key, value)
+    // Store in cookies manually
+    if (key == "isLoggedIn") {
+      const isLoggedInValue = typeof value === 'string' && value.startsWith('"') ? JSON.parse(value) : value;
+      console.log("🚀 ~ localStorageSetItem ~ document.cookie:", document.cookie,isLoggedInValue)
+      document.cookie = `isLoggedIn=${isLoggedInValue}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days expiry
+    }
+  }
 }
 export function sessionStorageGetItem(key: any) {
   if (isBrowser && sessionStorage) {
@@ -221,27 +230,27 @@ export const formatCategoryUrl = (pageName: any) => {
   const formattedPageName = pageName.startsWith('/') ? pageName : `/${pageName}`;
   return formattedPageName;
 };
-export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404","newpage"]
+export const pagesOnWhichNeedToCallTopCategoriesAPi = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404", "newpage"]
 export const isItNewsOrBlogPage = ['login', 'registration', 'password-recovery', 'blog', 'news', 'forgot-password', "topic", "confirmation", "activate-account", "contactus", "email-confirmation", "404"]
 export const joinWithPipe = (parts: any[]) => {
   return parts.filter(part => part != null && part !== '').join(' | ');
 };
-export function calculatePrice(product:any, qty:any) {
+export function calculatePrice(product: any, qty: any) {
   // Destructure the product object to get the necessary properties
-  if(product){
-  const { price, tierPriceList } = product;
+  if (product) {
+    const { price, tierPriceList } = product;
 
-  // If there is no tierPriceList or it's empty, return the base price
-  if (!tierPriceList || tierPriceList.length === 0) {
-    return price;
+    // If there is no tierPriceList or it's empty, return the base price
+    if (!tierPriceList || tierPriceList.length === 0) {
+      return price;
+    }
+
+    // Find the tier price that matches the given quantity
+    const tier = tierPriceList.find((tier: any) => qty >= tier.fromQty && qty <= tier.toQty);
+
+    // If a matching tier price is found, return the tier price, otherwise return the base price
+    return tier ? tier.price : price;
   }
-
-  // Find the tier price that matches the given quantity
-  const tier = tierPriceList.find((tier:any) => qty >= tier.fromQty && qty <= tier.toQty);
-
-  // If a matching tier price is found, return the tier price, otherwise return the base price
-  return tier ? tier.price : price;
-}
 }
 export enum ShippingMethod {
   LocalShipping = 'localShipping',
@@ -249,9 +258,9 @@ export enum ShippingMethod {
   SecureShipping = 'secureShipping',
 }
 export const ShippingMethodToNumber = {
-  VaultStorage : 1,
-  secureShipping : 2,
-  localShipping : 3,
+  VaultStorage: 1,
+  secureShipping: 2,
+  localShipping: 3,
 }
 export function getCommonShippingMethods(products: any): number[] {
   if (products.length === 0) {
@@ -263,7 +272,7 @@ export function getCommonShippingMethods(products: any): number[] {
 
   // Iterate through the rest of the products to find common shipping methods
   for (const product of products) {
-    commonMethods = commonMethods.filter((method:any) =>
+    commonMethods = commonMethods.filter((method: any) =>
       product.allowedShippingMethods.includes(method)
     );
 
@@ -276,15 +285,15 @@ export function getCommonShippingMethods(products: any): number[] {
   return commonMethods;
 }
 export const DEFAULT_VALUE_FOR_SHIPPING_METHOD = 5
-type PromiseResult<T> = 
+type PromiseResult<T> =
   | { status: 'fulfilled'; value: T }
   | { status: 'rejected'; reason: any };
 
 
 export const wrapPromise = <T>(promise: Promise<T>): Promise<PromiseResult<T>> => {
   return promise
-      .then(value => ({ status: 'fulfilled' as const, value }))
-      .catch(reason => ({ status: 'rejected' as const, reason }));
+    .then(value => ({ status: 'fulfilled' as const, value }))
+    .catch(reason => ({ status: 'rejected' as const, reason }));
 };
 export const getDeviceType = () => {
   const userAgent = navigator.userAgent.toLowerCase();

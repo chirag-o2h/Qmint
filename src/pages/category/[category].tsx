@@ -18,7 +18,7 @@ import { bodyForGetShoppingCartData, getlastPartOfPath } from "@/utils/common"
 import useDebounce from "@/hooks/useDebounce"
 import { navigate } from "gatsby"
 import classNames from "classnames"
-import axiosInstance from "@/axiosfolder"
+import axiosInstance, { axiosWithContext } from "@/axiosfolder"
 import { useLocation } from "@reach/router"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
@@ -248,8 +248,9 @@ function Category({ serverData, props }: Props) {
 export default Category
 export async function getServerData(context: { params: any, query: any, headers: any }) {
     try {
+        const axiosInstance = axiosWithContext(context);
         const userAgentHeader = context.headers.get('user-agent');
-const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+        const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
         const isMobile = ua?.isMobile ? true : false;
         const { params, query } = context;
         const { keyword } = query;

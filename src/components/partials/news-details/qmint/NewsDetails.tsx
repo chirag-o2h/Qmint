@@ -43,7 +43,7 @@ import WhatsappIcon from "@/assets/icons/WhatsappIcon";
 import Loader from "@/components/common/Loader";
 import Seo from "@/components/common/Seo";
 import { useLocation } from "@reach/router";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import { ENDPOINTS } from "@/utils/constants";
 import { bodyData } from "@/pages/news";
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
@@ -254,6 +254,7 @@ NewsDetails.getServerData = async (context: any) => {
     const { params } = context;
     const newsDetailsFriendlyName = params['news-details-friendly-name'];
     console.log("before fatching ", Date.now())
+    const axiosInstance = axiosWithContext(context);
     const [
       configDetailsResponse,
       newsDetailsDataResponse,

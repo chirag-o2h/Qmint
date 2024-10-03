@@ -23,7 +23,7 @@ import Seo from "@/components/common/Seo"
 const Banner = lazy(() => import("./Banner"))
 import useragent from 'express-useragent';
 const Header = lazy(() => import("../../../header/index"))
-import axiosInstance from "@/axiosfolder"
+import axiosInstance, { axiosWithContext } from "@/axiosfolder"
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry"
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer"
@@ -203,6 +203,7 @@ QmintShop.getServerData = async (context: any) => {
         };
 
         console.log("getServerData -- before fetching data", Date.now());
+        const axiosInstance = axiosWithContext(context);
         const [
             configDetailsResponse,
             productResponse,

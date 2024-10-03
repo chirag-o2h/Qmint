@@ -1,4 +1,4 @@
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import { ENDPOINTS } from "./constants";
 export interface IconfigDataFromServer {
   configDetails: any
@@ -9,6 +9,7 @@ export interface IconfigDataFromServer {
 import useragent from 'express-useragent';
 export async function getConfigData(context: any) {
   try {
+    const axiosInstance = axiosWithContext(context);
     const userAgentHeader = context.headers.get('user-agent');
     const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
     const isMobile = ua?.isMobile ? true : false;

@@ -21,7 +21,7 @@ const BmkFeaturedProductsSlider = lazy(() => import("./BmkFeaturedProductsSlider
 import BestCategorySlider from "./BestCategorySlider"
 // import BmkFeaturedProductsSlider from "./BmkFeaturedProductsSlider"
 import { ENDPOINTS } from "@/utils/constants";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import { getShoppingCartData } from "@/redux/reducers/shoppingCartReducer";
 import { bodyForGetShoppingCartData } from "@/utils/common";
 // import BestCategorySliderSkeleton from "./BestCategorySliderSkeleton";
@@ -145,21 +145,21 @@ const BullionmarkShop = (props: any) => {
           minHeight={900}
           skeletonMargin={-220}
         > */}
-          <BestCategorySlider
-            pageData={serverData?.bmkShopPageSections}
-            PaddingClass={
-              !serverData?.isMobile &&
-                serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
-                ? ""
-                : "TopBannerAbsent"
-            }
-            title={
-              serverData?.configDetails?.[
-                "ShopHomepage_Section_1_Featured_Categories_Title"
-              ]?.value
-            }
-            isMobile={serverData?.isMobile}
-          />
+        <BestCategorySlider
+          pageData={serverData?.bmkShopPageSections}
+          PaddingClass={
+            !serverData?.isMobile &&
+              serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
+              ? ""
+              : "TopBannerAbsent"
+          }
+          title={
+            serverData?.configDetails?.[
+              "ShopHomepage_Section_1_Featured_Categories_Title"
+            ]?.value
+          }
+          isMobile={serverData?.isMobile}
+        />
         {/* </RenderOnViewportEntry> */}
         <RenderOnViewportEntry
           rootMargin="200px"
@@ -267,7 +267,8 @@ BullionmarkShop.getServerData = async (context: any) => {
     console.log("getServerData -- starting", Date.now());
     // Parse the user-agent from the context
     const userAgentHeader = context.headers.get('user-agent');
-const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+    const ua = userAgentHeader ? useragent.parse(userAgentHeader) : null;
+    const axiosInstance = axiosWithContext(context);
     const isMobile = ua?.isMobile ? true : false;
     const dataforbody = {
       search: "",

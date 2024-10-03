@@ -32,7 +32,7 @@ import { BlogList } from "@/redux/reducers/blogReducer";
 import { ENDPOINTS } from "@/utils/constants";
 import useDebounce from "@/hooks/useDebounce";
 import { navigate } from "gatsby";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import BlogServices from "@/apis/services/blogAndNewsServices";
 import MainLayout from "@/components/common/MainLayout";
 import axios from "axios";
@@ -261,6 +261,8 @@ export default Blog;
 export async function getServerData(context: any) {
   try {
     console.log("before fatching ", Date.now())
+  const axiosInstance = axiosWithContext(context);
+
     const [
       configDetailsResponse,
       blogListResponse,

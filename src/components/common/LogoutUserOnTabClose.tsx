@@ -11,7 +11,7 @@ const LogoutUserOnTabClose = ({ children }: any) => {
     // Example: localStorage.removeItem('authToken');
     // Example: fetch('/api/logout', { method: 'POST' });
     // localStorageSetItem('userDetails', '')
-    // localStorageSetItem('isLoggedIn', JSON.stringify(false))
+    localStorageSetItem('isLoggedIn', JSON.stringify(false))
   };
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const LogoutUserOnTabClose = ({ children }: any) => {
 
     return () => {
       // localStorageSetItem('userDetails', '')
-      // localStorageSetItem('isLoggedIn', JSON.stringify(false))
+      localStorageSetItem('isLoggedIn', JSON.stringify(false))
       dispatch(LogOutUserAPI() as any);
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };

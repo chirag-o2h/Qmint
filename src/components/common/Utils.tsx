@@ -163,7 +163,8 @@ export const BullionmarkSectionHeading = React.memo(({ title, description }: Bul
     <Box className="BullionmarkSectionHeading">
       {title && <Typography variant="h2" component="h2" className="Title">{title}</Typography>}
       {description && <Typography className="Description" dangerouslySetInnerHTML={{
-                  __html: description}} >{}</Typography>}
+        __html: description
+      }} >{ }</Typography>}
     </Box>
   );
 });
@@ -189,12 +190,12 @@ export const PageTitle = React.memo(({ title, backToDashboard, maxWidth, redirec
     </Box>
   );
 });
-export const Breadcrumb = React.memo(({ arr,needToAddHome=true }: any) => {
+export const Breadcrumb = React.memo(({ arr, needToAddHome = true }: any) => {
   return (
     <Box className={classNames("Breadcrumb", { "BmkBreadcrumb": process.env.GATSBY_THEME_TYPE === "1" })}>
       <Container>
         <Breadcrumbs aria-label="breadcrumb" separator={<ChevronRight />}>
-          {needToAddHome && <Link color="inherit" variant="body2" href="/shop" 
+          {needToAddHome && <Link color="inherit" variant="body2" href="/shop"
           // onClick={() => { navigate('/shop', { replace: true }) }}
           >
             Home
@@ -240,7 +241,7 @@ export const ProductStockStatus = React.memo(
         {colorClass !== "red-circle" ? (
           <ContainedCheckIcon />
         ) : (
-          <ContainedCrossIcon sx={{fontSize:"14px"}} />
+          <ContainedCrossIcon sx={{ fontSize: "14px" }} />
         )}
         <Typography className="Message">
           {availability}
@@ -336,38 +337,34 @@ export function isActionRejected(str: string): boolean {
 
 //   return uniqueId;
 // }
+// Utility function to parse cookies (can be reused)
+export const parseCookies = (cookieString: string) => {
+  return cookieString.split('; ').reduce((acc: any, cookie: string) => {
+    const [key, value] = cookie.split('=');
+    acc[key] = value;
+    return acc;
+  }, {});
+};
+export const generateSessionId = () => {
+  return "xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+
 export function generateGUID() {
-  if (typeof window === 'undefined') {
-    // Running on the server side, generate a new GUID without using localStorage
-    return "xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-      const r = (Math.random() * 16) | 0;
-      const v = c === "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
-  } else {
-    // Running on the client side, use localStorage
-    let uniqueId = localStorage.getItem("uniqueSessionId");
-
-    if (!uniqueId) {
-      uniqueId = "xxxxxxxx-xxxx-yxxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-        const r = (Math.random() * 16) | 0;
-        const v = c === "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      });
-
-      localStorage.setItem("uniqueSessionId", uniqueId);
-    }
-
-    return uniqueId;
-  }
+  let uniqueSessionId = generateSessionId()
+  return uniqueSessionId;
 }
 
 // Helper function to check if an image URL is valid
-export const checkImageUrl = (url:any) => {
+export const checkImageUrl = (url: any) => {
   return new Promise((resolve) => {
-      const img = new Image();
-      img.src = url;
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
+    const img = new Image();
+    img.src = url;
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
   });
 };

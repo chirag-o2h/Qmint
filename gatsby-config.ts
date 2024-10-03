@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   flags: {
     DEV_SSR: true
@@ -5,7 +9,7 @@ module.exports = {
   siteMetadata: {
     title: `Discover Treasure`,
     headline: `Queensland Mint`,
-    siteUrl: `https://bullionmark.netlify.app`,
+    siteUrl: process.env.GATSBY_STORE_URL,
     description: `Discover treasure at the Queensland Mint. Biggest range of Australian gold and silver coins. Public welcome. Buy & sell QMINT Direct and save. Visit us Instore, buy online or call 07 3184 8300.`,
     author: `@QMint`,
   },
@@ -21,7 +25,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         trackingIds: [
-          "G-J4PT6SWF19", // Google Analytics / GA
+          process.env.GATSBY_GA_TRACKING_ID
         ],
         // This object is used for configuration specific to this plugin
         pluginConfig: {
@@ -35,35 +39,42 @@ module.exports = {
 
     `gatsby-plugin-sass`,
     'gatsby-plugin-react-helmet',
-    // {
-    //   resolve: `gatsby-plugin-sitemap`,
-    //   options: {
-    //     output: `/sitemap.xml`,
-    //     resolveSiteUrl: () => `https://bullionmark.netlify.app`,
-    //     // excludes: [`/path-to-exclude`],
-    //     query: `
-    //       {
-    //         allSitePage {
-    //           nodes {
-    //             path
-    //           }
-    //         }
-    //       }
-    //     `,
-    //     serialize: ({ path }: any) => {
-    //       return {
-    //         url: path,
-    //         changefreq: `daily`,
-    //         priority: 0.7,
-    //       };
-    //     },
-    //     additionalSitemaps: [
-    //       {
-    //         url: `https://bullionmark.netlify.app/custom-sitemap.xml`,
-    //       },
-    //     ],
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap`,
+        query: `
+          {
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        resolveSiteUrl: () => process.env.GATSBY_STORE_URL || 'https://your-default-url.com',
+        serialize: ({ path }: any) => {
+          return {
+            url: new URL(path, process.env.GATSBY_STORE_URL || 'https://your-default-url.com').toString(),
+            changefreq: 'daily',
+            priority: 0.7,
+          };
+        },
+        additionalSitemaps: [
+          {
+            url: `${process.env.GATSBY_STORE_URL}/custom-sitemap.xml`,
+          },
+        ],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        policy: [
+          { userAgent: '*', disallow: [`${process.env.GATSBY_STORE_URL}/category`] }, // Add paths to disallow here
+        ],
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {

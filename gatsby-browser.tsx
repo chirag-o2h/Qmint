@@ -8,6 +8,7 @@ import axiosInstance from "@/axiosfolder";
 import { ENDPOINTS } from "@/utils/constants";
 import { getDeviceType } from "@/utils/common";
 import SessionManager from "@/components/common/SessionManager";
+import { generateGUID } from "@/components/common/Utils";
 
 let inactivityTimeout: string | number | NodeJS.Timeout | undefined;
 let isActive = false; // Track the user's active/inactive state
@@ -93,6 +94,16 @@ export const onClientEntry = () => {
   setupEventListeners();
   resetInactivityTimer(); // Start the inactivity timer
   window.addEventListener('beforeunload', handleBeforeUnload);
+  const { isLoggedIn } = store.getState().homePage;
+
+  if (!document.cookie.includes('isLoggedIn')) {
+    document.cookie = `isLoggedIn=${isLoggedIn}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days expiry
+  }
+  // Ensure session is initialized on the client if not already
+  if (!document.cookie.includes('uniqueSessionId')) {
+    const uniqueSessionId = generateGUID();
+    document.cookie = `uniqueSessionId=${uniqueSessionId}; path=/; max-age=${7 * 24 * 60 * 60}`;
+  }
 };
 
 // Gatsby onRouteUpdate to reset activity timer when navigating pages
@@ -110,12 +121,11 @@ export const wrapRootElement = ({ element }: any) => (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SessionManager>
-      {element}
+        {element}
       </SessionManager>
     </ThemeProvider>
   </Provider>
 );
-
 
 // import { store, persistor } from '@/redux/store';
 

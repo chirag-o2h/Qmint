@@ -15,11 +15,11 @@ import Seo from "@/components/common/Seo"
 import { PageTitle } from "@/components/common/Utils"
 import SitemapList from "@/components/partials/sitemap/SitemapList"
 import Services from "@/components/partials/sitemap/Services"
-import axiosInstance from "@/axiosfolder"
+import axiosInstance, { axiosWithContext } from "@/axiosfolder"
 import { getConfigData, IconfigDataFromServer } from "@/utils/getConfigData"
 import { ENDPOINTS } from "@/utils/constants"
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
-const bodyForSiteMap = {
+export const bodyForSiteMap = {
   "search": "",
   "pageNo": 0,
   "pageSize": 50,
@@ -66,6 +66,7 @@ function Sitemap({ serverData }: {
 export const getServerData = async (context: any) => {
   try {
     console.log("Fetching config data", Date.now());
+    const axiosInstance = axiosWithContext(context);
 
     const [
       configDetailsResponse,

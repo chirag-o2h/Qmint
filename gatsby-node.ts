@@ -12,7 +12,15 @@ exports.onPreBuild = async ({ reporter }: any) => {
 // exports.onPreBootstrap = async () => {
 //     await copyLibFiles(path.join(__dirname, "public/static", "~partytown"));
 // };
-
+exports.onPostBuild = async () => {
+    try {
+      // Run the external generate-xml-file.js script
+      execSync('node generate-xml-file.js', { stdio: 'inherit' });
+      console.log('Custom sitemap generated via generate-xml-file.js!');
+    } catch (error) {
+      console.log('Failed to generate XML file', error);
+    }
+  };
 exports.onCreateWebpackConfig = ({ actions }: any) => {
     actions.setWebpackConfig({
         resolve: {
@@ -39,6 +47,12 @@ exports.onCreateWebpackConfig = ({ stage, actions }: any) => {
         } catch (error) {
             console.log('Failed to generate SCSS variables', error);
         }
+        // // Run generate-xml-file.js
+        // try {
+        //     execSync('node generate-xml-file.js', { stdio: 'inherit' });
+        // } catch (error) {
+        //     console.log('Failed to generate XML file', error);
+        // }
     }
     // if (stage === "build-javascript" || stage === "develop") {
     //     webpackConfig.optimization = {

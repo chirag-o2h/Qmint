@@ -7,7 +7,7 @@ import { ENDPOINTS } from "@/utils/constants";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import Loader from "@/components/common/Loader";
 import MainLayout from "@/components/common/MainLayout";
-import axiosInstance from "@/axiosfolder";
+import axiosInstance, { axiosWithContext } from "@/axiosfolder";
 import { time } from "console";
 import { setConfigDetails } from "@/redux/reducers/homepageReducer";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
@@ -131,6 +131,7 @@ export default Topics;
 export async function getServerData(context: { params: any; }) {
   try {
     console.log("before fatching ", Date.now())
+    const axiosInstance = axiosWithContext(context);
     const { params } = context;
     const topicName = params["topic-name"];
     const [
