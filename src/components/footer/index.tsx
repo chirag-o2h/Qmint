@@ -80,25 +80,6 @@ function index() {
               </Box>
             ))}
           </Stack>
-          <Stack className="NewsletterPart">
-            <Typography className="MenuTitle" variant="subtitle2" component="p">Social Media</Typography>
-            {/* <Box className="Content">
-              <Typography className="InfoMessage" variant="overline">Stay up to date with our latest news.</Typography>
-              <Stack className="FieldWrapper">
-                props i have removed
-                <TextField type="email" className="EmailField" placeholder="Your Email Address" value={email} onChange={handleEmailChange} />
-                <Button name='subscribe' aria-label='subscribe' className="SubscribeButton" variant="contained" onClick={subscribe}>Subscribe</Button>
-              </Stack>
-              <Typography className="ConsentMessage" variant="body2">Your email is safe with us, we don't spam</Typography>
-            </Box> */}
-            <Stack className="SocialWrapper">
-              <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? location?.href}><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? location?.href}><YoutubeIcon /></IconButton>
-              <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? location?.href}><TwitterIcon fontSize="small" /></IconButton>
-              <IconButton title="Follow us on Instagram" target={"_blank"} href={configDetailsState?.SocialLinks_Instagram?.value ?? location?.href}><InstagramIcon1 fontSize="small" /></IconButton>
-              {/* <IconButton title="Follow us on Feed" target={"_blank"} href={configDetailsState?.feedIcon?.value ?? location?.href}><FeedIcon /></IconButton> */}
-            </Stack>
-          </Stack>
         </Stack>
       </Container>
       <Suspense fallback={
