@@ -201,11 +201,11 @@
         gap: 9px;
         margin-top: 34px;
 
-        .MuiButton-outlined {
-          @include media($xs) {
-            @include padding-vertical(11, 11)
-          }
-        }
+        // .MuiButton-outlined {
+        //   @include media($xs) {
+        //     @include padding-vertical(11, 11);
+        //   }
+        // }
       }
     }
   }

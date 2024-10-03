@@ -199,109 +199,6 @@
         }
       }
     }
-
-    .NewsletterPart {
-      flex-direction: column;
-      // flex-grow: 1;
-      flex-shrink: 0;
-      max-width: 322px;
-      color: $white;
-
-      @include media($md) {
-        align-items: center;
-        max-width: initial;
-        padding-top: 30px;
-        border-top: 1px solid rgba($white, 0.1);
-      }
-
-      @include media-min($md) {
-        align-self: flex-start;
-      }
-
-      @include media-min($xl) {
-        padding-right: 7px;
-      }
-
-      .MenuTitle {
-        margin-bottom: 12px;
-
-        @include media($md) {
-          margin-bottom: 13px;
-        }
-      }
-
-      .Content {
-        .FieldWrapper {
-          margin-top: 7px;
-          border-radius: 22px;
-          border: 1px solid rgba($white, 0.2);
-
-          &:hover {
-            border-color: $white;
-          }
-
-          .EmailField {
-            flex-grow: 1;
-            justify-content: center;
-
-            .MuiOutlinedInput-root {
-              font-size: pxToRem(14);
-              line-height: pxToRem(20);
-              color: $white;
-
-              .MuiOutlinedInput-input {
-                color: inherit;
-                height: initial;
-                @include padding-vertical(12);
-                padding-left: 21px;
-
-                &::placeholder {
-                  opacity: 1;
-                }
-              }
-
-              .MuiOutlinedInput-notchedOutline {
-                border: none;
-              }
-            }
-          }
-
-          .SubscribeButton {
-            font-size: pxToRem(14);
-            line-height: pxToRem(20);
-            font-weight: 600;
-            border-radius: inherit;
-            padding: 10px 26px;
-          }
-        }
-
-        .ConsentMessage {
-          margin-top: 14px;
-          color: rgba($white, 0.7);
-        }
-      }
-
-      .SocialWrapper {
-        align-items: center;
-        gap: 20px;
-
-        // margin-top: 19px;
-        // @include media($md) {
-        //   margin-top: 16px;
-        // }
-        .MuiIconButton-root {
-          color: $white;
-          border-radius: 50%;
-          width: 34px;
-          height: 34px;
-          border: 1px solid currentColor;
-
-          &:hover {
-            background-color: rgba($black, 0.3);
-          }
-        }
-      }
-    }
   }
 
   .CopyRightWrapper {
@@ -309,29 +206,144 @@
       border-color: rgba($white, 0.1);
     }
 
-    .CopyRightContent {
-      color: $greyRegent;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
+    .BottomWrapper{
       @include padding-vertical(32);
-
-      .CopyRightText {
-        @include media($sm) {
-          text-align: center;
-        }
+      align-items: center;
+      justify-content: space-between;
+      gap:30px;
+      @include media($md) {
+        flex-direction: column;
       }
 
-      .PolicyWrapper {
+      .CopyRightContent {
+        color: $greyRegent;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
         gap: 16px;
-
-        @include media-min($sm) {
-          display: none;
+        margin: auto;
+  
+        .CopyRightText {
+          @include media($sm) {
+            text-align: center;
+          }
+        }
+  
+        .PolicyWrapper {
+          justify-content: center;
+          gap: 16px;
+  
+          @include media-min($sm) {
+            display: none;
+          }
+        }
+      }
+      .NewsletterPart {
+        flex-direction: column;
+        // flex-grow: 1;
+        flex-shrink: 0;
+        max-width: 322px;
+        color: $white;
+        margin-left: auto;
+  
+        @include media($md) {
+          align-items: center;
+          max-width: initial;
+          padding-top: 30px;
+          border-top: 1px solid rgba($white, 0.1);
+          width: 100%;
+        }
+  
+        @include media-min($md) {
+          align-self: flex-start;
+        }
+  
+        // @include media-min($xl) {
+        //   padding-right: 7px;
+        // }
+  
+        .MenuTitle {
+          margin-bottom: 12px;
+  
+          @include media($md) {
+            margin-bottom: 13px;
+          }
+        }
+  
+        .Content {
+          .FieldWrapper {
+            margin-top: 7px;
+            border-radius: 22px;
+            border: 1px solid rgba($white, 0.2);
+  
+            &:hover {
+              border-color: $white;
+            }
+  
+            .EmailField {
+              flex-grow: 1;
+              justify-content: center;
+  
+              .MuiOutlinedInput-root {
+                font-size: pxToRem(14);
+                line-height: pxToRem(20);
+                color: $white;
+  
+                .MuiOutlinedInput-input {
+                  color: inherit;
+                  height: initial;
+                  @include padding-vertical(12);
+                  padding-left: 21px;
+  
+                  &::placeholder {
+                    opacity: 1;
+                  }
+                }
+  
+                .MuiOutlinedInput-notchedOutline {
+                  border: none;
+                }
+              }
+            }
+  
+            .SubscribeButton {
+              font-size: pxToRem(14);
+              line-height: pxToRem(20);
+              font-weight: 600;
+              border-radius: inherit;
+              padding: 10px 26px;
+            }
+          }
+  
+          .ConsentMessage {
+            margin-top: 14px;
+            color: rgba($white, 0.7);
+          }
+        }
+  
+        .SocialWrapper {
+          align-items: center;
+          gap: 20px;
+  
+          // margin-top: 19px;
+          // @include media($md) {
+          //   margin-top: 16px;
+          // }
+          .MuiIconButton-root {
+            color: $white;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            border: 1px solid currentColor;
+  
+            &:hover {
+              background-color: rgba($black, 0.3);
+            }
+          }
         }
       }
     }
+    
   }
 
   &.FrontFooter {
@@ -773,18 +785,66 @@
       border-color: rgba(255, 255, 255, 0.1);
     }
 
-    .CopyRightContent {
+    .BottomWrapper{
       padding: 12px 0 19px;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
+      gap:30px;
+      @include media($md) {
+        flex-direction: column;
+      }
 
-      .MuiTypography-root {
-        font-weight: 400;
-        color: rgba(134, 144, 156, 1);
+      .CopyRightContent {
+        justify-content: center;
+        margin: auto;
 
-        @include media($mmd) {
-          text-align: center;
-          font-size: 13px;
-          line-height: 24px;
+        .MuiTypography-root {
+          font-weight: 400;
+          color: rgba(134, 144, 156, 1);
+
+          @include media($mmd) {
+            text-align: center;
+            font-size: 13px;
+            line-height: 24px;
+          }
+        }
+      }
+      .MenuWrapper {
+        margin-left: auto;
+        @include media($ssm) {
+          text-align: left;
+          width: 100%;
+        }
+
+        .MenuTitle {
+          font-size: 16px;
+          line-height: 22px;
+          font-weight: 700;
+          color: $pumpkinOrange;
+          margin-bottom: 15px;
+          text-transform: uppercase;
+        }
+        &.Social {
+          .SocialMedia {
+            align-items: center;
+            gap: 20px;
+            @include media($ssm) {
+             justify-content: center;
+            }
+
+            .MuiIconButton-root {
+              color: $white;
+              border-radius: 50%;
+              width: 34px;
+              height: 34px;
+              background-color: rgba($white, 0.19);
+              @include transition;
+
+              &:hover {
+                border: 1px solid currentColor;
+              }
+            }
+          }
         }
       }
     }

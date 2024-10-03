@@ -84,7 +84,7 @@ function BullionmarkFooter() {
               </Box>
             );
           })}
-          <Box className="MenuWrapper Social">
+          {/* <Box className="MenuWrapper Social">
             <Typography className="MenuTitle" variant="subtitle2" component="p">
               Social Media
             </Typography>
@@ -134,7 +134,7 @@ function BullionmarkFooter() {
                 <TwitterIcon fontSize="small" />
               </IconButton>
             </Stack>
-          </Box>
+          </Box> */}
         </Stack>
       </Container>
       <BullionmarkCopyRight />
