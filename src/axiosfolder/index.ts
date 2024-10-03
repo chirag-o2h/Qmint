@@ -76,7 +76,9 @@ axiosInstance.interceptors.request.use(
     // Add session details to request headers
     config.headers["LogInUser"] = isLoggedIn ? "true" : "false";
     config.headers["SessionId"] = uniqueSessionId;
-
+    if(userDetails?.token){
+      config.headers.Authorization = `Bearer ${userDetails?.token}`;
+    }
     return config;
   },
   (error: AxiosError) => {
