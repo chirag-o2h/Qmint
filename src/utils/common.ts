@@ -1,4 +1,5 @@
 import { IPopUpDetails } from "@/apis/services/ConfigServices";
+import { generateGUID } from "@/components/common/Utils";
 import { navigate } from "gatsby";
 
 export const stockUpdate: any = {
@@ -66,8 +67,12 @@ export function localStorageSetItem(key: any, value: any) {
     // Store in cookies manually
     if (key == "isLoggedIn") {
       const isLoggedInValue = typeof value === 'string' && value.startsWith('"') ? JSON.parse(value) : value;
-      console.log("🚀 ~ localStorageSetItem ~ document.cookie:", document.cookie,isLoggedInValue)
       document.cookie = `isLoggedIn=${isLoggedInValue}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days expiry
+    }
+    if (key == "userDetails") {
+      const userDetails = typeof value === 'string' && value.startsWith('"') ? JSON.parse(value) : value;
+      const uniqueSessionId = userDetails?.customerGuid ?? generateGUID()
+      document.cookie = `uniqueSessionId=${uniqueSessionId}; path=/; max-age=${7 * 24 * 60 * 60}`;
     }
   }
 }

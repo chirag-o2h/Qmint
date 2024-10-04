@@ -94,14 +94,14 @@ export const onClientEntry = () => {
   setupEventListeners();
   resetInactivityTimer(); // Start the inactivity timer
   window.addEventListener('beforeunload', handleBeforeUnload);
-  const { isLoggedIn } = store.getState().homePage;
+  const { isLoggedIn, userDetails } = store.getState().homePage;
 
   if (!document.cookie.includes('isLoggedIn')) {
     document.cookie = `isLoggedIn=${isLoggedIn}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days expiry
   }
   // Ensure session is initialized on the client if not already
   if (!document.cookie.includes('uniqueSessionId')) {
-    const uniqueSessionId = generateGUID();
+    const uniqueSessionId = userDetails?.customerGuid ?? generateGUID();
     document.cookie = `uniqueSessionId=${uniqueSessionId}; path=/; max-age=${7 * 24 * 60 * 60}`;
   }
 };

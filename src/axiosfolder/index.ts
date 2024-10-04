@@ -43,40 +43,33 @@ axiosInstance.interceptors.request.use(
     let cookieString: string = "";
     let cookies: any = {};
 
-    // Check if request is server-side or client-side
     if (config.context) {
-      // Server-side: Retrieve cookies from the request headers
       cookieString = config.context?.headers?.get('cookie') || '';
     } else if (typeof window !== 'undefined') {
-      // Client-side: Retrieve cookies from document.cookie
       cookieString = document.cookie || '';
     }
 
-    // Parse the cookie string into an object
     cookies = parseCookies(cookieString);
-    console.log("🚀 ~ cookies:", cookies);
-    // Determine login state based on cookies
-    isLoggedIn = cookies.isLoggedIn === 'true'; // Adjust based on how 'isLoggedIn' is stored
-    console.log("🚀 ~ isLoggedIn:", isLoggedIn)
+    isLoggedIn = cookies.isLoggedIn === 'true';
 
     if (isLoggedInFromStore) {
       isLoggedIn = isLoggedInFromStore
     }
 
-    // Retrieve existing sessionId from cookies
-    uniqueSessionId = cookies.uniqueSessionId; // No need to generate a new ID here
+    uniqueSessionId = userDetails?.customerGuid ?? cookies.uniqueSessionId; // No need to generate a new ID here
 
-    // If no sessionId exists, handle this on the client-side (set cookie)
-    console.log("🚀 ~ sessionId: generated", uniqueSessionId)
-    if (typeof window !== 'undefined' && !uniqueSessionId) {
-      uniqueSessionId = generateGUID(); // Generate only on the client-side if it doesn't exist
-      document.cookie = `uniqueSessionId=${uniqueSessionId}; path=/; max-age=${7 * 24 * 60 * 60}`; // Set the cookie for 7 days
+    if (!uniqueSessionId || uniqueSessionId.includes('undefined')) {
+      uniqueSessionId = userDetails?.customerGuid && !userDetails?.customerGuid?.includes('undefined') ? userDetails?.customerGuid : generateGUID(); // Generate only on the client-side if it doesn't exist
+      if (typeof window !== 'undefined') {
+        document.cookie = `uniqueSessionId=${uniqueSessionId}; path=/; max-age=${7 * 24 * 60 * 60}`; // Set the cookie for 7 days
+      } else if (config?.context?.res?.setHeader) {
+        config?.context?.res?.setHeader?.('Set-Cookie', `uniqueSessionId=${uniqueSessionId}; Path=/; Max-Age=${7 * 24 * 60 * 60}`);
+      }
     }
 
-    // Add session details to request headers
     config.headers["LogInUser"] = isLoggedIn ? "true" : "false";
     config.headers["SessionId"] = uniqueSessionId;
-    if(userDetails?.token){
+    if (userDetails?.token) {
       config.headers.Authorization = `Bearer ${userDetails?.token}`;
     }
     return config;

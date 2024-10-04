@@ -26,9 +26,10 @@ import RenderFields from "@/components/common/RenderFields"
 import AgentContent from "./AgentContent"
 import classNames from "classnames"
 import BasicDatePicker from "../my-vault/BasicDatePicker"
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import { IPrivateHoldingAddInputs } from "@/types/myVault"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { formatDateToDDMMYYYY } from "@/components/common/Utils"
 
 function Step1() {
   const dispatch = useAppDispatch()
@@ -40,6 +41,7 @@ function Step1() {
   const [isBillingAddress, setIsBillingAddress] = useState<boolean>(false)
   const [openBillingAddreddOptions, setOpenBillingAddreddOptions] = useState<boolean>(false)
   const [isBillingAndShipingAddressSame, setisBillingAndShipingAddressSame] = useState<boolean>(false)
+  const [isGift, setIsGift] = useState<boolean>(false)
   const [selectAccount, setSelectAccount] = useState<any>(checkoutPageData?.customers?.[0]!)
   const [openUpdateAddress, toggleUpdateAddress] = useToggle(false)
   const [openAddAddress, toggleAddAddress] = useToggle(false)
@@ -55,8 +57,8 @@ function Step1() {
     getValues,
     setValue,
     formState: { errors },
-} = useForm<IPrivateHoldingAddInputs>({
-})
+  } = useForm<IPrivateHoldingAddInputs>({
+  })
   useEffect(() => {
     if (checkoutPageData?.customers?.[0]) {
       setSelectAccount(checkoutPageData?.customers?.[0]!)
@@ -132,6 +134,46 @@ function Step1() {
       dispatch(updateFinalDataForTheCheckout({ shippingAddress: addressData }))
     }
   }, [openBillingAddreddOptions, openShipingAddreddOptions])
+
+  const maxDate = useMemo(() => {
+    return checkoutPageData?.shoppingCartItems.reduce((max, item) => {
+      const currentDate = new Date(item.promisedShipDate) // Convert the date string to a Date object
+      return currentDate > max ? currentDate : max;
+    }, new Date(0));
+  }, [checkoutPageData]) // Start with an initial very old date
+
+  console.log("🚀 ~ maxDate ~ ageData?.shoppingCartItems:", checkoutPageData?.shoppingCartItems, "maxDate", maxDate)
+
+  const userSelectedDate = useWatch({ control, name: 'Date' });
+  console.log("🚀 ~ Step1 ~ userSelectedDate:", userSelectedDate)
+
+  const [giftCardError, setGiftCardError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const DateTime = userSelectedDate ? formatDateToDDMMYYYY(new Date(userSelectedDate)) : null
+    dispatch(updateFinalDataForTheCheckout({ isGift, giftDateError: giftCardError, DateTime }))
+  }, [isGift, userSelectedDate, giftCardError])
+
+  useEffect(() => {
+    if (isGift) {
+      if (!userSelectedDate) {
+        setGiftCardError(`Please select date.`)
+        return
+      }
+
+      const selectedDate = new Date(userSelectedDate);
+      if (maxDate && (selectedDate < maxDate)) {
+        console.error('Error: The selected date is earlier than the maximum date.');
+        setGiftCardError(`The selected date cannot be earlier than the ${formatDateToDDMMYYYY(maxDate)} date in the shopping cart.`)
+      } else {
+        setGiftCardError(null)
+        console.log('The selected date is valid.');
+      }
+    } else {
+      setGiftCardError(null)
+    }
+  }, [userSelectedDate, isGift])
+
 
   return (
     <StepWrapper title="Step 1" className="Step1">
@@ -218,16 +260,21 @@ function Step1() {
         label="My Billing and shipping addresses are same"
       />}
       <Box className="FieldWrapper">
-        <Typography className="Label" variant="subtitle1">Shipping address</Typography>
         <Box className="GiftWrapper">
           <FormControlLabel
             name="GiftCard"
             className=""
-            control={<Checkbox/>}
+            control={<Checkbox checked={isGift} onChange={() => {
+              setIsGift((prev) => !prev)
+            }} />}
             label="This order is a Gift"
           />
-          <BasicDatePicker name="Date" label="" setValue={setValue} existingDate={null} error={errors.Date} clearErrors={clearErrors} />
+          {isGift && <BasicDatePicker name="Date" label="" setValue={setValue} existingDate={null} error={errors.Date} clearErrors={clearErrors} />}
+          {isGift && giftCardError ? <Typography style={{color:"red"}}>
+            {giftCardError}
+          </Typography> : null}
         </Box>
+        <Typography className="Label" variant="subtitle1">Shipping address</Typography>
         {shippingAddress ? <Stack className="Field" sx={{ borderColor: "primary.main" }}>
           <Box className="Value">
             <Typography className="Name" variant="titleLarge">{shippingAddress?.firstName} {shippingAddress?.lastName}</Typography>
