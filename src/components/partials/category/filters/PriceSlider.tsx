@@ -41,7 +41,7 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
             setIsPriceChanged(true);
         }
         if (isMobile) {
-            setMobilePriceFilters(value)
+            setMobilePriceFilters && setMobilePriceFilters(value)
         }
         else {
             dispatch(setPageSelectedPrice({
@@ -72,10 +72,10 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
     //         />
     //     )
     // }, [value, minPrice, maxPrice, handleChange, valuetext])
-    const PriceDisplay = ({ isMobile, mobilePriceFilters, minPrice, maxPrice, pagesSelectedFilters, location }:any) => {
+    const PriceDisplay = ({ isMobile, mobilePriceFilters, minPrice, maxPrice, pagesSelectedFilters, location }: any) => {
         // Helper function to round the prices
         const roundPrice = (price: any) => roundOfThePrice(price);
-    
+
         // Determine the current price range based on the device type
         let priceRange;
         if (isMobile) {
@@ -87,7 +87,7 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
             const selectedPrices = pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || [minPrice, maxPrice];
             priceRange = [roundPrice(selectedPrices[0]), roundPrice(selectedPrices[1])];
         }
-    
+
         return (
             <Typography variant="subtitle1">{`$${priceRange[0]} - $${priceRange[1]}`}</Typography>
         );
@@ -95,7 +95,7 @@ const PriceSlider = ({ minPrice, maxPrice, setIsPriceChanged, pagesSelectedFilte
     return (
         <Box className="PriceRangeWrapper Divider">
             <Typography className="PriceRange">Price Range</Typography>
-            <PriceDisplay isMobile={isMobile} mobilePriceFilters={mobilePriceFilters} minPrice={minPrice} maxPrice={maxPrice} pagesSelectedFilters={pagesSelectedFilters} location={location}/>
+            <PriceDisplay isMobile={isMobile} mobilePriceFilters={mobilePriceFilters} minPrice={minPrice} maxPrice={maxPrice} pagesSelectedFilters={pagesSelectedFilters} location={location} />
             {/* <Typography variant="subtitle1">{`$${(
                 isMobile
                     ? (mobilePriceFilters?.map((price)=>roundOfThePrice(price)) || [roundOfThePrice(minPrice), roundOfThePrice(maxPrice)])

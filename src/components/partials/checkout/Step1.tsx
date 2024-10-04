@@ -260,7 +260,7 @@ function Step1() {
         label="My Billing and shipping addresses are same"
       />}
       <Box className="FieldWrapper">
-        <Box className="GiftWrapper">
+        <Box className="GiftWrapper" style={{ marginBottom: '20px' }}>
           <FormControlLabel
             name="GiftCard"
             className=""
@@ -270,7 +270,7 @@ function Step1() {
             label="This order is a Gift"
           />
           {isGift && <BasicDatePicker name="Date" label="" setValue={setValue} existingDate={null} error={errors.Date} clearErrors={clearErrors} />}
-          {isGift && giftCardError ? <Typography style={{color:"red"}}>
+          {isGift && giftCardError ? <Typography style={{ color: "red", marginTop: '10px', marginBottom: '20px' }}>
             {giftCardError}
           </Typography> : null}
         </Box>
