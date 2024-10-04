@@ -17,6 +17,8 @@ const FrontHeader = lazy(() => import("@/components/header/FrontHeader"));
 // const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
 const BullionmarkFrontFooter = lazy(() => import('@/components/footer/BullionmarkFrontFooter'));
 const LazyFrontFooter = lazy(() => import('@/components/footer/FrontFooter'));
+const LazyFooter = lazy(() => import('@/components/footer/index'));
+
 
 interface ServerData {
   configDetails: any;
@@ -118,7 +120,8 @@ function Topics({ serverData }: { serverData: ServerData }) {
             minHeight={800}
           >
             {/* <LazyBullionmarkFooter /> */}
-            {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
+            {/* {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />} */}
+            {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFooter />}
           </RenderOnViewportEntry>
         </>
       )}

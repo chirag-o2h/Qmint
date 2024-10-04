@@ -13,6 +13,7 @@ import RenderOnViewportEntry from './RenderOnViewportEntry';
 const BullionmarkFrontFooter = lazy(() => import('../footer/BullionmarkFrontFooter'));
 const LazyFrontHeader = lazy(() => import("../header/FrontHeader"));
 const LazyFrontFooter = lazy(() => import('../footer/FrontFooter'));
+const LazyFooter = lazy(() => import('../footer/index'));
 
 interface MainLayout {
     children: any
@@ -84,7 +85,8 @@ const MainLayout = (props: MainLayout) => {
                 minHeight={800}
             >
 
-                {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
+                {/* {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />} */}
+                {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFooter />}
             </RenderOnViewportEntry>
         </Stack>
     )
