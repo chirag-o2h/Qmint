@@ -573,7 +573,7 @@
     }
 
     @include media($md) {
-      gap: 70px 130px;
+      gap: 70px 110px;
     }
 
     @include media($ssm) {
@@ -603,6 +603,10 @@
         text-align: left;
         align-items: flex-start;
       }
+      @include media($xxs) {
+        align-items: center;
+      }
+
 
       img {
         max-width: 327px;
@@ -613,11 +617,11 @@
         }
 
         @include media($mmd) {
-          max-width: 200px;
+          max-width: 230px;
         }
 
         @include media($sm) {
-          max-width: 150px;
+          max-width: 200px;
         }
       }
 
@@ -647,6 +651,9 @@
       @include media($ssm) {
         text-align: left;
         width: 100%;
+      }
+      @include media($xxs) {
+        text-align: center;
       }
 
       .MenuTitle {
@@ -807,6 +814,13 @@
       .CopyRightContent {
         justify-content: center;
         margin: auto;
+        padding-left: 130px;
+
+        @include media($md) {
+          flex-direction: column;
+          padding-left: 0;
+        }
+
 
         .MuiTypography-root {
           font-weight: 400;
@@ -820,7 +834,6 @@
         }
       }
       .MenuWrapper {
-        margin-left: auto;
         @include media($ssm) {
           text-align: left;
           width: 100%;
@@ -867,16 +880,16 @@
           flex-wrap: wrap;
         }
         @include media-between($ssm, $mmd) {
-          justify-content: space-between;
+          justify-content: center;
         }
         .LogoPart {
           gap: 30px;
           @include media($lg) {
-            flex: 1;
+            flex: auto;
           }
           @include media-between($ssm, $mmd) {
             text-align: left;
-            align-items: flex-start;
+            align-items: center;
           }
           .ContactUs {
             max-width: 280px;
@@ -893,6 +906,11 @@
               }
               @include media($xxs) {
                 grid-template-columns: 1fr;
+                li{
+                  .MuiListItemButton-root{
+                    justify-content: center;
+                  }
+                }
               }
             }
           }
