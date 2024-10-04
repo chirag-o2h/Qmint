@@ -39,6 +39,8 @@ export interface PlaceOrderBody {
   Device: string;
   Browser: string;
   IsInstantBuy: boolean;
+  IsGift: boolean;
+  DateTime: Date | null;
 }
 
 interface OrderItem {
@@ -159,7 +161,9 @@ function OrderSummary() {
       "Location": 'lat' + locationInfo?.latitude + ',' + 'long' + locationInfo?.longitude,
       "Device": deviceInfo?.platform!,
       "Browser": deviceInfo?.userAgent,
-      "IsInstantBuy": searchParams.has("isInstantBuy") && searchParams.get("isInstantBuy") ? true : false
+      "IsInstantBuy": searchParams.has("isInstantBuy") && searchParams.get("isInstantBuy") ? true : false,
+      "IsGift": finalDataForTheCheckout.isGift,
+      "DateTime": finalDataForTheCheckout.DateTime
     }
     const data = await dispatch(placeOrder({ url: ENDPOINTS.placeOrder, body: prepareBodyData }) as any);
     if (hasFulfilled(data?.type)) {
@@ -288,7 +292,7 @@ function OrderSummary() {
         <Stack className="ActionWrapper">
           <Button color="secondary" onClick={() => navigate("/")}>Continue Shopping</Button>
           {/* <Button variant="contained" onClick={toggleOTPConfirmation} disabled={!finalDataForTheCheckout?.termAndServiceIsRead}>Confirm Order</Button> */}
-          <Button variant="contained" onClick={() => { onConfirmOrderHandler() }} disabled={!finalDataForTheCheckout?.termAndServiceIsRead || loading || finalDataForTheCheckout?.cartItemsWithLivePrice?.length < 1 || !finalDataForTheCheckout?.billingAddress || !finalDataForTheCheckout?.shippingAddress}>Confirm Order</Button>
+          <Button variant="contained" onClick={() => { onConfirmOrderHandler() }} disabled={!finalDataForTheCheckout?.termAndServiceIsRead || loading || finalDataForTheCheckout?.cartItemsWithLivePrice?.length < 1 || !finalDataForTheCheckout?.billingAddress || !finalDataForTheCheckout?.shippingAddress || (finalDataForTheCheckout.IsGift && finalDataForTheCheckout?.giftDateError)}>Confirm Order</Button>
         </Stack>
       </Box>
       {openOTPConfirmation && <OTPConfirmation open={openOTPConfirmation} onClose={toggleOTPConfirmation} message={message} placeOrderFun={placeOrderFun} />}

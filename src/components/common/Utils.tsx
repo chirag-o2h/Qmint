@@ -368,3 +368,10 @@ export const checkImageUrl = (url: any) => {
     img.onerror = () => resolve(false);
   });
 };
+export const formatDateToDDMMYYYY = (date: Date): string => {
+  const day = String(date.getDate()).padStart(2, '0'); // Get day and add leading zero if needed
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so add 1
+  const year = date.getFullYear(); // Get full year
+
+  return `${day}/${month}/${year}`;
+}

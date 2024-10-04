@@ -82,7 +82,7 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
               textAlign: "center"
             }}
             dangerouslySetInnerHTML={{
-              __html: contactUsConfiguration?.["evacontactmanagersettings.OrganizationNameHtml"]?.value ?? ''
+              __html: organizationHtml ?? ''
             }}>
             </Box>
             <Box className="GetInTouchWrapper">
