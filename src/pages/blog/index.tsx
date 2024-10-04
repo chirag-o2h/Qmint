@@ -52,8 +52,11 @@ import { setConfigDetails } from "@/redux/reducers/homepageReducer";
 import FrontHeader from "@/components/header/FrontHeader";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
+import BullionmarkFooter from "@/components/footer/BullionmarkFooter";
 const BullionmarkFrontFooter = lazy(() => import('@/components/footer/BullionmarkFrontFooter'));
 const LazyFrontFooter = lazy(() => import('@/components/footer/FrontFooter'));
+const LazyFooter = lazy(() => import('@/components/footer/index'));
+
 function Blog({ serverData }: any) {
   const configDetailsState = serverData?.configDetails
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down("sm"));
@@ -251,7 +254,8 @@ function Blog({ serverData }: any) {
         minHeight={800}
       >
         {/* <LazyBullionmarkFooter /> */}
-        {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />}
+        {/* {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />} */}
+        {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFooter /> : <LazyFooter />}
       </RenderOnViewportEntry>
     </>
   );

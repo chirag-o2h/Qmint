@@ -10,6 +10,7 @@ import { ENDPOINTS } from '@/utils/constants';
 // import FrontHeader from '../header/FrontHeader';
 // import LazyFrontHeader from "../header/FrontHeader"
 import RenderOnViewportEntry from './RenderOnViewportEntry';
+import BullionmarkFooter from '../footer/BullionmarkFooter';
 const BullionmarkFrontFooter = lazy(() => import('../footer/BullionmarkFrontFooter'));
 const LazyFrontHeader = lazy(() => import("../header/FrontHeader"));
 const LazyFrontFooter = lazy(() => import('../footer/FrontFooter'));
@@ -86,7 +87,7 @@ const MainLayout = (props: MainLayout) => {
             >
 
                 {/* {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />} */}
-                {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFooter />}
+                {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFooter /> : <LazyFooter />}
             </RenderOnViewportEntry>
         </Stack>
     )

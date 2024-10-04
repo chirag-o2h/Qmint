@@ -55,7 +55,7 @@ function BullionmarkFrontFooter() {
                             </Stack>
                         </Stack>
                     </Box>
-                    <Box className="MenuWrapper Social">
+                    {/* <Box className="MenuWrapper Social">
                         <Typography className="MenuTitle" variant="subtitle2" component="p">Social Media</Typography>
                         <Stack className="SocialMedia">
                             <IconButton title="Follow us on Facebook" target={"_blank"} href={configDetailsState?.SocialLinks_Facebook?.value ?? location?.href}><FacebookIcon fontSize="small" /></IconButton>
@@ -63,7 +63,7 @@ function BullionmarkFrontFooter() {
                             <IconButton title="Follow us on Youtube" target={"_blank"} href={configDetailsState?.SocialLinks_Youtube?.value ?? location?.href}><YoutubeIcon /></IconButton>
                             <IconButton title="Follow us on Twitter" target={"_blank"} href={configDetailsState?.SocialLinks_Twitter?.value ?? location?.href}><TwitterIcon fontSize="small" /></IconButton>
                         </Stack>
-                    </Box>
+                    </Box> */}
                 </Stack>
             </Container>
             <BullionmarkCopyRight />

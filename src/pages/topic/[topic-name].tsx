@@ -12,6 +12,7 @@ import { time } from "console";
 import { setConfigDetails } from "@/redux/reducers/homepageReducer";
 import RenderOnViewportEntry from "@/components/common/RenderOnViewportEntry";
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
+import BullionmarkFooter from "@/components/footer/BullionmarkFooter";
 // import FrontHeader from "@/components/header/FrontHeader";
 const FrontHeader = lazy(() => import("@/components/header/FrontHeader"));
 // const LazyBullionmarkFooter = lazy(() => import("@/components/footer/BullionmarkFooter"));
@@ -121,7 +122,7 @@ function Topics({ serverData }: { serverData: ServerData }) {
           >
             {/* <LazyBullionmarkFooter /> */}
             {/* {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFrontFooter />} */}
-            {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFrontFooter /> : <LazyFooter />}
+            {process.env.GATSBY_THEME_TYPE == "1" ? <BullionmarkFooter /> : <LazyFooter />}
           </RenderOnViewportEntry>
         </>
       )}
