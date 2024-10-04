@@ -43,6 +43,7 @@ export type shopingCartItem = {
     "stock": number,
     "shippingMethod": any[],
     "shippableCountrys": any[]
+    "promisedShipDate"?: any
 }
 export interface Fees {
     insuranceFee: number;
