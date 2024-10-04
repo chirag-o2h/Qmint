@@ -9,7 +9,7 @@
   .FooterWrapper {
     display: flex;
     justify-content: space-between;
-    gap: 4vw;
+    gap: 14vw;
     padding-bottom: 38px;
 
     @include media($md) {
@@ -26,12 +26,12 @@
 
     @include media-between($xl, $xxl) {
       // gap: 40px;
-      gap: 80px;
+      gap: 150px;
     }
 
     @include media-min($xxl) {
       // gap: 133px;
-      gap: 200px;
+      gap: 300px;
     }
 
     .LogoPart {
@@ -83,7 +83,7 @@
     }
 
     .MenuesPart {
-      justify-content: center;
+      justify-content: space-between;
       flex-grow: 1;
       gap: 94px;
 
@@ -112,7 +112,7 @@
       }
 
       @include media-between($md, $llg) {
-        justify-content: center;
+        justify-content: space-between;
         gap: 8vw;
         // order: 1;
         // padding-top: 30px;
@@ -244,7 +244,7 @@
         flex-shrink: 0;
         max-width: 322px;
         color: $white;
-        margin-left: auto;
+        // margin-left: auto;
   
         @include media($md) {
           align-items: center;
