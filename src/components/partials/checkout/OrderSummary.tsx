@@ -86,6 +86,7 @@ function OrderSummary() {
   const { showToaster } = useShowToaster();
   const { deviceInfo, locationInfo }: any = useDeviceDetails()
   const { finalDataForTheCheckout, subTotal, insuranceAndTaxCalculation, craditCardCharges, isOTPEnabled, loading, orderId, message } = useAppSelector((state) => state.checkoutPage)
+ 
   const { isLoggedIn, userDetails } = useAppSelector((state) => state.homePage)
   const [body, setBody] = useState<Body | null>(null)
   const [totalValueNeedToPayFromCraditCart, setTotalValueNeedToPayFromCraditCart] = useState<any>({ OrderTotal: 0 })
@@ -292,7 +293,7 @@ function OrderSummary() {
         <Stack className="ActionWrapper">
           <Button color="secondary" onClick={() => navigate("/")}>Continue Shopping</Button>
           {/* <Button variant="contained" onClick={toggleOTPConfirmation} disabled={!finalDataForTheCheckout?.termAndServiceIsRead}>Confirm Order</Button> */}
-          <Button variant="contained" onClick={() => { onConfirmOrderHandler() }} disabled={!finalDataForTheCheckout?.termAndServiceIsRead || loading || finalDataForTheCheckout?.cartItemsWithLivePrice?.length < 1 || !finalDataForTheCheckout?.billingAddress || !finalDataForTheCheckout?.shippingAddress || (finalDataForTheCheckout.IsGift && finalDataForTheCheckout?.giftDateError)}>Confirm Order</Button>
+          <Button variant="contained" onClick={() => { onConfirmOrderHandler() }} disabled={!finalDataForTheCheckout?.termAndServiceIsRead || loading || finalDataForTheCheckout?.cartItemsWithLivePrice?.length < 1 || !finalDataForTheCheckout?.billingAddress || !finalDataForTheCheckout?.shippingAddress || (finalDataForTheCheckout.isGift && finalDataForTheCheckout?.giftDateError)}>Confirm Order</Button>
         </Stack>
       </Box>
       {openOTPConfirmation && <OTPConfirmation open={openOTPConfirmation} onClose={toggleOTPConfirmation} message={message} placeOrderFun={placeOrderFun} />}

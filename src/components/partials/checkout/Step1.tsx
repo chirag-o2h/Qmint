@@ -156,7 +156,7 @@ function Step1() {
 
   useEffect(() => {
     if (isGift) {
-      if (userSelectedDate) {
+      if (!userSelectedDate) {
         setGiftCardError(`Please select date.`)
         return
       }
