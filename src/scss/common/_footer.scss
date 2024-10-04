@@ -222,6 +222,11 @@
         align-items: center;
         gap: 16px;
         margin: auto;
+        padding-left: 180px;
+        @include media($md) {
+          padding-left: 0;
+        }
+        
   
         .CopyRightText {
           @include media($sm) {
