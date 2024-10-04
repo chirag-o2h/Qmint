@@ -36,7 +36,11 @@
 
     .LogoPart {
       flex-direction: column;
-      align-items: center;
+      align-items: start;
+
+      @include media($md) {
+        align-items: center;
+      }
 
       img {
         max-width: 250px;
@@ -57,7 +61,7 @@
           color: $white;
 
           &.LocationWrapper {
-            max-width: 260px;
+            max-width: 300px;
 
             @include media($md) {
               order: 1;
@@ -103,7 +107,7 @@
 
       @include media-between($sm, $md) {
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: initial;
         gap: 40px;
       }

@@ -51,11 +51,11 @@ function index() {
             <Stack className="AboutWrapper">
               <Stack className="LocationWrapper About">
                 <MapIcon />
-                <Typography className="Location" variant="body2" component="address">{configDetailsState?.Store_Address?.value}</Typography>
+                <Typography className="Location" variant="body1" component="address">{configDetailsState?.Store_Address?.value}</Typography>
               </Stack>
               <Stack className="MailWrapper About">
                 <PhoneCall fontSize='large' />
-                <Link href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value} variant="body2" className="Mail">{configDetailsState?.["StorePhoneNumber_AU"]?.value}</Link>
+                <Link href={"tel:" + configDetailsState?.["StorePhoneNumber_AU"]?.value} variant="body1" className="Mail">{configDetailsState?.["StorePhoneNumber_AU"]?.value}</Link>
               </Stack>
               {/* <Stack className="MailWrapper About">
                 <MailIcon />
@@ -76,7 +76,7 @@ function index() {
                         <ListItemIcon>
                           <ChevronRight />
                         </ListItemIcon>
-                        <ListItemText primary={item.linkTitle} primaryTypographyProps={{ variant: "body2" }} />
+                        <ListItemText primary={item.linkTitle} primaryTypographyProps={{ variant: "body1" }} />
                       </ListItemButton>
                     </ListItem>
                   ))}
