@@ -41,6 +41,16 @@ function BasicDatePicker({ setValue, existingDate, name, label, required, error,
                             error: !!error,
                             fullWidth: true,
                         },
+                        actionBar: {
+                            sx: {
+                            '&.MuiDialogActions-root':{
+                                justifyContent:'end',
+                            },
+                              '& .MuiButton-root': {
+                                padding: '15px 24px', 
+                              },
+                            },
+                          },
                     }}
                     disabled={existingDate ? true : false}
                     format="DD/MM/YYYY"

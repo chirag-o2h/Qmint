@@ -63,10 +63,10 @@
           &.LocationWrapper {
             max-width: 300px;
 
-            @include media($md) {
-              order: 1;
-              max-width: 270px;
-            }
+            // @include media($md) {
+            //   order: 1;
+            //   max-width: 270px;
+            // }
 
             .MuiTypography-root {
               font-style: initial;
@@ -603,9 +603,9 @@
         text-align: left;
         align-items: flex-start;
       }
-      @include media($xxs) {
-        align-items: center;
-      }
+      // @include media($xxs) {
+      //   align-items: center;
+      // }
 
 
       img {
