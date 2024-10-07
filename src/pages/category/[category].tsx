@@ -31,6 +31,7 @@ import useRedirectTo404 from "@/hooks/useRedirectTo404"
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
 import ProductsSlider from "@/components/partials/shop/Qmint/ProductsSlider"
 import BestCategorySlider from "@/components/partials/shop/Bullionmark/BestCategorySlider"
+import noImage from '../../assets/images/noImage.png'
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -202,6 +203,20 @@ function Category({ serverData, props }: Props) {
         });
     }, [])
     useRedirectTo404(serverData)
+    console.log("serverData?.categoryData:-", serverData?.categoryData, "serverData?.bmkShopPageSections:-", serverData?.bmkShopPageSections, "serverData?.homePageSectionDetails:-", serverData?.homePageSectionDetails)
+    const sliderData = useMemo(() => {
+        return ({
+            quickCategoryLinks: serverData?.categoryData?.subCategorysImage?.map((category: any) => {
+                return ({
+                    name: category?.name,
+                    linkUrl: category?.redirect,
+                    imageUrl: category?.imageUrl ?? noImage,
+                    id: category?.pictureId,
+                })
+            })
+        })
+    }, [serverData])
+
     return (
         <>
             {isRendering && (
@@ -227,24 +242,27 @@ function Category({ serverData, props }: Props) {
                 lang="en"
                 configDetailsState={serverData?.configDetails}
             />
-            {process.env.GATSBY_THEME_TYPE === "1" ? <BestCategorySlider
-                pageData={serverData?.bmkShopPageSections}
-                PaddingClass={
-                    !serverData?.isMobile &&
-                        serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
-                        ? ""
-                        : "TopBannerAbsent"
-                }
-                title={
-                    serverData?.configDetails?.[
-                        "ShopHomepage_Section_1_Featured_Categories_Title"
-                    ]?.value
-                }
-                isMobile={serverData?.isMobile}
-                showTitle = {false}
-            /> :
-                <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
-            }
+            {serverData?.categoryData?.subCategorysImage?.length > 0 && (
+                process.env.GATSBY_THEME_TYPE === "1" ? (
+                    <BestCategorySlider
+                        pageData={sliderData}
+                        PaddingClass={
+                            !serverData?.isMobile && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
+                                ? ""
+                                : "TopBannerAbsent"
+                        }
+                        title={serverData?.configDetails?.ShopHomepage_Section_1_Featured_Categories_Title?.value}
+                        isMobile={serverData?.isMobile}
+                        showTitle={false}
+                    />
+                ) : (
+                    <ProductsSlider
+                        isMobile={serverData?.isMobile}
+                        homePageSectionDetails={sliderData}
+                    />
+                )
+            )}
+
 
             <Container id="PageCategory" className={classNames({ "BmkCategoryPage": process.env.GATSBY_THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
