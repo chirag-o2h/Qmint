@@ -199,6 +199,7 @@
             .DatePicker{
               .MuiOutlinedInput-notchedOutline{
                 border-color: $yellowFuel;
+                border-radius: 10px;
               }
             }
           }
@@ -469,6 +470,19 @@
   }
 
   &.BmkCheckoutPage {
+    .AllSteps {
+      .FieldWrapper {  
+      .GiftWrapper{
+        .InputRow{
+          .DatePicker{
+            .MuiInputBase-adornedEnd {
+              padding-right: 14px;
+            }
+          }
+        }
+      } 
+    }
+    }
     .OrderSummary {
       .PricingDetails {
         .PaymentMethod {

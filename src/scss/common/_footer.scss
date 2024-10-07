@@ -39,7 +39,8 @@
       align-items: start;
 
       @include media($md) {
-        align-items: center;
+        align-items: flex-start;
+        margin: auto;
       }
 
       img {
@@ -52,7 +53,7 @@
         margin-top: 32px;
 
         @include media($sm) {
-          align-items: center;
+          align-items: flex-start;
         }
 
         .About {
@@ -558,7 +559,7 @@
   .FooterWrapper {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 30px;
     padding-bottom: 74px;
 
     @include media($lg) {
@@ -566,10 +567,11 @@
     }
 
     @include media($mmd) {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 80px 150px;
+      // flex-wrap: wrap;
+      // justify-content: center;
+      // gap: 80px 150px;
       padding-bottom: 50px;
+      flex-direction: column;
     }
 
     @include media($md) {
@@ -587,8 +589,16 @@
       gap: 39px;
     }
 
+    @include media($mmd) {
+      align-items: center;
+    }
 
-
+    @include media($ssm) {
+      align-items: start;
+    }
+    @include media($xxs) {
+      align-items: center;
+    }
 
     .LogoPart {
       flex-direction: column;
@@ -644,6 +654,26 @@
         @include media($sm) {
           max-width: 100%;
         }
+      }
+    }
+    .MenuesPart{
+      display: flex;
+      gap:180px;
+
+      @include media-min($xxl) {
+        gap: 250px;
+      }
+
+      @include media($lg) {
+        gap:100px;
+      }
+
+      @include media($mmd) {
+        justify-content: space-between;
+      }
+      @include media($ssm) {
+        flex-direction: column;
+        gap:50px;
       }
     }
 
@@ -876,9 +906,9 @@
   &.BullionmarkGeneralFooter {
     .MuiContainer-root {
       .FooterWrapper {
-        @include media($lg) {
-          flex-wrap: wrap;
-        }
+        // @include media($lg) {
+        //   flex-wrap: wrap;
+        // }
         @include media-between($ssm, $mmd) {
           justify-content: center;
         }
@@ -889,7 +919,9 @@
           }
           @include media-between($ssm, $mmd) {
             text-align: left;
-            align-items: center;
+            align-items: start;
+            margin: auto;
+            width: fit-content;
           }
           .ContactUs {
             max-width: 280px;

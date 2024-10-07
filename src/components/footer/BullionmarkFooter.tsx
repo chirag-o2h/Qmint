@@ -58,83 +58,34 @@ function BullionmarkFooter() {
               </Stack>
             </Box>
           </Stack>
-          {data?.map((menu, index) => {
-            return (
-              <Box key={index + "menu"} className="MenuWrapper QuickLink">
-                <Typography
-                  className="MenuTitle"
-                  variant="subtitle2"
-                  component="p"
-                >
-                  {menu?.mainTitle?.toLocaleLowerCase()}
-                </Typography>
-                <List>
-                  {menu?.links?.map((item) => {
-                    return (
-                      <ListItem key={item.linkTitle}>
-                        <ListItemButton
-                          onClick={() => navigate(`${item.linkUrl}`)}
-                        >
-                          {item.linkTitle}
-                        </ListItemButton>
-                      </ListItem>
-                    );
-                  })}
-                </List>
-              </Box>
-            );
-          })}
-          {/* <Box className="MenuWrapper Social">
-            <Typography className="MenuTitle" variant="subtitle2" component="p">
-              Social Media
-            </Typography>
-            <Stack className="SocialMedia">
-              <IconButton
-                key="Facebook"
-                title="Follow us on Facebook"
-                target={"_blank"}
-                href={
-                  configDetailsState?.SocialLinks_Facebook?.value ??
-                  location?.href
-                }
-              >
-                <FacebookIcon fontSize="small" />
-              </IconButton>
-              <IconButton
-                key="Instagram"
-                title="Follow us on Instagram"
-                target={"_blank"}
-                href={
-                  configDetailsState?.SocialLinks_Instagram?.value ??
-                  location?.href
-                }
-              >
-                <InstagramIcon1 fontSize="small" />
-              </IconButton>
-              <IconButton
-                key="Youtube"
-                title="Follow us on Youtube"
-                target={"_blank"}
-                href={
-                  configDetailsState?.SocialLinks_Youtube?.value ??
-                  location?.href
-                }
-              >
-                <YoutubeIcon />
-              </IconButton>
-              <IconButton
-                key="Twitter"
-                title="Follow us on Twitter"
-                target={"_blank"}
-                href={
-                  configDetailsState?.SocialLinks_Twitter?.value ??
-                  location?.href
-                }
-              >
-                <TwitterIcon fontSize="small" />
-              </IconButton>
-            </Stack>
-          </Box> */}
+          <Stack className="MenuesPart" component="nav">
+            {data?.map((menu, index) => {
+              return (
+                <Box key={index + "menu"} className="MenuWrapper QuickLink">
+                  <Typography
+                    className="MenuTitle"
+                    variant="subtitle2"
+                    component="p"
+                  >
+                    {menu?.mainTitle?.toLocaleLowerCase()}
+                  </Typography>
+                  <List>
+                    {menu?.links?.map((item) => {
+                      return (
+                        <ListItem key={item.linkTitle}>
+                          <ListItemButton
+                            onClick={() => navigate(`${item.linkUrl}`)}
+                          >
+                            {item.linkTitle}
+                          </ListItemButton>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </Box>
+              );
+            })}
+          </Stack>
         </Stack>
       </Container>
       <BullionmarkCopyRight />
