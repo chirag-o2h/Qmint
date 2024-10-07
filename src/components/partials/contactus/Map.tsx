@@ -5,7 +5,7 @@ import React from 'react'
 const Map = () => {
     const contactUsConfiguration = useAppSelector(state => state.contactUs.html);
 
-    const htmlValue = contactUsConfiguration?.["evacontactmanagersettings.MapSectionHtml"]?.value || "";
+    const htmlValue = contactUsConfiguration?.["MapSectionHtml"]?.value || "";
 
     return (
         <Box className="GetInTouchRightMap" dangerouslySetInnerHTML={{

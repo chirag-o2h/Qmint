@@ -8,8 +8,8 @@ import { useAppSelector } from '@/hooks';
 function SocialNetwork() {
   const contactUsConfiguration = useAppSelector(state => state.contactUs.html);
 
-  const linksHtmlValue = contactUsConfiguration?.["evacontactmanagersettings.SocialNetworkIconHtml"]?.value || "";
-  const headingHtmlvalue = contactUsConfiguration?.["evacontactmanagersettings.SocialNetworkHeading"]?.value || "";
+  const linksHtmlValue = contactUsConfiguration?.["SocialNetworkIconHtml"]?.value || "";
+  const headingHtmlvalue = contactUsConfiguration?.["SocialNetworkHeading"]?.value || "";
 
   return (
     <>
