@@ -19,6 +19,7 @@ import useUnloadMinHeight from "@/hooks/useUnloadMinHeight";
 
 function BestCategorySlider(props: any) {
   const removeMinHeight = useUnloadMinHeight()
+  const showTitle = props.showTitle ?? true;
   const isMobile = props?.isMobile //useMediaQuery((theme: any) => theme.breakpoints.down("md"));
   const config = {
     slidesPerView: isMobile ? 1 : 5,
@@ -68,7 +69,7 @@ function BestCategorySlider(props: any) {
       style={removeMinHeight ? { maxHeight: isMobile ? 720 : 650 } : {}}
     >
       <Container>
-        <BullionmarkSectionHeading title={props?.title} />
+       {showTitle && <BullionmarkSectionHeading title={props?.title} />}
         <Box className="BmkProductsSliderWrapper">
           <Box className="SwiperContainer CircleSwiperPagination">
             {

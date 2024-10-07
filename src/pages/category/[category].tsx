@@ -59,7 +59,7 @@ interface ServerDataProps {
     categoryData: any;
     isMobile: boolean
     redirectTo404?: boolean
-    homePageSectionDetails:any
+    homePageSectionDetails: any
     bmkShopPageSections: any
 }
 
@@ -227,24 +227,25 @@ function Category({ serverData, props }: Props) {
                 lang="en"
                 configDetailsState={serverData?.configDetails}
             />
-            {process.env.GATSBY_THEME_TYPE === "1" ?  <BestCategorySlider
+            {process.env.GATSBY_THEME_TYPE === "1" ? <BestCategorySlider
                 pageData={serverData?.bmkShopPageSections}
                 PaddingClass={
                     !serverData?.isMobile &&
-                    serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
-                    ? ""
-                    : "TopBannerAbsent"
+                        serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
+                        ? ""
+                        : "TopBannerAbsent"
                 }
                 title={
                     serverData?.configDetails?.[
-                    "ShopHomepage_Section_1_Featured_Categories_Title"
+                        "ShopHomepage_Section_1_Featured_Categories_Title"
                     ]?.value
                 }
                 isMobile={serverData?.isMobile}
+                showTitle = {false}
             /> :
-            <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
-        }
-           
+                <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
+            }
+
             <Container id="PageCategory" className={classNames({ "BmkCategoryPage": process.env.GATSBY_THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
@@ -299,11 +300,13 @@ export async function getServerData(context: { params: any, query: any, headers:
         const [
             configDetailsResponse,
             categoryDataResponse,
-            homePageSectionDetailsResponse
+            homePageSectionDetailsResponse,
+            bmkShopPageSectionsResponse
         ] = await Promise.all([
             axiosInstance.get(ENDPOINTS.getConfigStore),
             axiosInstance.post(argumentForService.url, argumentForService.body),
-            axiosInstance.get(ENDPOINTS.homePageSection)
+            axiosInstance.get(ENDPOINTS.homePageSection),
+            axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
         ]);
         const configDetails = configDetailsResponse.data.data;
         const categoryData = categoryDataResponse.data.data;
@@ -326,7 +329,8 @@ export async function getServerData(context: { params: any, query: any, headers:
         categoryData.loading = false
         categoryData.categories = filtersData.categories
         const homePageSectionDetails = homePageSectionDetailsResponse?.data?.data
-        
+        const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
+
         return {
             props: {
                 isMobile,
@@ -343,7 +347,8 @@ export async function getServerData(context: { params: any, query: any, headers:
                 manufacturers,
                 price,
                 specifications,
-                homePageSectionDetails
+                homePageSectionDetails,
+                bmkShopPageSections
             },
         };
     } catch (error) {
