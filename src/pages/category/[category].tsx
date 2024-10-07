@@ -29,6 +29,8 @@ const LazyFooter = lazy(() => import('@/components/footer/index'));
 import useragent from 'express-useragent';
 import useRedirectTo404 from "@/hooks/useRedirectTo404"
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon"
+import ProductsSlider from "@/components/partials/shop/Qmint/ProductsSlider"
+import BestCategorySlider from "@/components/partials/shop/Bullionmark/BestCategorySlider"
 
 export const pageSize = 12;
 export const requestBodyDefault: categoryRequestBody = {
@@ -57,6 +59,8 @@ interface ServerDataProps {
     categoryData: any;
     isMobile: boolean
     redirectTo404?: boolean
+    homePageSectionDetails:any
+    bmkShopPageSections: any
 }
 
 interface Props {
@@ -79,6 +83,7 @@ function Category({ serverData, props }: Props) {
     const priceD = useMemo(() => pagesSelectedFilters.price[getlastPartOfPath(location.pathname)] || null, [pagesSelectedFilters.price[getlastPartOfPath(location.pathname)]])
     const debounceFilter = useDebounce(filtersD, 700);
     const debouncePrice = useDebounce(priceD, 700);
+
     useEffect(() => {
         setPage(1); // reset page number to 1 when path changes for new category
         fetchData()
@@ -222,6 +227,24 @@ function Category({ serverData, props }: Props) {
                 lang="en"
                 configDetailsState={serverData?.configDetails}
             />
+            {process.env.GATSBY_THEME_TYPE === "1" ?  <BestCategorySlider
+                pageData={serverData?.bmkShopPageSections}
+                PaddingClass={
+                    !serverData?.isMobile &&
+                    serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value
+                    ? ""
+                    : "TopBannerAbsent"
+                }
+                title={
+                    serverData?.configDetails?.[
+                    "ShopHomepage_Section_1_Featured_Categories_Title"
+                    ]?.value
+                }
+                isMobile={serverData?.isMobile}
+            /> :
+            <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
+        }
+           
             <Container id="PageCategory" className={classNames({ "BmkCategoryPage": process.env.GATSBY_THEME_TYPE === "1" },)}>
                 {isSmallScreen ? (
                     <Stack className="CategoryHeader">
@@ -276,9 +299,11 @@ export async function getServerData(context: { params: any, query: any, headers:
         const [
             configDetailsResponse,
             categoryDataResponse,
+            homePageSectionDetailsResponse
         ] = await Promise.all([
             axiosInstance.get(ENDPOINTS.getConfigStore),
-            axiosInstance.post(argumentForService.url, argumentForService.body)
+            axiosInstance.post(argumentForService.url, argumentForService.body),
+            axiosInstance.get(ENDPOINTS.homePageSection)
         ]);
         const configDetails = configDetailsResponse.data.data;
         const categoryData = categoryDataResponse.data.data;
@@ -300,6 +325,8 @@ export async function getServerData(context: { params: any, query: any, headers:
         categoryData.specifications = filtersData.sepecifications || {};
         categoryData.loading = false
         categoryData.categories = filtersData.categories
+        const homePageSectionDetails = homePageSectionDetailsResponse?.data?.data
+        
         return {
             props: {
                 isMobile,
@@ -316,6 +343,7 @@ export async function getServerData(context: { params: any, query: any, headers:
                 manufacturers,
                 price,
                 specifications,
+                homePageSectionDetails
             },
         };
     } catch (error) {
