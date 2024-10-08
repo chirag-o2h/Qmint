@@ -162,11 +162,11 @@ exports.createPages = async ({ actions }: any) => {
         { fromPath: '/delivery', toPath: '/topic/delivery' },
         //   { fromPath: '/shipping-calculator', toPath: '/shipping-calculator/' },
         { fromPath: '/vault-storage-calculator', toPath: '/vault-calculator/' },
-        { fromPath: '/2011-1oz-wallabies-men-of-gold-proof-silver-coin-in-presentation-box', toPath: '/2011-1oz-wallabies-men-of-gold-proof-silver-coin-in-presentation-box' },
-        { fromPath: '/2000-australian-1166g-silver-1-hmas-sydney-ii-proof-coin-in-presentation-box', toPath: '/2000-australian-1166g-silver-1-hmas-sydney-ii-proof-coin-in-presentation-box' },
-        { fromPath: '/1kg-perth-mint-gold-cast-bar', toPath: '/1kg-perth-mint-gold-cast-bar' },
-        { fromPath: '/2023-1-4oz-australian-kangaroo-proof-gold-coin', toPath: '/2023-1-4oz-australian-kangaroo-proof-gold-coin' },
-        { fromPath: '/1kg-vintage-johnson-matthey-silver-cast-bar', toPath: '/1kg-vintage-johnson-matthey-silver-cast-bar' },
+        { fromPath: '/2011-1oz-wallabies-men-of-gold-proof-silver-coin-in-presentation-box', toPath: '/product-details/2011-1oz-wallabies-men-of-gold-proof-silver-coin-in-presentation-box' },
+        { fromPath: '/2000-australian-1166g-silver-1-hmas-sydney-ii-proof-coin-in-presentation-box', toPath: '/product-details/2000-australian-1166g-silver-1-hmas-sydney-ii-proof-coin-in-presentation-box' },
+        { fromPath: '/1kg-perth-mint-gold-cast-bar', toPath: '/product-details/1kg-perth-mint-gold-cast-bar' },
+        { fromPath: '/2023-1-4oz-australian-kangaroo-proof-gold-coin', toPath: '/product-details/2023-1-4oz-australian-kangaroo-proof-gold-coin' },
+        { fromPath: '/1kg-vintage-johnson-matthey-silver-cast-bar', toPath: '/product-details/1kg-vintage-johnson-matthey-silver-cast-bar' },
 
     ];
 
