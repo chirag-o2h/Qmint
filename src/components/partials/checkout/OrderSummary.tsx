@@ -40,7 +40,7 @@ export interface PlaceOrderBody {
   Browser: string;
   IsInstantBuy: boolean;
   IsGift: boolean;
-  DateTime: Date | null;
+  GiftDate: string | null;
 }
 
 interface OrderItem {
@@ -164,7 +164,7 @@ function OrderSummary() {
       "Browser": deviceInfo?.userAgent,
       "IsInstantBuy": searchParams.has("isInstantBuy") && searchParams.get("isInstantBuy") ? true : false,
       "IsGift": finalDataForTheCheckout.isGift,
-      "DateTime": finalDataForTheCheckout.DateTime
+      "GiftDate": finalDataForTheCheckout.DateTime
     }
     const data = await dispatch(placeOrder({ url: ENDPOINTS.placeOrder, body: prepareBodyData }) as any);
     if (hasFulfilled(data?.type)) {

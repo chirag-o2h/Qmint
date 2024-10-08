@@ -23,7 +23,7 @@ import useSetConfigAndFavicon from '@/hooks/useSetConfigAndFavicon';
 function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, params: any }) {
   useSetConfigAndFavicon(serverData)
   const contactUsConfiguration = useAppSelector(state => state.contactUs.html);
-  console.log("🚀 ~ ContactUs ~ contactUsConfiguration:", contactUsConfiguration,contactUsConfiguration?.["evacontactmanagersettings.OrganizationNameHtml"]?.value)
+  console.log("🚀 ~ ContactUs ~ contactUsConfiguration:", contactUsConfiguration,contactUsConfiguration?.["OrganizationNameHtml"]?.value)
   const openToaster = useAppSelector(state => state.homePage.openToaster)
   const checkLoadingStatus = useAppSelector(state => state.homePage.loading);
   // console.log("🚀 ~ ContactUs ~ configDetails:", configDetails)
@@ -35,7 +35,7 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
   }, [])
   const [organizationHtml,setOrganizationHtml] = useState()
    useEffect(()=>{
-    setOrganizationHtml(contactUsConfiguration?.["evacontactmanagersettings.OrganizationNameHtml"]?.value as any)
+    setOrganizationHtml(contactUsConfiguration?.["OrganizationNameHtml"]?.value as any)
   },[contactUsConfiguration])
   return (
     <>
@@ -79,7 +79,7 @@ function ContactUs({ params, serverData }: { serverData: IconfigDataFromServer, 
             <Box 
             style={{
               marginTop: '66px',
-              textAlign: "center"
+              textAlign: "left"
             }}
             dangerouslySetInnerHTML={{
               __html: organizationHtml ?? ''
