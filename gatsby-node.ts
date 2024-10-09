@@ -301,7 +301,7 @@ exports.createPages = async ({ actions }: any) => {
         { fromPath: '/1989-Australian-20g-Silver-$10-Piedfort-Series-Birds-of-Australia---Kookaburra-Proof-Coin-in-Presentation-Sleeve', toPath: '/product-details/1989-Australian-20g-Silver-$10-Piedfort-Series-Birds-of-Australia---Kookaburra-Proof-Coin-in-Presentation-Sleeve' },
         { fromPath: '/1989-Australian-20g-Silver-$10-Queensland-Proof-Coin-in-Presentation-Box', toPath: '/product-details/1989-Australian-20g-Silver-$10-Queensland-Proof-Coin-in-Presentation-Box' },
         { fromPath: '/1989-australian-3888g-silver-the-holey-dollar-the-dump-proof-coin-in-presentation-sleeve', toPath: '/product-details/1989-australian-3888g-silver-the-holey-dollar-the-dump-proof-coin-in-presentation-sleeve' },
-        { fromPath: '/1989-Australian-Sterling-Silver-Masterpieces-'70-'77-'81-'82-&-'88-Proof - Piece - Set -in -Presentation - Box', toPath: '/product-details/1989 - Australian - Sterling - Silver - Masterpieces - '70-'77-'81-'82-& -'88-Proof-Piece-Set-in-Presentation-Box' },
+        // { fromPath: '/1989-Australian-Sterling-Silver-Masterpieces-'70-'77-'81-'82-&-'88-Proof - Piece - Set -in -Presentation - Box', toPath: '/product-details/1989 - Australian - Sterling - Silver - Masterpieces - '70-'77-'81-'82-& -'88-Proof-Piece-Set-in-Presentation-Box' },
         { fromPath: '/1989-queensland-20g-silver-10-uncirculated-coin-in-presentation-sleeve', toPath: '/product-details/1989-queensland-20g-silver-10-uncirculated-coin-in-presentation-sleeve' },
         { fromPath: '/1990-$10-Birds-of-Australia-White-Cockatoo-Silver-Proof-Coin-in-Presentation-Box', toPath: '/product-details/1990-$10-Birds-of-Australia-White-Cockatoo-Silver-Proof-Coin-in-Presentation-Box' },
         { fromPath: '/1990-10-birds-of-australia-jabiru-silver-proof-coin-in-presentation-box', toPath: '/product-details/1990-10-birds-of-australia-jabiru-silver-proof-coin-in-presentation-box' },
@@ -1435,7 +1435,7 @@ exports.createPages = async ({ actions }: any) => {
         { fromPath: '/world', toPath: '/category/world' },
         { fromPath: '/world-coins', toPath: '/category/world-coins' },
         { fromPath: '/aboutus', toPath: '/topic/aboutus' },
-        { fromPath: '/Christmas-Cut-Off-Dates-&-Holidays', toPath: '/topic/Christmas-Cut-Off-Dates-&-Holidays' },
+        { fromPath: '/Christmas-Cut-Off-Dates-&-Holidays', toPath: '/topic/Christmas-Cut-Off-Dates-&-Holidays' }
     ];
 
     redirects.forEach(redirect => {
