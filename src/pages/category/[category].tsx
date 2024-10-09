@@ -60,8 +60,9 @@ interface ServerDataProps {
     categoryData: any;
     isMobile: boolean
     redirectTo404?: boolean
-    homePageSectionDetails: any
-    bmkShopPageSections: any
+    // homePageSectionDetails: any
+    // bmkShopPageSections: any
+    pageNo: number
 }
 
 interface Props {
@@ -73,7 +74,7 @@ function Category({ serverData, props }: Props) {
     const location = useLocation();
     const searchParams = useMemo(() => new URLSearchParams(location?.search), [location]);
     const isSmallScreen = serverData?.isMobile
-    const [page, setPage] = useState(searchParams.has("page") ? parseInt(searchParams.get("page")!) : 1);
+    const [page, setPage] = useState(serverData?.pageNo && serverData.pageNo > 0 ? serverData.pageNo : 1);
     const dispatch = useAppDispatch();
 
     const checkLoadingStatus = useAppSelector(state => state.category.loading);
@@ -85,11 +86,28 @@ function Category({ serverData, props }: Props) {
     const debounceFilter = useDebounce(filtersD, 700);
     const debouncePrice = useDebounce(priceD, 700);
 
+    // useEffect(() => {
+    //     if (serverData?.pageNo && serverData.pageNo > 0) {
+    //         setPage(serverData.pageNo)
+    //     } else {
+    //         setPage(1); // reset page number to 1 when path changes for new category
+    //     }
+    //     fetchData()
+    // }, [location.pathname, serverData.pageNo])
+    // useEffect(() => {
+    //     if (serverData.pageNo !== page) {
+    //         fetchData();
+    //     }
+    // }, [page, serverData.pageNo])
     useEffect(() => {
-        setPage(1); // reset page number to 1 when path changes for new category
-        fetchData()
-    }, [location.pathname])
-
+        // Set page based on serverData or reset to 1 for new categories
+        const newPage = serverData?.pageNo && serverData.pageNo > 0 ? serverData.pageNo : 1;
+        if (page !== newPage) {
+            setPage(page); // Update page if it's different
+        } else {
+            fetchData(); // Fetch data only if page doesn't change
+        }
+    }, [location.pathname, serverData.pageNo, page]);
     useEffect(() => {
         dispatch(serProgressLoaderStatus(true))
         return () => {
@@ -136,9 +154,6 @@ function Category({ serverData, props }: Props) {
     //     fetchData();
     // }, [debounceFilter, debouncePrice])
     //========================================================= 
-    useEffect(() => {
-        fetchData();
-    }, [page])
     useEffect(() => {
         if (keywordData) {
             setPage(1);
@@ -203,7 +218,6 @@ function Category({ serverData, props }: Props) {
         });
     }, [])
     useRedirectTo404(serverData)
-    console.log("serverData?.categoryData:-", serverData?.categoryData, "serverData?.bmkShopPageSections:-", serverData?.bmkShopPageSections, "serverData?.homePageSectionDetails:-", serverData?.homePageSectionDetails)
     const sliderData = useMemo(() => {
         return ({
             quickCategoryLinks: serverData?.categoryData?.subCategorysImage?.map((category: any) => {
@@ -318,13 +332,13 @@ export async function getServerData(context: { params: any, query: any, headers:
         const [
             configDetailsResponse,
             categoryDataResponse,
-            homePageSectionDetailsResponse,
-            bmkShopPageSectionsResponse
+            // homePageSectionDetailsResponse,
+            // bmkShopPageSectionsResponse
         ] = await Promise.all([
             axiosInstance.get(ENDPOINTS.getConfigStore),
             axiosInstance.post(argumentForService.url, argumentForService.body),
-            axiosInstance.get(ENDPOINTS.homePageSection),
-            axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
+            // axiosInstance.get(ENDPOINTS.homePageSection),
+            // axiosInstance.get(ENDPOINTS.bullionMarkShopSections),
         ]);
         const configDetails = configDetailsResponse.data.data;
         const categoryData = categoryDataResponse.data.data;
@@ -346,8 +360,8 @@ export async function getServerData(context: { params: any, query: any, headers:
         categoryData.specifications = filtersData.sepecifications || {};
         categoryData.loading = false
         categoryData.categories = filtersData.categories
-        const homePageSectionDetails = homePageSectionDetailsResponse?.data?.data
-        const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
+        // const homePageSectionDetails = homePageSectionDetailsResponse?.data?.data
+        // const bmkShopPageSections = bmkShopPageSectionsResponse.data.data;
 
         return {
             props: {
@@ -365,8 +379,9 @@ export async function getServerData(context: { params: any, query: any, headers:
                 manufacturers,
                 price,
                 specifications,
-                homePageSectionDetails,
-                bmkShopPageSections
+                // homePageSectionDetails,
+                // bmkShopPageSections,
+                pageNo: pageNo + 1
             },
         };
     } catch (error) {

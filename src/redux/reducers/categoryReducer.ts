@@ -80,7 +80,7 @@ export const categoryPageSlice = createSlice({
       state.productDetailsData = {}
       state.loading = false
     },
-    setProductDetails:(state, action)=>{
+    setProductDetails: (state, action) => {
       state.productDetailsData = action.payload
     },
     // setSortBy: (state, action) => {
@@ -119,6 +119,35 @@ export const categoryPageSlice = createSlice({
         [key]: value
       }
     },
+    setCategoryData: (state, action) => {
+      const responseData = action.payload;
+      console.log("🚀 ~ responseData:", responseData)
+      // const additionalField = responseData.additionalField;
+      // state.categoryPageMetadata = {
+      //   metaDescription: responseData?.metaDescription,
+      //   metaKeywords: responseData?.metaKeywords,
+      //   metaTitle: responseData?.metaTitle,
+      // }
+      // if (additionalField && additionalField.filters) {
+      //   const filtersData = additionalField.filters;
+
+      //   state.items = responseData.items;
+      //   state.sortedItems = responseData.items;
+      //   // localStorageSetItem('items', JSON.stringify(state.items))
+      //   state.count = responseData.count;
+      //   // localStorageSetItem('count', JSON.stringify(state.count))
+      //   state.categories = filtersData.categories;
+      //   // localStorageSetItem('categories', JSON.stringify(state.categories))
+      //   state.manufactureres = filtersData.manufactureres;
+      //   // localStorageSetItem('manufactureres', JSON.stringify(state.manufactureres))
+      //   state.price = filtersData.price;
+      //   // localStorageSetItem('price', JSON.stringify(state.price))
+      //   state.specifications = filtersData.sepecifications; // Corrected the spelling of 'specifications' from the api
+      //   // localStorageSetItem('specifications', JSON.stringify(state.specifications))
+      // }
+
+      // state.loading = false;
+    }
     // setCategeoryDataEmpty: (state) => {
     //   state.items = null;
     //   state.sortedItems = [];
@@ -185,6 +214,6 @@ export const categoryPageSlice = createSlice({
   },
 })
 
-export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice, setPageSortOrder, setProductDetails } = categoryPageSlice.actions;
+export const { setLoadingTrue, setLoadingFalse, setSortedItems, setPriceForEachItem, resetProductDetails, setClearFilters, setPageSelectedSpecifications, setPageSelectedPrice, setPageSortOrder, setProductDetails,setCategoryData } = categoryPageSlice.actions;
 
 export default categoryPageSlice.reducer

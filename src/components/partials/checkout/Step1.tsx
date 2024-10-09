@@ -269,7 +269,10 @@ function Step1() {
             }} />}
             label="This order is a Gift"
           />
-          {isGift && <BasicDatePicker name="Date" label="" setValue={setValue} existingDate={null} error={errors.Date} clearErrors={clearErrors} />}
+        
+        {isGift && <><Typography className="Label" variant="subtitle1" style={{
+          marginTop: '5px',marginBottom:'10px'
+        }}>What date does your gift need to arrive by?</Typography><BasicDatePicker name="Date" label="" setValue={setValue} existingDate={null} error={errors.Date} clearErrors={clearErrors} /></>}
           {isGift && giftCardError ? <Typography style={{ color: "red", marginTop: '10px', marginBottom: '20px' }}>
             {giftCardError}
           </Typography> : null}
