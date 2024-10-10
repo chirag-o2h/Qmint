@@ -70,6 +70,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
+        host: process.env.GATSBY_STORE_URL,
         policy: [
           {
             userAgent: '*',
