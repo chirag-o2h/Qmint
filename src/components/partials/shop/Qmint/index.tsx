@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector, useToggle } from "@/hooks"
 import { Skeleton, useMediaQuery } from "@mui/material";
 // import Layout from "@/components/common/Layout";
 import useUserDetailsFromToken from "@/hooks/useUserDetailsFromToken";
-import Toaster from "@/components/common/Toaster";
+const Toaster = lazy(() => import("@/components/common/Toaster"));
 // import Loader from "@/components/common/Loader";
 import useAlertPopUp from "@/hooks/useAlertPopUp";
 const SessionExpiredDialog = lazy(() => import("@/components/header/SessionExpiredDialog"));
@@ -71,7 +71,6 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
         return () => {
             dispatch(setScrollPosition(window.scrollY));
             dispatch(serProgressLoaderStatus(false))
-
         }
     }, [])
     // this is called on the server side
@@ -135,11 +134,15 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 )}
             {/* <Layout> */}
             {/* {loading && <Loader open={loading} />} */}
-            {openToaster && <Toaster />}
+            {openToaster && (
+                <Suspense fallback={<></>}>
+                    <Toaster />
+                </Suspense>
+            )}
             {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
 
-            {serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === false || serverData?.isMobile ? null :
-                <Suspense fallback={<Skeleton height={"500px"}></Skeleton>}>
+            {serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === true && !serverData?.isMobile && !isRendering &&
+                <Suspense fallback={<Skeleton height={"100vh"}></Skeleton>}>
                     <Banner bannerData={serverData?.bannerSliderData} isMobile={serverData?.isMobile} />
                 </Suspense>
             }

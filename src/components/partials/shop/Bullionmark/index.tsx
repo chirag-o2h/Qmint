@@ -46,10 +46,9 @@ const InspiringStories = lazy(
 );
 import useragent from 'express-useragent';
 import useSetConfigAndFavicon from "@/hooks/useSetConfigAndFavicon";
-const BullionmarkShop = (props: any) => {
-  const { serverData } = props;
-  const [isRendering, setIsRendering] = useState(true);
+const BullionmarkShop = ({serverData}:{serverData:any}) => {
   const dispatch = useAppDispatch();
+  const [isRendering, setIsRendering] = useState(true);
   const {
     configDetails: configDetailsState,
     openToaster,
