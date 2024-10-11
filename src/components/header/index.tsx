@@ -20,12 +20,12 @@ import { pagesOnWhichNeedToCallTopCategoriesAPi } from "@/utils/common";
 import { useLocation } from "@reach/router";
 import useShoppingCartData from "@/hooks/useShoppingCartData";
 
-const Index = () => {
+const Index = ({ isItMobile }: any) => {
   const location = useLocation()
   const loading = useAppSelector((state) => state.homePage.loading)
   const { configDetails: configDetailsState } = useAppSelector((state) => state.homePage)
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'))
+  const isMobile = isItMobile ?? useMediaQuery((theme: any) => theme.breakpoints.down('md'))
   // todo when need to conver again from home page to shope page related things
   const [params] = useState({ page: pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page) && location.pathname.split('/').filter((item) => item).some((name) => name === page)) ? 0 : 1 })
   // const [params] = useState({ page: location.pathname === "/" || pagesOnWhichNeedToCallTopCategoriesAPi.some((page) => location.pathname.includes(page)) ? 0 : 1 })
@@ -42,17 +42,17 @@ const Index = () => {
   return (
     <>
       {!isMobile && configDetailsState?.Store_ShopeHomePage_Ticker_Enable?.value && <>
-          <Pricing />
+        <Pricing />
         <Divider />
       </>}
       <Box id="HeaderWrapper">
         <AppBar position="static">
           {loading && <PageLoader />}
-            <Main toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} />
+          <Main toggleMobileMenu={toggleMobileMenu} openMobileMenu={openMobileMenu} />
           <Divider />
-            <Navigation />
+          <Navigation />
         </AppBar>
-        {isMobile && openMobileMenu &&  <Suspense fallback={<></>}>
+        {isMobile && openMobileMenu && <Suspense fallback={<></>}>
           <MobileMenu open={isMobile && openMobileMenu} trigger={trigger} toggleMobileMenu={toggleMobileMenu} />
         </Suspense >}
         {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>}

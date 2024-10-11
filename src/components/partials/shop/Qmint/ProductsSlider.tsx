@@ -70,22 +70,33 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                         <Link href={product?.linkUrl} className="ProductCardLink">
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">
-                                                    {isMobile ? <LazyImage
+                                                    <img
                                                         style={removeMinHeight ? { minHeight: isMobile ? "25vh" : "33vh" } : {}}
                                                         className="ProductImage"
-                                                        placeholder={noImage}
                                                         loading="eager"
                                                         fetchPriority="high"
                                                         src={product?.imageUrl}
-                                                        alt="product-image"
-                                                    /> :
+                                                        alt="product-image" />
+                                                    {/* {isMobile ?
+                                                 
+                                                        <LazyImage
+                                                            style={removeMinHeight ? { minHeight: isMobile ? "25vh" : "33vh" } : {}}
+                                                            className="ProductImage"
+                                                            placeholder={noImage}
+                                                            loading="eager"
+                                                            fetchPriority="high"
+                                                            src={product?.imageUrl}
+                                                            alt="product-image"
+                                                        /> 
+                                                        :
                                                         <img
                                                             style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
                                                             className="ProductImage"
                                                             loading="eager"
                                                             fetchPriority="high"
                                                             src={product?.imageUrl}
-                                                            alt="product-image" />}
+                                                            alt="product-image" />
+                                                            } */}
                                                 </Box>
                                                 <Box className="ProductTitle">
                                                     <Typography variant="h4">{product?.name}</Typography>
