@@ -80,7 +80,7 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                                         alt="product-image"
                                                     /> :
                                                         <img
-                                                            style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
+                                                            style={removeMinHeight ? { minHeight: isMobile ? "30vh" : "33vh" } : {}}
                                                             className="ProductImage"
                                                             loading="eager"
                                                             fetchPriority="high"

@@ -115,15 +115,18 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 configDetailsState={serverData?.configDetails}
             />
             {!isRendering && <Suspense fallback={
+                <div>
                 <Skeleton
                     height={serverData?.isMobile ? "120px" : "20vh"}
                     width={"100%"}
                     style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
                 />
+                </div>
             }><Header /></Suspense>}
             {
                 isRendering &&
                 (
+                    <div>
                     <Skeleton
                         height={serverData?.isMobile ? "120px" : "20vh"}
                         width={"100%"}
@@ -131,6 +134,7 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                             marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"
                         }}
                     />
+                    </div>
                 )}
             {/* <Layout> */}
             {/* {loading && <Loader open={loading} />} */}
@@ -140,9 +144,15 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 </Suspense>
             )}
             {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
-
+            {serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === true && !serverData?.isMobile && isRendering &&
+                <div>
+                    <Skeleton variant="rectangular" width={"100%"} style={{ margin: 0, padding: 0 }} height={"100vh"}></Skeleton>
+                </div>
+            }
             {serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === true && !serverData?.isMobile && !isRendering &&
-                <Suspense fallback={<Skeleton height={"100vh"}></Skeleton>}>
+                <Suspense fallback={<div>
+                    <Skeleton variant="rectangular" width={"100%"} style={{ margin: 0, padding: 0 }} height={"100vh"}></Skeleton>
+                </div>}>
                     <Banner bannerData={serverData?.bannerSliderData} isMobile={serverData?.isMobile} />
                 </Suspense>
             }
