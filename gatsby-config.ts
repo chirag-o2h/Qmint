@@ -67,39 +67,39 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: 'gatsby-plugin-robots-txt',
-      options: {
-        host: process.env.GATSBY_STORE_URL,
-        policy: [
-          {
-            userAgent: '*',
-            disallow: [
-              '/activate-account/',
-              '/confirmation/',
-              '/email-confirmation/',
-              '/password-recovery/',
-              '/blog/[blog-details-friendly-name]/',
-              '/category/[category]/',
-              '/news/[news-details-friendly-name]/',
-              '/product-details/[product-friendlyName]/',
-              '/topic/[topic-name]/',
-              '/newpage/',
-              '/order-confirmation/',
-              '/order-details/',
-              '/my-vault/accounts/',
-              '/my-vault/addresses/',
-              '/my-vault/buy-back-order-history/',
-              '/my-vault/',
-              '/my-vault/order-history/',
-              '/my-vault/private-holding-add/',
-              '/my-vault/private-holding/',
-              '/rewardpoints/history/',
-            ],
-          },
-        ],
-      },
-    }
+    // {
+    //   resolve: 'gatsby-plugin-robots-txt',
+    //   options: {
+    //     host: process.env.GATSBY_STORE_URL,
+    //     policy: [
+    //       {
+    //         userAgent: '*',
+    //         disallow: [
+    //           '/activate-account/',
+    //           '/confirmation/',
+    //           '/email-confirmation/',
+    //           '/password-recovery/',
+    //           '/blog/[blog-details-friendly-name]/',
+    //           '/category/[category]/',
+    //           '/news/[news-details-friendly-name]/',
+    //           '/product-details/[product-friendlyName]/',
+    //           '/topic/[topic-name]/',
+    //           '/newpage/',
+    //           '/order-confirmation/',
+    //           '/order-details/',
+    //           '/my-vault/accounts/',
+    //           '/my-vault/addresses/',
+    //           '/my-vault/buy-back-order-history/',
+    //           '/my-vault/',
+    //           '/my-vault/order-history/',
+    //           '/my-vault/private-holding-add/',
+    //           '/my-vault/private-holding/',
+    //           '/rewardpoints/history/',
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // }
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {

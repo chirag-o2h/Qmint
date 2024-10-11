@@ -45,9 +45,9 @@ function Banner({bannerData, isMobile}:{bannerData:any, isMobile:any}) {
       draggable: true
     },
     grabCursor: true,
-    autoplay: {
-      delay: 8000,
-    },
+    // autoplay: {
+    //   delay: 8000,
+    // },
     autoHeight:true
   }
   useEffect(() => {
