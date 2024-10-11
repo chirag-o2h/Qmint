@@ -71,7 +71,7 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                             <Card className="ProductCard">
                                                 <Box className="ProductImageWrapper">
                                                     {isMobile ? <LazyImage
-                                                        style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
+                                                        style={removeMinHeight ? { minHeight: isMobile ? "25vh" : "33vh" } : {}}
                                                         className="ProductImage"
                                                         placeholder={noImage}
                                                         loading="eager"
@@ -80,7 +80,7 @@ function ProductsSlider({ homePageSectionDetails, isMobile }: { homePageSectionD
                                                         alt="product-image"
                                                     /> :
                                                         <img
-                                                            style={removeMinHeight ? { minHeight: isMobile ? "30vh" : "33vh" } : {}}
+                                                            style={removeMinHeight ? { minHeight: isMobile ? "33vh" : "33vh" } : {}}
                                                             className="ProductImage"
                                                             loading="eager"
                                                             fetchPriority="high"

@@ -26,7 +26,7 @@ export interface IbannerData {
 }
 
 function Banner({bannerData, isMobile}:{bannerData:any, isMobile:any}) {
-  const [tempImgHide, setTempImgHide] = useState(true)
+  // const [tempImgHide, setTempImgHide] = useState(true)
   const config = {
     slidesPerView: 1,
     spaceBetween: 30,
@@ -50,14 +50,14 @@ function Banner({bannerData, isMobile}:{bannerData:any, isMobile:any}) {
     // },
     autoHeight:true
   }
-  useEffect(() => {
-    const x = setTimeout(() => {
-      setTempImgHide(false)
-    }, 2000);
-    return () => {
-      clearTimeout(x)
-    }
-  }, [])
+  // useEffect(() => {
+  //   const x = setTimeout(() => {
+  //     setTempImgHide(false)
+  //   }, 2000);
+  //   return () => {
+  //     clearTimeout(x)
+  //   }
+  // }, [])
 
   return (
     <Box id="Banner" component="section" key={'banner'}>
@@ -69,7 +69,7 @@ function Banner({bannerData, isMobile}:{bannerData:any, isMobile:any}) {
               bannerData?.data?.map((item: IbannerData, index: number) => {
                 return (
                   <SwiperSlide key={`BannerSlider-${index}`}>
-                    <Box className="Wrapper" sx={{ position: 'relative', width: '100%', height: '100%' }}>
+                    <Box className="Wrapper" sx={{ position: 'relative', width: '100%', height: '100%', minHeight: '65vh' }}>
                       {<>
                         {/* <StaticImage
                           rel="prefetch"
@@ -85,13 +85,14 @@ function Banner({bannerData, isMobile}:{bannerData:any, isMobile:any}) {
                           loading="lazy"
                           src={!isMobile ? item.cdnUrlLarge : item.cdnUrlSmall}
                           alt="background"
-                          style={{ visibility: !tempImgHide ? 'visible' : 'hidden' }}
+                          // style={{ visibility: !tempImgHide ? 'visible' : 'hidden' }}
                           onClick={() => {
                             if (item.isImgUrl) {
                               openNewTab(item.url)
                             }
                           }}
-                        /></>}
+                        />
+                        </>}
                     </Box>
                   </SwiperSlide>
                 )

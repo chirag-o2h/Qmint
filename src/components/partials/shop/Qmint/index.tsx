@@ -3,8 +3,8 @@ const LookingFor = lazy(() => import("./LookingFor"))
 const PopularProducts = lazy(() => import("./PopularProducts"))
 const DiscoverTreasure = lazy(() => import("./DiscoverTreasure"))
 const CloserLook = lazy(() => import("./CloserLook"))
-// const FeaturedProducts = lazy(() => import("./FeaturedProducts"))
-import FeaturedProducts from "./FeaturedProducts"
+const FeaturedProducts = lazy(() => import("./FeaturedProducts"))
+// import FeaturedProducts from "./FeaturedProducts"
 import { ENDPOINTS } from "@/utils/constants"
 // import useAPIoneTime from "@/hooks/useAPIoneTime"
 import { configDetails, HomePageSectionDetails, serProgressLoaderStatus, setConfigDetails, setScrollPosition } from "@/redux/reducers/homepageReducer"
@@ -116,24 +116,24 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             />
             {!isRendering && <Suspense fallback={
                 <div>
-                <Skeleton
-                    height={serverData?.isMobile ? "120px" : "20vh"}
-                    width={"100%"}
-                    style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
-                />
+                    <Skeleton
+                        height={serverData?.isMobile ? "120px" : "20vh"}
+                        width={"100%"}
+                        style={{ marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", position: "sticky", top: '0px' }}
+                    />
                 </div>
             }><Header /></Suspense>}
             {
                 isRendering &&
                 (
                     <div>
-                    <Skeleton
-                        height={serverData?.isMobile ? "120px" : "20vh"}
-                        width={"100%"}
-                        style={{
-                            marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"
-                        }}
-                    />
+                        <Skeleton
+                            height={serverData?.isMobile ? "120px" : "20vh"}
+                            width={"100%"}
+                            style={{
+                                marginBottom: !serverData?.isMobile ? "0px" : "0px", transform: "scale(1)", zIndex: 9999, //background: "gray"
+                            }}
+                        />
                     </div>
                 )}
             {/* <Layout> */}
@@ -144,14 +144,9 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
                 </Suspense>
             )}
             {/* {isMobile && <Suspense fallback={<></>}> <MobileSecondaryMenu /></Suspense>} */}
-            {serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === true && !serverData?.isMobile && isRendering &&
-                <div>
-                    <Skeleton variant="rectangular" width={"100%"} style={{ margin: 0, padding: 0 }} height={"100vh"}></Skeleton>
-                </div>
-            }
-            {serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === true && !serverData?.isMobile && !isRendering &&
+            {!serverData?.isMobile && serverData?.configDetails?.Sliders_ShopHomepage_Enable?.value === true &&
                 <Suspense fallback={<div>
-                    <Skeleton variant="rectangular" width={"100%"} style={{ margin: 0, padding: 0 }} height={"100vh"}></Skeleton>
+                    <Skeleton variant="rectangular" width={"100%"} style={{ margin: 0, padding: 0 }} height={"65vh"}></Skeleton>
                 </div>}>
                     <Banner bannerData={serverData?.bannerSliderData} isMobile={serverData?.isMobile} />
                 </Suspense>
@@ -163,12 +158,12 @@ const QmintShop = ({ serverData }: { serverData: IServerData }) => {
             > */}
             <ProductsSlider isMobile={serverData?.isMobile} homePageSectionDetails={serverData?.homePageSectionDetails} />
             {/* </RenderOnViewportEntry> */}
-            {/* {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false &&
-                <RenderOnViewportEntry rootMargin="200px"
+            {serverData?.configDetails?.["ShopHomepage_Section_2_Featured_Products_Enable"]?.value !== false &&
+                <RenderOnViewportEntry rootMargin="400px"
                     threshold={0.25}
-                    minHeight={800}> */}
+                    minHeight={800}>
             <FeaturedProducts configDetails={serverData?.configDetails} isMobile={serverData?.isMobile} needToCallProductAPI={false} productData={serverData?.productData} />
-            {/* </RenderOnViewportEntry>} */}
+            </RenderOnViewportEntry>}
             {serverData?.configDetails?.["ShopHomepage_Section_3_Three_pics_in_a_rows_Enable"]?.value !== false && <RenderOnViewportEntry rootMargin="200px"
                 threshold={0.25}
                 minHeight={800}> <LookingFor sectionDetails={serverData?.homePageSectionDetails} /></RenderOnViewportEntry>}
